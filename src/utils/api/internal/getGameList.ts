@@ -30,8 +30,6 @@ export const getGameList = async ({ page = 1, pageSize = 12 }: any): Promise<Gam
       'transaction'
     )
 
-    console.log('Response from getGameList:', res)
-
     const rawData = res?.data?.data ?? []
     const total = res?.data?.pagination?.total ?? 0
     const totalPage = Math.ceil(total / pageSize)
