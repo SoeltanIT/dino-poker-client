@@ -113,7 +113,12 @@ const config: Config = {
         'app-bg-primary-button': 'var(--c-primary-button)',
         'app-bg-progress-bar': 'var(--c-progress-bar)',
         'app-bg-container-progress': 'var(--c-container-progress)',
-        'app-bg-progress-disabled': 'var(--c-progress-disabled)'
+        'app-bg-progress-disabled': 'var(--c-progress-disabled)',
+        'app-grey12op': 'var(--ds-grey-12op)'
+      },
+      backgroundImage: {
+        'play-button': 'var(--ds-gradient-play-button)',
+        'game-card-overlay': 'var(--ds-gradient-game-card-overlay)'
       },
       borderRadius: {
         lg: 'var(--radius)',

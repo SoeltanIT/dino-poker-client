@@ -34,6 +34,9 @@ export const API_ENDPOINT = {
   blockchains: '/v1/transactions/cryptos/blockchains',
   blockchains_token: '/v1/transactions/cryptos/tokens',
 
+  //game-related
+  game_list: '/v1/aggregator/games',
+
   // Storage or uploads
   uploadImage: '/v1/storage/private-image',
 
