@@ -1,0 +1,272 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+:root {
+  --c-background-primary: var(--neutral800);
+  --c-background-secondary: var(--neutral900);
+  --c-body: #2a2d3e;
+  --c-primary: #5f32e7;
+  --c-primary-button: #2e1772;
+  /* --c-primary100:  */
+  --c-primary2: #2a2d3e;
+  --c-primary-surface: #e1defb;
+  --c-primary-hover: #4f2bbc;
+  --c-primary-hover2: #312006;
+  --c-secondary: #734915;
+  --c-secondary-hover: #cdc8e8;
+  --c-danger: #f05b6f;
+  --c-danger-medium: #ff8064;
+  --c-danger-surface: #ffe7e9;
+  --c-danger-dark: #ad241f;
+  --c-success: #31eeab;
+  --c-info: #a4671e;
+  --c-warning: #ff8064;
+  --c-orange: #ff8a58;
+  --c-warning-rgb: 255, 128, 100;
+  --c-placeholder: #b0b4ca;
+  --c-placeholder-2: #838697;
+
+  --c-text-color: #fff;
+  --c-text-header-table: var(--neutral500);
+
+  --c-divider-color: var(--neutral500);
+
+  --c-gradientSecondary: #5c3a00;
+
+  --c-secondaryMain: #a4671e;
+  --c-tertiary: var(--c-warning);
+
+  --c-primaryLightAccent: #f8a21f52;
+  --c-primaryDarkAccent: #73491500;
+
+  --c-skeleton: #ececec;
+  --c-primaryLight: #ffe0b2;
+  --c-lightGrey: #e5e5e5;
+  --c-grey: #f7f7f7;
+  --c-darkGrey: #2a2d3e;
+  --c-grey150: #dddddd;
+
+  --gr-site-from: #efefef;
+  --gr-site-to: #f9f9f9;
+
+  --bgc-content: #ffffff;
+
+  --c-accentOrange: #f58635;
+  --c-accentYellow: #fdb42c;
+  --c-accentRed: var(--red400);
+  --c-accentGreen: #91ecc9;
+  --c-pending: #f1800f;
+
+  --c-progress-bar: #4f2bbc;
+  --c-container-progress: var(--neutral800);
+  --c-progress-disabled: var(--neutral600);
+
+  --c-bg-button: var(--neutral500);
+  --c-bg-button-hover: var(--neutral600);
+
+  --c-black200: #2c2a2a;
+  --red400: #fe7c8c;
+  --red700: var(--c-danger);
+  --white100: #ffffff1a;
+  --white500: #ffffff0d;
+
+  --neutral100: #aaa;
+  --neutral200: #8a8a98;
+  --neutral300: #54545c;
+  --neutral400: #e5e8fa;
+  --neutral500: #818388;
+  --neutral600: #3e4046;
+  --neutral700: #24252d;
+  --neutral800: #1a1c21;
+  --neutral900: #020202;
+}
+
+/* Light Theme Overrides */
+.light-theme {
+  --c-background-primary: #fff;
+  --c-background-secondary: #f5f5f5;
+  --c-body: #f5f5f5;
+  --c-primary: #5f32e7; /* brighter primary */
+  --c-primary-button: #2e1772;
+  --c-primary2: #e0e7ff;
+  --c-primary-surface: #e1defb;
+  --c-primary-hover: #4f2bbc;
+  --c-primary-hover2: #c7d2fe;
+
+  --c-secondary: #facc15;
+  --c-secondary-hover: #fef08a;
+
+  --c-danger: #f05b6f;
+  --c-danger-medium: #fca5a5;
+  --c-danger-surface: #fee2e2;
+  --c-danger-dark: #991b1b;
+
+  --c-success: #31eeab;
+  --c-info: #3b82f6;
+  --c-warning: #f59e0b;
+  --c-orange: #fb923c;
+  --c-warning-rgb: 245, 158, 11;
+
+  --c-placeholder: #9ca3af;
+  --c-placeholder-2: #6b7280;
+
+  --c-text-color: var(--neutral600);
+  --c-text-header-table: var(--neutral600);
+
+  --c-divider-color: var(--neutral300);
+
+  --c-gradientSecondary: #f3e8ff;
+
+  --c-secondaryMain: #d97706;
+  --c-tertiary: #facc15;
+
+  --c-primaryLightAccent: #fcd34d50;
+  --c-primaryDarkAccent: #00000010;
+
+  --c-skeleton: #e5e7eb;
+  --c-primaryLight: #fef3c7;
+  --c-lightGrey: #f3f4f6;
+  --c-grey: #f9fafb;
+  --c-darkGrey: #d1d5db;
+  --c-grey150: #e5e7eb;
+
+  --gr-site-from: #ffffff;
+  --gr-site-to: #f9fafb;
+
+  --bgc-content: #ffffff;
+
+  --c-accentOrange: #fb923c;
+  --c-accentYellow: #fdb42c;
+  --c-accentRed: #ef4444;
+  --c-accentGreen: #4ade80;
+  --c-pending: #fbbf24;
+
+  --c-progress-bar: #4f2bbc;
+  --c-container-progress: #fff;
+  --c-progress-disabled: #f5f5f5;
+
+  --c-bg-button: var(--neutral300);
+  --c-bg-button-hover: var(--neutral400);
+
+  --c-black200: #e5e7eb;
+  --red400: #f87171;
+  --red700: #dc2626;
+  --white100: #0000001a;
+  --white500: #ffffff10;
+
+  --neutral100: #f3f4f6;
+  --neutral200: #e5e7eb;
+  --neutral300: #e5e5e5;
+  --neutral400: #c2c2c2;
+  --neutral500: #818388;
+  --neutral600: #3e4046;
+  --neutral700: #24252d;
+  --neutral800: #1a1c21;
+  --neutral900: #111827;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Force dark theme compatibility for native select in DayPicker dropdown */
+select.rdp-dropdown {
+  background-color: var(--c-background-primary) !important;
+  color: var(--c-text-color) !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  caret-color: transparent !important;
+  border: none;
+}
+
+select.rdp-dropdown:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Width and height of the scrollbar */
+::-webkit-scrollbar {
+  width: 6px; /* Vertical scrollbar */
+  height: 6px; /* Horizontal scrollbar */
+}
+
+/* Scrollbar track */
+::-webkit-scrollbar-track {
+  background: #040406; /* Light gray */
+  border-radius: 10px;
+}
+
+/* Scrollbar handle */
+::-webkit-scrollbar-thumb {
+  background: var(--c-primary); /* Dark gray */
+  border-radius: 10px;
+}

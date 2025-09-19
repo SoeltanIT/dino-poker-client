@@ -1,0 +1,13 @@
+import { Locale } from '@/i18n-config'
+import { BetHistoryDTO } from '@/types/betHistoryDTO'
+import { LangProps } from '@/types/langProps'
+import { TransactionListResponse } from '@/utils/api/internal/betHistory'
+
+export interface BetHistoryProps {
+  lang?: LangProps
+  locale?: Locale
+  initialData?: TransactionListResponse | null
+  initialPage: number
+  isInitialLoading?: boolean
+  initialTotalPage?: number
+}

@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://gowin.gg
+
+# Sitemaps
+Sitemap: https://gowin.gg/sitemap.xml

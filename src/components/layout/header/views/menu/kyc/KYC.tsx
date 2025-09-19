@@ -1,0 +1,76 @@
+'use client'
+
+import { IdCard } from 'lucide-react'
+import { useState } from 'react'
+
+import KYCForm from '@/components/organisms/Profile/KYC'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { LangProps } from '@/types/langProps'
+import { ToastContainer } from 'react-toastify'
+
+export default function KYC({ lang, isStatus, onClose }: { lang: LangProps; isStatus?: string; onClose: () => void }) {
+  const [open, setOpen] = useState(false)
+
+  const getStatusColor = (status?: string) => {
+    if (status === 'APPROVED') return 'border-app-success text-app-success'
+    if (status === 'REJECTED') return 'border-app-danger text-app-danger'
+    if (status === 'PENDING') return 'border-app-accentYellow text-app-accentYellow'
+    return 'border-app-text-color text-app-text-color'
+  }
+
+  const getStatusText = (status?: string) => {
+    switch (status) {
+      case 'APPROVED':
+        return lang?.common?.approved
+      case 'REJECTED':
+        return lang?.common?.rejected
+      case 'PENDING':
+        return lang?.common?.pending
+      case 'UNVERIFIED':
+        return lang?.common?.unverified
+      default:
+        return ''
+    }
+  }
+
+  const onPressClose = () => {
+    setOpen(false)
+    onClose()
+  }
+
+  return (
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger asChild>
+        <button
+          disabled={isStatus === 'APPROVED'}
+          className='h-10 w-full cursor-pointer flex items-center justify-between gap-[7px] hover:text-app-text-color'
+        >
+          <div className='flex items-center gap-[7px]'>
+            <IdCard />
+            <span>{lang?.common?.verification}</span>
+          </div>
+          {/* <span className={`${getStatusColor(isStatus ?? '')}`}>({isStatus})</span> */}
+          {/* {isStatus === 'APPROVED' ? (
+            <IconAlert className={`${getStatusColor(isStatus ?? '')}`} />
+          ) : ( */}
+          {getStatusText(isStatus) !== '' && (
+            <div
+              className={`py-1 px-3 border ${getStatusColor(
+                isStatus
+              )} text-[10px] font-semibold uppercase rounded-full`}
+            >
+              {getStatusText(isStatus)}
+            </div>
+          )}
+          {/* )} */}
+        </button>
+      </SheetTrigger>
+      <SheetContent className='w-full sm:max-w-md overflow-y-auto scrollbar-hide'>
+      <ToastContainer />
+
+        <div className='mb-8 mt-6 text-xl font-bold uppercase text-app-text-color'>{lang?.common?.verification}</div>
+        <KYCForm lang={lang} onClose={() => onPressClose()} isStatus={isStatus} />
+      </SheetContent>
+    </Sheet>
+  )
+}
