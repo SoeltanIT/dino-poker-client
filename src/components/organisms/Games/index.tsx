@@ -10,7 +10,7 @@ import { useSession } from 'next-auth/react'
 import { stat } from 'fs'
 import LoginModal from '../Login'
 
-export default function PokerPage({
+export default function ListGamePage({
   lang,
   locale,
   initialPage,

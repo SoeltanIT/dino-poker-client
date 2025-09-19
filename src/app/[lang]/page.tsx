@@ -1,8 +1,5 @@
-import { handleServerAuthError } from '@/@core/lib/server-auth-utils'
-import { BifrostIframe } from '@/components/organisms/BifrostIframe/BifrostIframe'
-import PokerPage from '@/components/organisms/Poker'
+import ListGamePage from '@/components/organisms/Games'
 import { getDictionary, getLocal } from '@/dictionaries/dictionaries'
-import { LangProps } from '@/types/langProps'
 import { getGameList } from '@/utils/api/internal/getGameList'
 
 export default async function Home({ params, ...props }: any) {
@@ -25,7 +22,7 @@ export default async function Home({ params, ...props }: any) {
   }
 
   return (
-    <PokerPage
+    <ListGamePage
       lang={dict}
       locale={locale}
       initialData={initialData}

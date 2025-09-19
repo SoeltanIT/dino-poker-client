@@ -176,7 +176,7 @@ export function GameCard({
       )}
 
       <Link
-        href={`/game/${id}`}
+        href={`/play-game/${id}`}
         onClick={handleClick}
         className={cn(
           variantClass,

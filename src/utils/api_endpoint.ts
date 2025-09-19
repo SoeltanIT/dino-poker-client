@@ -36,6 +36,7 @@ export const API_ENDPOINT = {
 
   //game-related
   game_list: '/v1/aggregator/games',
+  game_play: '/v1/aggregator/games/play',
 
   // Storage or uploads
   uploadImage: '/v1/storage/private-image',
