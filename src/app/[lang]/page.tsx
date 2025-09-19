@@ -20,7 +20,9 @@ export default async function Home({ params, ...props }: any) {
     if (initialData) {
       isLoading = false
     }
-  } catch (err: any) {}
+  } catch (err: any) {
+    console.log('err')
+  }
 
   return (
     <PokerPage
