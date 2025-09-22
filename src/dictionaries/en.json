@@ -216,7 +216,8 @@
     "depositCryptoNote": "Please select promotion before continue to Crypto Deposit for many interesting offers.",
     "cryptoDeposit": "Crypto Deposit",
     "minimalDeposit": "Minimal Deposit",
-    "appliedPromotion": "Applied Promotion"
+    "appliedPromotion": "Applied Promotion",
+    "rolesMsgHomepage": "Please login to your User Account to see list of games available"
   },
   "register": {
     "title": "REGISTER",

@@ -136,12 +136,11 @@ function useMutationQuery<BodyT, ResponseData>(
       additionalInvalidates.forEach(invalidateKey => {
         queryClient.invalidateQueries({ queryKey: invalidateKey })
       })
-    return  queryClient.invalidateQueries({ queryKey: key })
+      return queryClient.invalidateQueries({ queryKey: key })
     },
     onError: async (error: AxiosError<any>) => {
       //console.log('[MutationQuery] ⚠️ Mutation failed. Error handled in mutationFn')
       // const errorMessage = error?.response?.data?.message || error?.message || 'Something went wrong'
-
       // toast.error(errorMessage)
     }
   })
