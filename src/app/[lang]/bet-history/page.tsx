@@ -1,7 +1,7 @@
 import { getValidServerSession, handleServerAuthError } from '@/@core/lib/server-auth-utils'
 import BetHistoryPage from '@/components/organisms/Profile/BetHistory'
 import { getDictionary, getLocale } from '@/dictionaries/dictionaries'
-import { getListBetTransaction } from '@/utils/api/internal/betHistory'
+import { getListPokerTransaction } from '@/utils/api/internal/pokerHistory'
 
 // export const runtime = 'edge'
 
@@ -23,7 +23,7 @@ export default async function Page({ params, ...props }: any) {
     }
 
     // Fetch user data
-    initialData = await getListBetTransaction({
+    initialData = await getListPokerTransaction({
       page: 1,
       pageSize: 10 // semua status
     })

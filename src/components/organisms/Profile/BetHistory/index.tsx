@@ -2,14 +2,13 @@
 
 import { GetData } from '@/@core/hooks/use-query'
 import { Button } from '@/components/ui/button'
-import { BetHistoryDTO } from '@/types/betHistoryDTO'
+import { PokerHistoryDTO } from '@/types/pokerHistory'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
 import { format } from 'date-fns'
 import { Loader2 } from 'lucide-react'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import DetailBetHistory from './DetailBetHistory'
-import { BetHistoryProps } from './types'
+import { PokerHistoryProps } from './types'
 
 const currencyOptions = ['Fiat', 'Crypto']
 
@@ -34,7 +33,7 @@ export default function BetHistoryPage({
   initialData,
   isInitialLoading,
   initialTotalPage
-}: BetHistoryProps) {
+}: PokerHistoryProps) {
   const getStatusLabel = (status: string) => {
     switch (status.toLowerCase()) {
       case 'won':
@@ -48,20 +47,20 @@ export default function BetHistoryPage({
     }
   }
 
-  const [betHistory, setBetHistory] = useState<BetHistoryDTO[]>(initialData?.data || [])
+  const [betHistory, setBetHistory] = useState<PokerHistoryDTO[]>(initialData?.data || [])
   const [page, setPage] = useState(initialPage || 1)
   const [totalPage, setTotalPage] = useState(initialTotalPage || 1)
   const [isLoading, setIsLoading] = useState(isInitialLoading || false)
 
-  const [selectedBet, setSelectedBet] = useState<BetHistoryDTO | null>(null)
+  const [selectedBet, setSelectedBet] = useState<PokerHistoryDTO | null>(null)
   const [openDetail, setOpenDetail] = useState(false)
 
   const shouldFetch = page !== initialPage
 
   // Fetch data using GetData
-  const { data, isFetching, refetch } = GetData<{ data: BetHistoryDTO[]; totalPage: number }>(
-    `/bet_history`,
-    ['getBetHistory', page],
+  const { data, isFetching, refetch } = GetData<{ data: PokerHistoryDTO[]; totalPage: number }>(
+    `/poker_history`,
+    ['getPokerHistory', page],
     true,
     undefined,
     true,
@@ -85,8 +84,8 @@ export default function BetHistoryPage({
           return data.data
         } else {
           // Check for duplicates before appending
-          const existingIds = new Set(prev.map(bet => bet.id || `${bet.created_at}-${bet.amount}`))
-          const newData = data.data.filter(bet => !existingIds.has(bet.id || `${bet.created_at}-${bet.amount}`))
+          const existingIds = new Set(prev.map(bet => `${bet.created_at}-${bet.amount}`))
+          const newData = data.data.filter(bet => !existingIds.has(`${bet.created_at}-${bet.amount}`))
           return [...prev, ...newData]
         }
       })
@@ -186,10 +185,10 @@ export default function BetHistoryPage({
                     <div className={`text-sm ${getTextColor(bet.status)} uppercase`}>{getStatusLabel(bet.status)}</div>
                     <Button
                       size='sm'
-                      onClick={() => {
-                        setSelectedBet(bet)
-                        setOpenDetail(true)
-                      }}
+                      // onClick={() => {
+                      //   setSelectedBet(bet)
+                      //   setOpenDetail(true)
+                      // }}
                       className='flex bg-app-bg-primary-button border-app-primary border-[1px] hover:bg-app-primary-hover text-white px-4 py-1 !mt-2 text-xs uppercase'
                     >
                       {lang?.common?.detail}
@@ -221,10 +220,10 @@ export default function BetHistoryPage({
 
                   <Button
                     size='sm'
-                    onClick={() => {
-                      setSelectedBet(bet)
-                      setOpenDetail(true)
-                    }}
+                    // onClick={() => {
+                    //   setSelectedBet(bet)
+                    //   setOpenDetail(true)
+                    // }}
                     className='flex w-full md:w-[50%] bg-app-bg-primary-button border-app-primary border-[1px] hover:bg-app-primary-hover text-white px-2 py-1 !mt-2 text-xs uppercase'
                   >
                     {lang?.common?.detail}
@@ -258,7 +257,7 @@ export default function BetHistoryPage({
           )}
         </div>
       </div>
-      <DetailBetHistory lang={lang} detail={selectedBet} open={openDetail} setOpen={setOpenDetail} />
+      {/* <DetailBetHistory lang={lang} detail={selectedBet} open={openDetail} setOpen={setOpenDetail} /> */}
     </div>
   )
 }

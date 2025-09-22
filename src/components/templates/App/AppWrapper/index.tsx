@@ -43,10 +43,10 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config }) =>
     '/me', // hits your Next.js API route, not the real backend
     ['user', 'me']
   )
-  const { trigger } = UseServerSendEvent()
+  // const { trigger } = UseServerSendEvent()
   const { data: respBalance, isLoading: balanceLoading } = GetData<BalanceResponse>(
     '/balance', // hits your Next.js API route, not the real backend
-    ['getBalance', trigger]
+    ['getBalance'] //trigger put here if need to refresh on SSE event
   )
   const hasMounted = useHasMounted()
 

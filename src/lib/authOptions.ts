@@ -38,14 +38,12 @@ export const authOptions: AuthOptions = {
 
           const { token, user_id, roles, email } = resp.data
 
-          console.log('Login successful:', { token, user_id, roles, email })
-
           return {
             id: user_id,
             name: credentials.username,
             email,
             roles,
-            accessToken: token
+            accessToken: token,
           }
         } catch (err) {
           console.error('[authorize] Login error:', err)
