@@ -4,7 +4,6 @@ declare module 'next-auth' {
   interface Session {
     user: UserDTO
     accessToken: string
-    betbyToken?: string
   }
 
   interface User extends UserDTO {
@@ -19,7 +18,6 @@ declare module 'next-auth/jwt' {
     email: string
     roles: string
     accessToken: string
-    betbyToken?: string
     originalExp?: number // 🔥 Store original JWT expiration
     exp?: number // ✅ tambahkan ini
     iat?: number // optional: issued at, juga sering ada

@@ -4,7 +4,6 @@ export interface UserDTO {
   email: string
   roles: string
   accessToken: string
-  betbyToken: string
   originalExp?: number
   exp?: number
 }
