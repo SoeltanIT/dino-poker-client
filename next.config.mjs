@@ -10,6 +10,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'staging-dino-bucket.s3.amazonaws.com'
+      },
+      {
+        protocol: 'https',
+        hostname: 'staging-athena-bucket.s3.amazonaws.com'
       }
     ]
   }
