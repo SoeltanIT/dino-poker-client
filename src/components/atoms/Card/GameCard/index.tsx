@@ -11,6 +11,7 @@ import { GameTag } from './GameTag'
 import { LikeButton } from '../../Button/LikeButton'
 import { PlayButton } from '../../Button/PlayButton'
 import Link from 'next/link'
+import { Locale } from '@/i18n-config'
 
 const gameCardVariants = cva('', {
   variants: {
@@ -88,6 +89,7 @@ export interface GameCardProps {
   variant?: GameCardVariant
   isLogin?: boolean // NEW
   onRequireLogin?: () => void
+  locale?: Locale
 }
 
 export function GameCard({
@@ -101,7 +103,8 @@ export function GameCard({
   className = '',
   variant = 'main',
   isLogin = false, // default unauth
-  onRequireLogin
+  onRequireLogin,
+  locale
 }: GameCardProps) {
   // Debug render
   const variantClass = gameCardVariants({ variant })
@@ -176,7 +179,7 @@ export function GameCard({
       )}
 
       <Link
-        href={`/play-game/${id}`}
+        href={`${locale}/play-game/${id}`}
         onClick={handleClick}
         className={cn(
           variantClass,

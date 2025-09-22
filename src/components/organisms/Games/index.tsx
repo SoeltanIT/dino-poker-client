@@ -107,6 +107,7 @@ export default function ListGamePage({
                   '
                 >
                   <GameCard
+                    locale={locale}
                     id={items?.id}
                     image={items.image}
                     provider={items.provider}
