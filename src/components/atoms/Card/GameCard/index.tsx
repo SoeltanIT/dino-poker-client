@@ -122,20 +122,35 @@ export function GameCard({
 
   return (
     <div className={cn(variantClass, 'relative group', className)}>
+      {/* IMAGE WRAPPER (keeps border & aspect) */}
       <div
         className={cn(
           variantClass,
-          ' border border-app-grey12op relative bg-black aspect-[3/4] flex-shrink-0 bg-center bg-cover overflow-hidden'
+          'relative border border-app-grey12op bg-black aspect-[3/4] flex-shrink-0 overflow-hidden'
         )}
-        {...(image && {
-          style: {
-            '--game-card-image-url': `url(${image})`,
-            backgroundImage: 'var(--game-card-image-url)'
-          } as CSSProperties
-        })}
-      />
+      >
+        {image && (
+          <div
+            aria-hidden
+            className='
+          absolute inset-0 bg-center bg-cover
+          transition-[transform,filter] duration-500 ease-out
+          group-hover:scale-[1.06] group-hover:brightness-110
+          [will-change:transform]
+          motion-reduce:transition-none motion-reduce:transform-none
+        '
+            style={
+              {
+                '--game-card-image-url': `url(${image})`,
+                backgroundImage: 'var(--game-card-image-url)'
+              } as CSSProperties
+            }
+          />
+        )}
+      </div>
+
       {/* Content */}
-      <div className={cn(variantClass, 'absolute inset-0 flex flex-col justify-end overflow-hidden')}>
+      <div className={cn(variantClass, 'absolute inset-0 z-10 flex flex-col justify-end overflow-hidden')}>
         <div
           style={accent ? ({ '--game-card-accent': accent } as CSSProperties) : {}}
           className={cn(
@@ -144,7 +159,6 @@ export function GameCard({
           )}
         >
           <div className={gameTitleVariants({ title: variant })}>{title}</div>
-          {/* <div className={gameTitleVariants({ line2: variant })}>{line2}</div> */}
           <div className={gameProviderVariants({ variant })}>{provider}</div>
 
           {variant !== 'provider' && (
@@ -152,7 +166,8 @@ export function GameCard({
               <div
                 className={cn(
                   'h-5 py-0.5 bg-[#070d1733] rounded-full hover:bg-white/30 text-white border border-app-grey12op text-xs backdrop-blur-[6px] inline-flex items-center justify-between [&>svg]:w-4 [&>svg]:h-4',
-                  variant === 'main' && 'text-[10px] [&>svg]:w-3 [&>svg]:h-3 md:text-xs md:[&>svg]:w-4 md:[&>svg]:h-4',
+                  variant === 'main' &&
+                    'text-[10px] [&&>svg]:w-3 [&&>svg]:h-3 md:text-xs md:[&&>svg]:w-4 md:[&&>svg]:h-4',
                   playersCount > 0 ? (variant === 'main' ? 'px-[6px]' : 'pl-[7px] pr-1') : 'px-[7px]'
                 )}
               >
@@ -173,26 +188,24 @@ export function GameCard({
 
       {/* Badges */}
       {tag && (
-        <div className='absolute top-[10px] left-0'>
+        <div className='absolute top-[10px] left-0 z-20'>
           <GameTag variant={variant} type={tag} />
         </div>
       )}
 
+      {/* Play overlay */}
       <Link
         href={`${locale}/play-game/${id}`}
         onClick={handleClick}
         className={cn(
           variantClass,
-          'absolute bottom-0 right-0 hidden group-hover:flex group-hover:items-center group-hover:justify-center w-full h-full transition-all duration-300 ease-in-out opacity-0 bg-game-card-overlay group-hover:opacity-100'
+          'absolute inset-0 z-20 hidden opacity-0 transition-opacity duration-300 ease-in-out',
+          'group-hover:flex group-hover:items-center group-hover:justify-center group-hover:opacity-100',
+          'bg-game-card-overlay'
         )}
       >
         <PlayButton size={PLAY_BUTTON_SIZE[variant!]} />
       </Link>
-      {/* {variant !== 'provider' && (
-        <div className="hidden group-hover:inline-block absolute right-0 top-0">
-          <LikeButton liked={liked} onLike={setLiked} />
-        </div>
-      )} */}
     </div>
   )
 }
