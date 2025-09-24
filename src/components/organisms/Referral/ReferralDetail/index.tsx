@@ -13,11 +13,6 @@ import { useEffect, useState } from 'react'
 import { ReferralDetailProps } from './types'
 import { format } from 'date-fns'
 
-interface MemberData {
-  joinDate: string
-  name: string
-  commission: number
-}
 
 export default function MyReferralDetail({
   lang,

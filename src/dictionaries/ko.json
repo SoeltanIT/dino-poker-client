@@ -205,6 +205,8 @@
     "joinDate": "가입 날짜",
     "username": "사용자 이름",
     "commission": "커미션",
+    "referralGroup": "추천 그룹",
+    "commissionPercentage": "커미션 비율",
     "claimReferral": "추천 보너스 받기",
     "claiming": "받는 중...",
     "claimReferralDesc": "추천 보너스를 받으려면 클릭하세요",
@@ -216,7 +218,8 @@
     "depositCryptoNote": "다양한 흥미로운 혜택을 위해 암호화폐 입금을 진행하기 전에 프로모션을 선택해 주세요.",
     "cryptoDeposit": "암호화폐 입금",
     "minimalDeposit": "최소 입금액",
-    "appliedPromotion": "적용된 프로모션"
+    "appliedPromotion": "적용된 프로모션",
+    "rolesMsgHomepage": "사용 가능한 게임 목록을 보려면 사용자 계정에 로그인하세요"
   },
   "register": {
     "title": "등록하다",

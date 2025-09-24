@@ -23,6 +23,8 @@ export default async function Page({ params, ...props }: any) {
       return null // This won't be reached due to redirect
     }
 
+    const roles = (session.user as any)?.roles || 2
+
     // Fetch referral history and summary data in parallel
     const [historyData, summaryData] = await Promise.all([
       getReferralHistory({
@@ -32,7 +34,7 @@ export default async function Page({ params, ...props }: any) {
       getReferralSummary()
     ])
 
-    initialData = historyData 
+    initialData = historyData
     initialSummaryData = summaryData
 
     if (initialData || initialSummaryData) {

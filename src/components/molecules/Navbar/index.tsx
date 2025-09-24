@@ -29,16 +29,16 @@ export const Navbar = ({ locale, lang, isLogin, data }: NavbarProps) => {
       href: `/${locale}`,
       icon: IconHome
     },
-    {
-      name: lang?.common?.sport,
-      href: `/${locale}/sport`,
-      icon: Volleyball
-    },
-    {
-      name: lang?.common?.promotion,
-      href: `/${locale}/promotion`,
-      icon: IconTicket
-    },
+    // {
+    //   name: lang?.common?.sport,
+    //   href: `/${locale}/sport`,
+    //   icon: Volleyball
+    // },
+    // {
+    //   name: lang?.common?.promotion,
+    //   href: `/${locale}/promotion`,
+    //   icon: IconTicket
+    // },
     {
       name: lang?.common?.profile,
       href: '',

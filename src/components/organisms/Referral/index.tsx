@@ -1,19 +1,18 @@
 'use client'
 
-import { IconGiftReferral, IconSize, IconVerifyCheck } from '@/components/atoms/Icons'
+import { IconGiftReferral } from '@/components/atoms/Icons'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { copyToClipboard } from '@/utils/helper/copyToClipboard'
-import { getLinkReferralDetail } from '@/utils/linkFactory/linkFactory'
+import { getLinkReferralDetail, getLinkReferralGroupDetail } from '@/utils/linkFactory/linkFactory'
 import { ChevronRight, Copy } from 'lucide-react'
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { MyReferralProps } from './types'
-import { UserMeResponse } from '@/@core/interface/User'
-import { GetData } from '@/@core/hooks/use-query'
-import { useLiveChatContext } from '@/utils/context/LiveChatProvider'
-import { useSession } from 'next-auth/react'
 
 export default function MyReferral({ lang, locale, initialData, isLoading }: MyReferralProps) {
+  const { data: session } = useSession()
+  const roles = (session?.user as any)?.roles || 2
   return (
     <div className='min-h-screen flex flex-col w-full text-app-text-color px-6 lg:px-20 my-10'>
       <div className='container flex flex-col'>
@@ -41,7 +40,7 @@ export default function MyReferral({ lang, locale, initialData, isLoading }: MyR
             <div className='flex items-center justify-between mb-4'>
               <h3 className='text-app-text-color text-sm'>{lang?.common?.referralCodeLink}</h3>
               <Link
-                href={getLinkReferralDetail(locale)}
+                href={roles === 3 ? getLinkReferralGroupDetail(locale) : getLinkReferralDetail(locale)}
                 className='bg-app-primary hover:bg-app-primary-hover text-white px-2 py-2 rounded-lg flex items-center gap-2 uppercase text-sm'
               >
                 {lang?.common?.detail}

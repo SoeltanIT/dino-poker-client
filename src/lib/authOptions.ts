@@ -1,3 +1,4 @@
+import { getApiEndpoint } from '@/utils/api_endpoint'
 import { jwtDecode } from 'jwt-decode'
 import type { AuthOptions } from 'next-auth'
 import type { JWT } from 'next-auth/jwt'
@@ -20,7 +21,7 @@ export const authOptions: AuthOptions = {
         }
 
         try {
-          const res = await fetch(`${API_BASE_URL}/v1/users/login`, {
+          const res = await fetch(`${API_BASE_URL}${getApiEndpoint('login')}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -35,7 +36,7 @@ export const authOptions: AuthOptions = {
             return null
           }
 
-          const { token, user_id, roles, email, betby_token } = resp.data
+          const { token, user_id, roles, email } = resp.data
 
           return {
             id: user_id,
@@ -43,7 +44,6 @@ export const authOptions: AuthOptions = {
             email,
             roles,
             accessToken: token,
-            betbyToken: betby_token
           }
         } catch (err) {
           console.error('[authorize] Login error:', err)
@@ -68,7 +68,6 @@ export const authOptions: AuthOptions = {
           token.email = user.email ?? ''
           token.roles = user.roles
           token.accessToken = user.accessToken
-          token.betbyToken = user.betbyToken || token.betbyToken // ✅ persist
           token.originalExp = decoded.exp // 🔥 Store original expiration
           token.iat = decoded.iat
 
@@ -89,7 +88,6 @@ export const authOptions: AuthOptions = {
           email: '',
           roles: '',
           accessToken: '',
-          betbyToken: '', // ✅ clear it as well
           originalExp: 0,
           iat: 0
         }
@@ -112,7 +110,6 @@ export const authOptions: AuthOptions = {
         email: token.email,
         roles: token.roles,
         accessToken: token.accessToken,
-        betbyToken: token.betbyToken as string,
         exp: token.originalExp // 🔥 Use original expiration
       }
       session.accessToken = token.accessToken

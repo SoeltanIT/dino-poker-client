@@ -26,7 +26,6 @@ export default async function Page({ params, ...props }: any) {
     if (initialData) {
       isLoading = false
     }
-    
   } catch (err: any) {
     isLoading = false
     // Handle 401 errors from backend

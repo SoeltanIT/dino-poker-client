@@ -86,6 +86,11 @@
   --neutral700: #24252d;
   --neutral800: #1a1c21;
   --neutral900: #020202;
+
+  --ds-gradient-play-button: radial-gradient(50% 50% at 50% 50%, #8ac9ff 1.47%, #636bfc 77.54%);
+  --ds-gradient-game-card-overlay: linear-gradient(180deg, rgba(15, 15, 20, 0) 0%, rgba(15, 15, 20, 0.8) 100%);
+
+  --ds-grey-12op: #ffffff1f;
 }
 
 /* Light Theme Overrides */
@@ -170,6 +175,11 @@
   --neutral700: #24252d;
   --neutral800: #1a1c21;
   --neutral900: #111827;
+
+  --ds-gradient-play-button: radial-gradient(50% 50% at 50% 50%, #8ac9ff 1.47%, #636bfc 77.54%);
+  --ds-gradient-game-card-overlay: linear-gradient(180deg, rgba(15, 15, 20, 0) 0%, rgba(15, 15, 20, 0.8) 100%);
+
+  --ds-grey-12op: #ffffff1f;
 }
 
 @layer base {

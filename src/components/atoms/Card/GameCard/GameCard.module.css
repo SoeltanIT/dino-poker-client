@@ -1,0 +1,7 @@
+.textShadow {
+  text-shadow: var(--ds-text-shadow);
+}
+
+.textShadowAlternate {
+  text-shadow: var(--ds-text-shadow-alternate);
+}
