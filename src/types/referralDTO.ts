@@ -24,7 +24,7 @@ export interface ReferralHistoryResponse {
 export interface ReferralGroupHistoryItem {
   amount: number
   created_at: string
-  comission_percentage: number
+  commission_percentage: number
   parent: string
 }
 

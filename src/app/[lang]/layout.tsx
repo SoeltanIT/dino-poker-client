@@ -20,8 +20,8 @@ export const viewport: Viewport = {
 }
 
 const commonKeywords = [
-  'gowin-poker',
-  'gowin-poker.gg',
+  'poker',
+  'poker.gg',
   'online poker',
   'texas holdem',
   'poker tournaments',
@@ -79,7 +79,7 @@ export async function generateMetadata({ params }: { params: { lang: Locale } })
   }
 
   return {
-    title: initialSEO?.title ?? lang.metadata?.title ?? 'GOWIN-POKER.GG',
+    title: initialSEO?.title ?? lang.metadata?.title ?? 'POKER.GG',
     description: initialSEO?.description ?? lang.metadata?.description,
     keywords: initialSEO?.keyword ?? localizedKeywords[params.lang],
     // openGraph: {
@@ -135,17 +135,17 @@ export default async function RootLayout({
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'WebSite',
-              name: 'GOWIN-POKER.GG',
-              url: 'https://gowin-poker.gg/',
-              alternateName: ['GOWIN-Poker', 'Go Win Poker'],
+              name: 'POKER.GG',
+              url: 'https://poker.gg/',
+              alternateName: ['Poker'],
               inLanguage: ['en', 'ko'],
               publisher: {
                 '@type': 'Organization',
-                name: 'GOWIN-Poker',
-                url: 'https://gowin-poker.gg/',
+                name: 'Poker',
+                url: 'https://poker.gg/',
                 logo: {
                   '@type': 'ImageObject',
-                  url: 'https://gowin-poker.gg/images/logo.png',
+                  url: 'https://poker.gg/images/logo.png',
                   width: 512,
                   height: 512
                 }
@@ -185,7 +185,7 @@ export default async function RootLayout({
         </Providers>
 
         {/* Google Analytics 4 (GA4) */}
-        <Script src='https://www.googletagmanager.com/gtag/js?id=G-20SZ06083B' strategy='afterInteractive' />
+        {/* <Script src='https://www.googletagmanager.com/gtag/js?id=G-20SZ06083B' strategy='afterInteractive' />
         <Script
           id='ga4-init'
           strategy='afterInteractive'
@@ -197,7 +197,7 @@ export default async function RootLayout({
       gtag('config', 'G-20SZ06083B');
     `
           }}
-        />
+        /> */}
       </body>
     </html>
   )
