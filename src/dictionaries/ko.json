@@ -205,6 +205,8 @@
     "joinDate": "가입 날짜",
     "username": "사용자 이름",
     "commission": "커미션",
+    "referralGroup": "추천 그룹",
+    "commissionPercentage": "커미션 비율",
     "claimReferral": "추천 보너스 받기",
     "claiming": "받는 중...",
     "claimReferralDesc": "추천 보너스를 받으려면 클릭하세요",

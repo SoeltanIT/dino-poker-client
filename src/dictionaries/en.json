@@ -204,6 +204,8 @@
     "join": "Join",
     "joinDate": "Join Date",
     "username": "Username",
+    "referralGroup": "Referral Group",
+    "commissionPercentage":"Commission Percentage",
     "commission": "Comission",
     "claimReferral": "Claim Referral Bonus",
     "claiming": "Claiming...",

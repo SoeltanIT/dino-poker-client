@@ -14,16 +14,17 @@ export default async function Page({ params, ...props }: any) {
   const session = await getServerSession(authOptions)
 
   try {
-    const initialData = await getDetailGames({
-      game_id: params?.id,
-      currency: 'KRW',
-      lang: (locale ?? 'ko').toUpperCase()
-    })
+    // const initialData = await getDetailGames({
+    //   game_id: params?.id,
+    //   currency: 'KRW',
+    //   lang: (locale ?? 'ko').toUpperCase()
+    // })
 
     return (
       <main className='w-full min-h-screen bg-background'>
         {/* If your header is 64–72px tall, pass that so the frame fits below it */}
-        <GameFrame src={initialData?.url} title={initialData?.title ?? 'Play Game'} />
+        {/* <GameFrame src={initialData?.url} title={initialData?.title ?? 'Play Game'} /> */}
+        <GameFrame src={params?.id} title={'Play Game'} />
       </main>
     )
   } catch (err: any) {

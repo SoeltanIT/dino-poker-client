@@ -19,13 +19,6 @@ const getStatusColor = (status: string) => {
   return 'text-app-text-color'
 }
 
-const getTextColor = (type: string) => {
-  if (type === 'won') return 'text-app-success'
-  if (type === 'lost') return 'text-app-danger'
-  if (type === 'pending') return 'text-app-accentYellow'
-  return 'text-app-text-color'
-}
-
 export default function BetHistoryPage({
   lang,
   locale,
@@ -36,14 +29,27 @@ export default function BetHistoryPage({
 }: PokerHistoryProps) {
   const getStatusLabel = (status: string) => {
     switch (status.toLowerCase()) {
-      case 'won':
+      case 'win':
         return lang?.common?.won || 'Won'
-      case 'lost':
+      case 'lose':
         return lang?.common?.lost || 'Lost'
       case 'pending':
         return lang?.common?.pending || 'Pending'
       default:
         return '-'
+    }
+  }
+
+  const getTextColor = (type: string) => {
+    switch (type.toLowerCase()) {
+      case 'win':
+        return 'text-app-success'
+      case 'lose':
+        return 'text-app-danger'
+      case 'pending':
+        return 'text-app-accentYellow'
+      default:
+        return 'text-app-text-color'
     }
   }
 
@@ -169,21 +175,25 @@ export default function BetHistoryPage({
               <span className='ml-2 text-app-text-color'>{lang?.common?.loading}...</span>
             </div>
           ) : betHistory?.length > 0 ? (
-            betHistory.map((bet, index) => (
-              <div key={index} className='p-4 rounded-[8px] transition-colors'>
-                <div className='hidden md:grid md:grid-cols-4 gap-4 items-center'>
-                  <div className='text-sm text-app-text-color'>
-                    {format(new Date(bet.created_at), 'yyyy-MM-dd | HH:mm')}
-                  </div>
-                  <div className='text-sm text-app-text-color uppercase'>{bet.game_name}</div>
-                  <div className={`text-sm font-medium ${getTextColor(bet.status)}`}>
-                    <span className='text-app-neutral500'>KRW </span>
-                    {bet.status === 'won' ? '+' : bet.status === 'pending' ? '' : '-'}
-                    {thousandSeparatorComma(bet.amount)}
-                  </div>
-                  <div className='flex justify-between items-center'>
-                    <div className={`text-sm ${getTextColor(bet.status)} uppercase`}>{getStatusLabel(bet.status)}</div>
-                    <Button
+            betHistory.map((bet, index) => {
+              let betStatus = bet.status.toLowerCase()
+              return (
+                <div key={index} className='p-4 rounded-[8px] transition-colors'>
+                  <div className='hidden md:grid md:grid-cols-4 gap-4 items-center'>
+                    <div className='text-sm text-app-text-color'>
+                      {format(new Date(bet.created_at), 'yyyy-MM-dd | HH:mm')}
+                    </div>
+                    <div className='text-sm text-app-text-color uppercase'>{bet.game_name}</div>
+                    <div className={`text-sm font-medium ${getTextColor(bet.status)}`}>
+                      <span className='text-app-neutral500'>KRW </span>
+                      {betStatus === 'win' ? '+' : betStatus === 'pending' ? '' : bet.amount != 0 ? '-' : ''}
+                      {thousandSeparatorComma(Math.floor(bet.amount))}
+                    </div>
+                    <div className='flex justify-between items-center'>
+                      <div className={`text-sm ${getTextColor(bet.status)} uppercase`}>
+                        {getStatusLabel(bet.status)}
+                      </div>
+                      {/* <Button
                       size='sm'
                       // onClick={() => {
                       //   setSelectedBet(bet)
@@ -192,33 +202,33 @@ export default function BetHistoryPage({
                       className='flex bg-app-bg-primary-button border-app-primary border-[1px] hover:bg-app-primary-hover text-white px-4 py-1 !mt-2 text-xs uppercase'
                     >
                       {lang?.common?.detail}
-                    </Button>
-                  </div>
-                </div>
-
-                <div className='md:hidden space-y-1'>
-                  <div className='flex justify-between items-center'>
-                    <div className='text-xs text-app-text-color'>
-                      {format(new Date(bet.created_at), 'yyyy-MM-dd | HH:mm')}
-                    </div>
-                    <span className={`text-xs`}>{bet.game_name}</span>
-                  </div>
-
-                  <div className='flex justify-between items-center'>
-                    <div className={`w-full flex text-sm font-medium ${getTextColor(bet.status)}`}>
-                      {bet.status === 'won' ? '+' : bet.status === 'pending' ? '' : '-'}
-                      {bet.amount} KRW
-                    </div>
-                    <div
-                      className={`flex w-[100px] text-sm font-semibold uppercase justify-end ${getTextColor(
-                        bet.status
-                      )}`}
-                    >
-                      {getStatusLabel(bet.status)}
+                    </Button> */}
                     </div>
                   </div>
 
-                  <Button
+                  <div className='md:hidden space-y-1'>
+                    <div className='flex justify-between items-center'>
+                      <div className='text-xs text-app-text-color'>
+                        {format(new Date(bet.created_at), 'yyyy-MM-dd | HH:mm')}
+                      </div>
+                      <span className={`text-xs`}>{bet.game_name}</span>
+                    </div>
+
+                    <div className='flex justify-between items-center'>
+                      <div className={`w-full flex text-sm font-medium ${getTextColor(bet.status)}`}>
+                        {betStatus === 'win' ? '+' : betStatus === 'pending' ? '' : bet.amount != 0 ? '-' : ''}
+                        {thousandSeparatorComma(Math.floor(bet.amount))} KRW
+                      </div>
+                      <div
+                        className={`flex w-[100px] text-sm font-semibold uppercase justify-end ${getTextColor(
+                          bet.status
+                        )}`}
+                      >
+                        {getStatusLabel(bet.status)}
+                      </div>
+                    </div>
+
+                    {/* <Button
                     size='sm'
                     // onClick={() => {
                     //   setSelectedBet(bet)
@@ -227,10 +237,11 @@ export default function BetHistoryPage({
                     className='flex w-full md:w-[50%] bg-app-bg-primary-button border-app-primary border-[1px] hover:bg-app-primary-hover text-white px-2 py-1 !mt-2 text-xs uppercase'
                   >
                     {lang?.common?.detail}
-                  </Button>
+                  </Button> */}
+                  </div>
                 </div>
-              </div>
-            ))
+              )
+            })
           ) : (
             <>
               {/* Empty State */}

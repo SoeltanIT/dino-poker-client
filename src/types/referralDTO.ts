@@ -21,6 +21,23 @@ export interface ReferralHistoryResponse {
   }
 }
 
+export interface ReferralGroupHistoryItem {
+  amount: number
+  created_at: string
+  comission_percent: number
+  parent: string
+}
+
+export interface ReferralGroupHistoryResponse {
+  status: string
+  data: ReferralGroupHistoryItem[]
+  pagination: {
+    prev: string
+    next: string
+    total: number
+  }
+}
+
 export interface ReferralHistoryParams {
   page?: number
   pageSize?: number

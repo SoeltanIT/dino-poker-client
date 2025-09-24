@@ -42,3 +42,7 @@ export const getLinkReferral = (locale: string = 'ko') => {
 export const getLinkReferralDetail = (locale: string = 'ko') => {
   return `/${locale}/my-referral/detail`
 }
+
+export const getLinkReferralGroupDetail = (locale: string = 'ko') => {
+  return `/${locale}/my-referral/group-referral`
+}

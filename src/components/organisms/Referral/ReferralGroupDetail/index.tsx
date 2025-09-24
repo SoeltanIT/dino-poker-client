@@ -2,28 +2,27 @@
 
 import { GetData } from '@/@core/hooks/use-query'
 import { Button } from '@/components/ui/button'
-import { ReferralHistoryItem } from '@/types/referralDTO'
+import { ReferralGroupHistoryItem, ReferralHistoryItem } from '@/types/referralDTO'
 import { useClaimReferral } from '@/utils/api/internal/claimReferral'
 import { useReferralSummary } from '@/utils/api/internal/getReferralSummary'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
+import { format } from 'date-fns'
 import { ArrowLeft, Gift } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { ReferralDetailProps } from './types'
-import { format } from 'date-fns'
+import { ReferralGroupDetailProps } from './types'
 
-
-export default function MyReferralDetail({
+export default function MyReferralGroupDetail({
   lang,
   locale,
   initialData,
   initialSummaryData,
   isLoading: serverLoading
-}: ReferralDetailProps) {
+}: ReferralGroupDetailProps) {
   const [page, setPage] = useState(1)
   const [totalPage, setTotalPage] = useState(initialData?.totalPage || 1)
-  const [members, setMembers] = useState<ReferralHistoryItem[]>(initialData?.data || [])
+  const [members, setMembers] = useState<ReferralGroupHistoryItem[]>(initialData?.data || [])
 
   const [isLoading, setIsLoading] = useState(serverLoading || false)
 
@@ -31,12 +30,12 @@ export default function MyReferralDetail({
   const { claimReferral, isLoading: isClaiming } = useClaimReferral(lang)
 
   // Use client-side hooks for data fetching with server-side initial data
-  const { data: respReferralHistory, isFetching: isFetchingHistory } = GetData<{
-    data: ReferralHistoryItem[]
+  const { data: respReferralGroupHistory, isFetching: isFetchingHistory } = GetData<{
+    data: ReferralGroupHistoryItem[]
     totalPage: number
   }>(
-    `/referral-history`,
-    ['referral_history', page], // You can still use this as queryKey cache
+    `/referral-group-history`,
+    ['referral_group_history', page], // You can still use this as queryKey cache
     true,
     undefined,
     true,
@@ -62,24 +61,24 @@ export default function MyReferralDetail({
   // Update members and pagination when data changes
   useEffect(() => {
     setIsLoading(true)
-    if (respReferralHistory) {
-      setTotalPage(respReferralHistory.totalPage)
+    if (respReferralGroupHistory) {
+      setTotalPage(respReferralGroupHistory.totalPage)
 
       setMembers(prev => {
         if (page === 1) {
-          return respReferralHistory?.data
+          return respReferralGroupHistory?.data
         } else {
           // Check for duplicates before appending
-          const existingIds = new Set(prev.map(member => `${member.created_at}-${member.id}-${member.referral_usage}`))
-          const newData = respReferralHistory?.data.filter(
-            member => !existingIds.has(`${member.created_at}-${member.id}-${member.referral_usage}`)
+          const existingIds = new Set(prev.map(member => `${member.created_at}-${member.comission_percent}`))
+          const newData = respReferralGroupHistory?.data.filter(
+            member => !existingIds.has(`${member.created_at}-${member.comission_percent}`)
           )
           return [...prev, ...newData]
         }
       })
       setIsLoading(false)
     }
-  }, [respReferralHistory, page])
+  }, [respReferralGroupHistory, page])
   // Use summary data for totals instead of calculating from history
   const totalBonus = summaryData?.data?.total_commission ?? 0
   const totalMembers = summaryData?.data?.total_referral_usage ?? 0
@@ -248,7 +247,7 @@ export default function MyReferralDetail({
                           <div className='text-app-neutral500 text-sm'>
                             {format(new Date(member?.created_at), 'yyyy-MM-dd | HH:mm')}
                           </div>
-                          <div className='font-semibold text-app-text-color'>{member.referral_usage}</div>
+                          <div className='font-semibold text-app-text-color'>{member.comission_percent}</div>
                         </div>
                         <div className='text-right'>
                           <div className='text-app-neutral500 text-sm'>KRW</div>
@@ -277,20 +276,22 @@ export default function MyReferralDetail({
             {/* Desktop Table */}
             <div className='hidden lg:block'>
               <div className='overflow-hidden'>
-                <div className='hidden items-center md:grid md:grid-cols-3 gap-4 px-4 py-3 bg-app-background-secondary rounded-[8px] mb-[10px] text-sm font-semibold text-app-text-header-table uppercase'>
+                <div className='hidden items-center md:grid md:grid-cols-4 gap-4 px-4 py-3 bg-app-background-secondary rounded-[8px] mb-[10px] text-sm font-semibold text-app-text-header-table uppercase'>
                   <div>{lang?.common?.date}</div>
-                  <div>{lang?.common?.username}</div>
+                  <div>{lang?.common?.referralGroup}</div>
+                  <div>{lang?.common?.commissionPercentage}</div>
                   <div>{lang?.common?.commission}</div>
                 </div>
 
                 <div className='rounded-lg bg-app-background-secondary border border-app-neutral600'>
                   {!isLoading && members.length > 0 ? (
                     members.map((member, index) => (
-                      <div key={index} className='grid grid-cols-3 gap-4 p-4 last:border-b-0'>
+                      <div key={index} className='grid grid-cols-4 gap-4 p-4 last:border-b-0'>
                         <div className='text-app-text-color'>
                           {format(new Date(member?.created_at), 'yyyy-MM-dd | HH:mm')}
                         </div>
-                        <div className='text-app-text-color'>{member.referral_usage}</div>
+                        <div className='text-app-text-color'>{member.parent}</div>
+                        <div className='text-app-text-color'>{member.comission_percent}</div>
                         <div className='text-app-text-color'>
                           KRW{' '}
                           <span className='text-app-success font-bold'>{thousandSeparatorComma(member.amount)}</span>

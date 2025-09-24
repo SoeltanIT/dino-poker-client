@@ -27,6 +27,7 @@ export default function ListGamePage({
   const [totalPage, setTotalPage] = useState(initialTotalPage || 1)
   const [isLoading, setIsLoading] = useState(isInitialLoading || false)
   const [loginOpen, setLoginOpen] = useState(false)
+  const [gameId, setGameId] = useState<string | null>(null)
 
   const { data, isFetching, refetch } = GetData<{ data: gameDTO[]; totalPage: number }>(
     `/game_list`,
@@ -44,6 +45,45 @@ export default function ListGamePage({
     },
     'transaction'
   )
+  /** which card is opening */
+  const [openingGameId, setOpeningGameId] = useState<string | null>(null)
+
+  // detail: only when openingGameId is set
+  // === DETAIL (only when openingGameId is set) ===
+  const {
+    data: gameDetail,
+    isFetching: isFetchingGameDetail,
+    error: gameDetailError
+  } = GetData<any>(
+    '/game_detail',
+    ['getGameDetail', openingGameId],
+    false, // skipAuth: require auth
+    undefined, // initialData
+    Boolean(openingGameId && isLogin), // enabled: only after click (+ logged in)
+    false, // isShowMsg
+    undefined, // successMessage
+    { refetchOnWindowFocus: false, refetchOnReconnect: false }, // optional safety
+    'POST',
+    openingGameId ? { game_id: openingGameId, currency: 'KRW', lang: (locale ?? 'ko').toUpperCase() } : undefined,
+    'transaction'
+  )
+
+  // When URL arrives → open new tab via /redirect → clear state
+  useEffect(() => {
+    if (!openingGameId) return
+
+    // The hook might return { url } or { data: { url } } depending on your API.
+    const launchUrl: string | undefined = gameDetail?.url ?? gameDetail?.data?.url
+
+    if (launchUrl && !isFetchingGameDetail) {
+      const redirect = `/redirect?url=${encodeURIComponent(launchUrl)}`
+      window.open(redirect, '_blank', 'noopener') // open in a new tab
+      setOpeningGameId(null)
+    } else if (!isFetchingGameDetail && gameDetailError) {
+      console.error('Open game failed:', gameDetailError)
+      setOpeningGameId(null)
+    }
+  }, [openingGameId, gameDetail, isFetchingGameDetail, gameDetailError])
 
   useEffect(() => {
     if (data) {
@@ -83,6 +123,15 @@ export default function ListGamePage({
   )
   const showAppendSkeleton = useMemo(() => isFetching && page > 1, [isFetching, page])
 
+  const onClickOpenGames = (id: string) => {
+    if (!isLogin) {
+      setLoginOpen(true)
+      return
+    }
+    if (openingGameId) return // ignore double-clicks while opening
+    setOpeningGameId(id)
+  }
+
   return (
     <main className='w-full min-h-screen px-4 py-6'>
       {/* Flex container using basis for columns */}
@@ -100,6 +149,7 @@ export default function ListGamePage({
               {listGame?.map((items, i) => (
                 <div
                   key={i}
+                  onClick={() => setGameId(items.id)}
                   className='
                     basis-[calc((100%-0.5rem*2)/3)]
                     md:basis-[calc((100%-0.5rem*5)/6)]
@@ -115,7 +165,9 @@ export default function ListGamePage({
                     playersCount={stableCount(items?.id || `${items.title}-${items.provider}`)}
                     isLogin={isLogin}
                     onRequireLogin={() => setLoginOpen(true)}
+                    onClickOpenGames={(id: any) => onClickOpenGames(id)}
                     className='w-full h-full min-w-0'
+                    isOpening={openingGameId === items.id && isFetchingGameDetail}
                   />
                 </div>
               ))}

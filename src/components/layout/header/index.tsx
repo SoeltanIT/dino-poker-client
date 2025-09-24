@@ -185,7 +185,7 @@ export const Header = ({ lang, locale, data, balance, theme }: HeaderProps) => {
               </span>
             </Link> */}
 
-            <Link
+            {/* <Link
               className={cn(
                 'flex items-center justify-center cursor-pointer gap-2 p-3 group',
                 pathname === `/${locale}/promotion` && 'border-b-[1px] border-b-app-text-color'
@@ -210,7 +210,7 @@ export const Header = ({ lang, locale, data, balance, theme }: HeaderProps) => {
               >
                 {lang?.common?.promotion}
               </span>
-            </Link>
+            </Link> */}
           </div>
 
           <div className='w-full flex items-center justify-end gap-3'>
@@ -334,7 +334,7 @@ export const Header = ({ lang, locale, data, balance, theme }: HeaderProps) => {
                   </span>
                 </Link> */}
 
-                <Link
+                {/* <Link
                   className={cn(
                     'flex items-center justify-center cursor-pointer gap-2 p-3',
                     pathname === `/${locale}/promotion` && 'border-b-[1px] border-b-app-text-color'
@@ -353,7 +353,7 @@ export const Header = ({ lang, locale, data, balance, theme }: HeaderProps) => {
                   >
                     {lang?.common?.promotion}
                   </span>
-                </Link>
+                </Link> */}
               </div>
 
               <div className='flex flex-col'>

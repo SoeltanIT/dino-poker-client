@@ -1,7 +1,8 @@
 import { getValidServerSession, handleServerAuthError } from '@/@core/lib/server-auth-utils'
 import MyReferralDetail from '@/components/organisms/Referral/ReferralDetail'
+import MyReferralGroupDetail from '@/components/organisms/Referral/ReferralGroupDetail'
 import { getDictionary, getLocale } from '@/dictionaries/dictionaries'
-import { getReferralHistory } from '@/utils/api/internal/getReferralHistory'
+import { getReferralGroupHistory, getReferralHistory } from '@/utils/api/internal/getReferralHistory'
 import { getReferralSummary } from '@/utils/api/internal/getReferralSummary'
 
 // export const runtime = 'edge'
@@ -27,7 +28,7 @@ export default async function Page({ params, ...props }: any) {
 
     // Fetch referral history and summary data in parallel
     const [historyData, summaryData] = await Promise.all([
-      getReferralHistory({
+      getReferralGroupHistory({
         page: 1,
         pageSize: 10
       }),
@@ -52,7 +53,7 @@ export default async function Page({ params, ...props }: any) {
   }
 
   return (
-    <MyReferralDetail
+    <MyReferralGroupDetail
       lang={dict}
       locale={locale}
       initialData={initialData}

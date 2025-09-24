@@ -12,6 +12,7 @@ export const API_ENDPOINT = {
   referral: '/v1/referral',
   referral_claim: '/v1/referral-claim',
   referral_history: '/v1/referral-history',
+  referral_group_history: '/v1/group-referral-history',
   referral_summary: '/v1/referral-summary',
   betby_token: '/v1/token',
   seo: '/v1/seo',
@@ -33,7 +34,8 @@ export const API_ENDPOINT = {
   bet_history: '/v1/bets/history',
   blockchains: '/v1/cryptos/blockchains',
   blockchains_token: '/v1/cryptos/tokens',
-  poker_history: '/v1/win-lose-history',
+  // poker_history: '/v1/win-lose-history',
+  poker_history: '/v1',
 
   //game-related
   game_list: '/v1/aggregator/games',

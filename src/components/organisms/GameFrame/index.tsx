@@ -89,7 +89,6 @@ export default function GameFrame({
 
       <iframe
         // key={frameKey} // ⬅️ forces re-layout on bp/orientation change
-
         src={iframeSrc}
         title={title}
         className='absolute inset-0 h-full w-full border-0'

@@ -100,7 +100,7 @@ export default function DepositForm({
   return (
     <>
       {/* ⬇️ Use the handler here */}
-      <TabSwitcher tabs={tabs} activeTab={activeTab} onTabChange={handleTabChange} />
+      {/* <TabSwitcher tabs={tabs} activeTab={activeTab} onTabChange={handleTabChange} /> */}
 
       {activeTab === 'fiat' && (
         <Form {...form}>
@@ -146,7 +146,7 @@ export default function DepositForm({
             />
 
             <div className='pt-4'>
-              <PromotionSelector
+              {/* <PromotionSelector
                 selectedPromotion={promo}
                 onSelect={p => {
                   setPromo(p)
@@ -155,7 +155,7 @@ export default function DepositForm({
                 lang={lang}
                 initialData={respPromo}
                 isLoading={promoLoading}
-              />
+              /> */}
               <Button
                 type='submit'
                 disabled={isLoading}
@@ -179,7 +179,7 @@ export default function DepositForm({
             </div>
 
             <div className='pt-4'>
-              <PromotionSelector
+              {/* <PromotionSelector
                 selectedPromotion={promo}
                 onSelect={p => {
                   setPromo(p)
@@ -188,7 +188,7 @@ export default function DepositForm({
                 lang={lang}
                 initialData={respPromo}
                 isLoading={promoLoading}
-              />
+              /> */}
               <Button
                 type='submit'
                 disabled={isLoading}

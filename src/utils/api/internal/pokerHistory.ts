@@ -6,6 +6,7 @@ import { getApiEndpoint } from '@/utils/api_endpoint'
 export interface GetListTransactionParams {
   page?: number
   pageSize?: number
+  type?: string
 }
 
 export interface TransactionListResponse {
@@ -16,19 +17,22 @@ export interface TransactionListResponse {
 }
 
 const mapBetHistory = (item: any): PokerHistoryDTO => ({
+  id: item?.external_transaction_id,
   amount: item.amount,
   created_at: item.created_at,
-  status: item?.status,
+  status: item?.type,
   game_name: item?.game_name === '' ? '-' : item?.game_name
 })
 
 export const getListPokerTransaction = async ({
   page = 1,
-  pageSize = 10
+  pageSize = 10,
+  type = 'WIN, LOSE'
 }: GetListTransactionParams): Promise<TransactionListResponse> => {
   const bodyRequest = {
     page: page,
-    pageSize: pageSize
+    pageSize: pageSize,
+    type: type
   }
 
   try {

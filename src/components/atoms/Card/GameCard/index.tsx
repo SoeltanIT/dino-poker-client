@@ -89,7 +89,9 @@ export interface GameCardProps {
   variant?: GameCardVariant
   isLogin?: boolean // NEW
   onRequireLogin?: () => void
+  onClickOpenGames?: (id: string) => void
   locale?: Locale
+  isOpening?: boolean
 }
 
 export function GameCard({
@@ -104,20 +106,17 @@ export function GameCard({
   variant = 'main',
   isLogin = false, // default unauth
   onRequireLogin,
-  locale
+  onClickOpenGames,
+  locale,
+  isOpening = false
 }: GameCardProps) {
   // Debug render
   const variantClass = gameCardVariants({ variant })
   const [liked, setLiked] = useState<boolean>(false)
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!isLogin) {
-      e.preventDefault()
-      e.stopPropagation()
-      onRequireLogin?.() // open your login modal
-      return
-    }
-    // allow Link to navigate normally
+  const handleClick = () => {
+    if (!isLogin) onRequireLogin?.()
+    else onClickOpenGames?.(id)
   }
 
   return (
@@ -154,12 +153,12 @@ export function GameCard({
         <div
           style={accent ? ({ '--game-card-accent': accent } as CSSProperties) : {}}
           className={cn(
-            'text-center text-white px-1 py-3',
-            accent && 'bg-gradient-to-b from-transparent via-[var(--game-card-accent)] to-[var(--game-card-accent)]'
+            'text-center text-white px-1 py-3'
+            // accent && 'bg-gradient-to-b from-transparent via-[var(--game-card-accent)] to-[var(--game-card-accent)]'
           )}
         >
-          <div className={gameTitleVariants({ title: variant })}>{title}</div>
-          <div className={gameProviderVariants({ variant })}>{provider}</div>
+          {/* <div className={gameTitleVariants({ title: variant })}>{title}</div> */}
+          {/* <div className={gameProviderVariants({ variant })}>{provider}</div> */}
 
           {variant !== 'provider' && (
             <div>
@@ -194,8 +193,8 @@ export function GameCard({
       )}
 
       {/* Play overlay */}
-      <Link
-        href={`${locale}/play-game/${id}`}
+      {/* <div
+        // href={`${locale}/play-game/${id}`}
         onClick={handleClick}
         className={cn(
           variantClass,
@@ -205,7 +204,26 @@ export function GameCard({
         )}
       >
         <PlayButton size={PLAY_BUTTON_SIZE[variant!]} />
-      </Link>
+      </div> */}
+
+      <div
+        onClick={isOpening ? undefined : handleClick}
+        className={cn(
+          variantClass,
+          'absolute inset-0 z-20 hidden opacity-0 transition-opacity duration-300 ease-in-out',
+          'group-hover:flex group-hover:items-center group-hover:justify-center group-hover:opacity-100',
+          'bg-game-card-overlay',
+          isOpening && 'cursor-wait'
+        )}
+      >
+        <PlayButton size={PLAY_BUTTON_SIZE[variant!]} />
+      </div>
+
+      {isOpening && (
+        <div className='absolute inset-0 z-30 grid place-items-center bg-black/50 backdrop-blur-sm'>
+          <div className='text-white text-xs md:text-sm'>Opening…</div>
+        </div>
+      )}
     </div>
   )
 }
