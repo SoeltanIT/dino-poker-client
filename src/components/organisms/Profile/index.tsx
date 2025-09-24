@@ -55,11 +55,11 @@ export default function MenuProfile({
     //   label: lang?.common?.myWallet,
     //   href: getLinkMyWallet(locale)
     // },
-    {
-      icon: <IconPromotion />,
-      label: lang?.common?.myPromotion,
-      href: getLinkMyPromotion(locale)
-    },
+    // {
+    //   icon: <IconPromotion />,
+    //   label: lang?.common?.myPromotion,
+    //   href: getLinkMyPromotion(locale)
+    // },
     {
       icon: <IconBank />,
       label: lang?.common?.bankAccount,
