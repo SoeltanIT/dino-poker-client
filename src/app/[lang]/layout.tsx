@@ -20,24 +20,23 @@ export const viewport: Viewport = {
 }
 
 const commonKeywords = [
-  'gowin',
-  'gowin.gg',
-  'esports betting',
-  'valorant betting',
-  'league of legends betting',
-  'dota 2 betting',
-  'csgo betting',
-  'live betting',
-  'korean esports',
-  'online esports betting',
+  'poker',
+  'poker.gg',
+  'online poker',
+  'texas holdem',
+  'poker tournaments',
+  'live poker',
+  'poker betting',
+  'poker strategy',
+  'poker hands',
+  'poker rooms',
   '토토',
   '고윈',
   '고윈코리아',
-  'valorant',
-  'league of legends',
-  'LoL',
-  'dota 2',
-  'csgo'
+  '포커',
+  '텍사스 홀덤',
+  '온라인 포커',
+  '포커 토너먼트'
 ]
 
 // ✅ Dynamic metadata generation per locale
@@ -59,12 +58,28 @@ export async function generateMetadata({ params }: { params: { lang: Locale } })
   } catch (err: any) {}
 
   const localizedKeywords: Record<Locale, string[]> = {
-    en: [...commonKeywords, 'betting platform', 'play and win', 'e-sports odds', 'live match odds'],
-    ko: [...commonKeywords, 'e스포츠 배팅', '발로란트 배팅', '롤 배팅', '도타2 배팅', '실시간 배당률', '한국 e스포츠']
+    en: [
+      ...commonKeywords,
+      'poker platform',
+      'play and win poker',
+      'live poker odds',
+      'real money poker',
+      'no limit holdem',
+      'online poker rooms'
+    ],
+    ko: [
+      ...commonKeywords,
+      '포커 플랫폼',
+      '포커로 플레이하고 승리하세요',
+      '실시간 포커 배당률',
+      '실전 머니 포커',
+      '노리밋 홀덤',
+      '온라인 포커룸'
+    ]
   }
 
   return {
-    title: initialSEO?.title ?? lang.metadata?.title ?? 'GOWIN.GG',
+    title: initialSEO?.title ?? lang.metadata?.title ?? 'POKER.GG',
     description: initialSEO?.description ?? lang.metadata?.description,
     keywords: initialSEO?.keyword ?? localizedKeywords[params.lang],
     // openGraph: {
@@ -120,17 +135,17 @@ export default async function RootLayout({
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'WebSite',
-              name: 'GOWIN.GG',
-              url: 'https://gowin.gg/',
-              alternateName: ['GOWIN', '고윈', 'Go Win'],
+              name: 'POKER.GG',
+              url: 'https://poker.gg/',
+              alternateName: ['Poker'],
               inLanguage: ['en', 'ko'],
               publisher: {
                 '@type': 'Organization',
-                name: 'GOWIN',
-                url: 'https://gowin.gg/',
+                name: 'Poker',
+                url: 'https://poker.gg/',
                 logo: {
                   '@type': 'ImageObject',
-                  url: 'https://gowin.gg/images/logo.png',
+                  url: 'https://poker.gg/images/logo.png',
                   width: 512,
                   height: 512
                 }
@@ -170,7 +185,7 @@ export default async function RootLayout({
         </Providers>
 
         {/* Google Analytics 4 (GA4) */}
-        <Script src='https://www.googletagmanager.com/gtag/js?id=G-20SZ06083B' strategy='afterInteractive' />
+        {/* <Script src='https://www.googletagmanager.com/gtag/js?id=G-20SZ06083B' strategy='afterInteractive' />
         <Script
           id='ga4-init'
           strategy='afterInteractive'
@@ -182,7 +197,7 @@ export default async function RootLayout({
       gtag('config', 'G-20SZ06083B');
     `
           }}
-        />
+        /> */}
       </body>
     </html>
   )

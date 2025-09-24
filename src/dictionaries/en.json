@@ -205,7 +205,7 @@
     "joinDate": "Join Date",
     "username": "Username",
     "referralGroup": "Referral Group",
-    "commissionPercentage":"Commission Percentage",
+    "commissionPercentage": "Commission Percentage",
     "commission": "Comission",
     "claimReferral": "Claim Referral Bonus",
     "claiming": "Claiming...",
@@ -346,8 +346,8 @@
     "withdrawRejected": "Your withdrawal of {{amount}} has been rejected. For more information, please contact us via Livechat."
   },
   "metadata": {
-    "title": "Gowin - Korean Esports & Match Results & Live Streaming",
-    "description": "Esports live scores, official Korean match results, LoL, Valorant, Overwatch, Starcraft, etc. live broadcasts and odds provided",
+    "title": "Poker.gg - Online Poker, Texas Hold'em & Live Tournaments",
+    "description": "Play online poker with live tables, Texas Hold'em tournaments, live results, odds, and streaming. Join poker rooms and enjoy exciting games anytime.",
     "sportTitle": "Sports Betting | GOWIN.GG",
     "sportDescription": "Bet on football, basketball, tennis, and top esports like Dota 2, LoL, and Valorant. Enjoy live odds, in-play betting, and the best sportsbook experience at GOWIN.GG.",
     "promotionTitle": "Latest Promotions | GOWIN.GG",

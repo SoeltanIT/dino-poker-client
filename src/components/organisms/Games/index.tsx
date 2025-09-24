@@ -113,6 +113,11 @@ export default function ListGamePage({
     const left = 0
     const top = 0
 
+    // const w = 980
+    // const h = 640
+    // const left = window.screenX + (window.outerWidth - w) / 2
+    // const top = window.screenY + (window.outerHeight - h) / 2
+
     const features = [
       `width=${w}`,
       `height=${h}`,

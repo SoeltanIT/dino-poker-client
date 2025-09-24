@@ -25,7 +25,7 @@ export const LiveChatProvider = ({ children, licenseId }: { children: React.Reac
 
     // Setup config
     window.__lc = {
-      license: licenseId,
+      license: '19314593',
       integration_name: 'manual_channels',
       product_name: 'livechat'
     }
