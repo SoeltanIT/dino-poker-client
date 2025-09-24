@@ -5,7 +5,7 @@ import { GameCard } from '@/components/atoms/Card/GameCard'
 import { Button } from '@/components/ui/button'
 import { gameDTO } from '@/types/gameDTO'
 import { useSession } from 'next-auth/react'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import LoginModal from '../Login'
 import { GameListProps } from './types'
 import { GameGridSkeleton } from '@/components/atoms/Skeleton/GameGridSkeleton'
@@ -28,6 +28,7 @@ export default function ListGamePage({
   const [isLoading, setIsLoading] = useState(isInitialLoading || false)
   const [loginOpen, setLoginOpen] = useState(false)
   const [gameId, setGameId] = useState<string | null>(null)
+  const popupRef = useRef<Window | null>(null)
 
   const { data, isFetching, refetch } = GetData<{ data: gameDTO[]; totalPage: number }>(
     `/game_list`,
@@ -47,43 +48,6 @@ export default function ListGamePage({
   )
   /** which card is opening */
   const [openingGameId, setOpeningGameId] = useState<string | null>(null)
-
-  // detail: only when openingGameId is set
-  // === DETAIL (only when openingGameId is set) ===
-  const {
-    data: gameDetail,
-    isFetching: isFetchingGameDetail,
-    error: gameDetailError
-  } = GetData<any>(
-    '/game_detail',
-    ['getGameDetail', openingGameId],
-    false, // skipAuth: require auth
-    undefined, // initialData
-    Boolean(openingGameId && isLogin), // enabled: only after click (+ logged in)
-    false, // isShowMsg
-    undefined, // successMessage
-    { refetchOnWindowFocus: false, refetchOnReconnect: false }, // optional safety
-    'POST',
-    openingGameId ? { game_id: openingGameId, currency: 'KRW', lang: (locale ?? 'ko').toUpperCase() } : undefined,
-    'transaction'
-  )
-
-  // When URL arrives → open new tab via /redirect → clear state
-  useEffect(() => {
-    if (!openingGameId) return
-
-    // The hook might return { url } or { data: { url } } depending on your API.
-    const launchUrl: string | undefined = gameDetail?.url ?? gameDetail?.data?.url
-
-    if (launchUrl && !isFetchingGameDetail) {
-      const redirect = `/redirect?url=${encodeURIComponent(launchUrl)}`
-      window.open(redirect, '_blank', 'noopener') // open in a new tab
-      setOpeningGameId(null)
-    } else if (!isFetchingGameDetail && gameDetailError) {
-      console.error('Open game failed:', gameDetailError)
-      setOpeningGameId(null)
-    }
-  }, [openingGameId, gameDetail, isFetchingGameDetail, gameDetailError])
 
   useEffect(() => {
     if (data) {
@@ -123,12 +87,76 @@ export default function ListGamePage({
   )
   const showAppendSkeleton = useMemo(() => isFetching && page > 1, [isFetching, page])
 
+  // detail: only when openingGameId is set
+  // === DETAIL (only when openingGameId is set) ===
+  const {
+    data: gameDetail,
+    isFetching: isFetchingGameDetail,
+    error: gameDetailError
+  } = GetData<any>(
+    '/game_detail',
+    ['getGameDetail', openingGameId],
+    false, // skipAuth: require auth
+    undefined, // initialData
+    Boolean(openingGameId && isLogin), // enabled: only after click (+ logged in)
+    false, // isShowMsg
+    undefined, // successMessage
+    { refetchOnWindowFocus: false, refetchOnReconnect: false }, // optional safety
+    'POST',
+    openingGameId ? { game_id: openingGameId, currency: 'KRW', lang: (locale ?? 'ko').toUpperCase() } : undefined,
+    'transaction'
+  )
+
+  const openGamePopup = (url: string) => {
+    const w = window.screen.availWidth
+    const h = window.screen.availHeight
+    const left = 0
+    const top = 0
+
+    const features = [
+      `width=${w}`,
+      `height=${h}`,
+      `left=${left}`,
+      `top=${top}`,
+      'toolbar=0',
+      'menubar=0',
+      'location=0',
+      'status=0',
+      'resizable=1',
+      'scrollbars=1'
+    ].join(',')
+
+    window.open(url, 'gamewin', features)
+  }
+
+  // When URL arrives → open new tab via /redirect → clear state
+  useEffect(() => {
+    if (!openingGameId) return
+
+    // The hook might return { url } or { data: { url } } depending on your API.
+    const launchUrl: string | undefined = gameDetail?.url ?? gameDetail?.data?.url
+
+    if (launchUrl && !isFetchingGameDetail) {
+      const redirect = `/redirect?url=${encodeURIComponent(launchUrl)}`
+      // window.open(redirect, '_blank', 'noopener') // open in a new tab
+      openGamePopup(redirect)
+      setOpeningGameId(null)
+    } else if (!isFetchingGameDetail && gameDetailError) {
+      if (popupRef.current && !popupRef.current.closed) popupRef.current.close()
+      popupRef.current = null
+      console.error('Open game failed:', gameDetailError)
+      setOpeningGameId(null)
+    }
+  }, [openingGameId, gameDetail, isFetchingGameDetail, gameDetailError])
+
   const onClickOpenGames = (id: string) => {
     if (!isLogin) {
       setLoginOpen(true)
       return
     }
     if (openingGameId) return // ignore double-clicks while opening
+
+    // 2) proceed to fetch the launch url
     setOpeningGameId(id)
   }
 
