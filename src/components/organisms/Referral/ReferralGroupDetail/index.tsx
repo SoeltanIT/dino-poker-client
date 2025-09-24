@@ -69,9 +69,9 @@ export default function MyReferralGroupDetail({
           return respReferralGroupHistory?.data
         } else {
           // Check for duplicates before appending
-          const existingIds = new Set(prev.map(member => `${member.created_at}-${member.comission_percent}`))
+          const existingIds = new Set(prev.map(member => `${member.created_at}-${member.comission_percentage}`))
           const newData = respReferralGroupHistory?.data.filter(
-            member => !existingIds.has(`${member.created_at}-${member.comission_percent}`)
+            member => !existingIds.has(`${member.created_at}-${member.comission_percentage}`)
           )
           return [...prev, ...newData]
         }
@@ -247,7 +247,7 @@ export default function MyReferralGroupDetail({
                           <div className='text-app-neutral500 text-sm'>
                             {format(new Date(member?.created_at), 'yyyy-MM-dd | HH:mm')}
                           </div>
-                          <div className='font-semibold text-app-text-color'>{member.comission_percent}</div>
+                          <div className='font-semibold text-app-text-color'>{member.comission_percentage}%</div>
                         </div>
                         <div className='text-right'>
                           <div className='text-app-neutral500 text-sm'>KRW</div>
@@ -291,7 +291,7 @@ export default function MyReferralGroupDetail({
                           {format(new Date(member?.created_at), 'yyyy-MM-dd | HH:mm')}
                         </div>
                         <div className='text-app-text-color'>{member.parent}</div>
-                        <div className='text-app-text-color'>{member.comission_percent}</div>
+                        <div className='text-app-text-color'>{member.comission_percentage}%</div>
                         <div className='text-app-text-color'>
                           KRW{' '}
                           <span className='text-app-success font-bold'>{thousandSeparatorComma(member.amount)}</span>
