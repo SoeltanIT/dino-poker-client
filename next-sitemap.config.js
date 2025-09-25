@@ -1,16 +1,16 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: 'https://gowin.gg',
+  siteUrl: 'https://pokerkorea777.com',
   generateRobotsTxt: true,
   generateIndexSitemap: false,
   exclude: ['/bank-account', '/bet-history', '/my-wallet', '/transaction-history', '/my-promotion'],
   alternateRefs: [
     {
-      href: 'https://gowin.gg/en',
+      href: 'https://pokerkorea777.com/en',
       hreflang: 'en'
     },
     {
-      href: 'https://gowin.gg/ko',
+      href: 'https://pokerkorea777.com/ko',
       hreflang: 'ko'
     }
   ],
