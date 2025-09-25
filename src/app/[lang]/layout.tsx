@@ -21,7 +21,9 @@ export const viewport: Viewport = {
 
 const commonKeywords = [
   'poker',
-  'poker.gg',
+  'poker korea',
+  'poker korea 777',
+  'poker777',
   'online poker',
   'texas holdem',
   'poker tournaments',
@@ -78,8 +80,10 @@ export async function generateMetadata({ params }: { params: { lang: Locale } })
     ]
   }
 
+  let canonical = 'https://pokerkorea777.com'
+
   return {
-    title: initialSEO?.title ?? lang.metadata?.title ?? 'POKER.GG',
+    title: initialSEO?.title ?? lang.metadata?.title ?? 'POKER777',
     description: initialSEO?.description ?? lang.metadata?.description,
     keywords: initialSEO?.keyword ?? localizedKeywords[params.lang],
     // openGraph: {
@@ -96,10 +100,10 @@ export async function generateMetadata({ params }: { params: { lang: Locale } })
     //   description: initialSEO?.description ?? lang.metadata?.description
     // },
     alternates: {
-      canonical: `${initialSEO?.canonical}`,
+      canonical: `${initialSEO?.canonical ?? canonical}`,
       languages: {
-        en: `${initialSEO?.canonical}/en`,
-        ko: `${initialSEO?.canonical}/ko`
+        en: `${initialSEO?.canonical ?? canonical}/en`,
+        ko: `${initialSEO?.canonical ?? canonical}/ko`
       }
     }
   }
@@ -135,17 +139,17 @@ export default async function RootLayout({
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'WebSite',
-              name: 'POKER.GG',
-              url: 'https://poker.gg/',
-              alternateName: ['Poker'],
+              name: 'POKER KOREA 777',
+              url: 'https://pokerkorea777.com/',
+              alternateName: ['Poker Korea 777'],
               inLanguage: ['en', 'ko'],
               publisher: {
                 '@type': 'Organization',
-                name: 'Poker',
-                url: 'https://poker.gg/',
+                name: 'Poker Korea 777',
+                url: 'https://pokerkorea777.com/',
                 logo: {
                   '@type': 'ImageObject',
-                  url: 'https://poker.gg/images/logo.png',
+                  url: 'https://pokerkorea777.com/images/logo.png',
                   width: 512,
                   height: 512
                 }
