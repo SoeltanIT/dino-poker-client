@@ -21,7 +21,7 @@ export const Footer = ({ children, lang, locale, theme, content, version, ...pro
           />
 
           <div className='flex flex-col'>
-            <div className='text-app-text-color font-bold text-lg'>GOWIN.GG</div>
+            <div className='text-app-text-color font-bold text-lg'>POKER KOREA 777</div>
             <div className='text-app-neutral500 text-sm'>COPYRIGHT 2025</div>
           </div>
         </div>
@@ -38,7 +38,7 @@ export const Footer = ({ children, lang, locale, theme, content, version, ...pro
             <div className='mb-2'>{lang?.common?.subTitleFooter}</div>
           </>
         )} */}
-        <div>V1.3.0</div>
+        <div>V1.0.0</div>
       </div>
     </footer>
   )

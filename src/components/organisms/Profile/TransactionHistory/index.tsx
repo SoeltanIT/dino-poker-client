@@ -253,7 +253,7 @@ export default function TransactionHistoryPage({
         </div>
       </div>
 
-      <TabSwitcher tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
+      {/* <TabSwitcher tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} /> */}
 
       {/* Mobile View */}
       {activeTab === 'fiat' && (

@@ -125,7 +125,7 @@ export function GameCard({
       <div
         className={cn(
           variantClass,
-          'relative border border-app-grey12op bg-black aspect-[3/4] flex-shrink-0 overflow-hidden'
+          'relative border border-app-grey12op aspect-[3/4] flex-shrink-0 overflow-hidden shadow-md'
         )}
       >
         {image && (

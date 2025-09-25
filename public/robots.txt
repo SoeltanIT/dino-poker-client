@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://gowin.gg
+Host: https://pokerkorea777.com
 
 # Sitemaps
-Sitemap: https://gowin.gg/sitemap.xml
+Sitemap: https://pokerkorea777.com/sitemap.xml
