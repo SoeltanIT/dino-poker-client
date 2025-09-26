@@ -158,9 +158,6 @@ export default async function RootLayout({
           }}
         />
 
-        {/* Google Tag Manager */}
-        {/* <GoogleTagManager gtmId={'G-20SZ06083B'} /> */}
-
         {/* VP Height Fix Script */}
         <script
           type='text/javascript'
@@ -189,7 +186,7 @@ export default async function RootLayout({
         </Providers>
 
         {/* Google Analytics 4 (GA4) */}
-        {/* <Script src='https://www.googletagmanager.com/gtag/js?id=G-20SZ06083B' strategy='afterInteractive' />
+        <Script src='https://www.googletagmanager.com/gtag/js?id=G-TTNN5LGXZN' strategy='afterInteractive' />
         <Script
           id='ga4-init'
           strategy='afterInteractive'
@@ -198,10 +195,10 @@ export default async function RootLayout({
       window.dataLayer = window.dataLayer || [];
       function gtag(){ dataLayer.push(arguments); }
       gtag('js', new Date());
-      gtag('config', 'G-20SZ06083B');
+      gtag('config', 'G-TTNN5LGXZN');
     `
           }}
-        /> */}
+        />
       </body>
     </html>
   )
