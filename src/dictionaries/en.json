@@ -63,6 +63,7 @@
     "typeAccountNumber": "Type Account Number",
     "myBalance": "My Balance",
     "totalBalance": "Total Balance",
+    "totalIDNBalance": "Total IDN Poker Balance",
     "totalMainBalance": "Total Main Balance",
     "totalBonusBalance": "Total Bonus Balance",
     "balanceDetails": "Balance Details",
@@ -220,13 +221,21 @@
     "minimalDeposit": "Minimal Deposit",
     "appliedPromotion": "Applied Promotion",
     "rolesMsgHomepage": "Please login to your User Account to see list of games available",
-    "opening": "Opening"
+    "opening": "Opening",
+    "convert": "Convert",
+    "transferIn": "Transfer In",
+    "transferOut": "Transfer Out",
+    "transferInMsg": "Transfer your balance from KPoker to IDN Poker easily",
+    "transferOutMsg": "Transfer your balance from IDN Poker to KPoker easily",
+    "transferAmount": "Transfer Amount",
+    "typeAmount": "Type Amount",
+    "submit": "Submit"
   },
   "game": {
     "texaspoker": "Texas Poker",
     "omaha": "Omaha",
     "tournament": "Tournament",
-    "super10": "Super 10",
+    "superten": "Super Ten",
     "domino": "Domino",
     "cemekeliling": "Ceme Keliling",
     "ceme": "Ceme",
@@ -347,7 +356,10 @@
     "id_card_max": "ID Card Information is too long",
     "coin_network_required": "Coin network is required",
     "crypto_required": "Crypto is required",
-    "referral_code_max": "Referral code must be exactly 6 characters"
+    "referral_code_max": "Referral code must be exactly 6 characters",
+    "transfer_required": "Transfer Amount Required",
+    "transfer_numeric_only": "Amount must be numbers only",
+    "transfer_gt_zero": "Amount must be greater than 0"
   },
   "notification": {
     "depositApprovedTitle": "Deposit Approved",

@@ -9,6 +9,7 @@ export const API_ENDPOINT = {
   config: '/v1/config',
   balance: '/v1/balance/me',
   move_balance: '/v1/move-balance',
+  transfer_IDN_balance: '/v1/aggregator/sync-balance',
   referral: '/v1/referral',
   referral_claim: '/v1/referral-claim',
   referral_history: '/v1/referral-history',
