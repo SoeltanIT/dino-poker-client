@@ -219,7 +219,23 @@
     "cryptoDeposit": "Crypto Deposit",
     "minimalDeposit": "Minimal Deposit",
     "appliedPromotion": "Applied Promotion",
-    "rolesMsgHomepage": "Please login to your User Account to see list of games available"
+    "rolesMsgHomepage": "Please login to your User Account to see list of games available",
+    "opening": "Opening"
+  },
+  "game": {
+    "texaspoker": "Texas Poker",
+    "omaha": "Omaha",
+    "tournament": "Tournament",
+    "super10": "Super 10",
+    "domino": "Domino",
+    "cemekeliling": "Ceme Keliling",
+    "ceme": "Ceme",
+    "capsa": "Capsa",
+    "qqspirit": "QQ Spirit",
+    "superbull": "Super Bull",
+    "capsasusun": "Capsa Susun",
+    "dominodealer": "Domino Dealer",
+    "jokerspin": "Joker Spin"
   },
   "register": {
     "title": "REGISTER",

@@ -12,6 +12,7 @@ import { LikeButton } from '../../Button/LikeButton'
 import { PlayButton } from '../../Button/PlayButton'
 import Link from 'next/link'
 import { Locale } from '@/i18n-config'
+import { LangProps } from '@/types/langProps'
 
 const gameCardVariants = cva('', {
   variants: {
@@ -32,7 +33,7 @@ const gameTitleVariants = cva(cn('uppercase text-white text-center font-extrabol
     title: {
       large: 'leading-none mb-0.5 text-sm tracking-[-0.56px] md:text-[24.391px] md:tracking-[-0.976px]',
       big: 'leading-none mb-0.5 text-sm tracking-[-0.56px] md:text-base md:tracking-[-0.64px]',
-      main: 'leading-[88%] md:leading-none mb-0.5 text-[10px] tracking-[-0.4px] md:text-sm md:tracking-[-0.56px]',
+      main: 'leading-[88%] md:leading-none mb-0.5 text-[12px] tracking-[-0.4px] md:text-base md:tracking-[-0.56px]',
       provider: 'leading-[88%] mb-0.5 text-[10px] tracking-[-0.4px]'
     },
     line1: {
@@ -92,6 +93,7 @@ export interface GameCardProps {
   onClickOpenGames?: (id: string) => void
   locale?: Locale
   isOpening?: boolean
+  lang?: LangProps
 }
 
 export function GameCard({
@@ -108,7 +110,8 @@ export function GameCard({
   onRequireLogin,
   onClickOpenGames,
   locale,
-  isOpening = false
+  isOpening = false,
+  lang
 }: GameCardProps) {
   // Debug render
   const variantClass = gameCardVariants({ variant })
@@ -157,31 +160,10 @@ export function GameCard({
             // accent && 'bg-gradient-to-b from-transparent via-[var(--game-card-accent)] to-[var(--game-card-accent)]'
           )}
         >
-          {/* <div className={gameTitleVariants({ title: variant })}>{title}</div> */}
-          {/* <div className={gameProviderVariants({ variant })}>{provider}</div> */}
-
-          {variant !== 'provider' && (
-            <div>
-              <div
-                className={cn(
-                  'h-5 py-0.5 bg-[#070d1733] rounded-full hover:bg-white/30 text-white border border-app-grey12op text-xs backdrop-blur-[6px] inline-flex items-center justify-between [&>svg]:w-4 [&>svg]:h-4',
-                  variant === 'main' &&
-                    'text-[10px] [&&>svg]:w-3 [&&>svg]:h-3 md:text-xs md:[&&>svg]:w-4 md:[&&>svg]:h-4',
-                  playersCount > 0 ? (variant === 'main' ? 'px-[6px]' : 'pl-[7px] pr-1') : 'px-[7px]'
-                )}
-              >
-                {playersCount > 0 ? (
-                  <>
-                    <span className='w-[6px] h-[6px] bg-ds-accent-green50p mr-1 rounded-full' />
-                    <span className={cn('leading-none font-medium', classes.textShadowAlternate)}>{playersCount}</span>
-                    <IconUser className='w-4 h-4' />
-                  </>
-                ) : (
-                  'You in?'
-                )}
-              </div>
-            </div>
-          )}
+          <div className={gameTitleVariants({ title: variant })}>
+            {lang?.game?.[title.toLowerCase().replace(/\s+/g, '')] ?? title}
+          </div>
+          <div className={gameProviderVariants({ variant })}>{provider}</div>
         </div>
       </div>
 
@@ -192,19 +174,27 @@ export function GameCard({
         </div>
       )}
 
-      {/* Play overlay */}
-      {/* <div
-        // href={`${locale}/play-game/${id}`}
-        onClick={handleClick}
-        className={cn(
-          variantClass,
-          'absolute inset-0 z-20 hidden opacity-0 transition-opacity duration-300 ease-in-out',
-          'group-hover:flex group-hover:items-center group-hover:justify-center group-hover:opacity-100',
-          'bg-game-card-overlay'
+      <div className='absolute top-[6px] right-[10px] z-10'>
+        {variant !== 'provider' && (
+          <div
+            className={cn(
+              'h-5 py-0.5 bg-[#070d1733] rounded-full hover:bg-white/30 text-white border border-app-grey12op text-xs backdrop-blur-[6px] inline-flex items-center justify-between [&>svg]:w-4 [&>svg]:h-4',
+              variant === 'main' && 'text-[10px] [&&>svg]:w-3 [&&>svg]:h-3 md:text-xs md:[&&>svg]:w-4 md:[&&>svg]:h-4',
+              playersCount > 0 ? (variant === 'main' ? 'px-[6px]' : 'pl-[7px] pr-1') : 'px-[7px]'
+            )}
+          >
+            {playersCount > 0 ? (
+              <>
+                <span className='w-[6px] h-[6px] bg-ds-accent-green50p mr-1 rounded-full' />
+                <span className={cn('leading-none font-medium', classes.textShadowAlternate)}>{playersCount}</span>
+                <IconUser className='w-4 h-4' />
+              </>
+            ) : (
+              'You in?'
+            )}
+          </div>
         )}
-      >
-        <PlayButton size={PLAY_BUTTON_SIZE[variant!]} />
-      </div> */}
+      </div>
 
       <div
         onClick={isOpening ? undefined : handleClick}
@@ -221,7 +211,7 @@ export function GameCard({
 
       {isOpening && (
         <div className='absolute inset-0 z-30 grid place-items-center bg-black/50 backdrop-blur-sm'>
-          <div className='text-white text-xs md:text-sm'>Opening…</div>
+          <div className='text-white text-xs md:text-sm'>{lang?.common?.opening}…</div>
         </div>
       )}
     </div>

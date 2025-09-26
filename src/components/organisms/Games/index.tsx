@@ -10,6 +10,7 @@ import LoginModal from '../Login'
 import { GameListProps } from './types'
 import { GameGridSkeleton } from '@/components/atoms/Skeleton/GameGridSkeleton'
 import { GameCardSkeleton } from '@/components/atoms/Skeleton/GameCardSkeleton'
+import GameCardLive from '@/components/atoms/Card/GameCardLive'
 
 export default function ListGamePage({
   lang,
@@ -74,7 +75,7 @@ export default function ListGamePage({
     }
   }
 
-  function stableCount(id: string, max = 1000) {
+  function stableCount(id: string, max = 700) {
     let h = 0
     for (let i = 0; i < id.length; i++) h = (h << 5) - h + id.charCodeAt(i)
     return Math.abs(h) % max
@@ -189,13 +190,15 @@ export default function ListGamePage({
                     shrink-0 min-w-0
                   '
                 >
-                  <GameCard
+                  <GameCardLive
+                    seedIndex={i}
+                    lang={lang}
                     locale={locale}
                     id={items?.id}
                     image={items.image}
                     provider={items.provider}
                     title={items.title}
-                    playersCount={stableCount(items?.id || `${items.title}-${items.provider}`)}
+                    // playersCount={stableCount(items?.id || `${items.title}-${items.provider}`)}
                     isLogin={isLogin}
                     onRequireLogin={() => setLoginOpen(true)}
                     onClickOpenGames={(id: any) => onClickOpenGames(id)}

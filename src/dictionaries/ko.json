@@ -219,7 +219,23 @@
     "cryptoDeposit": "암호화폐 입금",
     "minimalDeposit": "최소 입금액",
     "appliedPromotion": "적용된 프로모션",
-    "rolesMsgHomepage": "사용 가능한 게임 목록을 보려면 사용자 계정에 로그인하세요"
+    "rolesMsgHomepage": "사용 가능한 게임 목록을 보려면 사용자 계정에 로그인하세요",
+    "opening": "오프닝"
+  },
+  "game": {
+    "texaspoker": "텍사스 홀덤",
+    "omaha": "오마하",
+    "tournament": "토너먼트",
+    "super10": "슈퍼 텐",
+    "domino": "도미노",
+    "cemekeliling": "체메 켈릴링",
+    "ceme": "체메",
+    "capsa": "빅투 (캅사)",
+    "qqspirit": "QQ 스피릿",
+    "superbull": "슈퍼 불",
+    "capsasusun": "캅사 수순",
+    "dominodealer": "도미노 딜러",
+    "jokerspin": "조커 스핀"
   },
   "register": {
     "title": "등록하다",
