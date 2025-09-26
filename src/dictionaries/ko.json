@@ -63,6 +63,7 @@
     "typeAccountNumber": "계좌 번호 입력",
     "myBalance": "내 잔액",
     "totalBalance": "총 잔액",
+    "totalIDNBalance": "총 IDN 포커 잔액",
     "totalMainBalance": "총 메인 잔액",
     "totalBonusBalance": "총 보너스 잔액",
     "balanceDetails": "잔액 상세",
@@ -220,13 +221,21 @@
     "minimalDeposit": "최소 입금액",
     "appliedPromotion": "적용된 프로모션",
     "rolesMsgHomepage": "사용 가능한 게임 목록을 보려면 사용자 계정에 로그인하세요",
-    "opening": "오프닝"
+    "opening": "오프닝",
+    "convert": "전환",
+    "transferIn": "입금 이체",
+    "transferOut": "출금 이체",
+    "transferInMsg": "보유 잔액을 KPoker에서 IDN Poker로 쉽게 이체하세요",
+    "transferOutMsg": "보유 잔액을 IDN Poker에서 KPoker로 쉽게 이체하세요",
+    "transferAmount": "이체 금액",
+    "typeAmount": "금액 입력",
+    "submit": "제출"
   },
   "game": {
     "texaspoker": "텍사스 홀덤",
     "omaha": "오마하",
     "tournament": "토너먼트",
-    "super10": "슈퍼 텐",
+    "superten": "슈퍼 텐",
     "domino": "도미노",
     "cemekeliling": "체메 켈릴링",
     "ceme": "체메",
@@ -347,7 +356,10 @@
     "id_card_max": "신분증 정보가 너무 깁니다.",
     "coin_network_required": "코인 네트워크를 선택하세요",
     "crypto_required": "암호화폐를 선택하세요",
-    "referral_code_max": "추천 코드는 정확히 6자여야 합니다"
+    "referral_code_max": "추천 코드는 정확히 6자여야 합니다",
+    "transfer_required": "이체 금액은 필수입니다",
+    "transfer_numeric_only": "금액은 숫자만 입력해야 합니다",
+    "transfer_gt_zero": "금액은 0보다 커야 합니다"
   },
   "notification": {
     "depositApprovedTitle": "입금 승인됨",
