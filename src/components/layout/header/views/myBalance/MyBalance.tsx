@@ -328,7 +328,7 @@ export default function MyBalance({ lang, locale, onClose, data }: MyBalanceProp
               onClick={() => setShowIDNBalance(!showIDNBalance)}
               className='text-app-neutral500 hover:text-app-text-color'
             >
-              {showBonusBalance ? <EyeOff className='h-5 w-5' /> : <Eye className='h-5 w-5' />}
+              {showIDNBalance ? <EyeOff className='h-5 w-5' /> : <Eye className='h-5 w-5' />}
             </button>
           </div>
           <div className='flex flex-row items-center justify-between gap-2'>
@@ -348,7 +348,7 @@ export default function MyBalance({ lang, locale, onClose, data }: MyBalanceProp
                   )}
                 >
                   {data !== undefined && data !== null ? (
-                    showBonusBalance ? (
+                    showIDNBalance ? (
                       thousandSeparatorComma(Number(data?.provider_balance))
                     ) : (
                       <span className='inline-flex gap-1 items-center'>
