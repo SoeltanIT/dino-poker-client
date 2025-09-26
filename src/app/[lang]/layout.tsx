@@ -22,8 +22,7 @@ export const viewport: Viewport = {
 const commonKeywords = [
   'poker',
   'poker korea',
-  'poker korea 777',
-  'poker777',
+  'kpoker',
   'online poker',
   'texas holdem',
   'poker tournaments',
@@ -80,10 +79,10 @@ export async function generateMetadata({ params }: { params: { lang: Locale } })
     ]
   }
 
-  let canonical = 'https://pokerkorea777.com'
+  let canonical = 'https://kpoker.gg'
 
   return {
-    title: initialSEO?.title ?? lang.metadata?.title ?? 'POKER777',
+    title: initialSEO?.title ?? lang.metadata?.title ?? 'KPOKER.gg',
     description: initialSEO?.description ?? lang.metadata?.description,
     keywords: initialSEO?.keyword ?? localizedKeywords[params.lang],
     // openGraph: {
@@ -139,17 +138,17 @@ export default async function RootLayout({
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'WebSite',
-              name: 'POKER KOREA 777',
-              url: 'https://pokerkorea777.com/',
-              alternateName: ['Poker Korea 777'],
+              name: 'KPOKER',
+              url: 'https://kpoker.gg/',
+              alternateName: ['KPOKER'],
               inLanguage: ['en', 'ko'],
               publisher: {
                 '@type': 'Organization',
-                name: 'Poker Korea 777',
-                url: 'https://pokerkorea777.com/',
+                name: 'KPOKER',
+                url: 'https://kpoker.gg/',
                 logo: {
                   '@type': 'ImageObject',
-                  url: 'https://pokerkorea777.com/images/logo.png',
+                  url: 'https://kpoker.gg/images/logo.png',
                   width: 512,
                   height: 512
                 }
