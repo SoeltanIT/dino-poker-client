@@ -170,7 +170,7 @@ export default function MyBalance({ lang, locale, onClose, data }: MyBalanceProp
       </div>
 
       {/* Balance Card */}
-      <Card className='bg-app-background-secondary rounded-xl p-3 mb-6'>
+      <Card className='bg-app-background-secondary rounded-xl p-3 mb-4'>
         <div className='flex flex-col space-y-2'>
           <div className='flex items-center justify-between'>
             <span className='text-sm text-app-neutral500'>{lang?.common?.totalMainBalance ?? 'Total Balance'}</span>
@@ -218,7 +218,7 @@ export default function MyBalance({ lang, locale, onClose, data }: MyBalanceProp
 
       {/* Bonus Balance */}
       {data?.bonus_balance !== 0 && (
-        <Card className='bg-app-background-secondary rounded-xl p-3 mb-6'>
+        <Card className='bg-app-background-secondary rounded-xl p-3 mb-4'>
           <div className='flex flex-col space-y-2'>
             <div className='flex items-center justify-between'>
               <span className='text-sm text-app-neutral500'>{lang?.common?.totalBonusBalance ?? 'Total Balance'}</span>
@@ -318,7 +318,7 @@ export default function MyBalance({ lang, locale, onClose, data }: MyBalanceProp
         </div>
       </div> */}
 
-      <Card className='bg-app-background-secondary rounded-xl p-3 mb-6'>
+      <Card className='bg-app-background-secondary rounded-xl p-3 mb-4'>
         <div className='flex flex-col space-y-2'>
           <div className='flex items-center justify-between'>
             <span className='text-sm text-app-neutral500'>
