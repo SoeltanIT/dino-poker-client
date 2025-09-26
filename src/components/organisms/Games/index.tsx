@@ -167,7 +167,7 @@ export default function ListGamePage({
   }
 
   return (
-    <main className='w-full min-h-screen px-4 py-6'>
+    <main className='w-full min-h-screen px-4 py-4'>
       {/* Flex container using basis for columns */}
       {roles === 3 ? (
         <div className='flex min-h-screen items-center justify-center py-24 text-center gap-4'>
