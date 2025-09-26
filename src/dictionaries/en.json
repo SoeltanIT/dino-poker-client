@@ -219,7 +219,23 @@
     "cryptoDeposit": "Crypto Deposit",
     "minimalDeposit": "Minimal Deposit",
     "appliedPromotion": "Applied Promotion",
-    "rolesMsgHomepage": "Please login to your User Account to see list of games available"
+    "rolesMsgHomepage": "Please login to your User Account to see list of games available",
+    "opening": "Opening"
+  },
+  "game": {
+    "texaspoker": "Texas Poker",
+    "omaha": "Omaha",
+    "tournament": "Tournament",
+    "super10": "Super 10",
+    "domino": "Domino",
+    "cemekeliling": "Ceme Keliling",
+    "ceme": "Ceme",
+    "capsa": "Capsa",
+    "qqspirit": "QQ Spirit",
+    "superbull": "Super Bull",
+    "capsasusun": "Capsa Susun",
+    "dominodealer": "Domino Dealer",
+    "jokerspin": "Joker Spin"
   },
   "register": {
     "title": "REGISTER",
@@ -346,7 +362,7 @@
     "withdrawRejected": "Your withdrawal of {{amount}} has been rejected. For more information, please contact us via Livechat."
   },
   "metadata": {
-    "title": "Poker Korea 777 - Online Poker, Texas Hold'em & Live Tournaments",
+    "title": "KPOKER.gg - Online Poker, Texas Hold'em & Live Tournaments",
     "description": "Play online poker with live tables, Texas Hold'em tournaments, live results, odds, and streaming. Join poker rooms and enjoy exciting games anytime.",
     "sportTitle": "Sports Betting | GOWIN.GG",
     "sportDescription": "Bet on football, basketball, tennis, and top esports like Dota 2, LoL, and Valorant. Enjoy live odds, in-play betting, and the best sportsbook experience at GOWIN.GG.",

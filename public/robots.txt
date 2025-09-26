@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://pokerkorea777.com
+Host: https://kpoker.gg
 
 # Sitemaps
-Sitemap: https://pokerkorea777.com/sitemap.xml
+Sitemap: https://kpoker.gg/sitemap.xml

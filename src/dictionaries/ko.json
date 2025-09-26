@@ -219,7 +219,23 @@
     "cryptoDeposit": "암호화폐 입금",
     "minimalDeposit": "최소 입금액",
     "appliedPromotion": "적용된 프로모션",
-    "rolesMsgHomepage": "사용 가능한 게임 목록을 보려면 사용자 계정에 로그인하세요"
+    "rolesMsgHomepage": "사용 가능한 게임 목록을 보려면 사용자 계정에 로그인하세요",
+    "opening": "오프닝"
+  },
+  "game": {
+    "texaspoker": "텍사스 홀덤",
+    "omaha": "오마하",
+    "tournament": "토너먼트",
+    "super10": "슈퍼 텐",
+    "domino": "도미노",
+    "cemekeliling": "체메 켈릴링",
+    "ceme": "체메",
+    "capsa": "빅투 (캅사)",
+    "qqspirit": "QQ 스피릿",
+    "superbull": "슈퍼 불",
+    "capsasusun": "캅사 수순",
+    "dominodealer": "도미노 딜러",
+    "jokerspin": "조커 스핀"
   },
   "register": {
     "title": "등록하다",
@@ -346,7 +362,7 @@
     "withdrawRejected": "{{amount}}원 출금이 거절되었습니다. 자세한 내용은 라이브챗으로 문의해 주세요."
   },
   "metadata": {
-    "title": "Poker Korea 777 - 온라인 포커, 텍사스 홀덤 & 라이브 토너먼트",
+    "title": "KPOKER.gg - 온라인 포커, 텍사스 홀덤 & 라이브 토너먼트",
     "description": "실시간 온라인 포커 게임, 텍사스 홀덤 토너먼트, 라이브 결과와 배당률, 포커룸과 다양한 게임을 언제 어디서나 즐겨보세요.",
     "sportTitle": "스포츠 베팅 | GOWIN.GG",
     "sportDescription": "축구, 농구, 테니스와 Dota 2, 롤, 발로란트 같은 인기 e스포츠에 베팅하세요. 라이브 배당률, 인플레이 베팅, 최고의 스포츠북 경험을 GOWIN.GG에서 즐겨보세요.",
