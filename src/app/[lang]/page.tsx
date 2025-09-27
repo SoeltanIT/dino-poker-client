@@ -2,6 +2,7 @@ import ListGamePage from '@/components/organisms/Games'
 import { getDictionary, getLocal } from '@/dictionaries/dictionaries'
 import { getGameList } from '@/utils/api/internal/getGameList'
 
+export const dynamic = "force-static"
 export const revalidate = 60
 
 export default async function Home({ params, ...props }: any) {
