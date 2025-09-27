@@ -2,8 +2,6 @@ import ListGamePage from '@/components/organisms/Games'
 import { getDictionary, getLocal } from '@/dictionaries/dictionaries'
 import { getGameList } from '@/utils/api/internal/getGameList'
 
-export const revalidate = 60
-
 export default async function Home({ params, ...props }: any) {
   const locale = await getLocal()
   const dict = await getDictionary(params?.lang)
