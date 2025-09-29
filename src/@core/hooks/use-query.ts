@@ -7,6 +7,12 @@ import type { AxiosRequestConfig, AxiosError } from 'axios'
 import { handleError } from '../utils/handleError'
 import { getApiClient } from '../lib/axios-client'
 
+type CacheOptions = {
+  sMaxage?: number // seconds for CDN
+  swr?: number // seconds for stale-while-revalidate
+  cacheKey?: string // optional debug
+}
+
 // Enhanced GetData - REMOVED requiresAuth, only use skipAuth
 function GetData<FetchingT>(
   url: string,
@@ -19,14 +25,11 @@ function GetData<FetchingT>(
   otherQueryOptions?: Omit<UseQueryOptions<FetchingT, unknown, FetchingT, typeof key>, 'queryKey' | 'queryFn'>,
   method: 'GET' | 'POST' = 'GET',
   body?: Record<string, any>,
-  apiType: 'user' | 'transaction' | 'promotion' = 'user'
+  apiType: 'user' | 'transaction' | 'promotion' = 'user',
+  cache?: CacheOptions // 👈 NEW
 ) {
   // 🔍 THIS IS WHERE status COMES FROM
   const { data: session, status } = useSession()
-  // useSession() returns: { data: session | null, status: "loading" | "authenticated" | "unauthenticated" }
-
-  // console.log('[GetData] Session status:', status) // 👈 Add this to see the values
-  // console.log('[GetData] Session data:', session) // 👈 Add this to see the session
 
   const isAuthenticated = status === 'authenticated' && !!session
 
@@ -36,24 +39,21 @@ function GetData<FetchingT>(
   const fetchData = async (): Promise<FetchingT> => {
     try {
       const client = getApiClient(apiType)
-      let response
+      const headers: Record<string, string> = {}
+      if (cache?.sMaxage != null) headers['x-s-maxage'] = String(cache.sMaxage)
+      if (cache?.swr != null) headers['x-swr'] = String(cache.swr)
+      if (cache?.cacheKey) headers['x-cache-key'] = cache.cacheKey
 
-      // Pass skipAuth info to interceptor via metadata
       const config: AxiosRequestConfig = {
-        metadata: { skipAuth }
+        metadata: { skipAuth },
+        headers,
+        params: method === 'GET' ? body : undefined // 👈 body becomes query params for GET
       }
 
-      if (method === 'GET') {
-        response = await client.get(url, config)
-      } else {
-        response = await client.post(url, body, config)
-      }
+      const res = method === 'GET' ? await client.get(url, config) : await client.post(url, body, config)
 
-      if (isShowMsg && successMessage) {
-        toast.success(successMessage)
-      }
-
-      return response.data
+      if (isShowMsg && successMessage) toast.success(successMessage)
+      return res.data
     } catch (error: any) {
       //console.error('[GetData] ❌ Request failed:', error)
       await handleError(error)
@@ -138,11 +138,7 @@ function useMutationQuery<BodyT, ResponseData>(
       })
       return queryClient.invalidateQueries({ queryKey: key })
     },
-    onError: async (error: AxiosError<any>) => {
-      //console.log('[MutationQuery] ⚠️ Mutation failed. Error handled in mutationFn')
-      // const errorMessage = error?.response?.data?.message || error?.message || 'Something went wrong'
-      // toast.error(errorMessage)
-    }
+    onError: async (error: AxiosError<any>) => {}
   })
 }
 

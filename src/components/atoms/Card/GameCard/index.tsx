@@ -13,6 +13,7 @@ import { PlayButton } from '../../Button/PlayButton'
 import Link from 'next/link'
 import { Locale } from '@/i18n-config'
 import { LangProps } from '@/types/langProps'
+import { useBgLazyImage } from '@/utils/hooks/useBgLazyImage'
 
 const gameCardVariants = cva('', {
   variants: {
@@ -114,6 +115,12 @@ export function GameCard({
   lang
 }: GameCardProps) {
   // Debug render
+
+  const { ref, bg, loaded } = useBgLazyImage({
+    src: image
+    // preview: props.preview, // if you have one
+  })
+
   const variantClass = gameCardVariants({ variant })
   const [liked, setLiked] = useState<boolean>(false)
 
@@ -133,6 +140,7 @@ export function GameCard({
       >
         {image && (
           <div
+            ref={ref}
             aria-hidden
             className='
           absolute inset-0 bg-center bg-cover
@@ -144,7 +152,7 @@ export function GameCard({
             style={
               {
                 '--game-card-image-url': `url(${image})`,
-                backgroundImage: 'var(--game-card-image-url)'
+                backgroundImage: bg ? `url(${bg})` : undefined
               } as CSSProperties
             }
           />
