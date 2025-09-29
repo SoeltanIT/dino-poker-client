@@ -11,12 +11,19 @@ function getLocaleFromRequest(request: Request): Locale {
 }
 
 // 🎯 WRAPPER FUNCTION - Use this in all your API routes
-export async function withAuthErrorHandling<T>(request: Request, handler: () => Promise<T>): Promise<NextResponse> {
+export async function withAuthErrorHandling<T>(
+  request: Request,
+  handler: () => Promise<T | Response>
+): Promise<Response> {
   const locale = getLocaleFromRequest(request)
   const lang = await getDictionary(locale)
 
   try {
     const result = await handler()
+
+    // 👇 If handler already returned a Response, don't re-wrap it
+    if (result instanceof Response) return result
+
     return NextResponse.json(result)
   } catch (error: any) {
     // console.error('[API Route] Error:', error)
