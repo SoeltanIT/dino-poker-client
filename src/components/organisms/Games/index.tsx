@@ -189,6 +189,8 @@ export default function ListGamePage({
     setOpeningGameId(id)
   }
 
+  const PRIORITY_COUNT = 12
+
   return (
     <main className='w-full min-h-screen px-4 py-4'>
       {/* Flex container using basis for columns */}
@@ -227,6 +229,7 @@ export default function ListGamePage({
                     onClickOpenGames={(id: any) => onClickOpenGames(id)}
                     className='w-full h-full min-w-0'
                     isOpening={openingGameId === items.id && isFetchingGameDetail}
+                    priority={page === 1 && i < PRIORITY_COUNT}
                   />
                 </div>
               ))}

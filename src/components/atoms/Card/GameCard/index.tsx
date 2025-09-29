@@ -14,6 +14,7 @@ import Link from 'next/link'
 import { Locale } from '@/i18n-config'
 import { LangProps } from '@/types/langProps'
 import { useBgLazyImage } from '@/utils/hooks/useBgLazyImage'
+import Image from 'next/image'
 
 const gameCardVariants = cva('', {
   variants: {
@@ -95,6 +96,7 @@ export interface GameCardProps {
   locale?: Locale
   isOpening?: boolean
   lang?: LangProps
+  priority?: boolean
 }
 
 export function GameCard({
@@ -112,15 +114,11 @@ export function GameCard({
   onClickOpenGames,
   locale,
   isOpening = false,
-  lang
+  lang,
+  priority = false
 }: GameCardProps) {
   // Debug render
-
-  const { ref, bg, loaded } = useBgLazyImage({
-    src: image
-    // preview: props.preview, // if you have one
-  })
-
+  const [loaded, setLoaded] = useState(false)
   const variantClass = gameCardVariants({ variant })
   const [liked, setLiked] = useState<boolean>(false)
 
@@ -129,34 +127,30 @@ export function GameCard({
     else onClickOpenGames?.(id)
   }
 
+  const SIZES = '(max-width: 768px) 50vw, (min-width: 768px) 25vw, 33vw' // grid: 2 cols mobile, 4 cols desktop
+
+  const proxied = `/api/images?src=${encodeURIComponent(image)}`
+
   return (
     <div className={cn(variantClass, 'relative group', className)}>
-      {/* IMAGE WRAPPER (keeps border & aspect) */}
-      <div
-        className={cn(
-          variantClass,
-          'relative border border-app-grey12op aspect-[3/4] flex-shrink-0 overflow-hidden shadow-md'
-        )}
-      >
-        {image && (
-          <div
-            ref={ref}
-            aria-hidden
-            className='
-          absolute inset-0 bg-center bg-cover
-          transition-[transform,filter] duration-500 ease-out
-          group-hover:scale-[1.06] group-hover:brightness-110
-          [will-change:transform]
-          motion-reduce:transition-none motion-reduce:transform-none
-        '
-            style={
-              {
-                '--game-card-image-url': `url(${image})`,
-                backgroundImage: bg ? `url(${bg})` : undefined
-              } as CSSProperties
-            }
-          />
-        )}
+      {/* IMAGE FRAME (keeps aspect 3/4 and rounded border) */}
+      <div className={cn('relative aspect-[3/4] overflow-hidden border border-app-grey12op rounded-xl md:rounded-2xl')}>
+        <Image
+          src={proxied}
+          alt={title}
+          fill
+          sizes={SIZES}
+          // If you have a tiny preview, pass it:
+          // placeholder="blur"
+          // blurDataURL={props.preview}
+          priority={priority} // set true for first ~4–6 cards above the fold
+          onLoad={() => setLoaded(true)}
+          className={cn(
+            'object-cover transition-[transform,filter,opacity] duration-500 ease-out',
+            'group-hover:scale-[1.06] group-hover:brightness-110',
+            loaded ? 'opacity-100' : 'opacity-90 blur-[6px]' // blur-up fallback if you don’t have blurDataURL
+          )}
+        />
       </div>
 
       {/* Content */}
