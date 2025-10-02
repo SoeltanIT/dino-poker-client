@@ -11,6 +11,8 @@ export const API_ENDPOINT = {
   move_balance: '/v1/move-balance',
   transfer_IDN_balance: '/v1/aggregator/sync-balance',
   referral: '/v1/referral',
+  rakeBackBonus: '/v1/referral/rakeback',
+  rakeBackClaim: '/v1/referral/rakeback/claim',
   referral_claim: '/v1/referral-claim',
   referral_history: '/v1/referral-history',
   referral_group_history: '/v1/group-referral-history',
