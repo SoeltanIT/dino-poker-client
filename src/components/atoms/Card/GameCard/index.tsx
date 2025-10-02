@@ -6,15 +6,12 @@ import { VariantProps, cva } from 'class-variance-authority'
 import { IconUser } from '@/components/atoms/Icons'
 import { cn } from '@/lib/utils'
 
-import classes from './GameCard.module.css'
-import { GameTag } from './GameTag'
-import { LikeButton } from '../../Button/LikeButton'
-import { PlayButton } from '../../Button/PlayButton'
-import Link from 'next/link'
 import { Locale } from '@/i18n-config'
 import { LangProps } from '@/types/langProps'
-import { useBgLazyImage } from '@/utils/hooks/useBgLazyImage'
 import Image from 'next/image'
+import { PlayButton } from '../../Button/PlayButton'
+import classes from './GameCard.module.css'
+import { GameTag } from './GameTag'
 
 const gameCardVariants = cva('', {
   variants: {
