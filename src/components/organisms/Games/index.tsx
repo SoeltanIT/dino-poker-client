@@ -194,13 +194,12 @@ export default function ListGamePage({
   return (
     <main className='w-full min-h-screen px-4 py-4'>
       {/* Flex container using basis for columns */}
-      {roles === 3 ? (
+      {/* {roles === 3 ? (
         <div className='flex min-h-screen items-center justify-center py-24 text-center gap-4'>
           <span className='text-app-text-color text-2xl w-[50%]'>{lang?.common?.rolesMsgHomepage}</span>
         </div>
       ) : listGame ? (
         <div>
-          {/* GRID */}
           {showInitialSkeleton ? (
             <GameGridSkeleton count={12} />
           ) : (
@@ -223,7 +222,6 @@ export default function ListGamePage({
                     image={items.image}
                     provider={items.provider}
                     title={items.title}
-                    // playersCount={stableCount(items?.id || `${items.title}-${items.provider}`)}
                     isLogin={isLogin}
                     onRequireLogin={() => setLoginOpen(true)}
                     onClickOpenGames={(id: any) => onClickOpenGames(id)}
@@ -234,7 +232,6 @@ export default function ListGamePage({
                 </div>
               ))}
 
-              {/* Append skeletons while fetching the next page */}
               {showAppendSkeleton &&
                 Array.from({ length: 6 }).map((_, i) => (
                   <div
@@ -251,7 +248,6 @@ export default function ListGamePage({
             </div>
           )}
 
-          {/* LOAD MORE */}
           {page < totalPage && (
             <div className='flex justify-center pb-4 pt-10'>
               <Button disabled={isFetching} onClick={handleLoadMore}>
@@ -262,7 +258,69 @@ export default function ListGamePage({
         </div>
       ) : (
         <GameGridSkeleton count={12} />
-      )}
+      )} */}
+
+      <div>
+        {/* GRID */}
+        {showInitialSkeleton ? (
+          <GameGridSkeleton count={12} />
+        ) : (
+          <div className='flex flex-wrap gap-2'>
+            {listGame?.map((items, i) => (
+              <div
+                key={i}
+                onClick={() => setGameId(items.id)}
+                className='
+                    basis-[calc((100%-0.5rem*2)/3)]
+                    md:basis-[calc((100%-0.5rem*5)/6)]
+                    shrink-0 min-w-0
+                  '
+              >
+                <GameCardLive
+                  seedIndex={i}
+                  lang={lang}
+                  locale={locale}
+                  id={items?.id}
+                  image={items.image}
+                  provider={items.provider}
+                  title={items.title}
+                  // playersCount={stableCount(items?.id || `${items.title}-${items.provider}`)}
+                  isLogin={isLogin}
+                  onRequireLogin={() => setLoginOpen(true)}
+                  onClickOpenGames={(id: any) => onClickOpenGames(id)}
+                  className='w-full h-full min-w-0'
+                  isOpening={openingGameId === items.id && isFetchingGameDetail}
+                  priority={page === 1 && i < PRIORITY_COUNT}
+                />
+              </div>
+            ))}
+
+            {/* Append skeletons while fetching the next page */}
+            {showAppendSkeleton &&
+              Array.from({ length: 6 }).map((_, i) => (
+                <div
+                  key={`sk-${i}`}
+                  className='
+                      basis-[calc((100%-0.5rem*2)/3)]
+                      md:basis-[calc((100%-0.5rem*5)/6)]
+                      shrink-0 min-w-0
+                    '
+                >
+                  <GameCardSkeleton className='w-full h-full min-w-0' />
+                </div>
+              ))}
+          </div>
+        )}
+
+        {/* LOAD MORE */}
+        {page < totalPage && (
+          <div className='flex justify-center pb-4 pt-10'>
+            <Button disabled={isFetching} onClick={handleLoadMore}>
+              {isFetching ? `${lang?.common?.loading}...` : lang?.common?.loadMore}
+            </Button>
+          </div>
+        )}
+      </div>
 
       <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} lang={lang} locale={locale} />
     </main>
