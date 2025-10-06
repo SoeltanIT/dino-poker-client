@@ -145,6 +145,7 @@
     "promotion": "Promotion",
     "promo": "Promo",
     "claim": "Claim",
+    "claimBonus": "Claim Bonus",
     "back": "Back",
     "noPromo": "No Promotion",
     "noPromoFound": "No Promotion Found",
@@ -215,6 +216,7 @@
     "noMemberReferral": "No referral member found. Start to claim commission by inviting your friends",
     "optional": "Optional",
     "referralClaimedSuccessfully": "Referral Claimed Successfully",
+    "rakeBackClaimedSuccessfully": "Rake Back Bonus Claimed Successfully",
     "date": "Date",
     "depositCryptoNote": "Please select promotion before continue to Crypto Deposit for many interesting offers.",
     "cryptoDeposit": "Crypto Deposit",
@@ -243,7 +245,8 @@
     "userSharePlaceholder": "Enter user share percentage",
     "affiliateSharePlaceholder": "Enter affiliate share percentage",
     "changeSharedSettings": "Change Shared Settings",
-    "changeSharedSettingsSuccess": "Shared settings updated successfully"
+    "changeSharedSettingsSuccess": "Shared settings updated successfully""submit": "Submit",
+    "rakeBackBonus": "Rake Back Bonus"
   },
   "game": {
     "texaspoker": "Texas Poker",

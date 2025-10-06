@@ -145,6 +145,7 @@
     "promotion": "프로모션",
     "promo": "프로모",
     "claim": "받기",
+    "claimBonus": "보너스 받기",
     "back": "뒤로",
     "noPromo": "프로모션 없음",
     "noPromoFound": "프로모션이 없습니다",
@@ -215,6 +216,7 @@
     "noMemberReferral": "추천한 회원이 없습니다. 친구를 초대하고 커미션을 받아보세요.",
     "optional": "선택 사항",
     "referralClaimedSuccessfully": "추천 보너스가 성공적으로 지급되었습니다",
+    "rakeBackClaimedSuccessfully": "레이크백 보너스를 성공적으로 받았습니다",
     "date": "날짜",
     "depositCryptoNote": "다양한 흥미로운 혜택을 위해 암호화폐 입금을 진행하기 전에 프로모션을 선택해 주세요.",
     "cryptoDeposit": "암호화폐 입금",
@@ -239,7 +241,8 @@
     "availableShare": "사용 가능한 공유",
     "userShare": "사용자 공유",
     "affiliateShare": "제휴 공유",
-    "noSettings": "설정을 찾을 수 없습니다"
+    "noSettings": "설정을 찾을 수 없습니다""submit": "제출",
+    "rakeBackBonus": "레이크백 보너스"
   },
   "game": {
     "texaspoker": "텍사스 홀덤",

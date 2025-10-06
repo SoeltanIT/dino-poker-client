@@ -1,6 +1,7 @@
 import { Locale } from '@/i18n-config'
 import { BetHistoryDTO } from '@/types/betHistoryDTO'
 import { LangProps } from '@/types/langProps'
+import { RakeBackSummaryResponse } from '@/types/rakeBackDTO'
 import { TransactionListResponse } from '@/utils/api/internal/pokerHistory'
 
 export interface BetHistoryProps {
@@ -15,6 +16,7 @@ export interface BetHistoryProps {
 export interface PokerHistoryProps {
   lang?: LangProps
   locale?: Locale
+  initialSummaryData?: RakeBackSummaryResponse | null
   initialData?: TransactionListResponse | null
   initialPage: number
   isInitialLoading?: boolean

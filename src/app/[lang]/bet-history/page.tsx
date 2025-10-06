@@ -1,6 +1,7 @@
 import { getValidServerSession, handleServerAuthError } from '@/@core/lib/server-auth-utils'
 import BetHistoryPage from '@/components/organisms/Profile/BetHistory'
 import { getDictionary, getLocale } from '@/dictionaries/dictionaries'
+import { getRakeBackSummary } from '@/utils/api/internal/getRakeBackSummary'
 import { getListPokerTransaction } from '@/utils/api/internal/pokerHistory'
 
 // export const runtime = 'edge'
@@ -12,6 +13,7 @@ export default async function Page({ params, ...props }: any) {
   let isLoading = true // Set to true if you want to show loading state initially
 
   let initialData = null
+  let initialSummaryData = null
 
   try {
     // Check if user has valid session first
@@ -27,7 +29,19 @@ export default async function Page({ params, ...props }: any) {
       page: 1,
       pageSize: 10 // semua status
     })
-    if (initialData?.data) {
+
+    const [historyData, summaryData] = await Promise.all([
+      getListPokerTransaction({
+        page: 1,
+        pageSize: 10
+      }),
+      getRakeBackSummary()
+    ])
+
+    initialData = historyData
+    initialSummaryData = summaryData
+
+    if (initialData || initialSummaryData) {
       isLoading = false
     }
   } catch (err: any) {
@@ -51,6 +65,7 @@ export default async function Page({ params, ...props }: any) {
       lang={dict}
       locale={locale}
       initialData={initialData}
+      initialSummaryData={initialSummaryData}
       initialPage={1}
       isInitialLoading={isLoading}
       initialTotalPage={initialData?.totalPage || 1}
