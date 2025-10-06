@@ -27,6 +27,11 @@ export default async function Page({ params, ...props }: any) {
       isLoading = false
     }
   } catch (err: any) {
+    // ✅ CRITICAL: Re-throw Next.js navigation errors (redirect/notFound)
+    if (err?.digest?.startsWith('NEXT_REDIRECT') || err?.digest?.startsWith('NEXT_NOT_FOUND')) {
+      throw err
+    }
+
     isLoading = false
     // Handle 401 errors from backend
     if (err.isUnauthorized || err?.response?.status === 401) {
@@ -36,10 +41,8 @@ export default async function Page({ params, ...props }: any) {
 
     err = err.message || 'Failed to load data'
   }
-
-  return initialData ? (
-    <MyReferral lang={dict} locale={locale} isLoading={isLoading} initialData={initialData} />
-  ) : (
-    <div></div>
-  )
+  if (initialData) {
+    return <MyReferral lang={dict} locale={locale} isLoading={isLoading} initialData={initialData} />
+  }
+  return null
 }

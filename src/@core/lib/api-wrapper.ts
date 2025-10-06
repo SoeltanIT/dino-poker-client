@@ -118,7 +118,8 @@ export async function withAuthErrorHandling<T>(
       15002: 'failedToFetchConfig',
       15003: 'configNotFound',
       15004: 'failedToGetCurrencies',
-      15005: 'failedToGetLanguages'
+      15005: 'failedToGetLanguages',
+      16005: 'failedToUpdateReferralCommissionLimitSharedSettings'
     }
 
     // Map error codes to fallback English messages
@@ -186,7 +187,8 @@ export async function withAuthErrorHandling<T>(
       15002: 'Failed to fetch config',
       15003: 'Config not found',
       15004: 'Failed to get currencies',
-      15005: 'Failed to get languages'
+      15005: 'Failed to get languages',
+      16005: 'Commission limit reached: maximum 40% already allocated'
     }
 
     if (

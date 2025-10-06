@@ -43,7 +43,7 @@ export const authOptions: AuthOptions = {
             name: credentials.username,
             email,
             roles,
-            accessToken: token,
+            accessToken: token
           }
         } catch (err) {
           console.error('[authorize] Login error:', err)
@@ -122,5 +122,6 @@ export const authOptions: AuthOptions = {
       console.log('[NextAuth] User signed out')
     }
   },
-  secret: AUTH_SECRET
+  secret: AUTH_SECRET,
+  debug: process.env.NODE_ENV === 'development'
 }

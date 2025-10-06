@@ -11,20 +11,18 @@ import { ArrowLeft, Gift } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { ReferralGroupDetailProps } from './types'
+import { MyReferralGroupHistoryProps } from './types'
 
-export default function MyReferralGroupDetail({
+export default function MyReferralGroupHistory({
   lang,
   locale,
   initialData,
   initialSummaryData,
   isLoading: serverLoading
-}: ReferralGroupDetailProps) {
+}: MyReferralGroupHistoryProps) {
   const [page, setPage] = useState(1)
   const [totalPage, setTotalPage] = useState(initialData?.totalPage || 1)
   const [members, setMembers] = useState<ReferralGroupHistoryItem[]>(initialData?.data || [])
-
-  console.log('members >', members)
 
   const [isLoading, setIsLoading] = useState(serverLoading || false)
 

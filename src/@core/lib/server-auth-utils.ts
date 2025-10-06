@@ -50,13 +50,14 @@ export async function clearServerSession() {
   })
 }
 
-// ✅ This works fine! Keep your approach
+// ✅ FIXED: Don't catch redirect errors - they need to bubble up
 export async function handleServerAuthError(locale = 'ko') {
   console.log('[Server Auth] Handling auth error - clearing session and redirecting')
 
   // Clear server-side cookies
   await clearServerSession()
 
-  // ✅ redirect() works in API routes when called from server functions
+  // ✅ redirect() throws NEXT_REDIRECT which must NOT be caught
+  // This is how Next.js handles redirects internally
   redirect(`/${locale}`)
 }

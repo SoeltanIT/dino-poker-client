@@ -229,7 +229,21 @@
     "transferOutMsg": "Transfer your balance from IDN Poker to KPoker easily",
     "transferAmount": "Transfer Amount",
     "typeAmount": "Type Amount",
-    "submit": "Submit"
+    "submit": "Submit",
+    "settings": "Settings",
+    "create": "Create",
+    "myReferralGroupHistory": "My Referral History",
+    "sharedSettings": "Shared Settings",
+    "createAffiliate": "Create Affiliate",
+    "change": "Change",
+    "availableShare": "Available Share",
+    "userShare": "User Share",
+    "affiliateShare": "Affiliate Share",
+    "noSettings": "No settings found",
+    "userSharePlaceholder": "Enter user share percentage",
+    "affiliateSharePlaceholder": "Enter affiliate share percentage",
+    "changeSharedSettings": "Change Shared Settings",
+    "changeSharedSettingsSuccess": "Shared settings updated successfully"
   },
   "game": {
     "texaspoker": "Texas Poker",
@@ -359,7 +373,15 @@
     "referral_code_max": "Referral code must be exactly 6 characters",
     "transfer_required": "Transfer Amount Required",
     "transfer_numeric_only": "Amount must be numbers only",
-    "transfer_gt_zero": "Amount must be greater than 0"
+    "transfer_gt_zero": "Amount must be greater than 0",
+    "user_share_required": "User share is required",
+    "affiliate_share_required": "Affiliate share is required",
+    "user_share_numeric_only": "User share must be a number",
+    "affiliate_share_numeric_only": "Affiliate share must be a number",
+    "user_share_max": "User share must be at most 100",
+    "affiliate_share_max": "Affiliate share must be at most 100",
+    "user_share_min": "User share must be at least 0",
+    "affiliate_share_min": "Affiliate share must be at least 0"
   },
   "notification": {
     "depositApprovedTitle": "Deposit Approved",
@@ -453,7 +475,8 @@
     "failedToFetchConfig": "Failed to fetch config",
     "configNotFound": "Config not found",
     "failedToGetCurrencies": "Failed to get currencies",
-    "failedToGetLanguages": "Failed to get languages"
+    "failedToGetLanguages": "Failed to get languages",
+    "failedToUpdateReferralCommissionLimitSharedSettings": "Commission limit reached: maximum 40% already allocated"
   },
   "info": {
     "infoDate": "End date cleared because it was earlier than start date."

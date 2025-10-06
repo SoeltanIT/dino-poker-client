@@ -15,6 +15,12 @@ export async function withServerAuth<T>(locale: string, handler: () => Promise<T
     // Execute the handler
     return await handler()
   } catch (err: any) {
+    // ✅ CRITICAL: Re-throw Next.js navigation errors (redirect/notFound)
+    // These errors MUST bubble up to be handled by Next.js framework
+    if (err?.digest?.startsWith('NEXT_REDIRECT') || err?.digest?.startsWith('NEXT_NOT_FOUND')) {
+      throw err
+    }
+
     //console.error('[Server Component] Error:', err)
 
     // Handle 401 errors from backend

@@ -15,6 +15,9 @@ export const API_ENDPOINT = {
   referral_history: '/v1/referral-history',
   referral_group_history: '/v1/group-referral-history',
   referral_summary: '/v1/referral-summary',
+  referral_settings: '/v1/referral/shared-settings',
+  affiliates: '/v1/affiliates',
+  affiliates_user: '/v1/user-affiliate',
   betby_token: '/v1/token',
   seo: '/v1/seo',
 
