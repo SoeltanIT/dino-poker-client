@@ -13,7 +13,6 @@ export default function MyReferralGroupSettings({ lang, locale, initialData }: M
   const {
     data: respReferralSettings,
     isFetching: isFetchingSettings,
-    error: settingsError,
     refetch: refetchSettings
   } = useReferralSettings(initialData || undefined)
   const settings = respReferralSettings?.data
