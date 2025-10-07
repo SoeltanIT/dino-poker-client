@@ -8,7 +8,7 @@ d
 npm run dev
 # or
 yarn dev
-# ordw
+# ordws
 pnpm dev
 # or
 bun dev
