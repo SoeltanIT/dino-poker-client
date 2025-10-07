@@ -234,7 +234,7 @@ export default function CreateAffiliateSheet({ lang, trigger, onSuccess, parentC
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className='text-app-text-color text-sm mb-2 block'>
-                    Parent Code <span className='text-app-placeholder text-xs'>({lang?.common?.optional})</span>
+                    Parent Code 
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -251,7 +251,7 @@ export default function CreateAffiliateSheet({ lang, trigger, onSuccess, parentC
             />
 
             {/* Commission */}
-            <FormField
+            {/* <FormField
               control={form.control}
               name='commission'
               render={({ field }) => (
@@ -274,7 +274,7 @@ export default function CreateAffiliateSheet({ lang, trigger, onSuccess, parentC
                   <FormMessage />
                 </FormItem>
               )}
-            />
+            /> */}
 
             {/* Submit Button */}
             <div className='pt-8'>
