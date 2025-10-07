@@ -2,6 +2,7 @@
   "common": {
     "typeCodeName": "유형 코드명",
     "typeParentCode": "상위 코드 입력", 
+    "parentCode": "상위 코드",
     "userSharePlaceholder": "사용자 공유 비율 입력",
     "login": "로그인",
     "changeSharedSettings": "공유 설정 변경",
