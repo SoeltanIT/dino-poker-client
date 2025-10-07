@@ -126,6 +126,12 @@ export async function middleware(req: NextRequest) {
     return redirectToHome()
   }
 
+  const role = req.cookies.get('user_role')
+
+  if (role?.value != '3' && pathname == `/${currentLocale}/affiliates`) {
+    return NextResponse.redirect(new URL('/', req.url))
+  }
+
   // 🔐 Protected route check
   const isProtected = protectedRoutes.some(route => pathname.startsWith(`/${currentLocale}${route}`))
   if (isProtected) {

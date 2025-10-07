@@ -1,17 +1,19 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
+
 d
 First, run the development server:
 d
+
 ```bash
-npm run dev
+npm run devs
 # or
-yarn dev
+yarn devs
 # or
 pnpm devs
 # or
-bun devs
+bun devss
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
