@@ -61,9 +61,9 @@ export default function ChangeSharedSettingSheet({ lang, initialData, trigger, o
         }
       })
       if (resp?.status === 'success') {
-        // setOpen(false)
-        form.reset() // Keep the submitted values as new defaults
-        // onSuccess?.() // Trigger refetch or callback
+        setOpen(false)
+        // form.reset() // Keep the submitted values as new defaults
+        onSuccess?.() // Trigger refetch or callback
       }
     } catch (error) {
       return
@@ -104,7 +104,7 @@ export default function ChangeSharedSettingSheet({ lang, initialData, trigger, o
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className='text-app-text-color text-sm mb-2 block'>
-                   {lang?.common?.userShare || 'User Share'} (%)
+                    {lang?.common?.userShare || 'User Share'} (%)
                     <span className='text-app-danger'>*</span>
                   </FormLabel>
                   <FormControl>
