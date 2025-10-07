@@ -13,7 +13,8 @@ export const getReferralSettings = async (): Promise<ReferralSettingsResponse | 
       {
         params: bodyRequest
       },
-      'user'
+      'user',
+      false
     )
 
     const rawData = res?.data?.data
