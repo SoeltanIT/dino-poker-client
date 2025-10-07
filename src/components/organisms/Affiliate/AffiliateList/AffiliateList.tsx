@@ -34,7 +34,7 @@ export function AffiliateList({ lang, locale, initialAffiliateData }: AffiliateL
   )
   const affiliateList = respAffiliateList?.data
   const isLoading = isFetchingAffiliateList
-  const totalPage = respAffiliateList?.pagination?.total ?? 0
+  const totalPage = (respAffiliateList?.pagination?.total ?? 0) / 10
 
   const handleLoadMore = () => {
     if (page < totalPage) {
