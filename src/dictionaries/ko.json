@@ -1,7 +1,7 @@
 {
   "common": {
     "typeCodeName": "유형 코드명",
-    "typeParentCode": "상위 코드 입력", 
+    "typeParentCode": "상위 코드 입력",
     "parentCode": "상위 코드",
     "userSharePlaceholder": "사용자 공유 비율 입력",
     "login": "로그인",
@@ -249,8 +249,13 @@
     "affiliateShare": "제휴 공유",
     "noSettings": "설정을 찾을 수 없습니다",
     "rakeBackBonus": "레이크백 보너스",
-    "codeName": "코드명"
-
+    "codeName": "코드명",
+    "changeSharedSettingsSuccess": "공유 설정이 성공적으로 업데이트되었습니다",
+    "affiliateCreatedSuccessfully": "제휴가 성공적으로 생성되었습니다",
+    "affiliateCreatedFailed": "제휴 생성에 실패했습니다",
+    "noAffiliate": "제휴를 찾을 수 없습니다",
+    "userAffiliate": "사용자 제휴",
+    "affiliate": "제휴"
   },
   "game": {
     "texaspoker": "텍사스 홀덤",
@@ -380,7 +385,15 @@
     "referral_code_max": "추천 코드는 정확히 6자여야 합니다",
     "transfer_required": "이체 금액은 필수입니다",
     "transfer_numeric_only": "금액은 숫자만 입력해야 합니다",
-    "transfer_gt_zero": "금액은 0보다 커야 합니다"
+    "transfer_gt_zero": "금액은 0보다 커야 합니다",
+    "user_share_required": "사용자 공유는 필수입니다",
+    "affiliate_share_required": "제휴 공유는 필수입니다",
+    "user_share_numeric_only": "사용자 공유는 숫자만 입력해야 합니다",
+    "affiliate_share_numeric_only": "제휴 공유는 숫자만 입력해야 합니다",
+    "user_share_max": "사용자 공유는 최대 100까지 가능합니다",
+    "affiliate_share_max": "제휴 공유는 최대 100까지 가능합니다",
+    "user_share_min": "사용자 공유는 최소 0 이상이어야 합니다",
+    "affiliate_share_min": "제휴 공유는 최소 0 이상이어야 합니다"
   },
   "notification": {
     "depositApprovedTitle": "입금 승인됨",
@@ -475,7 +488,8 @@
     "configNotFound": "구성을 찾을 수 없습니다.",
     "failedToGetCurrencies": "통화를 가져오지 못했습니다.",
     "failedToGetLanguages": "언어를 가져오지 못했습니다.",
-    "ErrSharedSettingsNotFound":"설정을 찾을 수 없습니다."
+    "failedToUpdateReferralCommissionLimitSharedSettings": "커미션 한도 도달: 최대 40%가 이미 할당되었습니다",
+    "ErrSharedSettingsNotFound": "설정을 찾을 수 없습니다."
   },
   "info": {
     "infoDate": "종료일이 시작일보다 이전이어서 초기화되었습니다."
