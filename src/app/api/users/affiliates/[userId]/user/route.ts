@@ -6,14 +6,14 @@ import { getAffiliateUserList } from '@/utils/api/internal/getAffiliateUserList'
 export const dynamic = 'force-dynamic'
 
 // GET - Get shared settings
-export async function GET(
-  request: Request,
-  { params, searchParams }: { params: { userId: string }; searchParams: { page: string; pageSize: string } }
-) {
+export async function GET(request: Request, { params }: { params: { userId: string } }) {
+  const { searchParams } = new URL(request.url)
+  const page = searchParams.get('page') ?? '1'
+  const pageSize = searchParams.get('pageSize') ?? '10'
   return withAuthErrorHandling(request, async () => {
     return await getAffiliateUserList(params.userId, {
-      page: Number(searchParams?.page ?? 1),
-      pageSize: Number(searchParams?.pageSize ?? 10)
+      page: Number(page),
+      pageSize: Number(pageSize)
     })
   })
 }

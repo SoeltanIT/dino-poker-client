@@ -8,7 +8,7 @@ import { AffiliateListResponse } from '@/types/referralDTO'
 import { useAffiliateList } from '@/utils/api/internal/getAffiliateList'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export interface AffiliateListProps {
   lang: LangProps
@@ -18,23 +18,39 @@ export interface AffiliateListProps {
 
 export function AffiliateList({ lang, locale, initialAffiliateData }: AffiliateListProps) {
   const [page, setPage] = useState(1)
+  const [dataList, setDataList] = useState<AffiliateListResponse['data'] | null>(initialAffiliateData?.data || null)
 
   const { data: session, status } = useSession()
 
   const userId = session?.user?.id
 
   // Use client-side hooks for data fetching with server-side initial data
+  // Only use initialData for page 1, otherwise undefined to force fetch
   const { data: respAffiliateList, isFetching: isFetchingAffiliateList } = useAffiliateList(
     userId,
     {
       page: page,
       pageSize: 10
     },
-    initialAffiliateData
+    page === 1 ? initialAffiliateData : undefined
   )
-  const affiliateList = respAffiliateList?.data
   const isLoading = isFetchingAffiliateList
   const totalPage = (respAffiliateList?.pagination?.total ?? 0) / 10
+
+  useEffect(() => {
+    if (respAffiliateList) {
+      setDataList(prev => {
+        if (page === 1) {
+          return respAffiliateList?.data
+        } else {
+          // Check for duplicates before appending
+          const existingIds = new Set(prev?.map(a => `${a.id}`))
+          const newData = respAffiliateList?.data.filter(a => !existingIds.has(`${a.id}`))
+          return [...(prev || []), ...newData]
+        }
+      })
+    }
+  }, [respAffiliateList, page])
 
   const handleLoadMore = () => {
     if (page < totalPage) {
@@ -48,11 +64,9 @@ export function AffiliateList({ lang, locale, initialAffiliateData }: AffiliateL
       <div className='flex-1'>
         {/* Mobile Settings List */}
         <div className='lg:hidden'>
-          {isLoading ? (
-            <LoadingText lines={3} />
-          ) : affiliateList && affiliateList?.length > 0 ? (
+          {dataList && dataList?.length > 0 ? (
             <div className='space-y-3'>
-              {affiliateList.map((affiliate, index) => (
+              {dataList.map((affiliate, index) => (
                 <div
                   className='bg-app-background-secondary rounded-lg p-4 border border-gray-800 space-y-2'
                   key={index}
@@ -87,6 +101,7 @@ export function AffiliateList({ lang, locale, initialAffiliateData }: AffiliateL
               </div>
             </>
           )}
+          {isLoading && <LoadingText lines={3} />}
         </div>
 
         {/* Desktop Table */}
@@ -99,10 +114,8 @@ export function AffiliateList({ lang, locale, initialAffiliateData }: AffiliateL
             </div>
 
             <div className='rounded-lg bg-app-background-secondary border border-app-neutral600'>
-              {isLoading ? (
-                <LoadingTable columns={3} rows={1} showHeader={false} />
-              ) : affiliateList && affiliateList?.length > 0 ? (
-                affiliateList.map((affiliate, index) => (
+              {dataList && dataList?.length > 0 ? (
+                dataList.map((affiliate, index) => (
                   <div key={index} className='grid grid-cols-3 gap-4 p-4 last:border-b-0'>
                     <div className='text-app-text-color'>{affiliate.code_name}</div>
                     <div className='text-app-text-color'>{affiliate.username}</div>
@@ -121,6 +134,7 @@ export function AffiliateList({ lang, locale, initialAffiliateData }: AffiliateL
                   <p className='text-gray-300'>{lang?.common?.noAffiliate}.</p>
                 </div>
               )}
+              {isLoading && <LoadingTable columns={3} rows={1} showHeader={false} />}
             </div>
           </div>
         </div>

@@ -50,7 +50,7 @@ export const useAffiliateList = (
 ) => {
   return GetData<AffiliateListResponse>(
     '/affiliates/' + userId,
-    ['affiliates'],
+    ['getAffiliateList', params.page, params.pageSize, userId],
     false, // requires auth
     initialData || undefined,
     true, // enabled
@@ -58,7 +58,7 @@ export const useAffiliateList = (
     undefined, // no success message
     undefined, // no additional options
     'GET',
-    { page: params.page, pageSize: params.pageSize }, // no body
+    { page: params.page, pageSize: params.pageSize },
     'user' // api type
   )
 }
