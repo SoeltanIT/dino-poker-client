@@ -33,8 +33,7 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config }) =>
   const pathname = usePathname()
 
   const parts = pathname.split('/').filter(Boolean) // ["en", "sport"]
- const session = useSession()
-
+  const session = useSession()
   const { theme } = useThemeToggle()
 
   const { isLoading: isSessionLoading } = useAuth()
@@ -49,13 +48,15 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config }) =>
     ['getBalance'] //trigger put here if need to refresh on SSE event
   )
   const hasMounted = useHasMounted()
+
   useEffect(() => {
     if (typeof window === 'undefined') return
-  if (session?.data?.user?.roles) {
-  const maxAge = 7 * 24 * 60 * 60 // Convert days to seconds
-  document.cookie = `user_roles=${session?.data?.user?.roles}; path=/; max-age=${maxAge}; samesite=lax`
-  }
+    if (session?.data?.user?.roles) {
+      const maxAge = 7 * 24 * 60 * 60 // Convert days to seconds
+      document.cookie = `user_roles=${session?.data?.user?.roles}; path=/; max-age=${maxAge}; samesite=lax`
+    }
   }, [session])
+
   return (
     <div className='min-h-screen bg-app-background-primary text-app-text-color'>
       {/* Left Sidebar - fixed */}

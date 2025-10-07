@@ -33,7 +33,6 @@ export const authOptions: AuthOptions = {
 
           const resp = await res.json()
 
-
           if (resp.status !== 'success' || !resp.data?.token || !resp.data?.user_id) {
             return null
           }
