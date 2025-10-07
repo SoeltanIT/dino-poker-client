@@ -486,7 +486,8 @@
     "configNotFound": "Config not found",
     "failedToGetCurrencies": "Failed to get currencies",
     "failedToGetLanguages": "Failed to get languages",
-    "failedToUpdateReferralCommissionLimitSharedSettings": "Commission limit reached: maximum 40% already allocated"
+    "failedToUpdateReferralCommissionLimitSharedSettings": "Commission limit reached: maximum 40% already allocated",
+    "ErrSharedSettingsNotFound":"No Settings was found "
   },
   "info": {
     "infoDate": "End date cleared because it was earlier than start date."

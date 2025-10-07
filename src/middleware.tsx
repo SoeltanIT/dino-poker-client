@@ -126,7 +126,7 @@ export async function middleware(req: NextRequest) {
     return redirectToHome()
   }
 
-  const role = req.cookies.get('user_role')
+  const role = req.cookies.get('user_roles')
 
   if (role?.value != '3' && pathname == `/${currentLocale}/affiliates`) {
     return NextResponse.redirect(new URL('/', req.url))

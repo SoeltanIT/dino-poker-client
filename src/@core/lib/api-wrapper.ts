@@ -119,7 +119,8 @@ export async function withAuthErrorHandling<T>(
       15003: 'configNotFound',
       15004: 'failedToGetCurrencies',
       15005: 'failedToGetLanguages',
-      16005: 'failedToUpdateReferralCommissionLimitSharedSettings'
+      16005: 'failedToUpdateReferralCommissionLimitSharedSettings',
+      16006: 'ErrSharedSettingsNotFound'
     }
 
     // Map error codes to fallback English messages
