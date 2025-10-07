@@ -253,7 +253,9 @@
     "affiliateCreatedFailed": "Affiliate creation failed",
     "parentCode": "Parent Code",
     "noAffiliate": "No affiliate found",
-    "codeName": "Code Name"
+    "codeName": "Code Name",
+    "userAffiliate": "User Affiliate",
+    "affiliate": "Affiliate"
   },
   "game": {
     "texaspoker": "Texas Poker",
@@ -487,7 +489,7 @@
     "failedToGetCurrencies": "Failed to get currencies",
     "failedToGetLanguages": "Failed to get languages",
     "failedToUpdateReferralCommissionLimitSharedSettings": "Commission limit reached: maximum 40% already allocated",
-    "ErrSharedSettingsNotFound":"No Settings was found "
+    "ErrSharedSettingsNotFound": "No Settings was found "
   },
   "info": {
     "infoDate": "End date cleared because it was earlier than start date."
