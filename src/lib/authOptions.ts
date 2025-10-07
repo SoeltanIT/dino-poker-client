@@ -3,6 +3,7 @@ import { jwtDecode } from 'jwt-decode'
 import type { AuthOptions } from 'next-auth'
 import type { JWT } from 'next-auth/jwt'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import { cookies } from 'next/headers'
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 const AUTH_SECRET = process.env.NEXTAUTH_SECRET || ''
@@ -32,11 +33,20 @@ export const authOptions: AuthOptions = {
 
           const resp = await res.json()
 
+
           if (resp.status !== 'success' || !resp.data?.token || !resp.data?.user_id) {
             return null
           }
 
           const { token, user_id, roles, email } = resp.data
+          
+          // Set roles to cookies
+          const cookieStore = cookies()
+          cookieStore.set('user_roles', roles, {
+            path: '/',
+            maxAge: 60 * 60 * 24, // 24 hours
+            sameSite: 'lax'
+          })
 
           return {
             id: user_id,
@@ -120,6 +130,9 @@ export const authOptions: AuthOptions = {
   events: {
     async signOut() {
       console.log('[NextAuth] User signed out')
+      // Clear roles cookie on logout
+      const cookieStore = cookies()
+      cookieStore.delete('user_roles')
     }
   },
   secret: AUTH_SECRET,
