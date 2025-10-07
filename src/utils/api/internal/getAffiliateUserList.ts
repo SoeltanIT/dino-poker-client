@@ -1,24 +1,24 @@
 import { GetData } from '@/@core/hooks/use-query'
 import { serverApiClient } from '@/@core/lib/axios-client'
-import { AffiliateListResponse } from '@/types/referralDTO'
+import { AffiliateListResponse, AffiliateUserListResponse } from '@/types/referralDTO'
 import { getApiEndpoint } from '@/utils/api_endpoint'
 
-export interface AffiliateListParams {
+export interface AffiliateUserListParams {
   page?: number
   pageSize?: number
 }
 
-export const getAffiliateList = async (
+export const getAffiliateUserList = async (
   userId: string,
-  params: AffiliateListParams = {}
-): Promise<AffiliateListResponse | null> => {
+  params: AffiliateUserListParams = {}
+): Promise<AffiliateUserListResponse | null> => {
   const bodyRequest: Record<string, any> = {
     page: params.page,
     pageSize: params.pageSize
   }
   try {
-    const res = await serverApiClient.get<AffiliateListResponse>(
-      getApiEndpoint('affiliates') + '/' + userId,
+    const res = await serverApiClient.get<AffiliateUserListResponse>(
+      getApiEndpoint('affiliates_user') + '/' + userId,
       {
         params: bodyRequest
       },
@@ -43,14 +43,14 @@ export const getAffiliateList = async (
 }
 
 // Client-side hook for fetching referral settings data
-export const useAffiliateList = (
+export const useAffiliateUserList = (
   userId: string | undefined,
-  params: AffiliateListParams = {},
-  initialData?: AffiliateListResponse | null
+  params: AffiliateUserListParams = {},
+  initialData?: AffiliateUserListResponse | null
 ) => {
-  return GetData<AffiliateListResponse>(
-    '/affiliates/' + userId,
-    ['affiliates'],
+  return GetData<AffiliateUserListResponse>(
+    '/affiliates/' + userId + '/user',
+    ['affiliates_user'],
     false, // requires auth
     initialData || undefined,
     true, // enabled

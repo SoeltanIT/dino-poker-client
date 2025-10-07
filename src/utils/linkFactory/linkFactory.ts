@@ -51,6 +51,6 @@ export const getLinkReferralGroupSettings = (locale: string = 'ko') => {
   return `/${locale}/my-referral/settings`
 }
 
-export const getLinkReferralGroupCreate = (locale: string = 'ko') => {
-  return `/${locale}/my-referral/create`
+export const getLinkAffiliateCreate = (locale: string = 'ko') => {
+  return `/${locale}/affiliates/`
 }

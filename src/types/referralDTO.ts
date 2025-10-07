@@ -49,7 +49,28 @@ export interface AffiliateListItem {
 export interface AffiliateListResponse {
   status: string
   data: AffiliateListItem[]
-  pagination: {
+  pagination?: {
+    prev: string
+    next: string
+    total: number
+  }
+}
+
+export interface AffiliateUserListItem {
+  id: string
+  code_name: string
+  username: string
+  parent: string
+  commission: number
+  child: number
+  created_at: string
+  updated_at: string
+}
+
+export interface AffiliateUserListResponse {
+  status: string
+  data: AffiliateUserListItem[]
+  pagination?: {
     prev: string
     next: string
     total: number

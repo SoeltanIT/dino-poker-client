@@ -20,6 +20,7 @@ export const API_ENDPOINT = {
   referral_settings: '/v1/referral/shared-settings',
   affiliates: '/v1/affiliates',
   affiliates_user: '/v1/user-affiliate',
+  group_referral: '/v1/group-referral',
   betby_token: '/v1/token',
   seo: '/v1/seo',
 

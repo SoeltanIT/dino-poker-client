@@ -6,8 +6,8 @@ import { Input } from '@/components/ui/input'
 import { LangProps } from '@/types/langProps'
 import { copyToClipboard } from '@/utils/helper/copyToClipboard'
 import {
+  getLinkAffiliateCreate,
   getLinkReferralDetail,
-  getLinkReferralGroupCreate,
   getLinkReferralGroupHistory,
   getLinkReferralGroupSettings
 } from '@/utils/linkFactory/linkFactory'
@@ -22,7 +22,7 @@ const renderButtonActions = (lang: LangProps | undefined, locale: string | undef
       return (
         <div className='flex gap-2'>
           <Link
-            href={getLinkReferralGroupCreate(locale)}
+            href={getLinkAffiliateCreate(locale)}
             className='bg-app-primary hover:bg-app-primary-hover text-white px-2 py-2 rounded-lg flex items-center gap-2 uppercase text-sm'
           >
             {lang?.common?.create}

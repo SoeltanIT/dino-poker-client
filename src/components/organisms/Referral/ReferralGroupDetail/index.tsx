@@ -92,7 +92,7 @@ export default function MyReferralGroupHistory({
 
   return (
     <div className='min-h-screen flex flex-col w-full text-app-text-color px-6 lg:px-20 my-10 mx-auto'>
-      <div className='container flex flex-col'>
+      <div className='flex flex-col'>
         {/* Back Button */}
 
         {/* Desktop Header */}
@@ -123,22 +123,6 @@ export default function MyReferralGroupHistory({
           /> */}
         </div>
 
-        {/* Mobile Date Picker */}
-        {/* <div className='lg:hidden mb-6'>
-          <DateRangePicker
-            locale={locale}
-            labelFrom={lang?.common?.selectDateFrom}
-            labelTo={lang?.common?.selectDateTo}
-            placeholder={lang?.register?.selectDate}
-            onChange={({ from, to }) => {
-              console.log('Date From:', from)
-              console.log('Date To:', to)
-              // Optional: Trigger data fetch or update filters
-            }}
-            toastInfo={lang?.common?.infoDate}
-          />
-        </div> */}
-
         <div className='lg:flex lg:gap-8'>
           {/* Summary Stats */}
           <div className='lg:w-64 mb-8 lg:mb-0'>
@@ -149,13 +133,7 @@ export default function MyReferralGroupHistory({
                   KRW <span className='text-app-success'> {totalBonus.toLocaleString()}</span>
                 </div>
               </div>
-              {/* <div className='bg-app-background-secondary rounded-lg p-4'>
-                <div className='text-app-neutral500 text-sm mb-1'>Bonus Today</div>
-                <div className='text-2xl font-bold'>
-                  KRW <span className='text-app-success'>{bonusToday}</span>
-                </div>
-              </div> */}
-              {/* Claim Referral Button */}
+
               <div className='hidden md:block bg-app-background-secondary rounded-lg p-4 w-full'>
                 <div className='text-app-neutral500 text-sm mb-2'>
                   {lang?.common?.claimReferral || 'Claim Referral Bonus'}

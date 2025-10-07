@@ -245,8 +245,13 @@
     "userSharePlaceholder": "Enter user share percentage",
     "affiliateSharePlaceholder": "Enter affiliate share percentage",
     "changeSharedSettings": "Change Shared Settings",
-    "changeSharedSettingsSuccess": "Shared settings updated successfully""submit": "Submit",
-    "rakeBackBonus": "Rake Back Bonus"
+    "changeSharedSettingsSuccess": "Shared settings updated successfully",
+    "rakeBackBonus": "Rake Back Bonus",
+    "affiliateCreatedSuccessfully": "Affiliate created successfully",
+    "affiliateCreatedFailed": "Affiliate creation failed",
+    "parentCode": "Parent Code",
+    "noAffiliate": "No affiliate found",
+    "codeName": "Code Name"
   },
   "game": {
     "texaspoker": "Texas Poker",
