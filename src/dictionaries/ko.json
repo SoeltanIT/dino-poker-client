@@ -1,6 +1,10 @@
 {
   "common": {
+    "typeCodeName": "유형 코드명",
+    "typeParentCode": "상위 코드 입력", 
+    "userSharePlaceholder": "사용자 공유 비율 입력",
     "login": "로그인",
+    "changeSharedSettings": "공유 설정 변경",
     "typeUsername": "사용자 이름 입력",
     "typePassword": "비밀번호 입력",
     "typeDepoPassword": "입금 비밀번호 입력",
@@ -11,6 +15,7 @@
     "resetPassword": "비밀번호 재설정",
     "transactionHistory": "거래 내역",
     "descTransactionHistory": "G에서의 모든 거래 내역",
+    "affiliateSharePlaceholder": "제휴 공유 비율 입력",
     "time": "시간",
     "type": "유형",
     "currency": "통화",
@@ -242,7 +247,9 @@
     "userShare": "사용자 공유",
     "affiliateShare": "제휴 공유",
     "noSettings": "설정을 찾을 수 없습니다",
-    "rakeBackBonus": "레이크백 보너스"
+    "rakeBackBonus": "레이크백 보너스",
+    "codeName": "코드명"
+
   },
   "game": {
     "texaspoker": "텍사스 홀덤",

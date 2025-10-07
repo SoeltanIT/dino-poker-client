@@ -1,5 +1,7 @@
 {
   "common": {
+    "typeCodeName": "Type Code Name",
+    "typeParentCode": "Type Parent Code",
     "login": "Login",
     "typeUsername": "Type Username",
     "typePassword": "Type Password",
