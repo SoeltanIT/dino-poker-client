@@ -1,6 +1,7 @@
 'use client'
 
 import { LoadingTable, LoadingText } from '@/components/atoms/Loading'
+import { Button } from '@/components/ui/button'
 import { Locale } from '@/i18n-config'
 import { LangProps } from '@/types/langProps'
 import { AffiliateUserListResponse } from '@/types/referralDTO'
@@ -8,6 +9,7 @@ import { useAffiliateUserList } from '@/utils/api/internal/getAffiliateUserList'
 
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
+import { useState } from 'react'
 
 export interface AffiliateUserListProps {
   lang: LangProps
@@ -17,6 +19,7 @@ export interface AffiliateUserListProps {
 
 export function AffiliateUserList({ lang, locale, initialAffiliateUserData }: AffiliateUserListProps) {
   const { data: session, status } = useSession()
+  const [page, setPage] = useState(1)
 
   const userId = session?.user?.id
 
@@ -24,14 +27,20 @@ export function AffiliateUserList({ lang, locale, initialAffiliateUserData }: Af
   const { data: respAffiliateUserList, isFetching: isFetchingAffiliateUserList } = useAffiliateUserList(
     userId,
     {
-      page: 1,
+      page: page,
       pageSize: 10
     },
     initialAffiliateUserData
   )
   const affiliateList = respAffiliateUserList?.data
   const isLoading = isFetchingAffiliateUserList
+  const totalPage = (respAffiliateUserList?.pagination?.total ?? 0) / 10
 
+  const handleLoadMore = () => {
+    if (page < totalPage) {
+      setPage(prev => prev + 1)
+    }
+  }
   return (
     <div className='lg:flex lg:gap-8'>
       {/* Settings List */}
@@ -114,6 +123,15 @@ export function AffiliateUserList({ lang, locale, initialAffiliateUserData }: Af
             </div>
           </div>
         </div>
+
+        {/* Load More */}
+        {page < totalPage && (
+          <div className='flex justify-center py-4'>
+            <Button disabled={isLoading} onClick={handleLoadMore}>
+              {isLoading ? `${lang?.common?.loading}...` : lang?.common?.loadMore}
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   )
