@@ -1,12 +1,14 @@
 'use client'
 
 import { LoadingTable, LoadingText } from '@/components/atoms/Loading'
+import { Button } from '@/components/ui/button'
 import { Locale } from '@/i18n-config'
 import { LangProps } from '@/types/langProps'
 import { AffiliateListResponse } from '@/types/referralDTO'
 import { useAffiliateList } from '@/utils/api/internal/getAffiliateList'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
+import { useState } from 'react'
 
 export interface AffiliateListProps {
   lang: LangProps
@@ -15,6 +17,8 @@ export interface AffiliateListProps {
 }
 
 export function AffiliateList({ lang, locale, initialAffiliateData }: AffiliateListProps) {
+  const [page, setPage] = useState(1)
+
   const { data: session, status } = useSession()
 
   const userId = session?.user?.id
@@ -23,13 +27,20 @@ export function AffiliateList({ lang, locale, initialAffiliateData }: AffiliateL
   const { data: respAffiliateList, isFetching: isFetchingAffiliateList } = useAffiliateList(
     userId,
     {
-      page: 1,
+      page: page,
       pageSize: 10
     },
     initialAffiliateData
   )
   const affiliateList = respAffiliateList?.data
   const isLoading = isFetchingAffiliateList
+  const totalPage = respAffiliateList?.pagination?.total ?? 0
+
+  const handleLoadMore = () => {
+    if (page < totalPage) {
+      setPage(prev => prev + 1)
+    }
+  }
 
   return (
     <div className='lg:flex lg:gap-8'>
@@ -113,6 +124,15 @@ export function AffiliateList({ lang, locale, initialAffiliateData }: AffiliateL
             </div>
           </div>
         </div>
+
+        {/* Load More */}
+        {page < totalPage && (
+          <div className='flex justify-center py-4'>
+            <Button disabled={isLoading} onClick={handleLoadMore}>
+              {isLoading ? `${lang?.common?.loading}...` : lang?.common?.loadMore}
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   )
