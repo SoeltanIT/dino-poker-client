@@ -9,7 +9,7 @@ import { useAffiliateUserList } from '@/utils/api/internal/getAffiliateUserList'
 
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export interface AffiliateUserListProps {
   lang: LangProps
@@ -18,23 +18,42 @@ export interface AffiliateUserListProps {
 }
 
 export function AffiliateUserList({ lang, locale, initialAffiliateUserData }: AffiliateUserListProps) {
-  const { data: session, status } = useSession()
   const [page, setPage] = useState(1)
+  const [dataList, setDataList] = useState<AffiliateUserListResponse['data'] | null>(
+    initialAffiliateUserData?.data || null
+  )
+
+  const { data: session, status } = useSession()
 
   const userId = session?.user?.id
 
   // Use client-side hooks for data fetching with server-side initial data
+  // Only use initialData for page 1, otherwise undefined to force fetch
   const { data: respAffiliateUserList, isFetching: isFetchingAffiliateUserList } = useAffiliateUserList(
     userId,
     {
       page: page,
       pageSize: 10
     },
-    initialAffiliateUserData
+    page === 1 ? initialAffiliateUserData : undefined
   )
-  const affiliateList = respAffiliateUserList?.data
   const isLoading = isFetchingAffiliateUserList
   const totalPage = (respAffiliateUserList?.pagination?.total ?? 0) / 10
+
+  useEffect(() => {
+    if (respAffiliateUserList) {
+      setDataList(prev => {
+        if (page === 1) {
+          return respAffiliateUserList?.data
+        } else {
+          // Check for duplicates before appending
+          const existingIds = new Set(prev?.map(a => `${a.id}`))
+          const newData = respAffiliateUserList?.data.filter(a => !existingIds.has(`${a.id}`))
+          return [...(prev || []), ...newData]
+        }
+      })
+    }
+  }, [respAffiliateUserList, page])
 
   const handleLoadMore = () => {
     if (page < totalPage) {
@@ -47,11 +66,9 @@ export function AffiliateUserList({ lang, locale, initialAffiliateUserData }: Af
       <div className='flex-1'>
         {/* Mobile Settings List */}
         <div className='lg:hidden'>
-          {isLoading ? (
-            <LoadingText lines={3} />
-          ) : affiliateList && affiliateList?.length > 0 ? (
+          {dataList && dataList?.length > 0 ? (
             <div className='space-y-3'>
-              {affiliateList.map((affiliate, index) => (
+              {dataList.map((affiliate, index) => (
                 <div
                   className='bg-app-background-secondary rounded-lg p-4 border border-gray-800 space-y-2'
                   key={index}
@@ -86,6 +103,7 @@ export function AffiliateUserList({ lang, locale, initialAffiliateUserData }: Af
               </div>
             </>
           )}
+          {isLoading && <LoadingText lines={3} />}
         </div>
 
         {/* Desktop Table */}
@@ -98,10 +116,8 @@ export function AffiliateUserList({ lang, locale, initialAffiliateUserData }: Af
             </div>
 
             <div className='rounded-lg bg-app-background-secondary border border-app-neutral600'>
-              {isLoading ? (
-                <LoadingTable columns={3} rows={1} showHeader={false} />
-              ) : affiliateList && affiliateList?.length > 0 ? (
-                affiliateList.map((affiliate, index) => (
+              {dataList && dataList?.length > 0 ? (
+                dataList.map((affiliate, index) => (
                   <div key={index} className='grid grid-cols-3 gap-4 p-4 last:border-b-0'>
                     <div className='text-app-text-color'>{affiliate.code_name}</div>
                     <div className='text-app-text-color'>{affiliate.username}</div>
@@ -120,6 +136,7 @@ export function AffiliateUserList({ lang, locale, initialAffiliateUserData }: Af
                   <p className='text-gray-300'>{lang?.common?.noAffiliate}.</p>
                 </div>
               )}
+              {isLoading && <LoadingTable columns={3} rows={1} showHeader={false} />}
             </div>
           </div>
         </div>
