@@ -3,6 +3,7 @@ import { jwtDecode } from 'jwt-decode'
 import type { AuthOptions } from 'next-auth'
 import type { JWT } from 'next-auth/jwt'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import { setUserRoles, clearUserRoles } from '@/utils/helper/cookieUtils'
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 const AUTH_SECRET = process.env.NEXTAUTH_SECRET || ''
@@ -32,15 +33,11 @@ export const authOptions: AuthOptions = {
 
           const resp = await res.json()
 
-
           if (resp.status !== 'success' || !resp.data?.token || !resp.data?.user_id) {
             return null
           }
 
           const { token, user_id, roles, email } = resp.data
-          
-          // Set roles to cookies
-     
 
           return {
             id: user_id,
@@ -75,6 +72,11 @@ export const authOptions: AuthOptions = {
           token.originalExp = decoded.exp // 🔥 Store original expiration
           token.iat = decoded.iat
 
+          // Set roles cookie when user logs in
+          if (user.roles) {
+            setUserRoles(user.roles)
+          }
+
           //console.log('[JWT Callback] Storing original exp:', decoded.exp)
         } catch (err) {
           //console.error('[jwt] Failed to decode token:', err)
@@ -85,6 +87,8 @@ export const authOptions: AuthOptions = {
       const now = Math.floor(Date.now() / 1000)
       if (token.originalExp && now >= token.originalExp) {
         console.warn('[jwt] Original JWT token expired, clearing session')
+        // Clear roles cookie when token expires
+        clearUserRoles()
         // Return empty token to force logout
         return {
           id: '',
@@ -104,6 +108,8 @@ export const authOptions: AuthOptions = {
       const now = Math.floor(Date.now() / 1000)
       if (!token.accessToken || token.accessToken === '' || (token.originalExp && now >= token.originalExp)) {
         console.log('[session] Invalid or expired token based on original JWT exp, returning null session')
+        // Clear roles cookie when session is invalid
+        clearUserRoles()
         return null as any
       }
 
@@ -124,10 +130,6 @@ export const authOptions: AuthOptions = {
   events: {
     async signOut() {
       console.log('[NextAuth] User signed out')
-      // Clear roles cookie on logout
-      if (typeof window !== 'undefined') {
-        document.cookie = 'user_roles=; path=/; max-age=0; samesite=lax'
-      }
     }
   },
   secret: AUTH_SECRET,
