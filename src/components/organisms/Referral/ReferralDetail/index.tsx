@@ -197,6 +197,7 @@ export default function MyReferralDetail({
               </div>
             </div>
           </div>
+
           <div className='mb-4 md:hidden'>
             <div className='bg-app-background-secondary rounded-lg p-4 mb-3'>
               <div className='text-app-neutral500 text-sm mb-2'>
@@ -231,6 +232,7 @@ export default function MyReferralDetail({
               )}
             </Button>
           </div>
+          
           {/* Member List */}
           <div className='flex-1'>
             {/* Mobile Member List */}

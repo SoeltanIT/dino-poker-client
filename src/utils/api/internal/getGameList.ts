@@ -15,7 +15,7 @@ export interface GameListResponse {
   data: gameDTO[]
 }
 
-export const getGameList = async ({ page = 1, pageSize = 12 }: any): Promise<GameListResponse> => {
+export const getGameList = async ({ page, pageSize }: any): Promise<GameListResponse> => {
   const bodyRequest = {
     page: page,
     pageSize: pageSize

@@ -1,8 +1,7 @@
 import { getValidServerSession, handleServerAuthError } from '@/@core/lib/server-auth-utils'
-import MyReferralDetail from '@/components/organisms/Referral/ReferralDetail'
-import MyReferralGroupDetail from '@/components/organisms/Referral/ReferralGroupDetail'
+import MyReferralGroupHistoryProps from '@/components/organisms/Referral/ReferralGroupDetail'
 import { getDictionary, getLocale } from '@/dictionaries/dictionaries'
-import { getReferralGroupHistory, getReferralHistory } from '@/utils/api/internal/getReferralHistory'
+import { getReferralGroupHistory } from '@/utils/api/internal/getReferralHistory'
 import { getReferralSummary } from '@/utils/api/internal/getReferralSummary'
 
 // export const runtime = 'edge'
@@ -18,13 +17,12 @@ export default async function Page({ params, ...props }: any) {
   try {
     // Check if user has valid session first
     const session = await getValidServerSession()
-    if (!session) {
+    const roles = Number(session?.user?.roles) || 2
+    if (!session && roles !== 3) {
       // No valid session, redirect to login
       await handleServerAuthError(locale)
       return null // This won't be reached due to redirect
     }
-
-    const roles = (session.user as any)?.roles || 2
 
     // Fetch referral history and summary data in parallel
     const [historyData, summaryData] = await Promise.all([
@@ -42,6 +40,12 @@ export default async function Page({ params, ...props }: any) {
       isLoading = false
     }
   } catch (err: any) {
+    // ✅ CRITICAL: Re-throw Next.js navigation errors (redirect/notFound)
+    // These errors MUST bubble up to be handled by Next.js framework
+    if (err?.digest?.startsWith('NEXT_REDIRECT') || err?.digest?.startsWith('NEXT_NOT_FOUND')) {
+      throw err
+    }
+
     isLoading = false
     // Handle 401 errors from backend
     if (err.isUnauthorized || err?.response?.status === 401) {
@@ -53,7 +57,7 @@ export default async function Page({ params, ...props }: any) {
   }
 
   return (
-    <MyReferralGroupDetail
+    <MyReferralGroupHistoryProps
       lang={dict}
       locale={locale}
       initialData={initialData}

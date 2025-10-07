@@ -63,6 +63,7 @@
     "typeAccountNumber": "계좌 번호 입력",
     "myBalance": "내 잔액",
     "totalBalance": "총 잔액",
+    "totalIDNBalance": "총 IDN 포커 잔액",
     "totalMainBalance": "총 메인 잔액",
     "totalBonusBalance": "총 보너스 잔액",
     "balanceDetails": "잔액 상세",
@@ -144,6 +145,7 @@
     "promotion": "프로모션",
     "promo": "프로모",
     "claim": "받기",
+    "claimBonus": "보너스 받기",
     "back": "뒤로",
     "noPromo": "프로모션 없음",
     "noPromoFound": "프로모션이 없습니다",
@@ -214,12 +216,48 @@
     "noMemberReferral": "추천한 회원이 없습니다. 친구를 초대하고 커미션을 받아보세요.",
     "optional": "선택 사항",
     "referralClaimedSuccessfully": "추천 보너스가 성공적으로 지급되었습니다",
+    "rakeBackClaimedSuccessfully": "레이크백 보너스를 성공적으로 받았습니다",
     "date": "날짜",
     "depositCryptoNote": "다양한 흥미로운 혜택을 위해 암호화폐 입금을 진행하기 전에 프로모션을 선택해 주세요.",
     "cryptoDeposit": "암호화폐 입금",
     "minimalDeposit": "최소 입금액",
     "appliedPromotion": "적용된 프로모션",
-    "rolesMsgHomepage": "사용 가능한 게임 목록을 보려면 사용자 계정에 로그인하세요"
+    "rolesMsgHomepage": "사용 가능한 게임 목록을 보려면 사용자 계정에 로그인하세요",
+    "opening": "오프닝",
+    "convert": "전환",
+    "transferIn": "입금 이체",
+    "transferOut": "출금 이체",
+    "transferInMsg": "보유 잔액을 KPoker에서 IDN Poker로 쉽게 이체하세요",
+    "transferOutMsg": "보유 잔액을 IDN Poker에서 KPoker로 쉽게 이체하세요",
+    "transferAmount": "이체 금액",
+    "typeAmount": "금액 입력",
+    "submit": "제출",
+    "settings": "설정",
+    "create": "생성",
+    "myReferralGroupHistory": "내 추천 기록",
+    "sharedSettings": "공유 설정",
+    "createAffiliate": "제휴 생성",
+    "change": "변경",
+    "availableShare": "사용 가능한 공유",
+    "userShare": "사용자 공유",
+    "affiliateShare": "제휴 공유",
+    "noSettings": "설정을 찾을 수 없습니다",
+    "rakeBackBonus": "레이크백 보너스"
+  },
+  "game": {
+    "texaspoker": "텍사스 홀덤",
+    "omaha": "오마하",
+    "tournament": "토너먼트",
+    "superten": "슈퍼 텐",
+    "domino": "도미노",
+    "cemekeliling": "체메 켈릴링",
+    "ceme": "체메",
+    "capsa": "빅투 (캅사)",
+    "qqspirit": "QQ 스피릿",
+    "superbull": "슈퍼 불",
+    "capsasusun": "캅사 수순",
+    "dominodealer": "도미노 딜러",
+    "jokerspin": "조커 스핀"
   },
   "register": {
     "title": "등록하다",
@@ -331,7 +369,10 @@
     "id_card_max": "신분증 정보가 너무 깁니다.",
     "coin_network_required": "코인 네트워크를 선택하세요",
     "crypto_required": "암호화폐를 선택하세요",
-    "referral_code_max": "추천 코드는 정확히 6자여야 합니다"
+    "referral_code_max": "추천 코드는 정확히 6자여야 합니다",
+    "transfer_required": "이체 금액은 필수입니다",
+    "transfer_numeric_only": "금액은 숫자만 입력해야 합니다",
+    "transfer_gt_zero": "금액은 0보다 커야 합니다"
   },
   "notification": {
     "depositApprovedTitle": "입금 승인됨",
@@ -346,7 +387,7 @@
     "withdrawRejected": "{{amount}}원 출금이 거절되었습니다. 자세한 내용은 라이브챗으로 문의해 주세요."
   },
   "metadata": {
-    "title": "Poker.gg - 온라인 포커, 텍사스 홀덤 & 라이브 토너먼트",
+    "title": "KPOKER.gg - 온라인 포커, 텍사스 홀덤 & 라이브 토너먼트",
     "description": "실시간 온라인 포커 게임, 텍사스 홀덤 토너먼트, 라이브 결과와 배당률, 포커룸과 다양한 게임을 언제 어디서나 즐겨보세요.",
     "sportTitle": "스포츠 베팅 | GOWIN.GG",
     "sportDescription": "축구, 농구, 테니스와 Dota 2, 롤, 발로란트 같은 인기 e스포츠에 베팅하세요. 라이브 배당률, 인플레이 베팅, 최고의 스포츠북 경험을 GOWIN.GG에서 즐겨보세요.",
@@ -427,5 +468,7 @@
     "failedToGetCurrencies": "통화를 가져오지 못했습니다.",
     "failedToGetLanguages": "언어를 가져오지 못했습니다."
   },
-  "info": { "infoDate": "종료일이 시작일보다 이전이어서 초기화되었습니다." }
+  "info": {
+    "infoDate": "종료일이 시작일보다 이전이어서 초기화되었습니다."
+  }
 }

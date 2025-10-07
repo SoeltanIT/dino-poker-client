@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://gowin.gg
+Host: https://kpoker.gg
 
 # Sitemaps
-Sitemap: https://gowin.gg/sitemap.xml
+Sitemap: https://kpoker.gg/sitemap.xml

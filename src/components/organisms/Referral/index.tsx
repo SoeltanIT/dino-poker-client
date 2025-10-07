@@ -3,16 +3,69 @@
 import { IconGiftReferral } from '@/components/atoms/Icons'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { LangProps } from '@/types/langProps'
 import { copyToClipboard } from '@/utils/helper/copyToClipboard'
-import { getLinkReferralDetail, getLinkReferralGroupDetail } from '@/utils/linkFactory/linkFactory'
+import {
+  getLinkAffiliateCreate,
+  getLinkReferralDetail,
+  getLinkReferralGroupHistory,
+  getLinkReferralGroupSettings
+} from '@/utils/linkFactory/linkFactory'
 import { ChevronRight, Copy } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { MyReferralProps } from './types'
 
+const renderButtonActions = (lang: LangProps | undefined, locale: string | undefined, roles: number) => {
+  switch (roles) {
+    case 3:
+      return (
+        <div className='flex gap-2'>
+          <Link
+            href={getLinkAffiliateCreate(locale)}
+            className='bg-app-primary hover:bg-app-primary-hover text-white px-2 py-2 rounded-lg flex items-center gap-2 uppercase text-sm'
+          >
+            {lang?.common?.create}
+            <ChevronRight className='w-4 h-4' />
+          </Link>
+          <Link
+            href={getLinkReferralGroupSettings(locale)}
+            className='bg-app-primary hover:bg-app-primary-hover text-white px-2 py-2 rounded-lg flex items-center gap-2 uppercase text-sm'
+          >
+            {lang?.common?.settings}
+            <ChevronRight className='w-4 h-4' />
+          </Link>
+          <Link
+            href={getLinkReferralGroupHistory(locale)}
+            className='bg-app-primary hover:bg-app-primary-hover text-white px-2 py-2 rounded-lg flex items-center gap-2 uppercase text-sm'
+          >
+            {lang?.common?.history}
+            <ChevronRight className='w-4 h-4' />
+          </Link>
+        </div>
+      )
+    case 2:
+      return (
+        <Link
+          href={getLinkReferralDetail(locale)}
+          className='bg-app-primary hover:bg-app-primary-hover text-white px-2 py-2 rounded-lg flex items-center gap-2 uppercase text-sm'
+        >
+          {lang?.common?.detail}
+          <ChevronRight className='w-4 h-4' />
+        </Link>
+      )
+
+    default:
+      return null
+  }
+}
+
 export default function MyReferral({ lang, locale, initialData, isLoading }: MyReferralProps) {
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
   const roles = (session?.user as any)?.roles || 2
+
+  const isLoadingSession = status === 'loading'
+
   return (
     <div className='min-h-screen flex flex-col w-full text-app-text-color px-6 lg:px-20 my-10'>
       <div className='container flex flex-col'>
@@ -37,15 +90,9 @@ export default function MyReferral({ lang, locale, initialData, isLoading }: MyR
         {/* Referral Section */}
         <div className='mb-8'>
           <div className='bg-app-background-secondary rounded-b-lg p-4'>
-            <div className='flex items-center justify-between mb-4'>
+            <div className='flex items-center justify-between mb-4 flex-wrap gap-2'>
               <h3 className='text-app-text-color text-sm'>{lang?.common?.referralCodeLink}</h3>
-              <Link
-                href={roles === 3 ? getLinkReferralGroupDetail(locale) : getLinkReferralDetail(locale)}
-                className='bg-app-primary hover:bg-app-primary-hover text-white px-2 py-2 rounded-lg flex items-center gap-2 uppercase text-sm'
-              >
-                {lang?.common?.detail}
-                <ChevronRight className='w-4 h-4' />
-              </Link>
+              {!isLoadingSession && renderButtonActions(lang, locale, roles)}
             </div>
 
             {/* Mobile Layout - Stacked */}
@@ -56,7 +103,6 @@ export default function MyReferral({ lang, locale, initialData, isLoading }: MyR
                 ) : (
                   <Input value={initialData?.referral_link ?? ''} readOnly className='pr-10' />
                 )}
-
                 <Button
                   size='sm'
                   variant='ghost'

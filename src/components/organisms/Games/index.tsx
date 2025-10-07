@@ -10,6 +10,8 @@ import LoginModal from '../Login'
 import { GameListProps } from './types'
 import { GameGridSkeleton } from '@/components/atoms/Skeleton/GameGridSkeleton'
 import { GameCardSkeleton } from '@/components/atoms/Skeleton/GameCardSkeleton'
+import GameCardLive from '@/components/atoms/Card/GameCardLive'
+import { keepPreviousData } from '@tanstack/react-query'
 
 export default function ListGamePage({
   lang,
@@ -22,51 +24,79 @@ export default function ListGamePage({
   const { data: session, status } = useSession()
   const isLogin = status === 'authenticated'
   const roles = (session?.user as any)?.roles || 2
-  const [listGame, setListGame] = useState<gameDTO[]>(initialData?.data || [])
+  const [listGame, setListGame] = useState<gameDTO[]>(initialData || [])
+  // console.log('listgame >', listGame)
+  // console.log('game data >', initialData)
   const [page, setPage] = useState(initialPage || 1)
   const [totalPage, setTotalPage] = useState(initialTotalPage || 1)
   const [isLoading, setIsLoading] = useState(isInitialLoading || false)
   const [loginOpen, setLoginOpen] = useState(false)
   const [gameId, setGameId] = useState<string | null>(null)
   const popupRef = useRef<Window | null>(null)
-
-  const { data, isFetching, refetch } = GetData<{ data: gameDTO[]; totalPage: number }>(
-    `/game_list`,
-    ['getGameList', page],
-    true,
-    undefined,
-    true,
-    undefined,
-    undefined,
-    undefined,
-    'POST', // method
-    {
-      page,
-      pageSize: 12
-    },
-    'transaction'
-  )
   /** which card is opening */
   const [openingGameId, setOpeningGameId] = useState<string | null>(null)
 
+  const {
+    data: dataList,
+    isFetching,
+    isSuccess,
+    refetch
+  } = GetData<{ data: gameDTO[]; totalPage: number }>(
+    '/game_list',
+    ['getGameList', page],
+    /* skipAuth */ true,
+    /* initialData */ undefined,
+    /* enabled */ true,
+    /* isShowMsg */ false,
+    /* successMessage */ undefined,
+    {
+      // 👇 Only fire when page > 1 (after user clicks "Load more")
+      enabled: page > 1,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      staleTime: 60_000,
+      gcTime: 5 * 60_000,
+      placeholderData: keepPreviousData
+    },
+    'GET',
+    { page, pageSize: 12 }, // 👈 becomes ?page=..&pageSize=.. in GET
+    'transaction',
+    { sMaxage: 120, swr: 60, cacheKey: `games-page-${page}` }
+  )
+
   useEffect(() => {
-    if (data) {
-      setTotalPage(data.totalPage)
+    if (!isSuccess || !dataList) return
+    setTotalPage(dataList.totalPage)
+    setListGame(prev => {
+      if (page === 1) return dataList.data
+      const ids = new Set(prev.map(g => g.id || `${g.title}-${g.provider}`))
+      const next = dataList.data.filter(g => !ids.has(g.id || `${g.title}-${g.provider}`))
+      return [...prev, ...next]
+    })
+  }, [isSuccess, dataList, page])
 
-      setListGame(prev => {
-        if (page === 1) {
-          return data.data
-        } else {
-          // Check for duplicates before appending
-          const existingIds = new Set(prev.map(game => game.id || `${game.title}-${game.provider}`))
-          const newData = data.data.filter(game => !existingIds.has(game.id || `${game.title}-${game.provider}`))
-          return [...prev, ...newData]
-        }
-      })
+  // useEffect(() => {
+  //   console.log('here > 0')
+  //   if (dataList) {
+  //     setTotalPage(dataList.totalPage)
+  //     console.log('here > 1', dataList)
+  //     // setListGame(prev => {
+  //     //   if (page === 1) {
+  //     //     console.log('here > 2', dataList)
+  //     //     console.log('here > 2', dataList?.data)
+  //     //     return dataList?.data
+  //     //   } else {
+  //     //     console.log('here > 3')
+  //     //     // Check for duplicates before appending
+  //     //     const existingIds = new Set(prev.map(game => game.id || `${game.title}-${game.provider}`))
+  //     //     const newData = dataList.data.filter(game => !existingIds.has(game.id || `${game.title}-${game.provider}`))
+  //     //     return [...prev, ...newData]
+  //     //   }
+  //     // })
 
-      setIsLoading(false)
-    }
-  }, [data, page])
+  //     setIsLoading(false)
+  //   }
+  // }, [dataList, page])
 
   const handleLoadMore = () => {
     if (page < totalPage) {
@@ -74,16 +104,10 @@ export default function ListGamePage({
     }
   }
 
-  function stableCount(id: string, max = 1000) {
-    let h = 0
-    for (let i = 0; i < id.length; i++) h = (h << 5) - h + id.charCodeAt(i)
-    return Math.abs(h) % max
-  }
-
   // NEW: loading flags
   const showInitialSkeleton = useMemo(
     () => (isLoading || isFetching) && page === 1 && listGame.length === 0,
-    [isLoading, isFetching, page, listGame.length]
+    [isLoading, isFetching, page, listGame?.length]
   )
   const showAppendSkeleton = useMemo(() => isFetching && page > 1, [isFetching, page])
 
@@ -165,16 +189,17 @@ export default function ListGamePage({
     setOpeningGameId(id)
   }
 
+  const PRIORITY_COUNT = 12
+
   return (
-    <main className='w-full min-h-screen px-4 py-6'>
+    <main className='w-full min-h-screen px-4 py-4'>
       {/* Flex container using basis for columns */}
-      {roles === 3 ? (
+      {/* {roles === 3 ? (
         <div className='flex min-h-screen items-center justify-center py-24 text-center gap-4'>
           <span className='text-app-text-color text-2xl w-[50%]'>{lang?.common?.rolesMsgHomepage}</span>
         </div>
-      ) : (
+      ) : listGame ? (
         <div>
-          {/* GRID */}
           {showInitialSkeleton ? (
             <GameGridSkeleton count={12} />
           ) : (
@@ -189,23 +214,24 @@ export default function ListGamePage({
                     shrink-0 min-w-0
                   '
                 >
-                  <GameCard
+                  <GameCardLive
+                    seedIndex={i}
+                    lang={lang}
                     locale={locale}
                     id={items?.id}
                     image={items.image}
                     provider={items.provider}
                     title={items.title}
-                    playersCount={stableCount(items?.id || `${items.title}-${items.provider}`)}
                     isLogin={isLogin}
                     onRequireLogin={() => setLoginOpen(true)}
                     onClickOpenGames={(id: any) => onClickOpenGames(id)}
                     className='w-full h-full min-w-0'
                     isOpening={openingGameId === items.id && isFetchingGameDetail}
+                    priority={page === 1 && i < PRIORITY_COUNT}
                   />
                 </div>
               ))}
 
-              {/* Append skeletons while fetching the next page */}
               {showAppendSkeleton &&
                 Array.from({ length: 6 }).map((_, i) => (
                   <div
@@ -222,7 +248,6 @@ export default function ListGamePage({
             </div>
           )}
 
-          {/* LOAD MORE */}
           {page < totalPage && (
             <div className='flex justify-center pb-4 pt-10'>
               <Button disabled={isFetching} onClick={handleLoadMore}>
@@ -231,7 +256,71 @@ export default function ListGamePage({
             </div>
           )}
         </div>
-      )}
+      ) : (
+        <GameGridSkeleton count={12} />
+      )} */}
+
+      <div>
+        {/* GRID */}
+        {showInitialSkeleton ? (
+          <GameGridSkeleton count={12} />
+        ) : (
+          <div className='flex flex-wrap gap-2'>
+            {listGame?.map((items, i) => (
+              <div
+                key={i}
+                onClick={() => setGameId(items.id)}
+                className='
+                    basis-[calc((100%-0.5rem*2)/3)]
+                    md:basis-[calc((100%-0.5rem*5)/6)]
+                    shrink-0 min-w-0
+                  '
+              >
+                <GameCardLive
+                  seedIndex={i}
+                  lang={lang}
+                  locale={locale}
+                  id={items?.id}
+                  image={items.image}
+                  provider={items.provider}
+                  title={items.title}
+                  // playersCount={stableCount(items?.id || `${items.title}-${items.provider}`)}
+                  isLogin={isLogin}
+                  onRequireLogin={() => setLoginOpen(true)}
+                  onClickOpenGames={(id: any) => onClickOpenGames(id)}
+                  className='w-full h-full min-w-0'
+                  isOpening={openingGameId === items.id && isFetchingGameDetail}
+                  priority={page === 1 && i < PRIORITY_COUNT}
+                />
+              </div>
+            ))}
+
+            {/* Append skeletons while fetching the next page */}
+            {showAppendSkeleton &&
+              Array.from({ length: 6 }).map((_, i) => (
+                <div
+                  key={`sk-${i}`}
+                  className='
+                      basis-[calc((100%-0.5rem*2)/3)]
+                      md:basis-[calc((100%-0.5rem*5)/6)]
+                      shrink-0 min-w-0
+                    '
+                >
+                  <GameCardSkeleton className='w-full h-full min-w-0' />
+                </div>
+              ))}
+          </div>
+        )}
+
+        {/* LOAD MORE */}
+        {page < totalPage && (
+          <div className='flex justify-center pb-4 pt-10'>
+            <Button disabled={isFetching} onClick={handleLoadMore}>
+              {isFetching ? `${lang?.common?.loading}...` : lang?.common?.loadMore}
+            </Button>
+          </div>
+        )}
+      </div>
 
       <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} lang={lang} locale={locale} />
     </main>

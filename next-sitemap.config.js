@@ -1,16 +1,16 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: 'https://gowin.gg',
+  siteUrl: 'https://kpoker.gg',
   generateRobotsTxt: true,
   generateIndexSitemap: false,
   exclude: ['/bank-account', '/bet-history', '/my-wallet', '/transaction-history', '/my-promotion'],
   alternateRefs: [
     {
-      href: 'https://gowin.gg/en',
+      href: 'https://kpoker.gg/en',
       hreflang: 'en'
     },
     {
-      href: 'https://gowin.gg/ko',
+      href: 'https://kpoker.gg/ko',
       hreflang: 'ko'
     }
   ],
@@ -28,8 +28,8 @@ module.exports = {
       { loc: '/', lastmod },
       { loc: '/en', lastmod },
       { loc: '/ko', lastmod },
-      { loc: '/en/promotion', lastmod },
-      { loc: '/ko/promotion', lastmod },
+      // { loc: '/en/promotion', lastmod },
+      // { loc: '/ko/promotion', lastmod },
       { loc: '/en/forgot-password', lastmod },
       { loc: '/ko/forgot-password', lastmod }
     ]

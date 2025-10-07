@@ -8,11 +8,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useLiveChatContext } from '@/utils/context/LiveChatProvider'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
+import { ToastContainer } from 'react-toastify'
 import DepositConfirmForm from './DepositConfirmForm'
 import DepositForm from './DepositForm'
 import WithdrawForm from './WithdrawForm'
 import { DepositDataProps, DepositWithdrawSheetProps } from './types'
-import { ToastContainer } from 'react-toastify'
 
 export default function DepositWithdrawSheet({
   open,
@@ -125,8 +125,7 @@ export default function DepositWithdrawSheet({
             amount: parseInt(data?.amount),
             transaction_password: data?.password,
             promotion_id: data?.promo_id ?? ''
-          },
-          
+          }
         })
         if (resp?.status === 'success') {
           setDepositData({

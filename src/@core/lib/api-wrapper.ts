@@ -11,12 +11,19 @@ function getLocaleFromRequest(request: Request): Locale {
 }
 
 // 🎯 WRAPPER FUNCTION - Use this in all your API routes
-export async function withAuthErrorHandling<T>(request: Request, handler: () => Promise<T>): Promise<NextResponse> {
+export async function withAuthErrorHandling<T>(
+  request: Request,
+  handler: () => Promise<T | Response>
+): Promise<Response> {
   const locale = getLocaleFromRequest(request)
   const lang = await getDictionary(locale)
 
   try {
     const result = await handler()
+
+    // 👇 If handler already returned a Response, don't re-wrap it
+    if (result instanceof Response) return result
+
     return NextResponse.json(result)
   } catch (error: any) {
     // console.error('[API Route] Error:', error)
@@ -111,7 +118,8 @@ export async function withAuthErrorHandling<T>(request: Request, handler: () => 
       15002: 'failedToFetchConfig',
       15003: 'configNotFound',
       15004: 'failedToGetCurrencies',
-      15005: 'failedToGetLanguages'
+      15005: 'failedToGetLanguages',
+      16005: 'failedToUpdateReferralCommissionLimitSharedSettings'
     }
 
     // Map error codes to fallback English messages
@@ -179,7 +187,8 @@ export async function withAuthErrorHandling<T>(request: Request, handler: () => 
       15002: 'Failed to fetch config',
       15003: 'Config not found',
       15004: 'Failed to get currencies',
-      15005: 'Failed to get languages'
+      15005: 'Failed to get languages',
+      16005: 'Commission limit reached: maximum 40% already allocated'
     }
 
     if (

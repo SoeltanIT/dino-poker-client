@@ -25,6 +25,11 @@ export default async function Page({ params, ...props }: any) {
       isLoading = false
     }
   } catch (err: any) {
+    // ✅ CRITICAL: Re-throw Next.js navigation errors (redirect/notFound)
+    if (err?.digest?.startsWith('NEXT_REDIRECT') || err?.digest?.startsWith('NEXT_NOT_FOUND')) {
+      throw err
+    }
+
     isLoading = false
     // Handle 401 errors from backend
     if (err.isUnauthorized || err?.response?.status === 401) {

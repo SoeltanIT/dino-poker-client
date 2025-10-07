@@ -1,7 +1,6 @@
 'use client'
 
 import { GetData } from '@/@core/hooks/use-query'
-import { UseServerSendEvent } from '@/@core/hooks/UseServerSendEvent'
 import { BalanceResponse } from '@/@core/interface/balance/Balance'
 import { UserMeResponse } from '@/@core/interface/User'
 import { LiveChatButton } from '@/components/atoms/Button/LiveChatButton'
@@ -34,10 +33,9 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config }) =>
 
   const parts = pathname.split('/').filter(Boolean) // ["en", "sport"]
 
-  const { theme, toggleTheme } = useThemeToggle()
+  const { theme } = useThemeToggle()
 
-  const { session, isAuthenticated, isLoading: isSessionLoading } = useAuth()
-  const isLogin = isAuthenticated
+  const { isLoading: isSessionLoading } = useAuth()
 
   const { data: userData, isLoading: userDataLoading } = GetData<UserMeResponse>(
     '/me', // hits your Next.js API route, not the real backend

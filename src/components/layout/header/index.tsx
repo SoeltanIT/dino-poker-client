@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRef, useState } from 'react'
 
-import { IconDP, IconHome, IconTicket, IconWD } from '@/components/atoms/Icons'
+import { IconDP, IconHome, IconWD } from '@/components/atoms/Icons'
 import LocaleSwitcherDropdown from '@/components/molecules/LocaleSwitcher'
 import NotificationDropdown from '@/components/molecules/Notification'
 import ThemeSwitcher from '@/components/molecules/ThemeSwitcher'
@@ -17,8 +17,7 @@ import { HeaderProps } from '@/@core/interface/home/HeaderProps'
 import LoginModal from '@/components/organisms/Login'
 import { cn } from '@/lib/utils'
 import { UserFullDTO } from '@/types/userDTO'
-import { getLinkPromotion } from '@/utils/linkFactory/linkFactory'
-import { Eye, EyeOff, Volleyball } from 'lucide-react'
+import { Eye, EyeOff } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import ProfilePopover from './views/menu/ProfilePopover'
 import BalanceSheet from './views/myBalance/MyBalanceSheet'
@@ -128,7 +127,7 @@ export const Header = ({ lang, locale, data, balance, theme }: HeaderProps) => {
               width={100}
               height={100}
               priority
-              className='md:w-[45px] md:h-[45px] w-[30px] h-[30px]'
+              className='md:w-[45px] md:h-[40px] w-[30px] h-[30px]'
             />
           </Link>
 
@@ -291,7 +290,7 @@ export const Header = ({ lang, locale, data, balance, theme }: HeaderProps) => {
                   priority
                   width={100}
                   height={100}
-                  className='w-[50px] h-[50px]'
+                  className='md:w-[45px] md:h-[40px] w-[30px] h-[30px]'
                 />
               </Link>
 
@@ -385,7 +384,7 @@ export const Header = ({ lang, locale, data, balance, theme }: HeaderProps) => {
                   priority
                   width={100}
                   height={100}
-                  className='w-[40px] h-[40px]'
+                  className='w-[45px] h-[40px]'
                 />
               </Link>
               <div className='flex items-center gap-4'>
