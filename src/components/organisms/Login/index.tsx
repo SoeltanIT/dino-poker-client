@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import TelegramButton from '@/components/ui/telegram-button'
 import TelegramSSO from '@/components/ui/telegramSSO'
 import { LangProps } from '@/types/langProps'
 import { getLinkToForgotPassword } from '@/utils/linkFactory/linkFactory'
@@ -184,11 +185,17 @@ export default function LoginModal({
                 {lang?.common?.forgotPassword}
               </Link>
             </div>
-            <div className="mb-4">
+            <div className="mb-4 flex justify-center">
               <TelegramSSO
                 botUsername='nwa_coin_bot'
                 onAuth={handleTelegramAuth}
                 onError={setError}
+              />
+              <TelegramButton
+                botUsername='nwa_coin_bot'
+                onAuth={handleTelegramAuth}
+                onError={setError}
+                disabled={loading}
               />
             </div>
             {error && <div className='text-app-danger text-xs mt-1 text-center'>{error}</div>}
