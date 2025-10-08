@@ -77,10 +77,9 @@ export default function TelegramButton({
     <div className={`flex flex-col items-center gap-2 ${className}`}>
       <p className='text-app-text-color text-sm'>{lang?.common?.loginWithTelegram}</p>
 
-      {/* Overlay approach: Custom button on top, Telegram widget behind */}
-      <div className='relative inline-block'>
-        {/* Custom circular button below */}
-        <div className='w-12 h-12 rounded-full flex items-center justify-center bg-transparent'>
+      <div onClick={() => setIsLoading(true)} className='relative inline-block w-12 h-12'>
+        {/* Visual button */}
+        <div className='w-full h-full rounded-full flex items-center justify-center bg-transparent'>
           {isLoading ? (
             <Loader2 className='animate-spin h-6 w-6' />
           ) : (
@@ -88,11 +87,11 @@ export default function TelegramButton({
           )}
         </div>
 
-        {/* The Telegram widget iframe OVERLAYS the button (transparent but clickable) */}
+        {/* Clickable Telegram iframe area (clipped to circle) */}
         <div
           ref={widgetRef}
-          className='absolute top-1 -left-20 w-6 h-12 opacity-0 cursor-pointer'
-          style={{ zIndex: 20 }}
+          className='-left-0 top-1 absolute inset-0 rounded-full overflow-hidden opacity-1 cursor-pointer'
+          style={{ zIndex: 10 }}
         />
       </div>
     </div>
