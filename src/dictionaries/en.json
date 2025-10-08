@@ -251,7 +251,8 @@
     "affiliateCreatedFailed": "Affiliate creation failed",
     "parentCode": "Parent Code",
     "noAffiliate": "No affiliate found",
-    "codeName": "Code Name"
+    "codeName": "Code Name",
+    "loginWithTelegram": "Continue With"
   },
   "game": {
     "texaspoker": "Texas Poker",

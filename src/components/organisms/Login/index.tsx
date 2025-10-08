@@ -6,7 +6,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import TelegramButton from '@/components/ui/telegram-button'
-import TelegramSSO from '@/components/ui/telegramSSO'
 import { LangProps } from '@/types/langProps'
 import { getLinkToForgotPassword } from '@/utils/linkFactory/linkFactory'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -73,8 +72,6 @@ export default function LoginModal({
     setLoading(true)
 
     try {
-      console.log('Processing Telegram auth:', userData)
-
       // Use NextAuth signIn with telegram provider
       const res = await signIn('telegram', {
         redirect: false,
@@ -185,13 +182,9 @@ export default function LoginModal({
                 {lang?.common?.forgotPassword}
               </Link>
             </div>
-            <div className="mb-4 flex justify-center">
-              <TelegramSSO
-                botUsername='nwa_coin_bot'
-                onAuth={handleTelegramAuth}
-                onError={setError}
-              />
+            <div className='mb-4 flex justify-center items-center'>
               <TelegramButton
+                lang={lang}
                 botUsername='nwa_coin_bot'
                 onAuth={handleTelegramAuth}
                 onError={setError}
