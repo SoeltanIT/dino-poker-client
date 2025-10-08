@@ -19,6 +19,7 @@ import { useThemeToggle } from '@/utils/hooks/useTheme'
 import { usePathname } from 'next/navigation'
 import { FC, ReactNode, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
+import { UseServerSendEvent } from '@/@core/hooks/UseServerSendEvent'
 
 interface AppTemplateProps {
   children?: ReactNode | string
@@ -42,10 +43,10 @@ const session = useSession()
     '/me', // hits your Next.js API route, not the real backend
     ['user', 'me']
   )
-  // const { trigger } = UseServerSendEvent()
+  const {  balanceTrigger, balanceMessages} = UseServerSendEvent()
   const { data: respBalance, isLoading: balanceLoading } = GetData<BalanceResponse>(
     '/balance', // hits your Next.js API route, not the real backend
-    ['getBalance'] //trigger put here if need to refresh on SSE event
+    ['getBalance', balanceTrigger] //trigger put here if need to refresh on SSE event
   )
   const hasMounted = useHasMounted()
 
@@ -56,6 +57,9 @@ const session = useSession()
   document.cookie = `user_roles=${session?.data?.user?.roles}; path=/; max-age=${maxAge}; samesite=lax`
   }
   }, [session])
+
+
+
 
   return (
     <div className='min-h-screen bg-app-background-primary text-app-text-color'>
