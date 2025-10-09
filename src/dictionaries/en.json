@@ -496,6 +496,7 @@
   },
   "header": {
     "mainBalance": "Main Balance",
+    "mainShort": "Main...",
     "idnBalance": "IDN Balance",
     "convert": "Convert",
     "notif": "Notif"
