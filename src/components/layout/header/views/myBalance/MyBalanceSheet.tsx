@@ -20,7 +20,7 @@ export default function BalanceSheet({ lang, locale, data, onShow }: MyBalanceSh
             locale === 'ko' ? 'lg:w-full lg:max-w-[100px]' : 'lg:w-full lg:max-w-[120px]'
           )}
         >
-          <ArrowRightLeft className='text-white' />
+          <ArrowRightLeft size={16} className='text-white' />
           <span className='hidden lg:flex text-white text-sm font-medium uppercase'>{lang?.header?.convert}</span>
         </button>
       </SheetTrigger>

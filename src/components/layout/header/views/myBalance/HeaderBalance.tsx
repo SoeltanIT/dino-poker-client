@@ -19,12 +19,19 @@ const HeaderBalance = ({ lang, locale, data, onShow }: MyBalanceSheetProps) => {
           {data !== undefined && data !== null ? (
             onShow ? (
               <div>
-                <p className='flex items-center gap-1 text-[11px] font-semibold text-app-text-color'>
+                <p className='flex items-center gap-1 xs:text-[12px] text-[9px] font-semibold text-app-text-color'>
                   {lang?.header?.mainBalance}{' '}
-                  {open ? <ChevronUp className='w-4 h-4 -mb-[2px]' /> : <ChevronDown className='w-4 h-4 -mb-[2px]' />}
+                  {open ? (
+                    <ChevronUp size={12} className='-mb-[2px]' />
+                  ) : (
+                    <ChevronDown size={12} className='-mb-[2px]' />
+                  )}
                 </p>
                 <span
-                  className={cn('flex gap-1 -mt-1 font-semibold', String(data).length > 7 ? 'text-base' : 'text-sm')}
+                  className={cn(
+                    'flex gap-1 -mt-1 font-semibold',
+                    String(data.balance).length > 7 ? 'text-xs' : 'text-base'
+                  )}
                 >
                   {thousandSeparatorComma(Number(data.balance))}
                 </span>

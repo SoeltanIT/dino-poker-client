@@ -214,7 +214,7 @@ export const Header = ({ lang, locale, data, balance, theme }: HeaderProps) => {
             </Link> */}
           </div>
 
-          <div className='w-full flex items-center justify-end gap-3'>
+          <div className='w-full flex items-center justify-end md:gap-3 gap-1'>
             <div className='flex w-full h-[44px] lg:max-w-[190px] justify-between items-center space-x-2 bg-app-bg-button hover:bg-app-bg-button-hover rounded-full px-3 py-[6px] cursor-pointer transition-colors'>
               {/* <BalanceSheet data={balance} lang={lang} locale={locale} onShow={showBalance} /> */}
               <HeaderBalance data={balance as BalanceDTO} lang={lang} locale={locale} onShow={showBalance} />
