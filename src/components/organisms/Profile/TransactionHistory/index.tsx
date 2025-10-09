@@ -4,6 +4,7 @@ import { GetData } from '@/@core/hooks/use-query'
 import { Button } from '@/components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { cn } from '@/lib/utils'
 import { DepositCryptoHistory, DepositWithdrawHistory } from '@/types/transaction'
 import { useLiveChatContext } from '@/utils/context/LiveChatProvider'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
@@ -12,26 +13,24 @@ import { ChevronDown, Loader2 } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { TransactionHistoryProps } from './types'
-import { TabSwitcher } from '@/components/molecules/TabSwitcher'
-import { cn } from '@/lib/utils'
 import DetailTransactionHistory from './DetailTransactionHistory'
+import { TransactionHistoryProps } from './types'
 
 const typeOption = ['all', 'deposit', 'withdraw']
 const statusOptions = ['all', 'approved', 'pending', 'rejected']
 
 const getStatusColor = (status: string) => {
-  if (status === 'APPROVED' || status === 'COMPLETED') return 'text-app-success'
-  if (status === 'EXPIRED' || status === 'REJECTED') return 'text-app-danger'
-  if (status === 'PENDING') return 'text-app-accentYellow'
+  if (status === 'APPROVED' || status === 'COMPLETED') return 'font-medium text-[#23b682]'
+  if (status === 'EXPIRED' || status === 'REJECTED') return 'font-medium text-app-danger'
+  if (status === 'PENDING') return 'font-medium text-[#e2a129]'
   return 'text-app-text-color'
 }
 
 const getAmountColor = (type: string, status: string) => {
   // if (status === 'REJECTED') return 'text-app-text-color'
-  if (type === 'deposit') return 'text-app-success'
-  if (type === 'withdraw') return 'text-app-danger'
-  return 'text-app-text-color'
+  if (type === 'deposit') return 'font-medium text-[#23b682]'
+  if (type === 'withdraw') return ' font-medium text-app-danger'
+  return ' font-medium text-[#e2a129]'
 }
 
 export default function TransactionHistoryPage({

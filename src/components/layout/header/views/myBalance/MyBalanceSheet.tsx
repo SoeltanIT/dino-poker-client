@@ -1,40 +1,27 @@
 'use client'
 
-import { IconSouthKoreaFlag } from '@/components/atoms/Icons'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
+import { cn } from '@/lib/utils'
+import { ArrowRightLeft } from 'lucide-react'
 import { useState } from 'react'
+import { ToastContainer } from 'react-toastify'
 import MyBalance from './MyBalance'
 import { MyBalanceSheetProps } from './types'
-import { cn } from '@/lib/utils'
-import { ToastContainer } from 'react-toastify'
 
 export default function BalanceSheet({ lang, locale, data, onShow }: MyBalanceSheetProps) {
   const [open, setOpen] = useState(false)
 
-  const balance = data?.balance?.toString()
-
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <button className='flex items-center gap-2'>
-          <IconSouthKoreaFlag />
-
-          {balance !== undefined && balance !== null ? (
-            onShow ? (
-              <span className={cn('flex gap-1 font-semibold', String(balance).length > 7 ? 'text-xs' : 'text-sm')}>
-                {thousandSeparatorComma(Number(data?.balance))}
-              </span>
-            ) : (
-              <span className='inline-flex gap-1 items-center'>
-                {Array.from({ length: 5 }).map((_, index) => (
-                  <div key={index} className='h-1.5 w-1.5 rounded-full bg-app-text-color' />
-                ))}
-              </span>
-            )
-          ) : (
-            '0'
+        <button
+          className={cn(
+            'flex justify-center items-center min-h-10 h-10 min-w-10 w-10 p-2 bg-app-primary hover:bg-app-primary-hover rounded-lg transition-colors gap-1',
+            locale === 'ko' ? 'lg:w-full lg:max-w-[100px]' : 'lg:w-full lg:max-w-[120px]'
           )}
+        >
+          <ArrowRightLeft className='text-white' />
+          <span className='hidden lg:flex text-white text-sm font-medium uppercase'>{lang?.header?.convert}</span>
         </button>
       </SheetTrigger>
       <SheetContent side='right' className='w-full sm:max-w-md overflow-y-auto scrollbar-hide'>

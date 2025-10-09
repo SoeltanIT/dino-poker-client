@@ -493,5 +493,11 @@
   },
   "info": {
     "infoDate": "종료일이 시작일보다 이전이어서 초기화되었습니다."
+  },
+  "header": {
+    "mainBalance": "주요 잔액",
+    "idnBalance": "IDN 잔액",
+    "convert": "환전",
+    "notif": "알림"
   }
 }

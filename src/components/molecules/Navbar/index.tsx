@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useRef, useState } from 'react'
 
-import { IconHome, IconTicket, IconUser } from '@/components/atoms/Icons'
+import { IconBell, IconHome, IconUser } from '@/components/atoms/Icons'
 import LoginModal from '@/components/organisms/Login'
 import MenuProfile from '@/components/organisms/Profile'
 import { LogoutModal } from '@/components/organisms/Profile/Logout'
@@ -15,7 +15,6 @@ import { signOut } from 'next-auth/react'
 import { useCookies } from 'react-cookie'
 import GlobalSheet from '../GlobalSheet'
 import { NavbarProps } from './types'
-import { Volleyball } from 'lucide-react'
 
 export const Navbar = ({ locale, lang, isLogin, data }: NavbarProps) => {
   const pathname = usePathname()
@@ -29,11 +28,11 @@ export const Navbar = ({ locale, lang, isLogin, data }: NavbarProps) => {
       href: `/${locale}`,
       icon: IconHome
     },
-    // {
-    //   name: lang?.common?.sport,
-    //   href: `/${locale}/sport`,
-    //   icon: Volleyball
-    // },
+    {
+      name: lang?.header?.notif,
+      href: `/${locale}/notification`,
+      icon: IconBell
+    },
     // {
     //   name: lang?.common?.promotion,
     //   href: `/${locale}/promotion`,
@@ -92,14 +91,15 @@ export const Navbar = ({ locale, lang, isLogin, data }: NavbarProps) => {
               )
             } else if (item.name === lang?.common?.profile && !data) {
               return (
-                <button
-                  key={item.name}
-                  onClick={() => setIsModalOpen(true)}
-                  className='flex flex-col items-center gap-1 focus:outline-none'
-                >
-                  <Icon className='text-app-neutral500 h-5 w-5' />
-                  <span className='text-[10px] uppercase text-app-neutral500'>{item.name}</span>
-                </button>
+                <div className='' key={item.name}>
+                  <button
+                    onClick={() => setIsModalOpen(true)}
+                    className='flex flex-col items-center gap-1 focus:outline-none'
+                  >
+                    <Icon className='text-app-neutral500 h-5 w-5' />
+                    <span className='text-[10px] uppercase text-app-neutral500'>{item.name}</span>
+                  </button>
+                </div>
               )
             }
 

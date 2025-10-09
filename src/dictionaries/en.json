@@ -493,5 +493,11 @@
   },
   "info": {
     "infoDate": "End date cleared because it was earlier than start date."
+  },
+  "header": {
+    "mainBalance": "Main Balance",
+    "idnBalance": "IDN Balance",
+    "convert": "Convert",
+    "notif": "Notif"
   }
 }
