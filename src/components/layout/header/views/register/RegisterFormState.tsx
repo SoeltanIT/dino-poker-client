@@ -132,8 +132,26 @@ export default function RegisterForm({ lang, locale, open, setOpen }: RegisterFo
         <div className='mt-6 text-xl font-bold uppercase text-app-text-color'>{lang?.common?.register}</div>
         <p className='text-app-text-color text-base mb-8'>{lang?.register?.subTitleRegister}</p>
 
+        {/* {email} */}
         <Form {...form}>
           <form id='register-form' onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+            <FormField
+              control={form.control}
+              name='email'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className='text-app-text-color'>
+                    {lang?.register?.email}
+                    <span className='text-app-danger'>*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input {...field} type='text' placeholder={lang?.common?.typeEmail} />
+                  </FormControl>
+                  <FormMessage className='text-app-danger' />
+                </FormItem>
+              )}
+            />
+
             {/* Username */}
             <FormField
               control={form.control}
@@ -215,29 +233,6 @@ export default function RegisterForm({ lang, locale, open, setOpen }: RegisterFo
               )}
             />
 
-            <FormField
-              control={form.control}
-              name='email'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className='text-app-text-color'>
-                    {lang?.register?.email}
-                    <span className='text-app-danger'>*</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input {...field} type='text' placeholder={lang?.common?.typeEmail} />
-                  </FormControl>
-                  <FormMessage className='text-app-danger' />
-                </FormItem>
-              )}
-            />
-
-            {/* name removed */}
-
-            {/* date_of_birth removed */}
-
-            {/* phone_number removed */}
-
             <p className='text-xl font-semibold text-app-text-color'>{lang?.register?.referral}</p>
             <FormField
               control={form.control}
@@ -255,8 +250,6 @@ export default function RegisterForm({ lang, locale, open, setOpen }: RegisterFo
                 </FormItem>
               )}
             />
-
-            {/* transaction password removed */}
 
             <div className='space-y-4'>
               <CardContent className='pt-2'>
