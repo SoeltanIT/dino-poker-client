@@ -12,6 +12,8 @@ import { toast } from 'react-toastify'
 import { useMutationQuery } from '@/@core/hooks/use-query'
 import { RegistrationFormData, registrationSchema } from '@/@core/utils/schema/Registration/RegistrationSchema'
 import { Button } from '@/components/ui/button'
+import { CardContent } from '@/components/ui/card'
+import { Checkbox } from '@/components/ui/checkbox'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 
@@ -46,6 +48,9 @@ export default function RegisterForm({ lang, locale, open, setOpen }: RegisterFo
     username: string
     password: string
     referral_code?: string
+    consent: boolean
+    roles: string | undefined
+    language: string
   }
 
   const { mutateAsync: registerUser, isPending } = useMutationQuery<RegistrationPayload, any>(
@@ -63,7 +68,9 @@ export default function RegisterForm({ lang, locale, open, setOpen }: RegisterFo
       username: '',
       password: '',
       retypePassword: '',
-      referral_code: referral ?? ''
+      referral_code: referral ?? '',
+      consent: false,
+      roles: '2'
     }
   })
 
@@ -72,7 +79,10 @@ export default function RegisterForm({ lang, locale, open, setOpen }: RegisterFo
       email: data.email,
       username: data.username,
       password: data.password,
-      referral_code: data.referral_code || undefined
+      referral_code: data.referral_code || undefined,
+      consent: data.consent,
+      roles: data.roles,
+      language: 'en'
     }
 
     try {
@@ -248,7 +258,49 @@ export default function RegisterForm({ lang, locale, open, setOpen }: RegisterFo
 
             {/* transaction password removed */}
 
-            {/* consent removed */}
+            <div className='space-y-4'>
+              <CardContent className='pt-2'>
+                <div className='space-y-4'>
+                  <FormField
+                    control={form.control}
+                    name='consent'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className='text-app-text-color font-medium'>
+                          {lang?.register?.consentForAdvertising}
+                        </FormLabel>
+                        <FormControl>
+                          <div className='flex items-start space-x-2 mt-2'>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                              className='mt-1 data-[state=checked]:bg-app-primary data-[state=checked]:border-app-primary'
+                            />
+                            <FormLabel className='text-app-danger text-sm leading-relaxed'>
+                              {lang?.register?.checkBoxConsent}
+                            </FormLabel>
+                          </div>
+                        </FormControl>
+                        <FormMessage className='text-app-danger' />
+                      </FormItem>
+                    )}
+                  />
+
+                  <div className='border border-app-white100 rounded-lg p-4 space-y-2'>
+                    <div className='space-y-2 text-sm text-app-danger'>
+                      <div className='flex items-start space-x-2'>
+                        <div className='w-2 h-2 bg-app-neutral500 rounded-full mt-2 flex-shrink-0'></div>
+                        <p className='text-sm text-app-neutral500'>{lang?.register?.notesConsent1}</p>
+                      </div>
+                      <div className='flex items-start space-x-2'>
+                        <div className='w-2 h-2 bg-app-neutral500 rounded-full mt-2 flex-shrink-0'></div>
+                        <p className='text-sm text-app-neutral500'>{lang?.register?.notesConsent2}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </div>
 
             <div className='pt-8'>
               <Button

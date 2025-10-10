@@ -4,7 +4,7 @@ import { z } from 'zod'
 export const KYCSchema = (lang?: LangProps) =>
   z
     .object({
-      full_name: z
+      name: z
         .string()
         .min(2, { message: lang?.form?.name_min || 'Name must be at least 2 characters' })
         .max(50, { message: lang?.form?.name_max || 'Name must not exceed 50 characters' }),

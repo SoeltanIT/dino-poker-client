@@ -61,7 +61,7 @@ export default function KYCForm({ lang, locale, onClose, isStatus }: KYCFormProp
   const form = useForm<FormType>({
     resolver: zodResolver(KYCSchema(lang)) as ResolverType,
     defaultValues: {
-      full_name: '',
+      name: '',
       date_of_birth: undefined,
       phone_number: '',
       transaction_password: '',
@@ -101,13 +101,14 @@ export default function KYCForm({ lang, locale, onClose, isStatus }: KYCFormProp
       const resp = await updateKYC({
         url: '/updateKYC',
         body: {
-          full_name: data?.full_name,
+          name: data?.name,
           date_of_birth: data?.date_of_birth ? format(data.date_of_birth, 'yyyy-MM-dd') : '',
           phone_number: data?.phone_number,
           transaction_password: data?.transaction_password,
           bank_account_number: data?.bank_account_number,
           bank_name: data?.bank_name,
-          id_card: data?.id_card || ''
+          id_card: data?.id_card || '',
+          phone_number_code: '+1'
         }
       })
       if (resp?.status === 'success') {
@@ -179,7 +180,7 @@ export default function KYCForm({ lang, locale, onClose, isStatus }: KYCFormProp
             <div className='grid   grid-cols-1 md:grid-cols-2 gap-4'>
               <FormField
                 control={form.control}
-                name='full_name'
+                name='name'
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className='text-app-text-color'>

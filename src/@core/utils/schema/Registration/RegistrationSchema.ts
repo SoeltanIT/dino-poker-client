@@ -22,7 +22,17 @@ export const registrationSchema = (lang: LangProps) =>
         .min(4, lang?.form?.password_min)
         .max(15, lang?.form?.password_max),
 
-      referral_code: z.string().optional()
+      referral_code: z.string().optional(),
+
+      roles: z.string().optional(),
+
+      consent: z
+        .boolean({
+          required_error: lang?.form?.consent_required || 'You must agree to the terms and conditions'
+        })
+        .refine(val => val === true, {
+          message: lang?.form?.consent_required || 'You must agree to the terms and conditions'
+        })
     })
     .refine(data => data.password === data.retypePassword, {
       message: lang?.form?.password_match,
