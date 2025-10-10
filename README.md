@@ -8,7 +8,7 @@ d
 
 ```bash
 npm run deve
-# or
+# ors
 yarn dev
 # or
 pnpm dev
