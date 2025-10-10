@@ -496,6 +496,7 @@
   },
   "header": {
     "mainBalance": "주요 잔액",
+    "mainShort": "주요..",
     "idnBalance": "IDN 잔액",
     "convert": "환전",
     "notif": "알림"
