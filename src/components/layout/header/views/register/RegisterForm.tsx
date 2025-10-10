@@ -154,6 +154,22 @@ export default function RegisterForm({ lang, locale }: { lang: LangProps; locale
         <p className='text-app-text-color text-base mb-8'>{lang?.register?.subTitleRegister}</p>
 
         {/* Form - keep the existing form content exactly the same */}
+        <FormField
+          control={form.control}
+          name='email'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className='text-app-text-color'>
+                {lang?.register?.email}
+                <span className='text-app-danger'>*</span>
+              </FormLabel>
+              <FormControl>
+                <Input {...field} type='text' placeholder={lang?.common?.typeEmail} />
+              </FormControl>
+              <FormMessage className='text-app-danger' />
+            </FormItem>
+          )}
+        />
         <Form {...form}>
           <form id='register-form' onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
             <p className='text-xl font-semibold text-app-text-color'>{lang?.register?.personalInformation}</p>
@@ -230,23 +246,6 @@ export default function RegisterForm({ lang, locale }: { lang: LangProps; locale
                         {showRetypePassword ? <EyeOff className='h-4 w-4' /> : <Eye className='h-4 w-4' />}
                       </button>
                     </div>
-                  </FormControl>
-                  <FormMessage className='text-app-danger' />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name='email'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className='text-app-text-color'>
-                    {lang?.register?.email}
-                    <span className='text-app-danger'>*</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input {...field} type='text' placeholder={lang?.common?.typeEmail} />
                   </FormControl>
                   <FormMessage className='text-app-danger' />
                 </FormItem>
