@@ -177,7 +177,7 @@ export default function KYCForm({ lang, locale, onClose, isStatus }: KYCFormProp
           <p className='text-base font-semibold text-app-text-color mb-4'>{lang?.register?.kycFormTitle}</p>
 
           <CardContent className='space-y-4'>
-            <div className='grid   grid-cols-1 md:grid-cols-2 gap-4'>
+            <div className='grid   grid-cols-1 md:grid-cols-1 gap-4'>
               <FormField
                 control={form.control}
                 name='name'
@@ -239,7 +239,7 @@ export default function KYCForm({ lang, locale, onClose, isStatus }: KYCFormProp
               />
             </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+            <div className='grid grid-cols-1 md:grid-cols-1 gap-4'>
               <FormField
                 control={form.control}
                 name='phone_number'
@@ -289,7 +289,7 @@ export default function KYCForm({ lang, locale, onClose, isStatus }: KYCFormProp
               />
             </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+            <div className='grid grid-cols-1 md:grid-cols-1 gap-4'>
               <FormField
                 control={form.control}
                 name='retype_transaction_password'
@@ -365,7 +365,7 @@ export default function KYCForm({ lang, locale, onClose, isStatus }: KYCFormProp
         <div className='space-y-6'>
           <p className='text-base font-semibold text-app-text-color mb-4'>{lang?.register?.bankInformation}</p>
           <CardContent className='space-y-4'>
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+            <div className='grid grid-cols-1 md:grid-cols-1 gap-4'>
               <FormField
                 control={form.control}
                 name='bank_name'
