@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import TelegramButton from '@/components/ui/telegram-button'
 import { LangProps } from '@/types/langProps'
 import { getLinkToForgotPassword } from '@/utils/linkFactory/linkFactory'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -48,6 +49,49 @@ export default function LoginModal({
     }
   })
 
+  const handleLoginSuccess = async () => {
+    const session = await getSession()
+    const token = session?.accessToken
+
+    if (token) {
+      setCookie('_authorization', token, {
+        path: '/',
+        secure: true,
+        sameSite: 'lax',
+        maxAge: 60 * 60 * 24
+      })
+      await queryClient.invalidateQueries({ queryKey: ['user', 'me'] })
+      await queryClient.invalidateQueries({ queryKey: ['getBalance'] })
+    }
+    onClose()
+    window.location.reload()
+  }
+
+  const handleTelegramAuth = async (userData: any) => {
+    setError('')
+    setLoading(true)
+
+    try {
+      // Use NextAuth signIn with telegram provider
+      const res = await signIn('telegram', {
+        redirect: false,
+        telegramData: JSON.stringify(userData)
+      })
+
+      if (res?.error) {
+        console.error('Telegram login failed:', res.error)
+        setError('Telegram login failed')
+      } else if (res?.ok) {
+        await handleLoginSuccess()
+      }
+    } catch (error) {
+      console.error('Telegram auth error:', error)
+      setError('Login failed. Please try again.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
   const onSubmit: SubmitHandler<FormType> = async (data: FormType) => {
     setError('')
     setLoading(true)
@@ -62,21 +106,7 @@ export default function LoginModal({
       if (res?.error === 'CredentialsSignin') {
         setError(lang?.form?.invalid_username_password)
       } else if (res?.ok) {
-        const session = await getSession()
-        const token = session?.accessToken
-
-        if (token) {
-          setCookie('_authorization', token, {
-            path: '/',
-            secure: true,
-            sameSite: 'lax',
-            maxAge: 60 * 60 * 24
-          })
-          await queryClient.invalidateQueries({ queryKey: ['user', 'me'] })
-          await queryClient.invalidateQueries({ queryKey: ['getBalance'] })
-        }
-        onClose()
-        window.location.reload()
+        await handleLoginSuccess()
       }
     } catch {
       setError('Login failed. Please try again.')
@@ -152,7 +182,15 @@ export default function LoginModal({
                 {lang?.common?.forgotPassword}
               </Link>
             </div>
-
+            <div className='mb-4 flex justify-center items-center'>
+              <TelegramButton
+                lang={lang}
+                botUsername='nwa_coin_bot'
+                onAuth={handleTelegramAuth}
+                onError={setError}
+                disabled={loading}
+              />
+            </div>
             {error && <div className='text-app-danger text-xs mt-1 text-center'>{error}</div>}
 
             <Button

@@ -54,6 +54,63 @@ export const authOptions: AuthOptions = {
           return null
         }
       }
+    }),
+    CredentialsProvider({
+      id: 'telegram',
+      name: 'Telegram',
+      credentials: {
+        telegramData: { label: 'Telegram Data', type: 'text' }
+      },
+      async authorize(credentials) {
+        if (!credentials?.telegramData) {
+          return null
+        }
+
+        try {
+          const telegramData = JSON.parse(credentials.telegramData)
+
+          const payload = {
+            provider: 'telegram',
+            telegram: {
+              id: telegramData.id,
+              first_name: telegramData.first_name,
+              last_name: telegramData.last_name,
+              username: telegramData.username,
+              photo_url: telegramData.photo_url,
+              auth_date: telegramData.auth_date,
+              hash: telegramData.hash
+            }
+          }
+
+          const res = await fetch(`${API_BASE_URL}/v1/login`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'x-platform': 'user'
+            },
+            body: JSON.stringify(payload)
+          })
+
+          const resp = await res.json()
+
+          if (resp.status !== 'success' || !resp.data?.token || !resp.data?.user_id) {
+            return null
+          }
+
+          const { token, user_id, roles, email } = resp.data
+
+          return {
+            id: user_id,
+            name: telegramData.first_name + (telegramData.last_name ? ` ${telegramData.last_name}` : ''),
+            email: email || telegramData.username ? `${telegramData.username}@telegram.local` : '',
+            roles,
+            accessToken: token
+          }
+        } catch (err) {
+          console.error('[authorize] Telegram login error:', err)
+          return null
+        }
+      }
     })
   ],
   session: {
