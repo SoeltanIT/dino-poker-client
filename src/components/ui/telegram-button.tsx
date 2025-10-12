@@ -29,7 +29,7 @@ export default function TelegramButton({
 
   useEffect(() => {
     // Define the global callback function for Telegram auth
-    ;(window as any).onTelegramAuth = (user: any) => {
+    ; (window as any).onTelegramAuth = (user: any) => {
       try {
         setIsLoading(false)
         onAuth(user)
@@ -90,7 +90,7 @@ export default function TelegramButton({
         {/* Clickable Telegram iframe area (clipped to circle) */}
         <div
           ref={widgetRef}
-          className='-left-0 top-1 absolute inset-0 rounded-full overflow-hidden opacity-1 cursor-pointer'
+          className='-left-0 top-1 absolute inset-0 rounded-full overflow-hidden opacity-[.01] cursor-pointer'
           style={{ zIndex: 10 }}
         />
       </div>
