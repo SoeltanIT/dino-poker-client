@@ -28,10 +28,10 @@ const getStatusColor = (status: string) => {
 
 const getAmountColor = (type: string, status: string) => {
   // if (status === 'REJECTED') return 'text-app-text-color'
-  if (type == 'DEPOSIT') return 'font-medium text-[#23b682]'
+  if (type == 'deposit') return 'font-medium text-[#23b682]'
   if (type == 'adjustment_plus') return 'font-medium text-[#23b682]'
   if (type == 'adjustment_minus') return 'font-medium text-app-danger'
-  if (type == 'WITHDRAW') return ' font-medium text-app-danger'
+  if (type == 'withdraw') return ' font-medium text-app-danger'
   return ' font-medium text-[#e2a129]'
 }
 
@@ -222,8 +222,8 @@ export default function TransactionHistoryPage({
       case 'DEPOSIT':
         return lang?.common?.deposit || 'Deposit'
       case 'withdraw':
-        return lang?.common?.withdraw || 'Withdraw'
       case 'WITHDRAW':
+        return lang?.common?.withdraw || 'Withdraw'
       case 'adjustment_minus':
       case 'adjustment':
         return lang?.common?.adjustmentMinus || 'Adjustment Minus'
@@ -403,7 +403,7 @@ export default function TransactionHistoryPage({
                     )}`}
                   >
                     {/* {transaction?.review_status === 'REJECTED' ? '' : transaction?.type === 'deposit' ? '+' : '-'} */}
-                    {['DEPOSIT', 'adjustment_plus'].includes(String(transaction?.type)) ? '+' : '-'}
+                    {['deposit', 'adjustment_plus'].includes(String(transaction?.type)) ? '+' : '-'}
                     {thousandSeparatorComma(transaction.amount)}
                   </div>
                   <div className='flex items-center justify-between'>
@@ -444,7 +444,7 @@ export default function TransactionHistoryPage({
                       )}`}
                     >
                       {/* {transaction?.review_status === 'REJECTED' ? '' : transaction?.type === 'deposit' ? '+' : '-'} */}
-                      {transaction?.type === 'deposit' ? '+' : '-'}
+                      {['deposit', 'adjustment_plus'].includes(String(transaction?.type)) ? '+' : '-'}
                       {thousandSeparatorComma(transaction.amount)}
                     </div>
                   </div>
