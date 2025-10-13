@@ -1,5 +1,8 @@
 {
   "common": {
+    "verifyCheckMsgDeposit": "입금 또는 출금 전 반드시 본인 확인 절차를 완료해 주시기 바랍니다.",
+    "verifyPendingMsgDeposit": "인증이 아직 승인되지 않았습니다. 승인을 기다려 주세요",
+    "verifyRejectedMsgDeposit": "인증이 거절되었습니다. 정보를 수정한 후 다시 시도해 주세요",
     "adjustmentMinus": "조정 ",
     "adjustmentPlus": "조정",
     "action": "액션",

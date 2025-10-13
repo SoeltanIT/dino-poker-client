@@ -1,5 +1,8 @@
 {
   "common": {
+    "verifyCheckMsgDeposit": "Please complete your verification process before deposit",
+    "verifyPendingMsgDeposit": "Your verification is still pending. Please wait for approval",
+    "verifyRejectedMsgDeposit": "Your verification was rejected. Please update your information and try again",
     "adjustmentMinus": "Adjustment",
     "adjustmentPlus": "Adjustment",
     "action": "Action",
@@ -132,7 +135,7 @@
     "noBankDataFound": "No bank data found, lets start verify your account first",
     "noBankAvailable": "No banks available",
     "cannotWithdraw": "Cannot Withdraw. Please verify your account first",
-    "verifyCheckMsg": "Please complete your verification process before deposit or withdraw",
+    "verifyCheckMsg": "Please complete your verification process before deposit",
     "verifyPendingMsg": "Your verification is still pending. Please wait for approval",
     "verifyRejectedMsg": "Your verification was rejected. Please update your information and try again",
     "verifyCheckMsgReferral": "Please complete your verification process to join referral program",
