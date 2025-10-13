@@ -16,7 +16,7 @@ import { useEffect, useState } from 'react'
 import DetailTransactionHistory from './DetailTransactionHistory'
 import { TransactionHistoryProps } from './types'
 
-const typeOption = ['all', 'deposit', 'withdraw']
+const typeOption = ['all', 'deposit', 'withdraw', 'adjustment']
 const statusOptions = ['all', 'approved', 'pending', 'rejected']
 
 const getStatusColor = (status: string) => {
@@ -28,8 +28,10 @@ const getStatusColor = (status: string) => {
 
 const getAmountColor = (type: string, status: string) => {
   // if (status === 'REJECTED') return 'text-app-text-color'
-  if (type === 'deposit') return 'font-medium text-[#23b682]'
-  if (type === 'withdraw') return ' font-medium text-app-danger'
+  if (type == 'deposit') return 'font-medium text-[#23b682]'
+  if (type == 'adjustment_plus') return 'font-medium text-[#23b682]'
+  if (type == 'adjustment_minus') return 'font-medium text-app-danger'
+  if (type == 'withdraw') return ' font-medium text-app-danger'
   return ' font-medium text-[#e2a129]'
 }
 
@@ -52,7 +54,7 @@ export default function TransactionHistoryPage({
   const [totalPage, setTotalPage] = useState(1)
   const [pageCrypto, setPageCrypto] = useState(1)
   const [totalPageCrypto, setTotalPageCrypto] = useState(1)
-  const [selectedTypeFilter, setSelectedTypeFilter] = useState(initialType)
+  const [selectedTypeFilter, setSelectedTypeFilter] = useState<string>(initialType)
   const [selectedStatusFilter, setSelectedStatusFilter] = useState(initialStatus === 'all' ? 'all' : initialStatus)
 
   const [isTypeOpen, setIsTypeOpen] = useState(false)
@@ -74,7 +76,6 @@ export default function TransactionHistoryPage({
   ]
 
   const [activeTab, setActiveTab] = useState<string>('fiat')
-
   // Fetch data using GetData
   const { data, isFetching } = GetData<{
     data: DepositWithdrawHistory[]
@@ -218,9 +219,17 @@ export default function TransactionHistoryPage({
   const getTypeLabel = (type: string) => {
     switch (type) {
       case 'deposit':
+      case 'DEPOSIT':
         return lang?.common?.deposit || 'Deposit'
       case 'withdraw':
+      case 'WITHDRAW':
         return lang?.common?.withdraw || 'Withdraw'
+      case 'adjustment_minus':
+      case 'adjustment':
+        return lang?.common?.adjustmentMinus || 'Adjustment Minus'
+      case 'ADJUSTMENT_PLUS':
+      case 'adjustment_plus':
+        return lang?.common?.adjustmentPlus || 'Adjustment Plus'
       default:
         return lang?.common?.all || 'All Types'
     }
@@ -394,7 +403,7 @@ export default function TransactionHistoryPage({
                     )}`}
                   >
                     {/* {transaction?.review_status === 'REJECTED' ? '' : transaction?.type === 'deposit' ? '+' : '-'} */}
-                    {transaction?.type === 'deposit' ? '+' : '-'}
+                    {['deposit', 'adjustment_plus'].includes(String(transaction?.type)) ? '+' : '-'}
                     {thousandSeparatorComma(transaction.amount)}
                   </div>
                   <div className='flex items-center justify-between'>
@@ -435,7 +444,7 @@ export default function TransactionHistoryPage({
                       )}`}
                     >
                       {/* {transaction?.review_status === 'REJECTED' ? '' : transaction?.type === 'deposit' ? '+' : '-'} */}
-                      {transaction?.type === 'deposit' ? '+' : '-'}
+                      {['deposit', 'adjustment_plus'].includes(String(transaction?.type)) ? '+' : '-'}
                       {thousandSeparatorComma(transaction.amount)}
                     </div>
                   </div>

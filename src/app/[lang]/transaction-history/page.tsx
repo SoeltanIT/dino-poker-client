@@ -1,9 +1,8 @@
-import { TransactionResponse } from '@/@core/interface/transactions/Transactions'
 import { getValidServerSession, handleServerAuthError } from '@/@core/lib/server-auth-utils'
 import TransactionHistoryPage from '@/components/organisms/Profile/TransactionHistory'
 import { getDictionary, getLocale } from '@/dictionaries/dictionaries'
 import { getTransactionCrypto } from '@/utils/api/internal/getTransactionCrypto'
-import { getListTransaction, TransactionListResponse } from '@/utils/api/internal/transactionHistory'
+import { getListTransaction } from '@/utils/api/internal/transactionHistory'
 
 // export const runtime = 'edge'
 

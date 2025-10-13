@@ -1,4 +1,3 @@
-import { handleServerAuthError } from '@/@core/lib/server-auth-utils'
 import { Providers } from '@/components/providers/Providers'
 import AppTemplate from '@/components/templates/App'
 import { getDictionary } from '@/dictionaries/dictionaries'
@@ -7,10 +6,10 @@ import { ConfigType } from '@/types/config'
 import { getSEOPage } from '@/utils/api/internal/getSEOPage'
 import { getWebConfig } from '@/utils/api/internal/webConfig'
 import type { Metadata, Viewport } from 'next'
+import Script from 'next/script'
 import { ToastContainer } from 'react-toastify'
 import { baiJamjuree } from '../font'
 import '../globals.css'
-import Script from 'next/script'
 
 // Viewport configuration
 export const viewport: Viewport = {
