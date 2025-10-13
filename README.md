@@ -10,7 +10,7 @@ npm run dev
 # or
 yarn devc
 # orkw
-pnpm devg
+pnpm dev
 # or
 bun devs
 ```
