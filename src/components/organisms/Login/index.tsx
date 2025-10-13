@@ -79,7 +79,7 @@ export default function LoginModal({
       })
 
       if (res?.error) {
-        console.error('Telegram login failed:', res.error)
+        console.log('Telegram login failed:', res)
         setError('Telegram login failed')
       } else if (res?.ok) {
         await handleLoginSuccess()
