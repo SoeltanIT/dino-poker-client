@@ -1,5 +1,6 @@
 {
   "common": {
+    "action": "액션",
     "typeCodeName": "유형 코드명",
     "typeParentCode": "상위 코드 입력",
     "parentCode": "상위 코드",

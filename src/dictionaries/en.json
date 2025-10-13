@@ -1,5 +1,6 @@
 {
   "common": {
+    "action": "Action",
     "typeCodeName": "Type Code Name",
     "typeParentCode": "Type Parent Code",
     "login": "Login",

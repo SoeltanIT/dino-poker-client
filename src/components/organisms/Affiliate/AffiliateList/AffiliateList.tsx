@@ -9,6 +9,7 @@ import { useAffiliateList } from '@/utils/api/internal/getAffiliateList'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import EditAffiliateSheet from './EditAffiliateSheet'
 
 export interface AffiliateListProps {
   lang: LangProps
@@ -84,6 +85,17 @@ export function AffiliateList({ lang, locale, initialAffiliateData }: AffiliateL
                     <div className='text-app-neutral500 text-sm'>{lang?.common?.commission}</div>
                     <div className='text-app-success font-bold text-sm'>{affiliate.commission}</div>
                   </div>
+
+                  <div className='flex justify-end pt-2'>
+                    <EditAffiliateSheet
+                      lang={lang}
+                      affiliate={affiliate}
+                      onSuccess={() => {
+                        // Refetch data after successful edit
+                        window.location.reload()
+                      }}
+                    />
+                  </div>
                 </div>
               ))}
             </div>
@@ -107,19 +119,30 @@ export function AffiliateList({ lang, locale, initialAffiliateData }: AffiliateL
         {/* Desktop Table */}
         <div className='hidden lg:block'>
           <div className='overflow-hidden'>
-            <div className='hidden items-center md:grid md:grid-cols-3 gap-4 px-4 py-3 bg-app-background-secondary rounded-[8px] mb-[10px] text-sm font-semibold text-app-text-header-table uppercase'>
+            <div className='hidden items-center md:grid md:grid-cols-4 gap-4 px-4 py-3 bg-app-background-secondary rounded-[8px] mb-[10px] text-sm font-semibold text-app-text-header-table uppercase'>
               <div>{lang?.common?.codeName}</div>
               <div>{lang?.common?.username}</div>
               <div>{lang?.common?.commission}</div>
+              <div>{lang?.common?.action}</div>
             </div>
 
             <div className='rounded-lg bg-app-background-secondary border border-app-neutral600'>
               {dataList && dataList?.length > 0 ? (
                 dataList.map((affiliate, index) => (
-                  <div key={index} className='grid grid-cols-3 gap-4 p-4 last:border-b-0'>
+                  <div key={index} className='grid grid-cols-4 gap-4 p-4 last:border-b-0'>
                     <div className='text-app-text-color'>{affiliate.code_name}</div>
                     <div className='text-app-text-color'>{affiliate.username}</div>
                     <div className='text-app-text-color'>{affiliate.commission}</div>
+                    <div className='text-app-text-color'>
+                      <EditAffiliateSheet
+                        lang={lang}
+                        affiliate={affiliate}
+                        onSuccess={() => {
+                          // Refetch data after successful edit
+                          window.location.reload()
+                        }}
+                      />
+                    </div>
                   </div>
                 ))
               ) : (
@@ -134,7 +157,7 @@ export function AffiliateList({ lang, locale, initialAffiliateData }: AffiliateL
                   <p className='text-gray-300'>{lang?.common?.noAffiliate}.</p>
                 </div>
               )}
-              {isLoading && <LoadingTable columns={3} rows={1} showHeader={false} />}
+              {isLoading && <LoadingTable columns={4} rows={1} showHeader={false} />}
             </div>
           </div>
         </div>
