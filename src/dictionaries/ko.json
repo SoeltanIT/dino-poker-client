@@ -139,7 +139,7 @@
     "noBankDataFound": "은행 정보가 없습니다. 먼저 계정을 인증해 주세요!",
     "noBankAvailable": "사용 가능한 은행이 없습니다",
     "cannotWithdraw": "출금할 수 없습니다. 먼저 계정을 인증해 주세요",
-    "verifyCheckMsg": "입금 또는 출금 전 반드시 본인 확인 절차를 완료해 주시기 바랍니다.",
+    "verifyCheckMsg": "출금 전 확인 절차를 완료해 주세요.",
     "verifyPendingMsg": "인증이 아직 승인되지 않았습니다. 승인을 기다려 주세요",
     "verifyRejectedMsg": "인증이 거절되었습니다. 정보를 수정한 후 다시 시도해 주세요",
     "verifyCheckMsgReferral": "추천 프로그램에 참여하려면 인증을 완료해 주세요",
