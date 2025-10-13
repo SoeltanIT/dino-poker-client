@@ -17,7 +17,7 @@ export async function GET(request: Request) {
 export async function PUT(request: Request) {
   return withAuthErrorHandling(request, async () => {
     const body = await request.json()
-    const response = await serverApiClient.put('/v1/referral/shared-settings', body)
+    const response = await serverApiClient.put('/v1/referral/shared-settings', body, undefined, 'user', false)
     return response.data
   })
 }

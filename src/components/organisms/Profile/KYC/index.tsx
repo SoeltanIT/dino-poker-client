@@ -5,15 +5,18 @@ import { KYCFormData, KYCSchema } from '@/@core/utils/schema/Registration/KYCSch
 import { IconSize, IconVerifyCheck } from '@/components/atoms/Icons'
 import ImageUploadField from '@/components/molecules/ImageUploadField'
 import { Button } from '@/components/ui/button'
+import { Calendar } from '@/components/ui/calendar'
 import { CardContent } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { ListMasterBankDTO } from '@/types/listMasterBankDTO'
 import { useLiveChatContext } from '@/utils/context/LiveChatProvider'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Loader2 } from 'lucide-react'
+import { format } from 'date-fns'
+import { CalendarIcon, Eye, EyeOff, Loader2 } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useCallback, useState } from 'react'
 import { Resolver, SubmitHandler, useForm } from 'react-hook-form'
@@ -25,6 +28,9 @@ export default function KYCForm({ lang, locale, onClose, isStatus }: KYCFormProp
   const { data: session } = useSession()
   const [idCardFilename, setIdCardFilename] = useState<string>('')
   const [selfieFilename, setSelfieFilename] = useState<string>('')
+  const [showWithdrawalPassword, setShowWithdrawalPassword] = useState(false)
+  const [showRetypeWithdrawalPassword, setShowRetypeWithdrawalPassword] = useState(false)
+  const [openCalendar, setOpenCalendar] = useState(false)
 
   const msgVerifyStatus = (status?: string) => {
     const stat = status && status.toLowerCase()
@@ -55,6 +61,11 @@ export default function KYCForm({ lang, locale, onClose, isStatus }: KYCFormProp
   const form = useForm<FormType>({
     resolver: zodResolver(KYCSchema(lang)) as ResolverType,
     defaultValues: {
+      name: '',
+      date_of_birth: undefined,
+      phone_number: '',
+      transaction_password: '',
+      retype_transaction_password: '',
       bank_account_number: '',
       bank_name: '',
       // bank_account_name: '',
@@ -90,9 +101,14 @@ export default function KYCForm({ lang, locale, onClose, isStatus }: KYCFormProp
       const resp = await updateKYC({
         url: '/updateKYC',
         body: {
+          name: data?.name,
+          date_of_birth: data?.date_of_birth ? format(data.date_of_birth, 'yyyy-MM-dd') : '',
+          phone_number: data?.phone_number,
+          transaction_password: data?.transaction_password,
           bank_account_number: data?.bank_account_number,
           bank_name: data?.bank_name,
-          id_card: data?.id_card || ''
+          id_card: data?.id_card || '',
+          phone_number_code: '+1'
         }
       })
       if (resp?.status === 'success') {
@@ -155,31 +171,156 @@ export default function KYCForm({ lang, locale, onClose, isStatus }: KYCFormProp
     </div>
   ) : (
     <Form {...form}>
-
       <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
         {/* Personal Information */}
         <div className=''>
           <p className='text-base font-semibold text-app-text-color mb-4'>{lang?.register?.kycFormTitle}</p>
 
           <CardContent className='space-y-4'>
-            {/* <div className='grid grid-cols-1 gap-4'>
-            <FormField
-              control={form.control}
-              name='id_number'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className='text-app-text-color'>
-                    {lang?.register?.idNumber}
-                    <span className='text-app-danger'>*</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input {...field} placeholder={lang?.register?.placeholderIDNumber} />
-                  </FormControl>
-                  <FormMessage className='text-app-danger' />
-                </FormItem>
-              )}
-            />
-          </div> */}
+            <div className='grid   grid-cols-1 md:grid-cols-1 gap-4'>
+              <FormField
+                control={form.control}
+                name='name'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className='text-app-text-color'>
+                      {lang?.register?.name}
+                      <span className='text-app-danger'>*</span>
+                    </FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder={lang?.register?.placeholderName} />
+                    </FormControl>
+                    <FormMessage className='text-app-danger' />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name='date_of_birth'
+                render={({ field }) => (
+                  <FormItem className=''>
+                    <FormLabel className='text-app-text-color'>
+                      {lang?.register?.dob || 'Date of Birth'}
+                      <span className='text-app-danger'>*</span>
+                    </FormLabel>
+                    <FormControl>
+                      <Popover open={openCalendar} onOpenChange={setOpenCalendar}>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant='outline'
+                            className={`!border-0 m-0 w-full bg-app-white100 text-left text-app-text-color font-normal ${
+                              !field.value ? 'text-muted-foreground' : ''
+                            }`}
+                          >
+                            {field.value ? format(field.value, 'yyyy-MM-dd') : lang?.register?.selectDate}
+                            <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className=' w-auto p-0 m-0' align='start'>
+                          <Calendar
+                            mode='single'
+                            locale={locale}
+                            captionLayout='dropdown'
+                            defaultMonth={new Date(new Date().getFullYear() - 19, new Date().getMonth())}
+                            selected={field.value}
+                            onSelect={date => {
+                              field.onChange(date)
+                              setOpenCalendar(false)
+                            }}
+                            disabled={date => date > new Date()}
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </FormControl>
+                    <FormMessage className='text-app-danger' />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div className='grid grid-cols-1 md:grid-cols-1 gap-4'>
+              <FormField
+                control={form.control}
+                name='phone_number'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className='text-app-text-color'>
+                      {lang?.register?.phoneNumber}
+                      <span className='text-app-danger'>*</span>
+                    </FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder={lang?.common?.typePhoneNumber} />
+                    </FormControl>
+                    <FormMessage className='text-app-danger' />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name='transaction_password'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className='text-app-text-color'>
+                      {lang?.register?.withdrawalPassword}
+                      <span className='text-app-danger'>*</span>
+                    </FormLabel>
+                    <FormControl>
+                      <div className='relative'>
+                        <Input
+                          {...field}
+                          type={showWithdrawalPassword ? 'text' : 'password'}
+                          placeholder={lang?.register?.placeholderWithdrawalPassword}
+                          className='pr-10'
+                        />
+                        <button
+                          type='button'
+                          className='absolute right-0 top-0 h-full px-3 text-app-text-color'
+                          onClick={() => setShowWithdrawalPassword(!showWithdrawalPassword)}
+                        >
+                          {showWithdrawalPassword ? <EyeOff className='h-4 w-4' /> : <Eye className='h-4 w-4' />}
+                        </button>
+                      </div>
+                    </FormControl>
+                    <FormMessage className='text-app-danger' />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div className='grid grid-cols-1 md:grid-cols-1 gap-4'>
+              <FormField
+                control={form.control}
+                name='retype_transaction_password'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className='text-app-text-color'>
+                      {lang?.register?.retypeWithdrawalPassword}
+                      <span className='text-app-danger'>*</span>
+                    </FormLabel>
+                    <FormControl>
+                      <div className='relative'>
+                        <Input
+                          {...field}
+                          type={showRetypeWithdrawalPassword ? 'text' : 'password'}
+                          placeholder={lang?.register?.typeRetypeWithdrawPassword}
+                          className='pr-10'
+                        />
+                        <button
+                          type='button'
+                          className='absolute right-0 top-0 h-full px-3 text-app-text-color'
+                          onClick={() => setShowRetypeWithdrawalPassword(!showRetypeWithdrawalPassword)}
+                        >
+                          {showRetypeWithdrawalPassword ? <EyeOff className='h-4 w-4' /> : <Eye className='h-4 w-4' />}
+                        </button>
+                      </div>
+                    </FormControl>
+                    <FormMessage className='text-app-danger' />
+                  </FormItem>
+                )}
+              />
+            </div>
 
             <div className='grid grid-cols-1 gap-4'>
               <FormField
@@ -224,7 +365,7 @@ export default function KYCForm({ lang, locale, onClose, isStatus }: KYCFormProp
         <div className='space-y-6'>
           <p className='text-base font-semibold text-app-text-color mb-4'>{lang?.register?.bankInformation}</p>
           <CardContent className='space-y-4'>
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+            <div className='grid grid-cols-1 md:grid-cols-1 gap-4'>
               <FormField
                 control={form.control}
                 name='bank_name'

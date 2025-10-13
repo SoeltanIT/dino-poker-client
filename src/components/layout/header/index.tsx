@@ -14,13 +14,15 @@ import { Button } from '@/components/ui/button'
 import DepositWithdrawSheet from './views/transaction/DepositWithdrawSheet'
 
 import { HeaderProps } from '@/@core/interface/home/HeaderProps'
+import HeaderBalance from '@/components/layout/header/views/myBalance/HeaderBalance'
+import BalanceSheet from '@/components/layout/header/views/myBalance/MyBalanceSheet'
 import LoginModal from '@/components/organisms/Login'
 import { cn } from '@/lib/utils'
+import { BalanceDTO } from '@/types/balanceDTO'
 import { UserFullDTO } from '@/types/userDTO'
 import { Eye, EyeOff } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import ProfilePopover from './views/menu/ProfilePopover'
-import BalanceSheet from './views/myBalance/MyBalanceSheet'
 import RegisterForm from './views/register/RegisterForm'
 
 export const Header = ({ lang, locale, data, balance, theme }: HeaderProps) => {
@@ -120,7 +122,7 @@ export const Header = ({ lang, locale, data, balance, theme }: HeaderProps) => {
         )
       ) : isLogin ? (
         <div className='w-full flex items-center md:justify-end gap-3'>
-          <Link href={`/${locale}`} className='hidden md:flex flex-shrink-0'>
+          <Link href={`/${locale}`} className=' md:flex flex-shrink-0'>
             <Image
               src={logo}
               alt={'Site Logo Desktop'}
@@ -212,9 +214,10 @@ export const Header = ({ lang, locale, data, balance, theme }: HeaderProps) => {
             </Link> */}
           </div>
 
-          <div className='w-full flex items-center justify-end gap-3'>
-            <div className='flex w-full h-[40px] lg:max-w-[190px] justify-between items-center space-x-2 bg-app-bg-button hover:bg-app-bg-button-hover rounded-full px-3 py-1 transition-colors'>
-              <BalanceSheet data={balance} lang={lang} locale={locale} onShow={showBalance} />
+          <div className='w-full flex items-center justify-end md:gap-3 gap-1'>
+            <div className='flex w-full h-[44px] lg:max-w-[190px] justify-between items-center space-x-2 bg-app-bg-button hover:bg-app-bg-button-hover rounded-full px-3 py-[6px] cursor-pointer transition-colors'>
+              {/* <BalanceSheet data={balance} lang={lang} locale={locale} onShow={showBalance} /> */}
+              <HeaderBalance data={balance as BalanceDTO} lang={lang} locale={locale} onShow={showBalance} />
               <div onClick={() => setShowBalance(!showBalance)} className='cursor-pointer'>
                 {showBalance ? (
                   <EyeOff className='h-4 w-4 md:h-5 md:w-5 text-app-text-color' />
@@ -223,7 +226,7 @@ export const Header = ({ lang, locale, data, balance, theme }: HeaderProps) => {
                 )}
               </div>
             </div>
-
+            <BalanceSheet data={balance} lang={lang} locale={locale} onShow={showBalance} />
             <button
               onClick={() => {
                 setActiveTab('DEPOSIT')
@@ -256,8 +259,12 @@ export const Header = ({ lang, locale, data, balance, theme }: HeaderProps) => {
             </button>
 
             <div className='hidden md:flex bg-app-divider-color h-4 w-1 mx-1' />
-            <NotificationDropdown lang={lang} isLogin={!!data} />
-            <ThemeSwitcher />
+            <div className='hidden md:flex'>
+              <NotificationDropdown lang={lang} isLogin={!!data} />
+            </div>
+            <div className='hidden md:flex'>
+              <ThemeSwitcher />
+            </div>
             <div className='hidden md:flex'>
               <LocaleSwitcherDropdown lang={lang} />
             </div>

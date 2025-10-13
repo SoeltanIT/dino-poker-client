@@ -1,5 +1,7 @@
 {
   "common": {
+    "typeCodeName": "Type Code Name",
+    "typeParentCode": "Type Parent Code",
     "login": "Login",
     "typeUsername": "Type Username",
     "typePassword": "Type Password",
@@ -252,7 +254,9 @@
     "parentCode": "Parent Code",
     "noAffiliate": "No affiliate found",
     "codeName": "Code Name",
-    "loginWithTelegram": "Continue With"
+    "loginWithTelegram": "Continue With",
+    "userAffiliate": "User Affiliate",
+    "affiliate": "Affiliate"
   },
   "game": {
     "texaspoker": "Texas Poker",
@@ -485,9 +489,17 @@
     "configNotFound": "Config not found",
     "failedToGetCurrencies": "Failed to get currencies",
     "failedToGetLanguages": "Failed to get languages",
-    "failedToUpdateReferralCommissionLimitSharedSettings": "Commission limit reached: maximum 40% already allocated"
+    "failedToUpdateReferralCommissionLimitSharedSettings": "Commission limit reached: maximum 40% already allocated",
+    "ErrSharedSettingsNotFound": "No Settings was found "
   },
   "info": {
     "infoDate": "End date cleared because it was earlier than start date."
+  },
+  "header": {
+    "mainBalance": "Main Balance",
+    "mainShort": "Main...",
+    "idnBalance": "IDN Balance",
+    "convert": "Convert",
+    "notif": "Notif"
   }
 }

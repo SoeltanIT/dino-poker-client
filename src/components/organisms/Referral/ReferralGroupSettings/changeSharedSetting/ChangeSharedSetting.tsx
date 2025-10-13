@@ -61,9 +61,9 @@ export default function ChangeSharedSettingSheet({ lang, initialData, trigger, o
         }
       })
       if (resp?.status === 'success') {
-        // setOpen(false)
-        form.reset() // Keep the submitted values as new defaults
-        // onSuccess?.() // Trigger refetch or callback
+        setOpen(false)
+        // form.reset() // Keep the submitted values as new defaults
+        onSuccess?.() // Trigger refetch or callback
       }
     } catch (error) {
       return
@@ -104,14 +104,14 @@ export default function ChangeSharedSettingSheet({ lang, initialData, trigger, o
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className='text-app-text-color text-sm mb-2 block'>
-                    User Share (%)
+                    {lang?.common?.userShare || 'User Share'} (%)
                     <span className='text-app-danger'>*</span>
                   </FormLabel>
                   <FormControl>
                     <Input
                       type='text'
                       inputMode='numeric'
-                      placeholder='Enter user share percentage'
+                      placeholder={lang?.common?.userSharePlaceholder || 'Enter user share percentage'}
                       step={1}
                       {...field}
                       onChange={e => {
@@ -137,14 +137,13 @@ export default function ChangeSharedSettingSheet({ lang, initialData, trigger, o
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className='text-app-text-color text-sm mb-2 block'>
-                    Affiliate Share (%)
-                    <span className='text-app-danger'>*</span>
+                    {lang?.common?.affiliateShare || 'Affiliate Share'} (%)
                   </FormLabel>
                   <FormControl>
                     <Input
                       type='text'
                       inputMode='numeric'
-                      placeholder='Enter affiliate share percentage'
+                      placeholder={lang?.common?.affiliateSharePlaceholder || 'Enter affiliate share percentage'}
                       step={1}
                       {...field}
                       onChange={e => {

@@ -245,6 +245,10 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .header-bg-button {
+    @apply bg-[#3E4046];
+  }
 }
 
 /* Force dark theme compatibility for native select in DayPicker dropdown */

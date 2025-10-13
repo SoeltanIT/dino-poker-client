@@ -1,6 +1,6 @@
-import React, { SVGProps } from 'react'
-import { IconSize, IIconProps } from './types'
+import React from 'react'
 import { styles } from './helpers'
+import { IconSize, IIconProps } from './types'
 
 export const IconSouthKoreaFlag: React.FC<IIconProps> = ({ size = IconSize.md, className }) => {
   return (

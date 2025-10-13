@@ -17,7 +17,9 @@ import { useAuth } from '@/utils/hooks/useAuth'
 import { useHasMounted } from '@/utils/hooks/useHasMounted'
 import { useThemeToggle } from '@/utils/hooks/useTheme'
 import { usePathname } from 'next/navigation'
-import { FC, ReactNode } from 'react'
+import { FC, ReactNode, useEffect } from 'react'
+import { useSession } from 'next-auth/react'
+import { UseServerSendEvent } from '@/@core/hooks/UseServerSendEvent'
 
 interface AppTemplateProps {
   children?: ReactNode | string
@@ -32,7 +34,7 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config }) =>
   const pathname = usePathname()
 
   const parts = pathname.split('/').filter(Boolean) // ["en", "sport"]
-
+const session = useSession()
   const { theme } = useThemeToggle()
 
   const { isLoading: isSessionLoading } = useAuth()
@@ -41,12 +43,23 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config }) =>
     '/me', // hits your Next.js API route, not the real backend
     ['user', 'me']
   )
-  // const { trigger } = UseServerSendEvent()
+  const {  balanceTrigger, balanceMessages} = UseServerSendEvent()
   const { data: respBalance, isLoading: balanceLoading } = GetData<BalanceResponse>(
     '/balance', // hits your Next.js API route, not the real backend
-    ['getBalance'] //trigger put here if need to refresh on SSE event
+    ['getBalance', balanceTrigger] //trigger put here if need to refresh on SSE event
   )
   const hasMounted = useHasMounted()
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+  if (session?.data?.user?.roles) {
+  const maxAge = 7 * 24 * 60 * 60 // Convert days to seconds
+  document.cookie = `user_roles=${session?.data?.user?.roles}; path=/; max-age=${maxAge}; samesite=lax`
+  }
+  }, [session])
+
+
+
 
   return (
     <div className='min-h-screen bg-app-background-primary text-app-text-color'>

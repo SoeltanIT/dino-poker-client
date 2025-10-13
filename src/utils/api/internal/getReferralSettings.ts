@@ -13,7 +13,8 @@ export const getReferralSettings = async (): Promise<ReferralSettingsResponse | 
       {
         params: bodyRequest
       },
-      'user'
+      'user',
+      false
     )
 
     const rawData = res?.data?.data
@@ -36,7 +37,7 @@ export const getReferralSettings = async (): Promise<ReferralSettingsResponse | 
 export const useReferralSettings = (initialData?: ReferralSettingsResponse) => {
   return GetData<ReferralSettingsResponse>(
     '/referral/shared-settings',
-    ['referral_settings'],
+    ['changeSharedSetting'],
     false, // requires auth
     initialData,
     true, // enabled

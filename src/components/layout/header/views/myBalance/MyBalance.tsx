@@ -1,20 +1,20 @@
 'use client'
 
-import { IconSouthKoreaFlag } from '@/components/atoms/Icons'
-import { Card } from '@/components/ui/card'
-import { thousandSeparatorComma, unformatCommaNumber } from '@/utils/helper/formatNumber'
-import { Eye, EyeOff, Loader2 } from 'lucide-react'
-import { useState } from 'react'
-import { MyBalanceProps } from './types'
-import { cn } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
 import { useMutationQuery } from '@/@core/hooks/use-query'
+import { TransferBalanceFormData, TransferBalanceSchema } from '@/@core/utils/schema/Balance/TransferBalanceSchema'
+import { IconSouthKoreaFlag } from '@/components/atoms/Icons'
+import { TabSwitcher } from '@/components/molecules/TabSwitcher'
+import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { TabSwitcher } from '@/components/molecules/TabSwitcher'
-import { TransferBalanceFormData, TransferBalanceSchema } from '@/@core/utils/schema/Balance/TransferBalanceSchema'
-import { Resolver, SubmitHandler, useForm } from 'react-hook-form'
+import { cn } from '@/lib/utils'
+import { thousandSeparatorComma, unformatCommaNumber } from '@/utils/helper/formatNumber'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Eye, EyeOff, Loader2 } from 'lucide-react'
+import { useState } from 'react'
+import { Resolver, SubmitHandler, useForm } from 'react-hook-form'
+import { MyBalanceProps } from './types'
 
 const tabs = ['ALL', 'FIAT', 'CRYPTO'] as const
 
@@ -63,7 +63,6 @@ const currencies: Currency[] = [
 ]
 
 export default function MyBalance({ lang, locale, onClose, data }: MyBalanceProps) {
-  console.log('data >>', data)
   const [showBalance, setShowBalance] = useState(true)
   const [showBonusBalance, setShowBonusBalance] = useState(true)
   const [showIDNBalance, setShowIDNBalance] = useState(true)

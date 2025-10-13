@@ -66,6 +66,7 @@ export const authOptions: AuthOptions = {
 
           const resp = await res.json()
 
+
           if (resp.status !== 'success' || !resp.data?.token || !resp.data?.user_id) {
             console.error('[authorize] Invalid response format or missing required fields:', {
               status: resp.status,
@@ -77,6 +78,9 @@ export const authOptions: AuthOptions = {
           }
 
           const { token, user_id, roles, email } = resp.data
+          
+          // Set roles to cookies
+     
 
           return {
             id: user_id,
@@ -236,6 +240,10 @@ export const authOptions: AuthOptions = {
   events: {
     async signOut() {
       console.log('[NextAuth] User signed out')
+      // Clear roles cookie on logout
+      if (typeof window !== 'undefined') {
+        document.cookie = 'user_roles=; path=/; max-age=0; samesite=lax'
+      }
     }
   },
   secret: AUTH_SECRET,

@@ -49,7 +49,7 @@ export default function CreateAffiliateSheet({ lang, trigger, onSuccess, parentC
   })
 
   const { mutateAsync: createAffiliate, isPending } = useMutationQuery<any, any>(
-    ['createAffiliate'],
+    ['affiliates'],
     'post',
     'json',
     true,
@@ -106,11 +106,11 @@ export default function CreateAffiliateSheet({ lang, trigger, onSuccess, parentC
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className='text-app-text-color text-sm mb-2 block'>
-                    Code Name
+                    {lang?.common?.codeName || 'Code Name'}
                     <span className='text-app-danger'>*</span>
                   </FormLabel>
                   <FormControl>
-                    <Input type='text' placeholder='Enter code name' {...field} />
+                    <Input type='text' placeholder={lang?.common?.typeCodeName || 'Enter code name'} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -234,12 +234,12 @@ export default function CreateAffiliateSheet({ lang, trigger, onSuccess, parentC
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className='text-app-text-color text-sm mb-2 block'>
-                    Parent Code <span className='text-app-placeholder text-xs'>({lang?.common?.optional})</span>
+                    {lang?.common?.parentCode || 'Parent Code'}
                   </FormLabel>
                   <FormControl>
                     <Input
                       type='text'
-                      placeholder='Enter parent code'
+                      placeholder={lang?.common?.typeParentCode || 'Enter parent code'}
                       {...field}
                       readOnly={!!parentCode}
                       disabled={!!parentCode}
@@ -251,7 +251,7 @@ export default function CreateAffiliateSheet({ lang, trigger, onSuccess, parentC
             />
 
             {/* Commission */}
-            <FormField
+            {/* <FormField
               control={form.control}
               name='commission'
               render={({ field }) => (
@@ -274,7 +274,7 @@ export default function CreateAffiliateSheet({ lang, trigger, onSuccess, parentC
                   <FormMessage />
                 </FormItem>
               )}
-            />
+            /> */}
 
             {/* Submit Button */}
             <div className='pt-8'>
