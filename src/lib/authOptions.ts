@@ -56,7 +56,6 @@ export const authOptions: AuthOptions = {
             body: JSON.stringify(credentials)
           })
 
-
           if (!res.ok) {
             console.error('[authorize] HTTP error:', res.status, res.statusText)
             const errorText = await res.text()
@@ -65,7 +64,6 @@ export const authOptions: AuthOptions = {
           }
 
           const resp = await res.json()
-
 
           if (resp.status !== 'success' || !resp.data?.token || !resp.data?.user_id) {
             console.error('[authorize] Invalid response format or missing required fields:', {
@@ -78,9 +76,8 @@ export const authOptions: AuthOptions = {
           }
 
           const { token, user_id, roles, email } = resp.data
-          
+
           // Set roles to cookies
-     
 
           return {
             id: user_id,
@@ -119,10 +116,9 @@ export const authOptions: AuthOptions = {
 
           console.log('[authorize] Telegram authentication verified successfully')
 
-
           const payload = {
             provider: 'telegram',
-            ...telegramData
+            telegram: telegramData
           }
 
           const loginUrl = `${API_BASE_URL}/v1/login`
@@ -135,7 +131,6 @@ export const authOptions: AuthOptions = {
             },
             body: JSON.stringify(payload)
           })
-
 
           if (!res.ok) {
             console.error('[authorize] Telegram login HTTP error:', res.status, res.statusText)
