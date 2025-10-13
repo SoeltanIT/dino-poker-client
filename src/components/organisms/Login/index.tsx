@@ -185,7 +185,7 @@ export default function LoginModal({
             <div className='mb-4 flex justify-center items-center'>
               <TelegramButton
                 lang={lang}
-                botUsername='nwa_coin_bot'
+                botUsername={process.env.NEXT_PUBLIC_TELEGRAM_BOT_USERNAME as string}
                 onAuth={handleTelegramAuth}
                 onError={setError}
                 disabled={loading}
