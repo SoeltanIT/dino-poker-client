@@ -1,28 +1,26 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useState } from 'react'
-import { Resolver, SubmitHandler, useForm } from 'react-hook-form'
-import { format } from 'date-fns'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { getSession, signIn } from 'next-auth/react'
 import { useQueryClient } from '@tanstack/react-query'
+import { getSession, signIn } from 'next-auth/react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useState } from 'react'
 import { useCookies } from 'react-cookie'
+import { Resolver, SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 import { useMutationQuery } from '@/@core/hooks/use-query'
 import { RegistrationFormData, registrationSchema } from '@/@core/utils/schema/Registration/RegistrationSchema'
 import { Button } from '@/components/ui/button'
-import { Calendar } from '@/components/ui/calendar'
 import { CardContent } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+
 import { Sheet, SheetContent } from '@/components/ui/sheet'
-import { CalendarIcon, Eye, EyeOff } from 'lucide-react'
 import { Locale } from '@/i18n-config'
 import { LangProps } from '@/types/langProps'
+import { Eye, EyeOff } from 'lucide-react'
 
 type RegisterFormProps = {
   lang: LangProps
@@ -41,16 +39,18 @@ export default function RegisterForm({ lang, locale, open, setOpen }: RegisterFo
 
   const [showPassword, setShowPassword] = useState(false)
   const [showRetypePassword, setShowRetypePassword] = useState(false)
-  const [showWithdrawalPassword, setShowWithdrawalPassword] = useState(false)
-  const [showRetypeWithdrawalPassword, setShowRetypeWithdrawalPassword] = useState(false)
+  // removed withdrawal password toggles
 
   type FormType = RegistrationFormData
   type ResolverType = Resolver<FormType>
-  type RegistrationPayload = Omit<
-    RegistrationFormData,
-    'date_of_birth' | 'retypePassword' | 'retype_transaction_password'
-  > & {
-    date_of_birth: string
+  type RegistrationPayload = {
+    email: string
+    username: string
+    password: string
+    referral_code?: string
+    consent: boolean
+    roles: string | undefined
+    language: string
   }
 
   const { mutateAsync: registerUser, isPending } = useMutationQuery<RegistrationPayload, any>(
@@ -65,26 +65,24 @@ export default function RegisterForm({ lang, locale, open, setOpen }: RegisterFo
     resolver: zodResolver(registrationSchema(lang)) as ResolverType,
     defaultValues: {
       email: '',
-      language: 'en',
-      name: '',
-      password: '',
-      phone_number: '',
-      phone_number_code: '+1',
-      roles: 2,
-      transaction_password: '',
       username: '',
-      date_of_birth: undefined,
-      consent: false,
-      retype_transaction_password: '',
+      password: '',
       retypePassword: '',
-      referral_code: referral ?? ''
+      referral_code: referral ?? '',
+      consent: false,
+      roles: '2'
     }
   })
 
   const onSubmit: SubmitHandler<FormType> = async data => {
     const payload: RegistrationPayload = {
-      ...data,
-      date_of_birth: data.date_of_birth ? format(data.date_of_birth, 'yyyy-MM-dd') : ''
+      email: data.email,
+      username: data.username,
+      password: data.password,
+      referral_code: data.referral_code || undefined,
+      consent: data.consent,
+      roles: data.roles,
+      language: 'en'
     }
 
     try {
@@ -134,8 +132,26 @@ export default function RegisterForm({ lang, locale, open, setOpen }: RegisterFo
         <div className='mt-6 text-xl font-bold uppercase text-app-text-color'>{lang?.common?.register}</div>
         <p className='text-app-text-color text-base mb-8'>{lang?.register?.subTitleRegister}</p>
 
+        {/* {email} */}
         <Form {...form}>
           <form id='register-form' onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+            <FormField
+              control={form.control}
+              name='email'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className='text-app-text-color'>
+                    {lang?.register?.email}
+                    <span className='text-app-danger'>*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input {...field} type='text' placeholder={lang?.common?.typeEmail} />
+                  </FormControl>
+                  <FormMessage className='text-app-danger' />
+                </FormItem>
+              )}
+            />
+
             {/* Username */}
             <FormField
               control={form.control}
@@ -217,110 +233,6 @@ export default function RegisterForm({ lang, locale, open, setOpen }: RegisterFo
               )}
             />
 
-            <FormField
-              control={form.control}
-              name='email'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className='text-app-text-color'>
-                    {lang?.register?.email}
-                    <span className='text-app-danger'>*</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input {...field} type='text' placeholder={lang?.common?.typeEmail} />
-                  </FormControl>
-                  <FormMessage className='text-app-danger' />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name='name'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className='text-app-text-color'>
-                    {lang?.register?.name}
-                    <span className='text-app-danger'>*</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input {...field} placeholder={lang?.register?.placeholderName} />
-                  </FormControl>
-                  <FormMessage className='text-app-danger' />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name='date_of_birth'
-              render={({ field }) => (
-                <FormItem className='flex flex-col'>
-                  <FormLabel className='text-app-text-color'>
-                    {lang?.register?.dob || 'Date of Birth'}
-                    <span className='text-app-danger'>*</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant='outline'
-                          className={`!border-0 w-full bg-app-white100 text-left text-app-text-color font-normal ${
-                            !field.value ? 'text-muted-foreground' : ''
-                          }`}
-                        >
-                          {field.value ? format(field.value, 'yyyy-MM-dd') : lang?.register?.selectDate}
-                          <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className='w-auto p-0' align='start'>
-                        <Calendar
-                          mode='single'
-                          locale={locale}
-                          captionLayout='dropdown'
-                          defaultMonth={new Date(new Date().getFullYear() - 19, new Date().getMonth())}
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          disabled={date => date > new Date()}
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </FormControl>
-                  <FormMessage className='text-app-danger' />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name='phone_number'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className='text-app-text-color'>
-                    {lang?.register?.phoneNumber}
-                    <span className='text-app-danger'>*</span>
-                  </FormLabel>
-                  <FormControl>
-                    <div className='flex gap-2'>
-                      <Input {...field} placeholder={lang?.common?.typePhoneNumber} className='flex-1' />
-                      {/* <Button
-                              type="button"
-                              variant="outline"
-                              className="bg-transparent border-gray-600 text-app-neutral500 hover:bg-gray-700 hover:text-white px-4"
-                              onClick={(e) => {
-                                handleSendOTP();
-                              }}
-                            >
-                              SEND CODE
-                            </Button> */}
-                    </div>
-                  </FormControl>
-                  <FormMessage className='text-app-danger' />
-                </FormItem>
-              )}
-            />
-
             <p className='text-xl font-semibold text-app-text-color'>{lang?.register?.referral}</p>
             <FormField
               control={form.control}
@@ -332,74 +244,7 @@ export default function RegisterForm({ lang, locale, open, setOpen }: RegisterFo
                     <span className='text-app-neutral500 capitalize'> ({lang?.common?.optional})</span>
                   </FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      type='text'
-                      placeholder={lang?.register?.typeReferralCode}
-                    />
-                  </FormControl>
-                  <FormMessage className='text-app-danger' />
-                </FormItem>
-              )}
-            />
-
-            <p className='text-xl font-semibold text-app-text-color'>{lang?.register?.depoWithdrawInformation}</p>
-            <FormField
-              control={form.control}
-              name='transaction_password'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className='text-app-text-color'>
-                    {lang?.register?.withdrawalDepositPassword}
-                    <span className='text-app-danger'>*</span>
-                  </FormLabel>
-                  <FormControl>
-                    <div className='relative'>
-                      <Input
-                        {...field}
-                        type={showWithdrawalPassword ? 'text' : 'password'}
-                        placeholder={lang?.register?.placeholderWithdrawalPassword}
-                        className='pr-10'
-                      />
-                      <button
-                        type='button'
-                        className='absolute right-0 top-0 h-full px-3 text-app-text-color'
-                        onClick={() => setShowWithdrawalPassword(!showWithdrawalPassword)}
-                      >
-                        {showWithdrawalPassword ? <EyeOff className='h-4 w-4' /> : <Eye className='h-4 w-4' />}
-                      </button>
-                    </div>
-                  </FormControl>
-                  <FormMessage className='text-app-danger' />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name='retype_transaction_password'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className='text-app-text-color'>
-                    {lang?.register?.retypeWithdrawalDepositPassword}
-                    <span className='text-app-danger'>*</span>
-                  </FormLabel>
-                  <FormControl>
-                    <div className='relative'>
-                      <Input
-                        {...field}
-                        type={showRetypeWithdrawalPassword ? 'text' : 'password'}
-                        placeholder={lang?.register?.typeRetypeWithdrawDepositPassword}
-                        className='pr-10'
-                      />
-                      <button
-                        type='button'
-                        className='absolute right-0 top-0 h-full px-3 text-app-text-color'
-                        onClick={() => setShowRetypeWithdrawalPassword(!showRetypeWithdrawalPassword)}
-                      >
-                        {showRetypeWithdrawalPassword ? <EyeOff className='h-4 w-4' /> : <Eye className='h-4 w-4' />}
-                      </button>
-                    </div>
+                    <Input {...field} type='text' placeholder={lang?.register?.typeReferralCode} />
                   </FormControl>
                   <FormMessage className='text-app-danger' />
                 </FormItem>

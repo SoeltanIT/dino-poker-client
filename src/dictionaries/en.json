@@ -1,5 +1,11 @@
 {
   "common": {
+    "verifyCheckMsgDeposit": "Please complete your verification process before deposit",
+    "verifyPendingMsgDeposit": "Your verification is still pending. Please wait for approval",
+    "verifyRejectedMsgDeposit": "Your verification was rejected. Please update your information and try again",
+    "adjustmentMinus": "Adjustment",
+    "adjustmentPlus": "Adjustment",
+    "action": "Action",
     "typeCodeName": "Type Code Name",
     "typeParentCode": "Type Parent Code",
     "login": "Login",
@@ -254,6 +260,7 @@
     "parentCode": "Parent Code",
     "noAffiliate": "No affiliate found",
     "codeName": "Code Name",
+    "loginWithTelegram": "Continue With",
     "userAffiliate": "User Affiliate",
     "affiliate": "Affiliate"
   },
@@ -496,6 +503,7 @@
   },
   "header": {
     "mainBalance": "Main Balance",
+    "mainShort": "Main...",
     "idnBalance": "IDN Balance",
     "convert": "Convert",
     "notif": "Notif"
