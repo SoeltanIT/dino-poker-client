@@ -1,5 +1,7 @@
 {
   "common": {
+    "adjustmentMinus": "Adjustment",
+    "adjustmentPlus": "Adjustment",
     "action": "Action",
     "typeCodeName": "Type Code Name",
     "typeParentCode": "Type Parent Code",

@@ -30,7 +30,7 @@ export const getListTransaction = async ({
 
   try {
     const res = await serverApiClient.get(
-      `${getApiEndpoint('transaction_history')}/${type}`,
+      `${getApiEndpoint('transaction_history')}${type !== 'all' ? `/${type}` : ''}`,
       {
         params: bodyRequest
       },

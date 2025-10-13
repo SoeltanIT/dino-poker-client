@@ -239,7 +239,22 @@ export default function DepositWithdrawSheet({
           </TabsList>
 
           <TabsContent value='DEPOSIT'>
-            {!isSubmittedDeposit ? (
+            {isStatus && isStatus !== 'APPROVED' ? (
+              <div className='h-[70vh] flex flex-col justify-center items-center mt-10'>
+                <IconVerifyCheck size={IconSize['3xl']} />
+                <span className='text-sm font-semibold text-app-text-color text-center'>
+                  {msgVerifyStatus(isStatus)}
+                </span>
+                {(isStatus === 'PENDING' || isStatus === 'REJECTED') && (
+                  <Button
+                    onClick={() => openContactUS()}
+                    className='w-full bg-app-primary uppercase hover:bg-app-primary-hover mt-4 text-white py-4 text-base font-medium rounded-lg transition-colors'
+                  >
+                    {lang?.common?.contactUS}
+                  </Button>
+                )}
+              </div>
+            ) : !isSubmittedDeposit ? (
               <DepositForm
                 onSubmit={handleDepositSubmit}
                 lang={lang}
