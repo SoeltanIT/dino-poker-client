@@ -9,6 +9,7 @@ import { useAffiliateList } from '@/utils/api/internal/getAffiliateList'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 import EditAffiliateSheet from './EditAffiliateSheet'
 
 export interface AffiliateListProps {
@@ -92,7 +93,7 @@ export function AffiliateList({ lang, locale, initialAffiliateData }: AffiliateL
                       affiliate={affiliate}
                       onSuccess={() => {
                         // Refetch data after successful edit
-                        window.location.reload()
+                        toast.success(lang?.common?.successUpdateAffiliate)
                       }}
                     />
                   </div>

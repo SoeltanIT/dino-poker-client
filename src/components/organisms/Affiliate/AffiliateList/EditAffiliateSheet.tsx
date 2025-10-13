@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { LangProps } from '@/types/langProps'
 import { AffiliateListResponse } from '@/types/referralDTO'
-import { ToastContainer } from 'react-toastify'
+import { toast, ToastContainer } from 'react-toastify'
 
 interface EditAffiliateSheetProps {
   lang: LangProps
@@ -33,7 +33,7 @@ export default function EditAffiliateSheet({ lang, affiliate, trigger, onSuccess
   })
 
   const { mutateAsync: updateAffiliate, isPending } = useMutationQuery<any, any>(
-    ['updateAffiliate'],
+    ['getAffiliateList'],
     'patch',
     'json',
     true,
@@ -49,8 +49,7 @@ export default function EditAffiliateSheet({ lang, affiliate, trigger, onSuccess
         }
       })
       if (resp?.status === 'success') {
-        setOpen(false)
-        onSuccess?.() // Trigger refetch or callback
+        toast.success(lang?.common?.successUpdateAffiliate)
       }
     } catch (error) {
       return

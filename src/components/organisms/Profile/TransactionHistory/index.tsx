@@ -16,7 +16,7 @@ import { useEffect, useState } from 'react'
 import DetailTransactionHistory from './DetailTransactionHistory'
 import { TransactionHistoryProps } from './types'
 
-const typeOption = ['all', 'deposit', 'withdraw']
+const typeOption = ['all', 'deposit', 'withdraw', 'adjustment']
 const statusOptions = ['all', 'approved', 'pending', 'rejected']
 
 const getStatusColor = (status: string) => {
@@ -225,6 +225,7 @@ export default function TransactionHistoryPage({
         return lang?.common?.withdraw || 'Withdraw'
       case 'WITHDRAW':
       case 'adjustment_minus':
+      case 'adjustment':
         return lang?.common?.adjustmentMinus || 'Adjustment Minus'
       case 'ADJUSTMENT_PLUS':
       case 'adjustment_plus':
