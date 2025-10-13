@@ -6,6 +6,42 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 const AUTH_SECRET = process.env.NEXTAUTH_SECRET || ''
+const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN
+
+// Function to verify Telegram authentication data
+function verifyTelegramAuth(telegramData: any): boolean {
+  if (!TELEGRAM_BOT_TOKEN) {
+    console.error('[Telegram Auth] Bot token not configured')
+    return false
+  }
+
+  if (!telegramData.hash) {
+    console.error('[Telegram Auth] Missing hash in Telegram data')
+    return false
+  }
+
+  try {
+    const crypto = require('crypto')
+
+    // Create the data string for verification
+    const dataCheckString = Object.keys(telegramData)
+      .filter(key => key !== 'hash')
+      .map(key => `${key}=${telegramData[key]}`)
+      .sort()
+      .join('\n')
+
+    // Create the secret key
+    const secretKey = crypto.createHash('sha256').update(TELEGRAM_BOT_TOKEN).digest()
+
+    // Create the hash
+    const hash = crypto.createHmac('sha256', secretKey).update(dataCheckString).digest('hex')
+
+    return hash === telegramData.hash
+  } catch (error) {
+    console.error('[Telegram Auth] Verification error:', error)
+    return false
+  }
+}
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -17,11 +53,19 @@ export const authOptions: AuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.username || !credentials?.password) {
+          console.error('[authorize] Missing credentials')
           return null
         }
 
+        if (!API_BASE_URL) {
+          console.error('[authorize] API_BASE_URL is not configured')
+          return null
+        }
+
+        const loginUrl = `${API_BASE_URL}${getApiEndpoint('login')}`
+
         try {
-          const res = await fetch(`${API_BASE_URL}${getApiEndpoint('login')}`, {
+          const res = await fetch(loginUrl, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -30,10 +74,24 @@ export const authOptions: AuthOptions = {
             body: JSON.stringify(credentials)
           })
 
+
+          if (!res.ok) {
+            console.error('[authorize] HTTP error:', res.status, res.statusText)
+            const errorText = await res.text()
+            console.error('[authorize] Error response body:', errorText)
+            return null
+          }
+
           const resp = await res.json()
 
 
           if (resp.status !== 'success' || !resp.data?.token || !resp.data?.user_id) {
+            console.error('[authorize] Invalid response format or missing required fields:', {
+              status: resp.status,
+              hasToken: !!resp.data?.token,
+              hasUserId: !!resp.data?.user_id,
+              response: resp
+            })
             return null
           }
 
@@ -69,6 +127,13 @@ export const authOptions: AuthOptions = {
         try {
           const telegramData = JSON.parse(credentials.telegramData)
 
+          // Verify Telegram authentication data
+          if (!verifyTelegramAuth(telegramData)) {
+            console.error('[authorize] Telegram authentication verification failed')
+            return null
+          }
+
+
           const payload = {
             provider: 'telegram',
             telegram: {
@@ -82,7 +147,9 @@ export const authOptions: AuthOptions = {
             }
           }
 
-          const res = await fetch(`${API_BASE_URL}/v1/login`, {
+          const loginUrl = `${API_BASE_URL}/v1/login`
+
+          const res = await fetch(loginUrl, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -91,9 +158,23 @@ export const authOptions: AuthOptions = {
             body: JSON.stringify(payload)
           })
 
+
+          if (!res.ok) {
+            console.error('[authorize] Telegram login HTTP error:', res.status, res.statusText)
+            const errorText = await res.text()
+            console.error('[authorize] Telegram login error response:', errorText)
+            return null
+          }
+
           const resp = await res.json()
 
           if (resp.status !== 'success' || !resp.data?.token || !resp.data?.user_id) {
+            console.error('[authorize] Telegram login API error - invalid response:', {
+              status: resp.status,
+              hasToken: !!resp.data?.token,
+              hasUserId: !!resp.data?.user_id,
+              response: resp
+            })
             return null
           }
 
