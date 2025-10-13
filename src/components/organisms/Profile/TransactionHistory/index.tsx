@@ -229,6 +229,7 @@ export default function TransactionHistoryPage({
       case 'WITHDRAW':
         return lang?.common?.withdraw || 'Withdraw'
       case 'adjustment_minus':
+      case 'ADJUSTMENT_MINUS':
       case 'adjustment':
         return lang?.common?.adjustmentMinus || 'Adjustment Minus'
       case 'ADJUSTMENT_PLUS':
