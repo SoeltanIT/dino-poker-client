@@ -9,7 +9,7 @@ First, run the development server:e
 npm run dev
 # or
 yarn dev
-# orkw
+# ork
 pnpm dev
 # or
 pnpm devs
