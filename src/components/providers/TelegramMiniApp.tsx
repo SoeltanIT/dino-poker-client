@@ -1,5 +1,7 @@
-import { signIn } from 'next-auth/react'
+import { useQueryClient } from '@tanstack/react-query'
+import { getSession, signIn, useSession } from 'next-auth/react'
 import { createContext, type PropsWithChildren, useContext, useEffect } from 'react'
+import { useCookies } from 'react-cookie'
 
 async function initTelegramMiniApp() {
   const webApp = window.Telegram.WebApp
@@ -11,7 +13,7 @@ async function initTelegramMiniApp() {
     const telegramData = {
       type: 'miniapp',
       ...user,
-      auth_date,
+      auth_date: +auth_date,
       init_data: initData,
       hash
     }
@@ -27,17 +29,19 @@ async function initTelegramMiniApp() {
       })
     }
 
-    console.log('testing')
-    window.location.reload()
     return response
   } catch (error) {
-    return error
+    throw error
   }
 }
 
 const TelegramMiniAppContext = createContext<{
-  showAlert?: (message: string) => Promise<void>
-}>({})
+  showAlert: (message: string) => Promise<void>
+  closeApp: () => void
+}>({
+  showAlert: async () => {},
+  closeApp: () => null
+})
 
 export function useTelegramMiniApp() {
   const context = useContext(TelegramMiniAppContext)
@@ -49,6 +53,11 @@ export function useTelegramMiniApp() {
 }
 
 export function TelegramMiniAppProvider({ children }: PropsWithChildren) {
+  const { status } = useSession()
+  const queryClient = useQueryClient()
+  const isAuthenticated = status === 'authenticated'
+  const [, setCookie] = useCookies(['_authorization'])
+
   const showAlert = (message: string) =>
     new Promise<void>(resolve => {
       window?.Telegram?.WebApp?.showAlert?.(message, () => {
@@ -56,12 +65,35 @@ export function TelegramMiniAppProvider({ children }: PropsWithChildren) {
       })
     })
 
-  useEffect(() => {
-    if (!window.Telegram) return
-    initTelegramMiniApp().catch(err => {
-      console.log(`[Telegram.MiniApp]:`, err)
-    })
-  }, [])
+  const closeApp = () => window.Telegram.WebApp?.close()
 
-  return <TelegramMiniAppContext.Provider value={{ showAlert }}>{children}</TelegramMiniAppContext.Provider>
+  useEffect(() => {
+    if (!window.Telegram || isAuthenticated) return
+
+    initTelegramMiniApp()
+      .then(async () => {
+        const session = await getSession()
+        const token = session?.accessToken
+
+        console.log({ session, token })
+
+        if (token) {
+          setCookie('_authorization', token, {
+            path: '/',
+            secure: true,
+            sameSite: 'lax',
+            maxAge: 60 * 60 * 24
+          })
+
+          await queryClient.invalidateQueries({ queryKey: ['user', 'me'] })
+
+          await queryClient.invalidateQueries({ queryKey: ['getBalance'] })
+        }
+      })
+      .catch(err => {
+        console.log(`[Telegram.MiniApp]:`, err)
+      })
+  }, [isAuthenticated, queryClient])
+
+  return <TelegramMiniAppContext.Provider value={{ showAlert, closeApp }}>{children}</TelegramMiniAppContext.Provider>
 }
