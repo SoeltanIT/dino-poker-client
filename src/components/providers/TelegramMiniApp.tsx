@@ -71,7 +71,12 @@ export function TelegramMiniAppProvider({ children }: PropsWithChildren) {
   const closeApp = () => window?.Telegram?.WebApp?.close?.()
 
   useEffect(() => {
-    if (!window.Telegram || isAuthenticated) return
+    if (isAuthenticated) return
+
+    if (!window.Telegram) {
+      setIsMiniAppLoaded(true)
+      return
+    }
 
     initTelegramMiniApp()
       .then(async () => {
