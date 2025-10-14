@@ -11,6 +11,7 @@ import MenuProfile from '@/components/organisms/Profile'
 import { LogoutModal } from '@/components/organisms/Profile/Logout'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { UserFullDTO } from '@/types/userDTO'
+import { Volleyball } from 'lucide-react'
 import { signOut } from 'next-auth/react'
 import { useCookies } from 'react-cookie'
 import GlobalSheet from '../GlobalSheet'
@@ -32,6 +33,11 @@ export const Navbar = ({ locale, lang, isLogin, data }: NavbarProps) => {
       name: lang?.header?.notif,
       href: `/${locale}/notification`,
       icon: IconBell
+    },
+    {
+      name: lang?.common?.sport,
+      href: `/${locale}/sport`,
+      icon: Volleyball
     },
     // {
     //   name: lang?.common?.promotion,
