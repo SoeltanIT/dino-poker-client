@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { getSession, signIn, useSession } from 'next-auth/react'
-import { createContext, type PropsWithChildren, useContext, useEffect } from 'react'
+import { createContext, type PropsWithChildren, useContext, useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
 
 async function initTelegramMiniApp() {
@@ -36,9 +36,11 @@ async function initTelegramMiniApp() {
 }
 
 const TelegramMiniAppContext = createContext<{
+  isMiniAppLoaded: boolean
   showAlert: (message: string) => Promise<void>
   closeApp: () => void
 }>({
+  isMiniAppLoaded: false,
   showAlert: async () => {},
   closeApp: () => null
 })
@@ -53,6 +55,7 @@ export function useTelegramMiniApp() {
 }
 
 export function TelegramMiniAppProvider({ children }: PropsWithChildren) {
+  const [isMiniAppLoaded, setIsMiniAppLoaded] = useState(false)
   const { status } = useSession()
   const queryClient = useQueryClient()
   const isAuthenticated = status === 'authenticated'
@@ -65,7 +68,7 @@ export function TelegramMiniAppProvider({ children }: PropsWithChildren) {
       })
     })
 
-  const closeApp = () => window.Telegram.WebApp?.close()
+  const closeApp = () => window?.Telegram?.WebApp?.close?.()
 
   useEffect(() => {
     if (!window.Telegram || isAuthenticated) return
@@ -75,7 +78,7 @@ export function TelegramMiniAppProvider({ children }: PropsWithChildren) {
         const session = await getSession()
         const token = session?.accessToken
 
-        console.log({ session, token })
+        setIsMiniAppLoaded(true)
 
         if (token) {
           setCookie('_authorization', token, {
@@ -95,5 +98,9 @@ export function TelegramMiniAppProvider({ children }: PropsWithChildren) {
       })
   }, [isAuthenticated, queryClient])
 
-  return <TelegramMiniAppContext.Provider value={{ showAlert, closeApp }}>{children}</TelegramMiniAppContext.Provider>
+  return (
+    <TelegramMiniAppContext.Provider value={{ isMiniAppLoaded, showAlert, closeApp }}>
+      {children}
+    </TelegramMiniAppContext.Provider>
+  )
 }

@@ -4,6 +4,7 @@ import { IconBank, IconCoin, IconLogout, IconReferral, IconTransaction } from '@
 import ChangePasswordForm from '@/components/layout/header/views/menu/changePassword/ChangePassword'
 import KYC from '@/components/layout/header/views/menu/kyc/KYC'
 import ThemeSwitcher from '@/components/molecules/ThemeSwitcher'
+import { useTelegramMiniApp } from '@/components/providers/TelegramMiniApp'
 import { getInitials } from '@/utils/helper/getInitials'
 import {
   getLinkBankAccount,
@@ -26,6 +27,8 @@ export default function MenuProfile({
 }: MenuProfileProps) {
   const [, , removeCookie] = useCookies(['_authorization'])
 
+  const { closeApp } = useTelegramMiniApp()
+
   const isStatus = data?.status
 
   const handleLogout = async () => {
@@ -35,6 +38,8 @@ export default function MenuProfile({
 
       // Logout dari next-auth
       await signOut({ callbackUrl: `/${locale ?? 'en'}` })
+
+      closeApp()
     } catch (error) {
       //console.error('[Logout Error]', error)
     }
