@@ -10,9 +10,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <CookiesProvider>
       <SessionWrapper>
-        <TelegramMiniAppProvider>
-          <ReactQueryProvider>{children}</ReactQueryProvider>
-        </TelegramMiniAppProvider>
+        <ReactQueryProvider>
+          <TelegramMiniAppProvider>{children}</TelegramMiniAppProvider>
+        </ReactQueryProvider>
       </SessionWrapper>
     </CookiesProvider>
   )
