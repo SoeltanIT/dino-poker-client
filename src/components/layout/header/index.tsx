@@ -20,7 +20,7 @@ import LoginModal from '@/components/organisms/Login'
 import { cn } from '@/lib/utils'
 import { BalanceDTO } from '@/types/balanceDTO'
 import { UserFullDTO } from '@/types/userDTO'
-import { Eye, EyeOff } from 'lucide-react'
+import { Eye, EyeOff, Volleyball } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import ProfilePopover from './views/menu/ProfilePopover'
 import RegisterForm from './views/register/RegisterForm'
@@ -160,7 +160,7 @@ export const Header = ({ lang, locale, data, balance, theme }: HeaderProps) => {
               </span>
             </Link>
 
-            {/* <Link
+            <Link
               className={cn(
                 'flex items-center justify-center cursor-pointer gap-2 p-3 group',
                 pathname === `/${locale}/sport` && 'border-b-[1px] border-b-app-text-color'
@@ -184,7 +184,7 @@ export const Header = ({ lang, locale, data, balance, theme }: HeaderProps) => {
               >
                 {lang?.common?.sport}
               </span>
-            </Link> */}
+            </Link>
 
             {/* <Link
               className={cn(
