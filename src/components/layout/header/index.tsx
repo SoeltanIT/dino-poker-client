@@ -17,6 +17,7 @@ import { HeaderProps } from '@/@core/interface/home/HeaderProps'
 import HeaderBalance from '@/components/layout/header/views/myBalance/HeaderBalance'
 import BalanceSheet from '@/components/layout/header/views/myBalance/MyBalanceSheet'
 import LoginModal from '@/components/organisms/Login'
+import { useTelegramMiniApp } from '@/components/providers/TelegramMiniApp'
 import { cn } from '@/lib/utils'
 import { BalanceDTO } from '@/types/balanceDTO'
 import { UserFullDTO } from '@/types/userDTO'
@@ -30,6 +31,9 @@ export const Header = ({ lang, locale, data, balance, theme }: HeaderProps) => {
   const logo = theme === 'dark' ? '/images/logo_light.png' : '/images/logo_dark.png'
 
   const { session, isAuthenticated, isLoading, likelyLoggedIn } = useAuth()
+  const { isMiniAppLoaded } = useTelegramMiniApp()
+
+  const isAppLoading = !isMiniAppLoaded || isLoading
   const isLogin = isAuthenticated
 
   const buttonLogoutRef = useRef<HTMLButtonElement>(null)
@@ -42,7 +46,7 @@ export const Header = ({ lang, locale, data, balance, theme }: HeaderProps) => {
 
   return (
     <header className='md:bg-app-background-primary flex lg:px-8 px-4 py-4 md:justify-end items-center lg:space-x-4 bg-app-background-secondary'>
-      {isLoading ? (
+      {isAppLoading ? (
         // Show loading state that matches the header layout based on likely login state
         likelyLoggedIn ? (
           // Logged in user skeleton
