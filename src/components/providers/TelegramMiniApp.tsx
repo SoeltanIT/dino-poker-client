@@ -12,7 +12,7 @@ async function initTelegramMiniApp() {
       type: 'miniapp',
       ...user,
       auth_date,
-      initData,
+      init_data: initData,
       hash
     }
 
