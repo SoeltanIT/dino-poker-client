@@ -1,16 +1,18 @@
 // app/providers.tsx
 'use client'
 
-import { CookiesProvider } from 'react-cookie'
-import SessionWrapper from '@/components/providers/SessionWrapper'
 import { ReactQueryProvider } from '@/@core/hooks/ReactQueryProvider'
-import { ToastContainer } from 'react-toastify'
+import SessionWrapper from '@/components/providers/SessionWrapper'
+import { TelegramMiniAppProvider } from '@/components/providers/TelegramMiniApp'
+import { CookiesProvider } from 'react-cookie'
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <CookiesProvider>
       <SessionWrapper>
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+        <ReactQueryProvider>
+          <TelegramMiniAppProvider>{children}</TelegramMiniAppProvider>
+        </ReactQueryProvider>
       </SessionWrapper>
     </CookiesProvider>
   )
