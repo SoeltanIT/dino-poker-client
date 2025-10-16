@@ -320,7 +320,7 @@ export const Header = ({ lang, locale, data, balance, theme }: HeaderProps) => {
                   </span>
                 </Link>
 
-                {/* <Link
+                <Link
                   className={cn(
                     'flex items-center justify-center cursor-pointer gap-2 p-3',
                     pathname === `/${locale}/sport` && 'border-b-[1px] border-b-app-text-color'
@@ -338,7 +338,7 @@ export const Header = ({ lang, locale, data, balance, theme }: HeaderProps) => {
                   >
                     {lang?.common?.sport}
                   </span>
-                </Link> */}
+                </Link>
 
                 {/* <Link
                   className={cn(
