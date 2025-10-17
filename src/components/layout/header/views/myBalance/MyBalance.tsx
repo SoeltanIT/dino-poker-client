@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils'
 import { thousandSeparatorComma, unformatCommaNumber } from '@/utils/helper/formatNumber'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOff, Loader2 } from 'lucide-react'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Resolver, SubmitHandler, useForm } from 'react-hook-form'
 import { MyBalanceProps } from './types'
 
@@ -62,7 +62,7 @@ const currencies: Currency[] = [
   }
 ]
 
-export default function MyBalance({ lang, locale, onClose, data }: MyBalanceProps) {
+export default function MyBalance({ lang, locale, onClose, data, dataFee }: MyBalanceProps) {
   const [showBalance, setShowBalance] = useState(true)
   const [showBonusBalance, setShowBonusBalance] = useState(true)
   const [showIDNBalance, setShowIDNBalance] = useState(true)
@@ -132,6 +132,49 @@ export default function MyBalance({ lang, locale, onClose, data }: MyBalanceProp
       transfer: ''
     }
   })
+
+  // Watch the raw (unformatted) numeric string in the input
+  const transferStr = form.watch('transfer') || '0'
+
+  // Current fee config by tab
+  const feeConfig = useMemo(() => {
+    return activeTab === 'transferIn' ? dataFee?.deposit : dataFee?.withdraw
+  }, [activeTab, dataFee])
+
+  // Compute numbers safely
+  const { amount, fee, received } = useMemo(() => {
+    const amountNum = Number(transferStr || 0)
+
+    if (!feeConfig || !feeConfig.is_active) {
+      // no fee or inactive → fee 0
+      return {
+        amount: amountNum,
+        fee: 0,
+        received: Math.max(amountNum - 0, 0)
+      }
+    }
+
+    if (feeConfig.type === 'crypto_deposit_fee') {
+      // percent
+      const f = (amountNum * (feeConfig.value ?? 0)) / 100
+      return {
+        amount: amountNum,
+        fee: f,
+        received: Math.max(amountNum - f, 0)
+      }
+    }
+
+    // crypto_withdraw_fee → fixed
+    const f = feeConfig.value ?? 0
+    return {
+      amount: amountNum,
+      fee: f,
+      received: Math.max(amountNum - f, 0)
+    }
+  }, [transferStr, feeConfig])
+
+  // Helper to format
+  const fmt = (n: number) => thousandSeparatorComma(Math.floor(n)) // or keep decimals if needed
 
   const moveIDNBalance: SubmitHandler<FormType> = async (data: FormType) => {
     const payload = {
@@ -418,6 +461,23 @@ export default function MyBalance({ lang, locale, onClose, data }: MyBalanceProp
               </FormItem>
             )}
           />
+
+          <div className='gap-2 flex flex-col'>
+            <div className='flex items-center justify-between'>
+              <span className='text-app-neutral500 text-sm'>Deposit Fee</span>
+              <span className='text-app-neutral500 text-sm font-semibold'>
+                {fmt(Number.isFinite(fee) ? fee : 0)} KRW
+              </span>
+            </div>
+
+            <div className='flex items-center justify-between'>
+              <span className='text-white text-base'>Deposit Received</span>
+              <span className='text-white text-base font-semibold'>
+                {' '}
+                {fmt(Number.isFinite(received) ? received : 0)} KRW
+              </span>
+            </div>
+          </div>
 
           <div className='pt-2 pb-10'>
             <Button

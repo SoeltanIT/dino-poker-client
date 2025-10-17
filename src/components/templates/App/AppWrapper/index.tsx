@@ -20,6 +20,8 @@ import { usePathname } from 'next/navigation'
 import { FC, ReactNode, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { UseServerSendEvent } from '@/@core/hooks/UseServerSendEvent'
+import { TransferBalanceFeeResponse } from '@/@core/interface/transactions/TransferBalanceFee'
+import { TransferFeeMapped } from '@/utils/api/internal/transferBalanceFee'
 
 interface AppTemplateProps {
   children?: ReactNode | string
@@ -34,7 +36,7 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config }) =>
   const pathname = usePathname()
 
   const parts = pathname.split('/').filter(Boolean) // ["en", "sport"]
-const session = useSession()
+  const session = useSession()
   const { theme } = useThemeToggle()
 
   const { isLoading: isSessionLoading } = useAuth()
@@ -43,23 +45,33 @@ const session = useSession()
     '/me', // hits your Next.js API route, not the real backend
     ['user', 'me']
   )
-  const {  balanceTrigger, balanceMessages} = UseServerSendEvent()
+  const { balanceTrigger, balanceMessages } = UseServerSendEvent()
   const { data: respBalance, isLoading: balanceLoading } = GetData<BalanceResponse>(
     '/balance', // hits your Next.js API route, not the real backend
     ['getBalance', balanceTrigger] //trigger put here if need to refresh on SSE event
+  )
+  const { data: respTransferBalanceFee, isLoading: transferFeeLoading } = GetData<TransferFeeMapped>(
+    '/transfer_balance_fee', // hits your Next.js API route, not the real backend
+    ['getTransferBalanceFee'],
+    false,
+    undefined,
+    true,
+    undefined,
+    undefined,
+    undefined,
+    'GET', // method
+    undefined,
+    'transaction'
   )
   const hasMounted = useHasMounted()
 
   useEffect(() => {
     if (typeof window === 'undefined') return
-  if (session?.data?.user?.roles) {
-  const maxAge = 7 * 24 * 60 * 60 // Convert days to seconds
-  document.cookie = `user_roles=${session?.data?.user?.roles}; path=/; max-age=${maxAge}; samesite=lax`
-  }
+    if (session?.data?.user?.roles) {
+      const maxAge = 7 * 24 * 60 * 60 // Convert days to seconds
+      document.cookie = `user_roles=${session?.data?.user?.roles}; path=/; max-age=${maxAge}; samesite=lax`
+    }
   }, [session])
-
-
-
 
   return (
     <div className='min-h-screen bg-app-background-primary text-app-text-color'>
@@ -75,6 +87,7 @@ const session = useSession()
             locale={locale}
             data={userData}
             balance={respBalance?.data}
+            transferBalanceFee={respTransferBalanceFee}
             theme={hasMounted ? theme : 'light'}
           />
         </div>
