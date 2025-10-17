@@ -3,24 +3,19 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
-import { GetData } from '@/@core/hooks/use-query'
 import { DepositCryptoFormData, DepositCryptoSchema } from '@/@core/utils/schema/Transaction/DepositCryptoSchema'
 import { DepositFormData, DepositSchema } from '@/@core/utils/schema/Transaction/DepositSchema'
-import { IconAlert, IconSize } from '@/components/atoms/Icons'
+import { IconSize } from '@/components/atoms/Icons'
+import IconDepositCrypto from '@/components/atoms/Icons/DepositCrypto'
 import PresetAmountSelector from '@/components/molecules/PresetAmountSelector'
-import { TabSwitcher } from '@/components/molecules/TabSwitcher'
-import PromotionSelector from '@/components/organisms/Promotion/SelectPromotion'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { BlockchainsDTO, BlockchainsTokenDTO } from '@/types/blockChainsDTO'
 import { thousandSeparatorComma, unformatCommaNumber } from '@/utils/helper/formatNumber'
-import { Eye, EyeOff, Loader2 } from 'lucide-react'
-import { useEffect, useMemo, useState } from 'react'
-import { DepositFormProps } from './types'
-import IconDepositCrypto from '@/components/atoms/Icons/DepositCrypto'
 import { useThemeToggle } from '@/utils/hooks/useTheme'
+import { Loader2 } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { DepositFormProps } from './types'
 
 const PRESET_AMOUNTS = ['10000', '20000', '50000', '100000']
 
@@ -42,19 +37,19 @@ export default function DepositForm({
     { name: 'CRYPTO', value: 'crypto' }
   ]
 
-  const { data: respPromo, isLoading: promoLoading } = GetData<any>(
-    '/promotion',
-    ['getPromotion'],
-    false,
-    undefined,
-    true,
-    undefined,
-    undefined,
-    undefined,
-    'GET',
-    undefined,
-    'promotion'
-  )
+  // const { data: respPromo, isLoading: promoLoading } = GetData<any>(
+  //   '/promotion',
+  //   ['getPromotion'],
+  //   false,
+  //   undefined,
+  //   true,
+  //   undefined,
+  //   undefined,
+  //   undefined,
+  //   'GET',
+  //   undefined,
+  //   'promotion'
+  // )
 
   const form = useForm<DepositFormData>({
     resolver: zodResolver(DepositSchema(lang)),
