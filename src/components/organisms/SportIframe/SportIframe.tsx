@@ -180,7 +180,7 @@ export const BetByIframe = ({
         lang: locale,
         target: el,
         betslipZIndex: 999,
-        themeName: theme === 'dark' ? 'gowin-dark' : 'gowin-light',
+        themeName: theme === 'dark' ? 'gowin-dark-tile' : 'gowin-light-tile',
         currency: 'KRW',
         betSlipOffsetBottom: window.innerWidth >= 768 ? 0 : 60,
         betSlipOffsetTop: window.innerWidth >= 768 ? 81 : 72,
@@ -258,7 +258,7 @@ export const BetByIframe = ({
   useEffect(() => {
     if (!rendererRef.current?.updateOptions) return
     rendererRef.current.updateOptions({
-      themeName: theme === 'dark' ? 'gowin-dark' : 'gowin-light',
+      themeName: theme === 'dark' ? 'gowin-dark-tile' : 'gowin-light-tile',
       betSlipOffsetTop: window.innerWidth >= 768 ? 81 : 72,
       betSlipOffsetBottom: window?.innerWidth >= 768 ? 0 : 60,
       stickyTop: window.innerWidth >= 768 ? 81 : 72
