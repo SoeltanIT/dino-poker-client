@@ -11,6 +11,7 @@ import { Input } from '@/components/ui/input'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { LangProps } from '@/types/langProps'
 import { AffiliateListResponse } from '@/types/referralDTO'
+import { thousandSeparatorComma, unformatCommaNumber } from '@/utils/helper/formatNumber'
 import { toast, ToastContainer } from 'react-toastify'
 
 interface EditAffiliateSheetProps {
@@ -62,7 +63,11 @@ export default function EditAffiliateSheet({ lang, affiliate, trigger, onSuccess
       onOpenChange={val => {
         setOpen(val)
         if (!val) {
-          form.reset()
+          form.reset({
+            code_name: affiliate?.code_name || '',
+            username: affiliate?.username || '',
+            commission: affiliate?.commission || 0
+          })
         }
       }}
     >
@@ -141,12 +146,16 @@ export default function EditAffiliateSheet({ lang, affiliate, trigger, onSuccess
                   </FormLabel>
                   <FormControl>
                     <Input
-                      type='number'
+                      type='text'
+                      ref={field.ref}
+                      onBlur={field.onBlur}
                       inputMode='numeric'
+                      value={thousandSeparatorComma(field.value || '')}
                       placeholder={lang?.common?.commissionPlaceholder || 'Enter commission percentage'}
-                      step={0.01}
-                      {...field}
-                      onChange={e => field.onChange(Number(e.target.value))}
+                      onChange={e => {
+                        const raw = unformatCommaNumber(e.target.value)
+                        if (/^\d*$/.test(raw)) field.onChange(raw)
+                      }}
                     />
                   </FormControl>
                   <FormMessage />
