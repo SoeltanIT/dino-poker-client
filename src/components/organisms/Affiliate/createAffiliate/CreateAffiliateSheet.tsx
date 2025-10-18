@@ -67,7 +67,7 @@ export default function CreateAffiliateSheet({ lang, trigger, onSuccess, parentC
           bank_name: data.bank_name,
           bank_account_number: data.bank_account_number,
           parent_code: data.parent_code || '',
-          commission: data.commission
+          commission: -1
         }
       })
       if (resp?.status === 'success') {
