@@ -63,7 +63,11 @@ export default function EditAffiliateSheet({ lang, affiliate, trigger, onSuccess
       onOpenChange={val => {
         setOpen(val)
         if (!val) {
-          form.reset()
+          form.reset({
+            code_name: affiliate?.code_name || '',
+            username: affiliate?.username || '',
+            commission: affiliate?.commission || 0
+          })
         }
       }}
     >
