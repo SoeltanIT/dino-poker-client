@@ -44,12 +44,12 @@ export default function CreateAffiliateSheet({ lang, trigger, onSuccess, parentC
       bank_name: '',
       bank_account_number: '',
       parent_code: parentCode,
-      commission: 0
+      commission: -1
     }
   })
 
   const { mutateAsync: createAffiliate, isPending } = useMutationQuery<any, any>(
-    ['affiliates'],
+    ['getAffiliateList'],
     'post',
     'json',
     true,
