@@ -13,7 +13,7 @@ yarn dev
 pnpm dev
 # or
 pnpm dev
-# or3
+# or
 bun dev
 ```
 
