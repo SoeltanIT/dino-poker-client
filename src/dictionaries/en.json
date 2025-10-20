@@ -269,7 +269,12 @@
     "rate": "Rate",
     "chip": "Chip",
     "fee": "Fee",
-    "netChip": "Net Chip"
+    "netChip": "Net Chip",
+    "kycDescription": "Verify to be able to withdraw.",
+    "kycVerification": "KYC Verification",
+    "kycVerificationDescription": "Please verify your identity",
+    "poweredBy": "Powered by",
+    "withdrawalSecurity": "Withdrawal Security"
   },
   "game": {
     "texaspoker": "Texas Poker",

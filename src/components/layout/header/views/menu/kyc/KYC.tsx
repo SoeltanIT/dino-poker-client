@@ -73,7 +73,10 @@ export default function KYC({
       <SheetContent className='w-full sm:max-w-md overflow-y-auto scrollbar-hide'>
         <ToastContainer />
 
-        <div className='mb-8 mt-6 text-xl font-bold uppercase text-app-text-color'>{lang?.common?.verification}</div>
+        <div className='mb-8 text-app-text-color'>
+          <h2 className='text-xl font-bold uppercase'>{lang?.common?.kyc}</h2>
+          <p className='text-sm'>{lang?.common?.kycDescription}</p>
+        </div>
         <KYCForm lang={lang} onClose={() => onPressClose()} isStatus={isStatus} />
       </SheetContent>
     </Sheet>
