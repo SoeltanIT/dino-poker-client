@@ -61,6 +61,10 @@ const ListNotification = ({ lang }: NotificationProps) => {
         return lang?.notification?.withdrawRejectedTitle || ''
       case 'promoFailed':
         return lang?.notification?.promotionFailedTitle || ''
+      case 'kycApproved':
+        return lang?.notification?.kycApprovedTitle || ''
+      case 'kycRejected':
+        return lang?.notification?.kycRejectedTitle || ''
       default:
         return ''
     }
@@ -74,6 +78,9 @@ const ListNotification = ({ lang }: NotificationProps) => {
       case 'withdrawApproved':
       case 'withdrawRejected':
         return lang?.common?.withdraw || ''
+      case 'kycApproved':
+      case 'kycRejected':
+        return lang?.common?.kyc || ''
       default:
         return ''
     }

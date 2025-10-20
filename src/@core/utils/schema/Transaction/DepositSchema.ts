@@ -2,8 +2,16 @@
 
 import { z } from 'zod'
 import { LangProps } from '@/types/langProps'
+import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
 
-export const DepositSchema = (lang?: LangProps) =>
+const formatMaxMsg = (template: string | undefined, max: number) => {
+  const display = thousandSeparatorComma(max)
+  if (!template) return `Maximum amount is ${display} KRW`
+  // Replace all occurrences of MAX safely
+  return template.replace(/MAX/g, display)
+}
+
+export const DepositSchema = (lang?: LangProps, maxValue: number = 90000000) =>
   z.object({
     amount: z
       .string()
@@ -12,8 +20,8 @@ export const DepositSchema = (lang?: LangProps) =>
       .refine(val => parseInt(val, 10) >= 10000, {
         message: lang?.form?.deposit_amount_min || 'Minimum amount is 10,000 KRW'
       })
-      .refine(val => parseInt(val, 10) <= 9000000, {
-        message: lang?.form?.deposit_amount_max || 'Maximum amount is 9,000,000 KRW'
+      .refine(val => parseInt(val, 10) <= maxValue, {
+        message: formatMaxMsg(lang?.form?.deposit_amount_max, maxValue) || 'Maximum amount is 90,000,000 KRW'
       }),
 
     // password: z.string().min(1, { message: lang?.form?.deposit_password_required || 'Password is required' }),

@@ -2,9 +2,10 @@
 
 import { IconBank, IconCoin, IconLogout, IconReferral, IconTransaction } from '@/components/atoms/Icons'
 import ChangePasswordForm from '@/components/layout/header/views/menu/changePassword/ChangePassword'
-import KYC from '@/components/layout/header/views/menu/kyc/KYC'
 import ThemeSwitcher from '@/components/molecules/ThemeSwitcher'
 import { useTelegramMiniApp } from '@/components/providers/TelegramMiniApp'
+import { resetLiveChatSession } from '@/lib/livechat-reset'
+import { useLiveChatContext } from '@/utils/context/LiveChatProvider'
 import { getInitials } from '@/utils/helper/getInitials'
 import {
   getLinkBankAccount,
@@ -12,10 +13,13 @@ import {
   getLinkReferral,
   getLinkTranscationHistory
 } from '@/utils/linkFactory/linkFactory'
+import { IdCard } from 'lucide-react'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { useCookies } from 'react-cookie'
 import { MenuProfileProps } from './types'
+import { useState } from 'react'
+import KYC from '@/components/layout/header/views/menu/kyc/KYC'
 
 export default function MenuProfile({
   data,
@@ -25,14 +29,60 @@ export default function MenuProfile({
   locale,
   lang
 }: MenuProfileProps) {
+  const getStatusColor = (status?: string) => {
+    if (status === 'APPROVED') return 'border-app-success text-app-success'
+    if (status === 'REJECTED') return 'border-app-danger text-app-danger'
+    if (status === 'PENDING') return 'border-app-accentYellow text-app-accentYellow'
+    return 'border-app-text-color text-app-text-color'
+  }
+
+  const getStatusText = (status?: string) => {
+    switch (status) {
+      case 'APPROVED':
+        return lang?.common?.approved
+      case 'REJECTED':
+        return lang?.common?.rejected
+      case 'PENDING':
+        return lang?.common?.pending
+      case 'UNVERIFIED':
+        return lang?.common?.unverified
+      default:
+        return ''
+    }
+  }
+
+  const [isSheetOpen, setIsSheetOpen] = useState(false)
   const [, , removeCookie] = useCookies(['_authorization'])
 
   const { closeApp } = useTelegramMiniApp()
 
   const isStatus = data?.status
 
+  const { ready } = useLiveChatContext()
+
+  const handleSessionLiveChat = () => {
+    console.log('[LiveChat] handleSessionLiveChat called.')
+
+    if (!ready) {
+      console.warn('[LiveChat] Widget is not ready yet. Aborting...')
+      return
+    }
+
+    const widget = window.LiveChatWidget
+
+    if (!widget || typeof widget.call !== 'function') {
+      console.error('[LiveChat] LiveChatWidget is not available or malformed.')
+      return
+    }
+
+    widget.call('logout')
+  }
+
   const handleLogout = async () => {
     try {
+      // 1) Reset LiveChat identity/session
+      resetLiveChatSession({ hardReload: false }) // set true if you prefer full page reload
+      handleSessionLiveChat()
       // Hapus manual token
       removeCookie('_authorization', { path: '/' })
 
@@ -107,7 +157,30 @@ export default function MenuProfile({
 
         <div className='px-6 md:px-4 text-xs font-semibold text-app-neutral500'>
           {/* KYC stays outside the iteration */}
-          <KYC lang={lang} isStatus={isStatus} onClose={() => onClose()} />
+          <button
+            onClick={() => setIsSheetOpen(true)}
+            disabled={isStatus === 'APPROVED'}
+            className='h-10 w-full cursor-pointer flex items-center justify-between gap-[7px] hover:text-app-text-color'
+          >
+            <div className='flex items-center gap-[7px]'>
+              <IdCard />
+              <span>{lang?.common?.verification}</span>
+            </div>
+            {/* <span className={`${getStatusColor(isStatus ?? '')}`}>({isStatus})</span> */}
+            {/* {isStatus === 'APPROVED' ? (
+            <IconAlert className={`${getStatusColor(isStatus ?? '')}`} />
+          ) : ( */}
+            {getStatusText(isStatus) !== '' && (
+              <div
+                className={`py-1 px-3 border ${getStatusColor(
+                  isStatus
+                )} text-[10px] font-semibold uppercase rounded-full`}
+              >
+                {getStatusText(isStatus)}
+              </div>
+            )}
+            {/* )} */}
+          </button>
           {menuItems.map((item, index) => (
             <Link
               key={index}
@@ -143,6 +216,15 @@ export default function MenuProfile({
             <span>{lang?.logout?.title}</span>
           </button>
         </div>
+
+        <KYC
+          open={isSheetOpen}
+          onClose={() => {
+            setIsSheetOpen(false), onClose()
+          }}
+          lang={lang}
+          isStatus={isStatus}
+        />
       </div>
     </>
   )

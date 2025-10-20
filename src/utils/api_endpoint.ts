@@ -10,6 +10,9 @@ export const API_ENDPOINT = {
   balance: '/v1/balance/me',
   move_balance: '/v1/move-balance',
   transfer_IDN_balance: '/v1/aggregator/sync-balance',
+  transfer_fee_rate: '/v1/fee-rate',
+
+  // Referral-related
   referral: '/v1/referral',
   rakeBackBonus: '/v1/referral/rakeback',
   rakeBackClaim: '/v1/referral/rakeback/claim',

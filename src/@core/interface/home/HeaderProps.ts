@@ -2,6 +2,8 @@ import { Locale } from '@/i18n-config'
 import { BalanceDTO } from '@/types/balanceDTO'
 import { ReactNode } from 'react'
 import { UserMeResponse } from '../User'
+// HeaderProps
+import type { TransferFeePayload } from '@/types/transferBalanceFeeDTO'
 
 export interface HeaderProps {
   children?: ReactNode
@@ -10,4 +12,5 @@ export interface HeaderProps {
   data?: UserMeResponse
   balance?: BalanceDTO
   theme: string
+  transferBalanceFee?: TransferFeePayload // ← changed
 }

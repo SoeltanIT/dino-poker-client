@@ -1,7 +1,8 @@
 'use client'
 
-import { useMutationQuery } from '@/@core/hooks/use-query'
+import { GetData, useMutationQuery } from '@/@core/hooks/use-query'
 import { IconSize, IconVerifyCheck, IconWithdrawConfirm } from '@/components/atoms/Icons'
+import KYC from '@/components/layout/header/views/menu/kyc/KYC'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent } from '@/components/ui/sheet'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -13,6 +14,7 @@ import DepositConfirmForm from './DepositConfirmForm'
 import DepositForm from './DepositForm'
 import WithdrawForm from './WithdrawForm'
 import { DepositDataProps, DepositWithdrawSheetProps } from './types'
+import { ConfigItem } from '@/types/config'
 
 export default function DepositWithdrawSheet({
   open,
@@ -28,6 +30,7 @@ export default function DepositWithdrawSheet({
 
   const [tabValue, setTabValue] = useState(defaultValue)
   const [activeTab, setActiveTab] = useState<string>('fiat')
+  const [isSheetOpen, setIsSheetOpen] = useState(false)
 
   const [isLoadingDeposit, setIsLoadingDeposit] = useState<boolean>(false)
   const [isLoadingWithdraw, setIsLoadingWithdraw] = useState<boolean>(false)
@@ -83,7 +86,7 @@ export default function DepositWithdrawSheet({
     'post',
     'json',
     true,
-    lang?.common?.depositSuccess, // pesan sukses deposit
+    lang?.common?.depositReqSuccess, // pesan sukses deposit
     [['user', 'me'], ['getTransactionHistory'], ['getBalance'], ['getListNotification'], ['getListNotifCount']], // ✅ tambahkan ini
     'transaction'
   )
@@ -93,7 +96,7 @@ export default function DepositWithdrawSheet({
     'post',
     'json',
     true,
-    lang?.common?.depositSuccess, // pesan sukses deposit
+    lang?.common?.depositReqSuccess, // pesan sukses deposit
     [['user', 'me'], ['getTransactionCrypto'], ['getBalance'], ['getListNotification'], ['getListNotifCount']], // ✅ tambahkan ini
     'transaction'
   )
@@ -103,10 +106,22 @@ export default function DepositWithdrawSheet({
     'post',
     'json',
     true,
-    lang?.common?.withdrawSuccess, // pesan sukses withdraw
+    lang?.common?.withdrawReqSuccess, // pesan sukses withdraw
     [['user', 'me'], ['getTransactionHistory'], ['getBalance'], ['getListNotification'], ['getListNotifCount']], // ✅ tambahkan ini
     'transaction'
   )
+  const { data: respListConfig, isLoading } = GetData<ConfigItem[]>(
+    '/config', // hits your Next.js API route, not the real backend
+    ['getConfig']
+  )
+
+  function getValueByKey(config: ConfigItem[], key: string): string | undefined {
+    return config.find(item => item.key === key)?.value
+  }
+
+  const valueMaxDeposit = getValueByKey(respListConfig ?? [], 'max_deposit_amount')
+  const valueMaxWithdraw = getValueByKey(respListConfig ?? [], 'max_withdraw_amount')
+  const depoInstruction = getValueByKey(respListConfig ?? [], 'deposit_instruction')
 
   const handleDepositSubmit = async (data: any, activeTab: string) => {
     setIsLoadingDeposit(true)
@@ -227,110 +242,135 @@ export default function DepositWithdrawSheet({
   }
 
   return (
-    <Sheet open={open} onOpenChange={isOpen => !isOpen && onCloseFunction()}>
-      <SheetContent className='w-full sm:max-w-md overflow-y-auto scrollbar-hide'>
-        <ToastContainer position='top-right' />
-        <Tabs value={tabValue} onValueChange={setTabValue} className='w-full'>
-          <TabsList className='flex items-center justify-between pb-6 mt-6'>
-            <div className='flex space-x-4'>
-              <TabsTrigger
-                value='DEPOSIT'
-                className={`text-lg font-medium transition-colors uppercase ${
-                  tabValue === 'DEPOSIT' ? 'text-app-text-color' : 'text-app-neutral500'
-                }`}
-              >
-                {lang?.common?.deposit}
-              </TabsTrigger>
-              <TabsTrigger
-                value='WITHDRAW'
-                className={`text-lg font-medium transition-colors uppercase ${
-                  tabValue === 'WITHDRAW' ? 'text-app-text-color' : 'text-app-neutral500'
-                }`}
-              >
-                {lang?.common?.withdraw}
-              </TabsTrigger>
-            </div>
-          </TabsList>
-
-          <TabsContent value='DEPOSIT'>
-            {isStatus && isStatus !== 'APPROVED' ? (
-              <div className='h-[70vh] flex flex-col justify-center items-center mt-10'>
-                <IconVerifyCheck size={IconSize['3xl']} />
-                <span className='text-sm font-semibold text-app-text-color text-center'>
-                  {msgVerifyStatusDeposit(isStatus)}
-                </span>
-                {(isStatus === 'PENDING' || isStatus === 'REJECTED') && (
-                  <Button
-                    onClick={() => openContactUS()}
-                    className='w-full bg-app-primary uppercase hover:bg-app-primary-hover mt-4 text-white py-4 text-base font-medium rounded-lg transition-colors'
-                  >
-                    {lang?.common?.contactUS}
-                  </Button>
-                )}
+    <>
+      <Sheet open={open} onOpenChange={isOpen => !isOpen && onCloseFunction()}>
+        <SheetContent className='w-full sm:max-w-md overflow-y-auto scrollbar-hide'>
+          <ToastContainer position='top-right' />
+          <Tabs value={tabValue} onValueChange={setTabValue} className='w-full'>
+            <TabsList className='flex items-center justify-between pb-6 mt-6'>
+              <div className='flex space-x-4'>
+                <TabsTrigger
+                  value='DEPOSIT'
+                  className={`text-lg font-medium transition-colors uppercase ${
+                    tabValue === 'DEPOSIT' ? 'text-app-text-color' : 'text-app-neutral500'
+                  }`}
+                >
+                  {lang?.common?.deposit}
+                </TabsTrigger>
+                <TabsTrigger
+                  value='WITHDRAW'
+                  className={`text-lg font-medium transition-colors uppercase ${
+                    tabValue === 'WITHDRAW' ? 'text-app-text-color' : 'text-app-neutral500'
+                  }`}
+                >
+                  {lang?.common?.withdraw}
+                </TabsTrigger>
               </div>
-            ) : !isSubmittedDeposit ? (
-              <DepositForm
-                onSubmit={handleDepositSubmit}
-                lang={lang}
-                isLoading={isLoadingDeposit}
-                selectedPromotion={selectedPromotion}
-                activeTab={activeTab}
-                setActiveTab={setActiveTab}
-              />
-            ) : (
-              <DepositConfirmForm
-                activeTab={activeTab}
-                lang={lang}
-                data={depositData}
-                locale={locale}
-                onClose={onCloseFunction}
-              />
-            )}
-          </TabsContent>
+            </TabsList>
 
-          <TabsContent value='WITHDRAW'>
-            {isStatus && isStatus !== 'APPROVED' ? (
-              <div className='h-[70vh] flex flex-col justify-center items-center mt-10'>
-                <IconVerifyCheck size={IconSize['3xl']} />
-                <span className='text-sm font-semibold text-app-text-color text-center'>
-                  {msgVerifyStatus(isStatus)}
-                </span>
-                {(isStatus === 'PENDING' || isStatus === 'REJECTED') && (
-                  <Button
-                    onClick={() => openContactUS()}
-                    className='w-full bg-app-primary uppercase hover:bg-app-primary-hover mt-4 text-white py-4 text-base font-medium rounded-lg transition-colors'
-                  >
-                    {lang?.common?.contactUS}
-                  </Button>
-                )}
-
-                {/* <KYC lang={lang} isStatus={isStatus} onOpenCallback={onCloseFunction}>
-                  <div className='pt-4'>
+            <TabsContent value='DEPOSIT'>
+              {isStatus && isStatus !== 'APPROVED' ? (
+                <div className='h-[70vh] flex flex-col justify-center items-center mt-10'>
+                  <IconVerifyCheck size={IconSize['3xl']} />
+                  <span className='text-sm font-semibold text-app-text-color text-center'>
+                    {msgVerifyStatusDeposit(isStatus)}
+                  </span>
+                  {isStatus === 'PENDING' || isStatus === 'REJECTED' ? (
                     <Button
-                      disabled={isStatus !== 'UNVERIFIED'}
-                      className='w-full bg-app-primary uppercase hover:bg-app-primary-hover text-white py-4 text-base font-medium rounded-lg transition-colors'
+                      onClick={() => openContactUS()}
+                      className='w-full bg-app-primary uppercase hover:bg-app-primary-hover mt-4 text-white py-4 text-base font-medium rounded-lg transition-colors'
                     >
-                      {lang?.common?.verify}
+                      {lang?.common?.contactUS}
                     </Button>
-                  </div>
-                </KYC> */}
-              </div>
-            ) : !isSubmittedWithdraw ? (
-              <WithdrawForm
-                onSubmit={handleWithdrawSubmit}
-                lang={lang}
-                isLoading={isLoadingWithdraw}
-                isStatus={isStatus}
-              />
-            ) : (
-              <div className='h-[70vh] flex flex-col justify-center items-center mt-10'>
-                <IconWithdrawConfirm size={IconSize['3xl']} />
-                <span className='text-sm font-semibold text-app-text-color'>{lang?.common.withdrawMsg}</span>
-              </div>
-            )}
-          </TabsContent>
-        </Tabs>
-      </SheetContent>
-    </Sheet>
+                  ) : (
+                    isStatus === 'UNVERIFIED' && (
+                      <div className='pt-4'>
+                        <Button
+                          onClick={() => setIsSheetOpen(true)}
+                          className='w-full bg-app-primary uppercase hover:bg-app-primary-hover text-white py-4 text-base font-medium rounded-lg transition-colors'
+                        >
+                          {lang?.common?.verify}
+                        </Button>
+                      </div>
+                    )
+                  )}
+                </div>
+              ) : !isSubmittedDeposit ? (
+                <DepositForm
+                  onSubmit={handleDepositSubmit}
+                  lang={lang}
+                  isLoading={isLoadingDeposit}
+                  selectedPromotion={selectedPromotion}
+                  activeTab={activeTab}
+                  setActiveTab={setActiveTab}
+                  configData={valueMaxDeposit}
+                />
+              ) : (
+                <DepositConfirmForm
+                  activeTab={activeTab}
+                  lang={lang}
+                  data={depositData}
+                  locale={locale}
+                  onClose={onCloseFunction}
+                  configData={depoInstruction}
+                />
+              )}
+            </TabsContent>
+
+            <TabsContent value='WITHDRAW'>
+              {isStatus && isStatus !== 'APPROVED' ? (
+                <div className='h-[70vh] flex flex-col justify-center items-center mt-10'>
+                  <IconVerifyCheck size={IconSize['3xl']} />
+                  <span className='text-sm font-semibold text-app-text-color text-center'>
+                    {msgVerifyStatus(isStatus)}
+                  </span>
+                  {isStatus === 'PENDING' || isStatus === 'REJECTED' ? (
+                    <Button
+                      onClick={() => openContactUS()}
+                      className='w-full bg-app-primary uppercase hover:bg-app-primary-hover mt-4 text-white py-4 text-base font-medium rounded-lg transition-colors'
+                    >
+                      {lang?.common?.contactUS}
+                    </Button>
+                  ) : (
+                    isStatus === 'UNVERIFIED' && (
+                      <div className='pt-4'>
+                        <Button
+                          onClick={() => setIsSheetOpen(true)}
+                          className='w-full bg-app-primary uppercase hover:bg-app-primary-hover text-white py-4 text-base font-medium rounded-lg transition-colors'
+                        >
+                          {lang?.common?.verify}
+                        </Button>
+                      </div>
+                    )
+                  )}
+                </div>
+              ) : !isSubmittedWithdraw ? (
+                <WithdrawForm
+                  onSubmit={handleWithdrawSubmit}
+                  lang={lang}
+                  isLoading={isLoadingWithdraw}
+                  isStatus={isStatus}
+                  configData={valueMaxWithdraw}
+                />
+              ) : (
+                <div className='h-[70vh] flex flex-col justify-center items-center mt-10'>
+                  <IconWithdrawConfirm size={IconSize['3xl']} />
+                  <span className='text-sm font-semibold text-app-text-color'>{lang?.common.withdrawMsg}</span>
+                </div>
+              )}
+            </TabsContent>
+          </Tabs>
+        </SheetContent>
+      </Sheet>
+
+      <KYC
+        open={isSheetOpen}
+        onClose={() => {
+          setIsSheetOpen(false), onClose()
+        }}
+        lang={lang}
+        isStatus={isStatus}
+      />
+    </>
   )
 }

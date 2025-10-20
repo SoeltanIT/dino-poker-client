@@ -15,12 +15,13 @@ export interface DepositFormProps {
   } | null
   activeTab: string
   setActiveTab: (tab: string) => void // ✅ Add this
+  configData?: string
 }
 
 export interface DepositWithdrawSheetProps {
   // children: React.ReactNode
   defaultValue: string
-  lang?: LangProps
+  lang: LangProps
   locale?: Locale
   data?: UserMeResponse
   selectedPromotion?: any
@@ -32,6 +33,7 @@ export interface WithdrawFormProps {
   locale?: Locale
   isLoading?: boolean
   isStatus?: string
+  configData?: string
 }
 
 export interface DepositDataProps {
@@ -54,4 +56,5 @@ export interface DepositConfirmFormProps {
   data: DepositDataProps
   onClose: () => void
   activeTab?: string
+  configData?: string
 }

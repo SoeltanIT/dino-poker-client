@@ -108,14 +108,14 @@
   --c-secondary: #facc15;
   --c-secondary-hover: #fef08a;
 
-  --c-danger: #f05b6f;
+  --c-danger: #F05B6F;
   --c-danger-medium: #fca5a5;
   --c-danger-surface: #fee2e2;
   --c-danger-dark: #991b1b;
 
-  --c-success: #31eeab;
-  --c-info: #3b82f6;
-  --c-warning: #f59e0b;
+  --c-success: #23B682;
+  --c-info: #4D8AFF;
+  --c-warning: #E2A129;
   --c-orange: #fb923c;
   --c-warning-rgb: 245, 158, 11;
 

@@ -26,7 +26,7 @@ import { usePathname } from 'next/navigation'
 import ProfilePopover from './views/menu/ProfilePopover'
 import RegisterForm from './views/register/RegisterForm'
 
-export const Header = ({ lang, locale, data, balance, theme }: HeaderProps) => {
+export const Header = ({ lang, locale, data, balance, theme, transferBalanceFee }: HeaderProps) => {
   const pathname = usePathname()
   const logo = theme === 'dark' ? '/images/logo_light.png' : '/images/logo_dark.png'
 
@@ -230,7 +230,13 @@ export const Header = ({ lang, locale, data, balance, theme }: HeaderProps) => {
                 )}
               </div>
             </div>
-            <BalanceSheet data={balance} lang={lang} locale={locale} onShow={showBalance} />
+            <BalanceSheet
+              data={balance}
+              lang={lang}
+              locale={locale}
+              onShow={showBalance}
+              dataFee={transferBalanceFee}
+            />
             <button
               onClick={() => {
                 setActiveTab('DEPOSIT')

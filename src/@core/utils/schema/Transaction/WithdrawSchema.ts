@@ -1,7 +1,15 @@
 import { z } from 'zod'
 import { LangProps } from '@/types/langProps'
+import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
 
-export const WithdrawSchema = (lang?: LangProps) =>
+const formatMaxMsg = (template: string | undefined, max: number) => {
+  const display = thousandSeparatorComma(max)
+  if (!template) return `Maximum amount is ${display} KRW`
+  // Replace all occurrences of MAX safely
+  return template.replace(/MAX/g, display)
+}
+
+export const WithdrawSchema = (lang?: LangProps, maxValue: number = 9000000) =>
   z.object({
     amount: z
       .string()
@@ -10,8 +18,8 @@ export const WithdrawSchema = (lang?: LangProps) =>
       .refine(val => parseInt(val, 10) >= 10000, {
         message: lang?.form?.withdraw_amount_min || 'Minimum amount is 10,000 KRW'
       })
-      .refine(val => parseInt(val, 10) <= 9000000, {
-        message: lang?.form?.withdraw_amount_max || 'Maximum amount is 9,000,000 KRW'
+      .refine(val => parseInt(val, 10) <= maxValue, {
+        message: formatMaxMsg(lang?.form?.withdraw_amount_max, maxValue) || 'Maximum amount is 9,000,000 KRW'
       }),
 
     // bankName: z.string().min(1, lang?.form?.bank_name_required || 'Bank name is required'),

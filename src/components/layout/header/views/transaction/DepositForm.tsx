@@ -26,7 +26,8 @@ export default function DepositForm({
   isLoading,
   selectedPromotion,
   activeTab,
-  setActiveTab
+  setActiveTab,
+  configData
 }: DepositFormProps) {
   const { theme } = useThemeToggle()
   const [promo, setPromo] = useState<any>(selectedPromotion || null)
@@ -51,8 +52,11 @@ export default function DepositForm({
   //   'promotion'
   // )
 
+  let valueMax = thousandSeparatorComma(configData ?? 9000000)
+  let descDeposit = lang?.common?.minMaxAmount?.replace('MAX', valueMax)
+
   const form = useForm<DepositFormData>({
-    resolver: zodResolver(DepositSchema(lang)),
+    resolver: zodResolver(DepositSchema(lang, Number(configData))),
     shouldUnregister: true,
     defaultValues: {
       amount: '',
@@ -134,7 +138,7 @@ export default function DepositForm({
                     }}
                   />
 
-                  <p className='text-app-neutral500 text-xs'>{lang?.common?.minMaxAmount}</p>
+                  <p className='text-app-neutral500 text-xs'>{descDeposit}</p>
                   <FormMessage />
                 </FormItem>
               )}

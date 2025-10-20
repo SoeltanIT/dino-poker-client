@@ -1,33 +1,31 @@
 'use client'
 
 import { GetData } from '@/@core/hooks/use-query'
-import { CountdownTimer } from '@/components/molecules/CountdownTimer/CountdownTimer'
-import MyQRCode from '@/components/molecules/QRCode'
+import { IconDPUniversal, IconTicket } from '@/components/atoms/Icons'
 import { Button } from '@/components/ui/button'
 import { ConfigItem } from '@/types/config'
 import { useLiveChatContext } from '@/utils/context/LiveChatProvider'
-import { copyToClipboard } from '@/utils/helper/copyToClipboard'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
+import { useThemeToggle } from '@/utils/hooks/useTheme'
 import { getLinkTranscationHistory } from '@/utils/linkFactory/linkFactory'
 import { format } from 'date-fns'
 import { toPng } from 'html-to-image'
-import { Copy } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useRef } from 'react'
 import { DepositConfirmFormProps, DepositDataProps } from './types'
-import CountdownTimerCrypto from '@/components/molecules/CountdownTimer/CountdownTimerCrypto'
-import { useThemeToggle } from '@/utils/hooks/useTheme'
-import { IconDPUniversal, IconTicket } from '@/components/atoms/Icons'
 
-export default function DepositConfirmForm({ lang, data, locale, onClose, activeTab }: DepositConfirmFormProps) {
+export default function DepositConfirmForm({
+  lang,
+  data,
+  locale,
+  onClose,
+  activeTab,
+  configData
+}: DepositConfirmFormProps) {
   const CAMOPAY_URL = process.env.NEXT_PUBLIC_CAMOPAY_URL
   const CAMOPAY_KEY = process.env.NEXT_PUBLIC_CAMOPAY_KEY
   const { ready } = useLiveChatContext()
   const { data: session } = useSession()
-  const { data: respListConfig, isLoading } = GetData<ConfigItem[]>(
-    '/config', // hits your Next.js API route, not the real backend
-    ['getConfig']
-  )
 
   const { theme, toggleTheme } = useThemeToggle()
 
@@ -97,16 +95,15 @@ export default function DepositConfirmForm({ lang, data, locale, onClose, active
       </div>
 
       {/* Payment Time */}
-      {activeTab !== 'crypto' && (
+      {/* {activeTab !== 'crypto' && (
         <div className='flex items-center gap-[10px] mb-[30px]'>
           <span className='text-sm text-app-text-color'>{lang?.common?.paymentTime}:</span>
           <div className='flex items-center justify-center bg-app-primary min-w-[120px] h-[30px] rounded-2xl text-white'>
-            {/* <CountdownTimer /> */}
             {/* {activeTab === 'crypto' ? <CountdownTimerCrypto expiresAt={data?.expired_at || ''} /> : <CountdownTimer />} */}
-            {<CountdownTimer />}
+      {/* {<CountdownTimer />}
           </div>
         </div>
-      )}
+      )} */}
 
       {/* Content + QR (flex-grow zone) */}
       <div className='flex flex-col flex-grow'>
@@ -119,7 +116,7 @@ export default function DepositConfirmForm({ lang, data, locale, onClose, active
 
         {activeTab !== 'crypto' && (
           <span className='text-sm text-app-danger mb-[30px] mt-2'>
-            {getValueByKey(respListConfig ?? [], 'deposit_instruction') ?? lang?.common?.depositAccountMsg}
+            {configData ?? lang?.common?.depositAccountMsg}
           </span>
         )}
 
