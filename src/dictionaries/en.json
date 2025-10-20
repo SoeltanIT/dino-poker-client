@@ -262,7 +262,13 @@
     "codeName": "Code Name",
     "loginWithTelegram": "Continue With",
     "userAffiliate": "User Affiliate",
-    "affiliate": "Affiliate"
+    "affiliate": "Affiliate",
+    "kyc": "KYC",
+    "kycDescription": "Verify to be able to withdraw.",
+    "kycVerification": "KYC Verification",
+    "kycVerificationDescription": "Please verify your identity",
+    "poweredBy": "Powered by",
+    "withdrawalSecurity": "Withdrawal Security"
   },
   "game": {
     "texaspoker": "Texas Poker",
