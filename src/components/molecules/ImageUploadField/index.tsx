@@ -9,8 +9,8 @@ import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 
 import { useMutationQuery } from '@/@core/hooks/use-query'
+import { cn } from '@/lib/utils'
 import { LangProps } from '@/types/langProps'
-import { useImageUpload } from '@/utils/api/internal/uploadImageByClient'
 
 interface ImageUploadFieldProps {
   label: string
@@ -24,6 +24,15 @@ interface ImageUploadFieldProps {
   className?: string
   placeholder?: string
   lang?: LangProps
+  classNames?: {
+    label?: string
+    wrapper?: string
+    icon?: string
+    text?: string
+
+    button?: string
+    buttonTextLoading?: string
+  }
 }
 
 export default function ImageUploadField({
@@ -37,7 +46,8 @@ export default function ImageUploadField({
   maxSize = 5, // 5MB default
   className = '',
   placeholder = 'Click to upload image',
-  lang
+  lang,
+  classNames
 }: ImageUploadFieldProps) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
@@ -171,16 +181,21 @@ export default function ImageUploadField({
 
   return (
     <div className={className}>
-      <label className='text-app-text-color font-medium mb-2 block'>
+      <label className={cn('text-app-text-color font-medium mb-2 block', classNames?.label)}>
         {label}
         {required && <span className='text-app-danger'>*</span>}
       </label>
 
-      <div className='border-2 rounded-lg p-4 text-center bg-app-background-primary border-app-neutral300 transition-colors overflow-hidden'>
+      <div
+        className={cn(
+          'border-2 rounded-lg p-4 text-center bg-app-background-primary border-app-neutral300 transition-colors overflow-hidden',
+          classNames?.wrapper
+        )}
+      >
         {!isPending && (selectedFile || value) ? (
           <div className='space-y-3'>
-            <ImageIcon className='mx-auto h-8 w-8 text-app-primary' />
-            <p className='text-app-text-color text-sm mb-2'>
+            <ImageIcon className={cn('mx-auto h-8 w-8 text-app-primary', classNames?.icon)} />
+            <p className={cn('text-app-text-color text-sm mb-2', classNames?.text)}>
               {value ? lang?.register?.imageUploaded : lang?.register?.imageSelected}
             </p>
 
@@ -209,18 +224,21 @@ export default function ImageUploadField({
           </div>
         ) : (
           <div className='space-y-2'>
-            <Upload className='mx-auto h-8 w-8 text-app-text-color mb-2' />
+            <Upload className={cn('mx-auto h-8 w-8 text-app-text-color mb-2', classNames?.icon)} />
             <>
-              <p className='text-app-text-color text-sm mb-2 uppercase'>
+              <p className={cn('text-app-text-color text-sm mb-2 uppercase', classNames?.text)}>
                 {placeholder} ({accept})
               </p>
-              <p className='text-app-neutral500 text-xs mb-2'>
+              <p className={cn('text-app-neutral500 text-xs mb-2', classNames?.text)}>
                 {lang?.common?.max} {maxSize}MB
               </p>
             </>
 
             <Button
-              className='mt-2 bg-app-background-primary border-app-neutral500 text-app-text-color hover:bg-app-neutral300'
+              className={cn(
+                'mt-2 bg-app-background-primary border-app-neutral500 text-app-text-color hover:bg-app-neutral300',
+                classNames?.button
+              )}
               size='sm'
               type='button'
               variant='outline'
@@ -228,7 +246,9 @@ export default function ImageUploadField({
               onClick={() => fileInputRef.current?.click()}
             >
               {isPending ? (
-                <p className='text-app-text-color text-xs'>{lang?.register?.uploading}...</p>
+                <p className={cn('text-app-text-color text-xs', classNames?.buttonTextLoading)}>
+                  {lang?.register?.uploading}...
+                </p>
               ) : (
                 lang?.register?.chooseFile
               )}
