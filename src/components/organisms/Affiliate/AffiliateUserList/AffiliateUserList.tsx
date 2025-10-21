@@ -66,7 +66,8 @@ export function AffiliateUserList({ lang, locale, initialAffiliateUserData }: Af
       <div className='flex-1'>
         {/* Mobile Settings List */}
         <div className='lg:hidden'>
-          {dataList && dataList?.length > 0 ? (
+          {/* Data List */}
+          {dataList && dataList.length > 0 && (
             <div className='space-y-3'>
               {dataList.map((affiliate, index) => (
                 <div
@@ -89,42 +90,46 @@ export function AffiliateUserList({ lang, locale, initialAffiliateUserData }: Af
                 </div>
               ))}
             </div>
-          ) : (
-            <>
-              <div className='p-8 text-center flex flex-col gap-3 items-center'>
-                <Image
-                  src={'/images/betNotFound.png'}
-                  alt='Bet Not Found'
-                  width={1000}
-                  height={1000}
-                  className='h-[100px] w-[100px] object-contain object-center'
-                />
-                <p className='text-app-text-color text-sm'>{lang?.common?.noAffiliate}.</p>
-              </div>
-            </>
           )}
+
+          {/* Empty State */}
+          {!isLoading && (!dataList || dataList.length === 0) && (
+            <div className='p-8 text-center flex flex-col gap-3 items-center bg-app-table-bg-body border border-app-table-border-body'>
+              <Image
+                src={'/images/betNotFound.png'}
+                alt='Bet Not Found'
+                width={1000}
+                height={1000}
+                className='h-[100px] w-[100px] object-contain object-center'
+              />
+              <p className='text-app-text-color text-sm'>{lang?.common?.noAffiliate}.</p>
+            </div>
+          )}
+
+          {/* Loading State */}
           {isLoading && <LoadingText lines={3} />}
         </div>
 
         {/* Desktop Table */}
         <div className='hidden lg:block'>
           <div className='overflow-hidden'>
-            <div className='hidden items-center md:grid md:grid-cols-3 gap-4 px-4 py-3 bg-app-background-secondary rounded-[8px] mb-[10px] text-sm font-semibold text-app-text-header-table uppercase'>
+            <div className='hidden items-center md:grid md:grid-cols-3 gap-4 px-4 py-3 bg-app-table-bg-header rounded-[8px] mb-[10px] text-sm font-semibold text-app-table-text-header uppercase'>
               <div>{lang?.common?.codeName}</div>
               <div>{lang?.common?.username}</div>
               <div>{lang?.common?.commission}</div>
             </div>
 
-            <div className='rounded-lg bg-app-background-primary border border-app-neutral300'>
-              {dataList && dataList?.length > 0 ? (
+            <div className='rounded-lg bg-app-table-bg-body border border-app-table-border-body'>
+              {dataList &&
+                dataList?.length > 0 &&
                 dataList.map((affiliate, index) => (
                   <div key={index} className='grid grid-cols-3 gap-4 p-4 last:border-b-0'>
                     <div className='text-app-text-color'>{affiliate.code_name}</div>
                     <div className='text-app-text-color'>{affiliate.username}</div>
                     <div className='text-app-text-color'>{affiliate.commission}</div>
                   </div>
-                ))
-              ) : (
+                ))}
+              {!isLoading && (!dataList || dataList.length === 0) && (
                 <div className='p-8 text-center flex flex-col gap-3 items-center'>
                   <Image
                     src={'/images/betNotFound.png'}

@@ -16,12 +16,16 @@ const heightClasses = {
 
 export function LoadingText({ lines = 3, className, lineHeight = 'md' }: LoadingTextProps) {
   return (
-    <div className={cn('space-y-2', className)} role='status' aria-label='Loading text'>
+    <div
+      className={cn('space-y-2 bg-app-table-bg-body rounded-lg p-4 border border-app-table-border-body', className)}
+      role='status'
+      aria-label='Loading text'
+    >
       {Array.from({ length: lines }).map((_, i) => (
         <div
           key={i}
           className={cn(
-            'bg-[var(--c-skeleton)] rounded animate-pulse',
+            'bg-app-table-text-body rounded animate-pulse',
             heightClasses[lineHeight],
             i === lines - 1 ? 'w-3/4' : 'w-full'
           )}

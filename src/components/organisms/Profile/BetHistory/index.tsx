@@ -248,14 +248,14 @@ export default function BetHistoryPage({
         {/* Table & Empty State */}
         <div className='overflow-hidden flex flex-col flex-1'>
           {/* Table Header */}
-          <div className='hidden items-center md:grid md:grid-cols-4 gap-4 px-4 py-3 bg-app-background-secondary rounded-[8px] mb-[10px] text-sm font-semibold text-app-text-header-table uppercase'>
+          <div className='hidden items-center md:grid md:grid-cols-4 gap-4 px-4 py-3 bg-app-table-bg-header rounded-[8px] mb-[10px] text-sm font-semibold text-app-table-text-header uppercase'>
             <div>{lang?.common?.time}</div>
             <div>{lang?.common?.gameName}</div>
             <div>{lang?.common?.amount}</div>
             <div>{lang?.common?.status}</div>
           </div>
 
-          <div className='space-y-1 bg-app-background-primary rounded-[8px] border border-app-neutral300'>
+          <div className='space-y-1 bg-app-table-bg-body rounded-[8px] border border-app-table-border-body'>
             {isLoading ? (
               <div className='flex items-center justify-center py-24'>
                 <Loader2 className='h-8 w-8 animate-spin text-app-primary' />
@@ -340,7 +340,7 @@ export default function BetHistoryPage({
                     height={1000}
                     className='h-[100px] w-[100px] object-contain object-center'
                   />
-                  <span className='text-app-text-color text-sm'>{lang?.common?.noHistoryFound}</span>
+                  <span className='text-app-table-text-body text-sm'>{lang?.common?.noHistoryFound}</span>
                 </div>
               </>
             )}

@@ -1,6 +1,7 @@
 'use client'
 
 import { GetData } from '@/@core/hooks/use-query'
+import { LoadingTable, LoadingText } from '@/components/atoms/Loading'
 import { Button } from '@/components/ui/button'
 import { ReferralGroupHistoryItem } from '@/types/referralDTO'
 import { useClaimReferral } from '@/utils/api/internal/claimReferral'
@@ -216,10 +217,13 @@ export default function MyReferralGroupHistory({
 
               {/* Mobile Claim Button */}
 
-              {!isLoading && members.length > 0 ? (
+              {members.length > 0 && (
                 <div className='space-y-3'>
                   {members.map((member, index) => (
-                    <div key={index} className='bg-app-background-primary rounded-lg p-4 border border-app-neutral300'>
+                    <div
+                      key={index}
+                      className='bg-app-table-bg-body rounded-lg p-4 border border-app-table-border-body'
+                    >
                       <div className='flex justify-between items-center'>
                         <div>
                           <div className='text-sm'>{format(new Date(member?.created_at), 'yyyy-MM-dd | HH:mm')}</div>
@@ -235,8 +239,9 @@ export default function MyReferralGroupHistory({
                     </div>
                   ))}
                 </div>
-              ) : (
-                <div className='p-8 text-center flex flex-col gap-3 items-center'>
+              )}
+              {!isLoading && (!members || members.length === 0) && (
+                <div className='p-8 text-center flex flex-col gap-3 items-center bg-app-table-bg-body border border-app-table-border-body'>
                   <Image
                     src={'/images/betNotFound.png'}
                     alt='Bet Not Found'
@@ -247,20 +252,21 @@ export default function MyReferralGroupHistory({
                   <p className='text-app-text-color text-sm'>{lang?.common?.noMemberReferral}.</p>
                 </div>
               )}
+              {isLoading && <LoadingText lines={3} />}
             </div>
 
             {/* Desktop Table */}
             <div className='hidden lg:block'>
               <div className='overflow-hidden'>
-                <div className='hidden items-center md:grid md:grid-cols-4 gap-4 px-4 py-3 bg-app-background-secondary rounded-[8px] mb-[10px] text-sm font-semibold text-app-text-header-table uppercase'>
+                <div className='hidden items-center md:grid md:grid-cols-4 gap-4 px-4 py-3 bg-app-table-bg-header rounded-[8px] mb-[10px] text-sm font-semibold text-app-table-text-header uppercase'>
                   <div>{lang?.common?.date}</div>
                   <div>{lang?.common?.referralGroup}</div>
                   <div>{lang?.common?.commissionPercentage}</div>
                   <div>{lang?.common?.commission}</div>
                 </div>
 
-                <div className='rounded-lg bg-app-background-primary border border-app-neutral300'>
-                  {!isLoading && members.length > 0 ? (
+                <div className='rounded-lg bg-app-table-bg-body border border-app-table-border-body'>
+                  {members.length > 0 &&
                     members.map((member, index) => (
                       <div key={index} className='grid grid-cols-4 gap-4 p-4 last:border-b-0'>
                         <div className='text-app-text-color'>
@@ -273,8 +279,8 @@ export default function MyReferralGroupHistory({
                           <span className='text-app-success font-bold'>{thousandSeparatorComma(member.amount)}</span>
                         </div>
                       </div>
-                    ))
-                  ) : (
+                    ))}
+                  {!isLoading && (!members || members.length === 0) && (
                     <div className='p-8 text-center flex flex-col gap-3 items-center'>
                       <Image
                         src={'/images/betNotFound.png'}
@@ -286,6 +292,7 @@ export default function MyReferralGroupHistory({
                       <p className='text-app-text-color text-sm'>{lang?.common?.noMemberReferral}.</p>
                     </div>
                   )}
+                  {isLoading && <LoadingTable columns={4} rows={1} showHeader={false} />}
                 </div>
               </div>
             </div>

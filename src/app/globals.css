@@ -96,6 +96,13 @@
   --c-border-chips: var(--neutral600);
   --c-text-main: var(--neutral400);
   --c-text-chips: var(--neutral400);
+
+  /* table */
+  --table-text-body: var(--neutral500);
+  --table-text-header: var(--neutral500);
+  --table-bg-body: var(--c-background-secondary);
+  --table-bg-header: var(--c-background-secondary);
+  --table-border-body: var(--neutral600);
 }
 
 /* Light Theme Overrides */
@@ -189,6 +196,13 @@
   --c-border-chips: var(--neutral400);
   --c-text-main: var(--neutral500);
   --c-text-chips: var(--neutral400);
+
+  /* table */
+  --table-text-body: var(--neutral600);
+  --table-text-header: var(--neutral600);
+  --table-bg-body: var(--c-background-primary);
+  --table-bg-header: var(--c-background-secondary);
+  --table-border-body: var(--neutral300);
 }
 
 @layer base {

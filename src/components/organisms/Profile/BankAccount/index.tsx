@@ -51,35 +51,35 @@ export default function BankAccount({ lang, locale, initialData }: BankAccountPr
       {/* Table & Empty State */}
       <div className='flex overflow-hidden flex-col'>
         {/* Table Header */}
-        <div className='hidden h-[50px] md:grid grid-cols-3 bg-app-background-secondary px-6 items-center justify-center text-sm font-semibold text-app-text-header-table mb-4 rounded-[8px]'>
+        <div className='hidden h-[50px] md:grid grid-cols-3 bg-app-table-bg-header px-6 items-center justify-center text-sm font-semibold text-app-table-text-header mb-4 rounded-[8px]'>
           <div>{lang?.common?.bankName}</div>
           <div>{lang?.common?.accountName}</div>
           <div>{lang?.common?.bankNumber}</div>
         </div>
 
         {/* Mobile Header */}
-        <div className='md:hidden px-4 py-4 mb-[10px] bg-app-background-secondary text-app-text-color text-sm font-medium uppercase tracking-wide rounded-[8px]'>
+        <div className='md:hidden px-4 py-4 mb-[10px] bg-app-table-bg-header text-app-table-text-header text-sm font-medium uppercase tracking-wide rounded-[8px]'>
           {lang?.common?.bankAccount}
         </div>
 
         {/* Account Rows */}
 
-        {/* Empty State */}
-        {!initialData?.bank_account_number && !initialData?.bank_account_number ? (
-          <div className='flex flex-col items-center justify-center py-24 text-center gap-4'>
-            <Image
-              src={'/images/walletNotFound.png'}
-              alt='Wallet Not Found'
-              width={1000}
-              height={1000}
-              className='h-[100px] w-[100px] object-contain object-center'
-            />
-            <p className='text-app-text-color text-sm'>{lang?.common?.noBankDataFound}</p>
-          </div>
-        ) : (
-          <div className='divide-y divide-gray-200 bg-app-background-primary text-white transition-colors rounded-[8px] border border-app-neutral300'>
-            {/* {mockBankAccounts.map(account => ( */}
+        <div className='divide-y divide-gray-200 bg-app-table-bg-body text-app-table-text-body transition-colors rounded-[8px] border border-app-table-border-body'>
+          {/* Empty State */}
+          {!initialData?.bank_account_number && !initialData?.bank_account_number ? (
+            <div className='flex flex-col items-center justify-center py-24 text-center gap-4'>
+              <Image
+                src={'/images/walletNotFound.png'}
+                alt='Wallet Not Found'
+                width={1000}
+                height={1000}
+                className='h-[100px] w-[100px] object-contain object-center'
+              />
+              <p className='text-app-table-text-body text-sm'>{lang?.common?.noBankDataFound}</p>
+            </div>
+          ) : (
             <div className=''>
+              {/* {mockBankAccounts.map(account => ( */}
               {/* Desktop Layout */}
               <div className='hidden md:grid md:grid-cols-3 px-6 py-3 items-center'>
                 <div className='flex items-center gap-3'>
@@ -131,10 +131,10 @@ export default function BankAccount({ lang, locale, initialData }: BankAccountPr
                   </button> */}
                 </div>
               </div>
+              {/* ))} */}
             </div>
-            {/* ))} */}
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   )
