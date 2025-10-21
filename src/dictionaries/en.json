@@ -268,9 +268,10 @@
     "kyc": "KYC",
     "rate": "Rate",
     "chip": "Chip",
+    "chips": "Chips",
     "fee": "Fee",
     "netChip": "Net Chip",
-    "kycDescription": "Verify to be able to withdraw.",
+    "kycDescription": "Verify to be able to deposit and withdraw.",
     "kycVerification": "KYC Verification",
     "kycVerificationDescription": "Please verify your identity",
     "poweredBy": "Powered by",
@@ -520,7 +521,7 @@
   "header": {
     "mainBalance": "Main Balance",
     "mainShort": "Main...",
-    "idnBalance": "IDN Balance",
+    "idnBalance": "IDN Poker Balance",
     "convert": "Convert",
     "notif": "Notif"
   }

@@ -1,6 +1,6 @@
 'use client'
 
-import { IconSize, IconSouthKoreaFlag } from '@/components/atoms/Icons'
+import { IconChips, IconSize, IconSouthKoreaFlag } from '@/components/atoms/Icons'
 import { MyBalanceSheetProps } from '@/components/layout/header/views/myBalance/types'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { cn } from '@/lib/utils'
@@ -8,8 +8,10 @@ import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import { useState } from 'react'
 
-const HeaderBalance = ({ lang, locale, data, onShow }: MyBalanceSheetProps) => {
+const HeaderBalance = ({ lang, locale, data, onShow, dataFee }: MyBalanceSheetProps) => {
   const [open, setOpen] = useState(false)
+  let chipsCalculation = Number(data?.provider_balance ?? 0) * (dataFee?.rate?.rate ?? 11)
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger className='cursor-pointer border-none' asChild>
@@ -48,8 +50,8 @@ const HeaderBalance = ({ lang, locale, data, onShow }: MyBalanceSheetProps) => {
           )}
         </button>
       </PopoverTrigger>
-      <PopoverContent className=' border-none rounded-2xl bg-app-bg-button mt-2 px-3 pt-3 pb-4  w-[130%] shadow-lg text-app-text-color'>
-        <p className='flex items-center gap-1 text-[12px] mb-1 font-semibold text-app-text-color'>
+      <PopoverContent className='border-none rounded-2xl bg-app-bg-button mt-8 -ml-2 py-[9px] px-2 w-[140%] shadow-lg text-app-text-color'>
+        <p className='flex items-center gap-1 text-[10px] mb-1 font-semibold text-app-text-main'>
           {lang?.header?.mainBalance}
         </p>
         <div className='flex items-center gap-2'>
@@ -58,13 +60,29 @@ const HeaderBalance = ({ lang, locale, data, onShow }: MyBalanceSheetProps) => {
             {thousandSeparatorComma(Number(data?.balance ?? 0))}
           </span>
         </div>
-        <div className='flex bg-app-bg-button-hover px-3 rounded-2xl justify-between py-[6px] mt-3 items-center gap-2'>
-          <p className='text-[12px]  text-app-text-color font-semibold'>{lang?.header?.idnBalance}</p>
+        <div className='flex flex-col bg-app-primary-hover px-3 rounded-2xl justify-between py-[8px] mt-3 items-start'>
+          <p className='text-[10px] text-app-text-chips font-semibold'>{lang?.header?.idnBalance}</p>
           <div className='flex items-center gap-2'>
             <IconSouthKoreaFlag size={IconSize.sm} />
-            <span className={cn('flex gap-1 font-semibold', String(data).length > 7 ? 'text-sm' : 'text-sm')}>
+            <span
+              className={cn('flex gap-1 font-semibold text-white', String(data).length > 6 ? 'text-base' : 'text-sm')}
+            >
               {thousandSeparatorComma(Number(data?.provider_balance ?? 0))}
             </span>
+          </div>
+          <div className='flex w-full bg-app-bg-chips px-2 rounded-2xl justify-between py-[6.5px] mt-2 items-center'>
+            <p className='text-[10px] text-app-text-color font-semibold'>{lang?.common?.chips}</p>
+            <div className='flex items-center gap-2'>
+              <IconChips size={IconSize.sm} className='text-app-text-color' />
+              <span
+                className={cn(
+                  'flex gap-1 font-semibold text-app-text-color',
+                  String(data).length > 6 ? 'text-base' : 'text-sm'
+                )}
+              >
+                {thousandSeparatorComma(chipsCalculation)}
+              </span>
+            </div>
           </div>
         </div>
       </PopoverContent>
