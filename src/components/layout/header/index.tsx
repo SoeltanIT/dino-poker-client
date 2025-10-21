@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRef, useState } from 'react'
 
-import { IconDP, IconHome, IconWD } from '@/components/atoms/Icons'
+import { IconDP, IconHome, IconKoreanWon, IconSize, IconWD } from '@/components/atoms/Icons'
 import LocaleSwitcherDropdown from '@/components/molecules/LocaleSwitcher'
 import NotificationDropdown from '@/components/molecules/Notification'
 import ThemeSwitcher from '@/components/molecules/ThemeSwitcher'
@@ -21,6 +21,7 @@ import { useTelegramMiniApp } from '@/components/providers/TelegramMiniApp'
 import { cn } from '@/lib/utils'
 import { BalanceDTO } from '@/types/balanceDTO'
 import { UserFullDTO } from '@/types/userDTO'
+import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
 import { Eye, EyeOff, Volleyball } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import ProfilePopover from './views/menu/ProfilePopover'
@@ -43,6 +44,10 @@ export const Header = ({ lang, locale, data, balance, theme, transferBalanceFee 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const [showBalance, setShowBalance] = useState(true)
+
+  // ensure rate is numeric before performing arithmetic
+  let resRate = Number(transferBalanceFee?.rate?.rate ?? 0) * 1000 || 11000
+  let formattedRate = thousandSeparatorComma(resRate)
 
   return (
     <header className='md:bg-app-background-primary flex lg:px-8 px-4 py-4 md:justify-end items-center lg:space-x-4 bg-app-background-secondary'>
@@ -125,15 +130,15 @@ export const Header = ({ lang, locale, data, balance, theme, transferBalanceFee 
           </div>
         )
       ) : isLogin ? (
-        <div className='w-full flex items-center md:justify-end gap-3'>
-          <Link href={`/${locale}`} className=' md:flex flex-shrink-0'>
+        <div className='w-full flex items-start md:justify-end gap-3'>
+          <Link href={`/${locale}`} className=' md:flex flex-shrink-0 h-full'>
             <Image
               src={logo}
               alt={'Site Logo Desktop'}
               width={100}
               height={100}
               priority
-              className='md:w-[45px] md:h-[40px] w-[30px] h-[30px]'
+              className='md:w-[45px] md:h-[40px] w-[30px] h-[30px] mt-2.5'
             />
           </Link>
 
@@ -218,16 +223,32 @@ export const Header = ({ lang, locale, data, balance, theme, transferBalanceFee 
             </Link> */}
           </div>
 
-          <div className='w-full flex items-center justify-end md:gap-3 gap-1'>
-            <div className='flex w-full h-[44px] lg:max-w-[190px] justify-between items-center space-x-2 bg-app-bg-button hover:bg-app-bg-button-hover rounded-full px-3 py-[6px] cursor-pointer transition-colors'>
-              {/* <BalanceSheet data={balance} lang={lang} locale={locale} onShow={showBalance} /> */}
-              <HeaderBalance data={balance as BalanceDTO} lang={lang} locale={locale} onShow={showBalance} />
-              <div onClick={() => setShowBalance(!showBalance)} className='cursor-pointer'>
-                {showBalance ? (
-                  <EyeOff className='h-4 w-4 md:h-5 md:w-5 text-app-text-color' />
-                ) : (
-                  <Eye className='h-4 w-4 md:h-5 md:w-5 text-app-text-color' />
-                )}
+          <div className='w-full flex items-start justify-end md:gap-3 gap-1'>
+            <div className='flex flex-col items-center w-full max-w-[190px]'>
+              {/* main pill */}
+              <div className='flex w-full h-[44px] justify-between items-center space-x-2 bg-app-bg-button hover:bg-app-bg-button-hover rounded-full px-3 py-[6px] cursor-pointer transition-colors'>
+                <HeaderBalance
+                  dataFee={transferBalanceFee}
+                  data={balance as BalanceDTO}
+                  lang={lang}
+                  locale={locale}
+                  onShow={showBalance}
+                />
+                <div onClick={() => setShowBalance(!showBalance)} className='cursor-pointer'>
+                  {showBalance ? (
+                    <EyeOff className='h-4 w-4 md:h-5 md:w-5 text-app-text-color' />
+                  ) : (
+                    <Eye className='h-4 w-4 md:h-5 md:w-5 text-app-text-color' />
+                  )}
+                </div>
+              </div>
+
+              {/* rate pill */}
+              <div className='mt-1 w-full flex items-center justify-center gap-1 rounded-full border border-app-border-chips px-[7.5px] py-[2.5px] text-[10px] font-medium text-app-accentYellow'>
+                <IconKoreanWon size={IconSize.sm} className='text-app-warning' />
+                <span>
+                  {transferBalanceFee?.rate?.currency ?? 'KRW'} 1,000 = {formattedRate} {lang?.common?.chips}
+                </span>
               </div>
             </div>
             <BalanceSheet

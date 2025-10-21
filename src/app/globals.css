@@ -27,7 +27,7 @@
   --c-danger-dark: #ad241f;
   --c-success: #31eeab;
   --c-info: #a4671e;
-  --c-warning: #ff8064;
+  --c-warning: #e2a129;
   --c-orange: #ff8a58;
   --c-warning-rgb: 255, 128, 100;
   --c-placeholder: #b0b4ca;
@@ -91,6 +91,11 @@
   --ds-gradient-game-card-overlay: linear-gradient(180deg, rgba(15, 15, 20, 0) 0%, rgba(15, 15, 20, 0.8) 100%);
 
   --ds-grey-12op: #ffffff1f;
+
+  --c-bg-chips: #2e1772;
+  --c-border-chips: var(--neutral600);
+  --c-text-main: var(--neutral400);
+  --c-text-chips: var(--neutral400);
 }
 
 /* Light Theme Overrides */
@@ -108,14 +113,14 @@
   --c-secondary: #facc15;
   --c-secondary-hover: #fef08a;
 
-  --c-danger: #F05B6F;
+  --c-danger: #f05b6f;
   --c-danger-medium: #fca5a5;
   --c-danger-surface: #fee2e2;
   --c-danger-dark: #991b1b;
 
-  --c-success: #23B682;
-  --c-info: #4D8AFF;
-  --c-warning: #E2A129;
+  --c-success: #23b682;
+  --c-info: #4d8aff;
+  --c-warning: #e2a129;
   --c-orange: #fb923c;
   --c-warning-rgb: 245, 158, 11;
 
@@ -180,6 +185,10 @@
   --ds-gradient-game-card-overlay: linear-gradient(180deg, rgba(15, 15, 20, 0) 0%, rgba(15, 15, 20, 0.8) 100%);
 
   --ds-grey-12op: #ffffff1f;
+  --c-bg-chips: #d6c9fc;
+  --c-border-chips: var(--neutral400);
+  --c-text-main: var(--neutral500);
+  --c-text-chips: var(--neutral400);
 }
 
 @layer base {
