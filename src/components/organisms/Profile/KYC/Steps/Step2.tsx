@@ -47,6 +47,65 @@ export function KYCFormStep2({ lang, locale, isPending, onSubmit: _onSubmit }: K
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+        {/* Bank Information */}
+        <div className='space-y-6'>
+          <p className='text-base font-semibold text-app-text-color mb-4'>{lang?.register?.bankInformation}</p>
+          <CardContent className='space-y-4'>
+            <div className='grid grid-cols-1 md:grid-cols-1 gap-4'>
+              <FormField
+                control={form.control}
+                name='bank_name'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className='text-app-text-color'>
+                      {lang?.register?.bank}
+                      <span className='text-app-danger'>*</span>
+                    </FormLabel>
+                    <FormControl>
+                      <Select value={field.value} onValueChange={field.onChange}>
+                        <SelectTrigger className='bg-app-white100 text-app-text-color'>
+                          <SelectValue placeholder={lang?.common?.selectBank} />
+                        </SelectTrigger>
+                        <SelectContent className='bg-app-background-primary'>
+                          {respListMasterBank &&
+                            (respListMasterBank.length > 0 ? (
+                              respListMasterBank?.map((item: ListMasterBankDTO, index) => (
+                                <SelectItem key={index} value={item.bank_name} className='text-app-text-color'>
+                                  {item.bank_name}
+                                </SelectItem>
+                              ))
+                            ) : (
+                              <SelectItem value='No Data Bank Available' disabled className='text-app-text-color'>
+                                {lang?.common?.noBankAvailable || 'No banks available'}
+                              </SelectItem>
+                            ))}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage className='text-app-danger' />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name='bank_account_number'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className='text-app-text-color'>
+                      {lang?.register?.accountNumber}
+                      <span className='text-app-danger'>*</span>
+                    </FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder={lang?.common?.typeAccountNumber} />
+                    </FormControl>
+                    <FormMessage className='text-app-danger' />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </CardContent>
+        </div>
         {/* Withdrawal Password */}
         <div className='space-y-6'>
           <p className='text-base font-semibold text-app-text-color mb-4'>
@@ -110,65 +169,6 @@ export function KYCFormStep2({ lang, locale, isPending, onSubmit: _onSubmit }: K
                           {showRetypeWithdrawalPassword ? <EyeOff className='h-4 w-4' /> : <Eye className='h-4 w-4' />}
                         </button>
                       </div>
-                    </FormControl>
-                    <FormMessage className='text-app-danger' />
-                  </FormItem>
-                )}
-              />
-            </div>
-          </CardContent>
-        </div>
-        {/* Bank Information */}
-        <div className='space-y-6'>
-          <p className='text-base font-semibold text-app-text-color mb-4'>{lang?.register?.bankInformation}</p>
-          <CardContent className='space-y-4'>
-            <div className='grid grid-cols-1 md:grid-cols-1 gap-4'>
-              <FormField
-                control={form.control}
-                name='bank_name'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className='text-app-text-color'>
-                      {lang?.register?.bank}
-                      <span className='text-app-danger'>*</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Select value={field.value} onValueChange={field.onChange}>
-                        <SelectTrigger className='bg-app-white100 text-app-text-color'>
-                          <SelectValue placeholder={lang?.common?.selectBank} />
-                        </SelectTrigger>
-                        <SelectContent className='bg-app-background-primary'>
-                          {respListMasterBank &&
-                            (respListMasterBank.length > 0 ? (
-                              respListMasterBank?.map((item: ListMasterBankDTO, index) => (
-                                <SelectItem key={index} value={item.bank_name} className='text-app-text-color'>
-                                  {item.bank_name}
-                                </SelectItem>
-                              ))
-                            ) : (
-                              <SelectItem value='No Data Bank Available' disabled className='text-app-text-color'>
-                                {lang?.common?.noBankAvailable || 'No banks available'}
-                              </SelectItem>
-                            ))}
-                        </SelectContent>
-                      </Select>
-                    </FormControl>
-                    <FormMessage className='text-app-danger' />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name='bank_account_number'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className='text-app-text-color'>
-                      {lang?.register?.accountNumber}
-                      <span className='text-app-danger'>*</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Input {...field} placeholder={lang?.common?.typeAccountNumber} />
                     </FormControl>
                     <FormMessage className='text-app-danger' />
                   </FormItem>

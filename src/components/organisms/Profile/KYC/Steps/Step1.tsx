@@ -103,7 +103,7 @@ export function KYCFormStep1({ lang, locale, onCancel, onSubmit: _onSubmit }: KY
                             variant='outline'
                             className={`p-4 rounded-full h-auto bg-[#F6F6F6] active:bg-[#FFFFFF] active:border-[#7FCE78] border border-[#B8B8B8] m-0 w-full text-left font-normal ${
                               !field.value
-                                ? 'text-muted-foreground'
+                                ? 'text-muted-foreground stroke-muted-foreground'
                                 : 'text-[#000000] border-[#7FCE78] bg-[#FFFFFF] stroke-[#7FCE78]'
                             }`}
                           >

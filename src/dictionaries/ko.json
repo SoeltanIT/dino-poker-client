@@ -319,6 +319,7 @@
     "upload": "업로드",
     "chooseFile": "파일 선택",
     "uploadSuccess": "업로드가 성공적으로 완료되었습니다",
+    "imageUploadSuccess": "이미지가 성공적으로 업로드되었습니다",
     "uploadFailed": "업로드에 실패했습니다. 다시 시도해 주세요.",
     "placeholderPassword": "비밀번호는 4~15자 사이여야 합니다",
     "placeholderName": "이름은 2~30자(한글 또는 영문)이어야 합니다",
