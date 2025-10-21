@@ -173,11 +173,52 @@ export default function BetHistoryPage({
 
       <div className='lg:flex lg:gap-8'>
         {/* Summary Stats */}
-        <div className='hidden md:block lg:w-64 mb-8 lg:mb-0'>
-          <div className='gap-4 flex flex-row lg:flex-col w-full'>
-            <div className=' bg-app-background-secondary rounded-lg p-4 w-full'>
-              <div className='text-app-neutral500 text-sm mb-2'>{lang?.common?.rakeBackBonus || 'Rake Back Bonus'}</div>
-              <div className='text-app-neutral500 text-xs mb-3'>
+        {summaryData?.data?.total_unclaimed !== 0 && (
+          <>
+            <div className='hidden md:block lg:w-64 mb-8 lg:mb-0'>
+              <div className='gap-4 flex flex-row lg:flex-col w-full'>
+                <div className=' bg-app-background-secondary rounded-lg p-4 w-full'>
+                  <div className='text-app-neutral500 text-sm mb-2'>
+                    {lang?.common?.rakeBackBonus || 'Rake Back Bonus'}
+                  </div>
+                  <div className='text-app-neutral500 text-xs mb-3'>
+                    <p className='text-2xl font-bold text-app-text-color'>
+                      KRW
+                      <span className='text-app-success'>{` ${summaryData?.data?.total_unclaimed.toLocaleString()}`}</span>
+                    </p>
+                  </div>
+                  <Button
+                    onClick={async () => {
+                      try {
+                        await claimRakeBack({ url: '/rakeback-claim', body: {} })
+                      } catch (error) {
+                        console.error('Failed to claim referral:', error)
+                      }
+                    }}
+                    disabled={isClaiming || summaryData?.data?.total_unclaimed === 0}
+                    className='w-full bg-app-primary hover:bg-app-primary-hover text-white'
+                  >
+                    {isClaiming ? (
+                      <div className='flex items-center gap-2'>
+                        <div className='w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin'></div>
+                        {lang?.common?.claiming || 'Claiming...'}
+                      </div>
+                    ) : (
+                      <div className='flex items-center gap-2'>
+                        <Gift className='w-4 h-4' />
+                        {lang?.common?.claimBonus || 'Claim Bonus'}
+                      </div>
+                    )}
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            <div className='mb-4 md:hidden'>
+              <div className='bg-app-background-secondary rounded-lg p-4 mb-3'>
+                <div className='text-app-neutral500 text-sm mb-2'>
+                  {lang?.common?.claimRakeBackBonus || 'Claim Rake Back Bonus'}
+                </div>
                 <p className='text-2xl font-bold text-app-text-color'>
                   KRW
                   <span className='text-app-success'>{` ${summaryData?.data?.total_unclaimed.toLocaleString()}`}</span>
@@ -188,7 +229,7 @@ export default function BetHistoryPage({
                   try {
                     await claimRakeBack({ url: '/rakeback-claim', body: {} })
                   } catch (error) {
-                    console.error('Failed to claim referral:', error)
+                    console.error('Failed to claim rack back bonus:', error)
                   }
                 }}
                 disabled={isClaiming || summaryData?.data?.total_unclaimed === 0}
@@ -202,48 +243,13 @@ export default function BetHistoryPage({
                 ) : (
                   <div className='flex items-center gap-2'>
                     <Gift className='w-4 h-4' />
-                    {lang?.common?.claimBonus || 'Claim Bonus'}
+                    {lang?.common?.claimBonus || 'Claim Referral'}
                   </div>
                 )}
               </Button>
             </div>
-          </div>
-        </div>
-
-        <div className='mb-4 md:hidden'>
-          <div className='bg-app-background-secondary rounded-lg p-4 mb-3'>
-            <div className='text-app-neutral500 text-sm mb-2'>
-              {lang?.common?.claimRakeBackBonus || 'Claim Rake Back Bonus'}
-            </div>
-            <p className='text-2xl font-bold text-app-text-color'>
-              KRW
-              <span className='text-app-success'>{` ${summaryData?.data?.total_unclaimed.toLocaleString()}`}</span>
-            </p>
-          </div>
-          <Button
-            onClick={async () => {
-              try {
-                await claimRakeBack({ url: '/rakeback-claim', body: {} })
-              } catch (error) {
-                console.error('Failed to claim rack back bonus:', error)
-              }
-            }}
-            disabled={isClaiming || summaryData?.data?.total_unclaimed === 0}
-            className='w-full bg-app-primary hover:bg-app-primary-hover text-white'
-          >
-            {isClaiming ? (
-              <div className='flex items-center gap-2'>
-                <div className='w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin'></div>
-                {lang?.common?.claiming || 'Claiming...'}
-              </div>
-            ) : (
-              <div className='flex items-center gap-2'>
-                <Gift className='w-4 h-4' />
-                {lang?.common?.claimBonus || 'Claim Referral'}
-              </div>
-            )}
-          </Button>
-        </div>
+          </>
+        )}
 
         {/* Table & Empty State */}
         <div className='overflow-hidden flex flex-col flex-1'>
