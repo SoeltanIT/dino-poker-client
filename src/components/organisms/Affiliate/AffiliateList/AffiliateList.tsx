@@ -66,11 +66,11 @@ export function AffiliateList({ lang, locale, initialAffiliateData }: AffiliateL
       <div className='flex-1'>
         {/* Mobile Settings List */}
         <div className='lg:hidden'>
-          {dataList && dataList?.length > 0 ? (
+          {dataList && dataList?.length > 0 && (
             <div className='space-y-3'>
               {dataList.map((affiliate, index) => (
                 <div
-                  className='bg-app-background-primary rounded-lg p-4 border border-app-neutral300 space-y-2'
+                  className='bg-app-table-bg-body rounded-lg p-4 border border-app-table-border-body space-y-2'
                   key={index}
                 >
                   <div className='flex justify-between items-center'>
@@ -99,9 +99,10 @@ export function AffiliateList({ lang, locale, initialAffiliateData }: AffiliateL
                 </div>
               ))}
             </div>
-          ) : (
+          )}
+          {!isLoading && (!dataList || dataList.length === 0) && (
             <>
-              <div className='p-8 text-center flex flex-col gap-3 items-center'>
+              <div className='p-8 text-center flex flex-col gap-3 items-center bg-app-table-bg-body border border-app-table-border-body'>
                 <Image
                   src={'/images/betNotFound.png'}
                   alt='Bet Not Found'
@@ -119,15 +120,16 @@ export function AffiliateList({ lang, locale, initialAffiliateData }: AffiliateL
         {/* Desktop Table */}
         <div className='hidden lg:block'>
           <div className='overflow-hidden'>
-            <div className='hidden items-center md:grid md:grid-cols-4 gap-4 px-4 py-3 bg-app-background-secondary rounded-[8px] mb-[10px] text-sm font-semibold text-app-text-header-table uppercase'>
+            <div className='hidden items-center md:grid md:grid-cols-4 gap-4 px-4 py-3 bg-app-table-bg-header rounded-[8px] mb-[10px] text-sm font-semibold text-app-table-text-header uppercase'>
               <div>{lang?.common?.codeName}</div>
               <div>{lang?.common?.username}</div>
               <div>{lang?.common?.commission}</div>
               <div>{lang?.common?.action}</div>
             </div>
 
-            <div className='rounded-lg bg-app-background-primary border border-app-neutral300'>
-              {dataList && dataList?.length > 0 ? (
+            <div className='rounded-lg bg-app-table-bg-body border border-app-table-border-body'>
+              {dataList &&
+                dataList?.length > 0 &&
                 dataList.map((affiliate, index) => (
                   <div key={index} className='grid grid-cols-4 gap-4 p-4 last:border-b-0'>
                     <div className='text-app-text-color'>{affiliate.code_name}</div>
@@ -144,8 +146,8 @@ export function AffiliateList({ lang, locale, initialAffiliateData }: AffiliateL
                       />
                     </div>
                   </div>
-                ))
-              ) : (
+                ))}
+              {!isLoading && (!dataList || dataList.length === 0) && (
                 <div className='p-8 text-center flex flex-col gap-3 items-center'>
                   <Image
                     src={'/images/betNotFound.png'}

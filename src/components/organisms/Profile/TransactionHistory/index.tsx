@@ -332,8 +332,8 @@ export default function TransactionHistoryPage({
       {/* Filter Headers */}
       <div
         className={cn(
-          'hidden items-center md:grid md:grid-cols-5 gap-4 px-4 py-3 bg-app-background-secondary rounded-[8px] mb-[10px] text-sm font-semibold text-app-text-header-table uppercase',
-          activeTab === 'fiat' ? 'md:grid-cols-5' : 'md:grid-cols-6'
+          'hidden items-center md:grid gap-4 px-4 py-3 bg-app-table-bg-header rounded-[8px] mb-[10px] text-sm font-semibold text-app-table-text-header uppercase',
+          activeTab === 'fiat' ? 'md:grid-cols-6' : 'md:grid-cols-6'
         )}
       >
         {activeTab === 'fiat' ? (
@@ -410,7 +410,7 @@ export default function TransactionHistoryPage({
 
       {/* List */}
       {activeTab === 'fiat' ? (
-        <div className='space-y-1 bg-app-background-primary rounded-[8px] border border-app-neutral300'>
+        <div className='space-y-1 bg-app-table-bg-body rounded-[8px] border border-app-table-border-body'>
           {isLoading ? (
             <div className='flex items-center justify-center py-24'>
               <Loader2 className='h-8 w-8 animate-spin text-app-primary' />
@@ -419,12 +419,15 @@ export default function TransactionHistoryPage({
           ) : transactions?.length > 0 ? (
             transactions.map((transaction, index) => (
               <div key={index} className='p-4 rounded-[8px] transition-colors'>
-                <div className='hidden md:grid md:grid-cols-5 gap-4 items-center'>
+                <div className='hidden md:grid md:grid-cols-6 gap-4 items-center'>
                   <div className='text-sm text-app-text-color'>
                     {format(new Date(transaction.created_at), 'yyyy-MM-dd | HH:mm')}
                   </div>
+
                   <div className='text-sm text-app-text-color uppercase'>{getTypeLabel(transaction.type)}</div>
+
                   <div className='text-sm text-app-neutral500'>KRW</div>
+
                   <div
                     className={`text-sm font-medium ${getAmountColor(
                       transaction.type,
@@ -437,12 +440,15 @@ export default function TransactionHistoryPage({
                       : '-'}
                     {thousandSeparatorComma(transaction.amount)}
                   </div>
+
                   <div className='flex items-center justify-between'>
                     {transaction.review_status && (
                       <span className={`text-sm uppercase ${getStatusColor(transaction.review_status)}`}>
                         {getStatusLabel(transaction.review_status)}
                       </span>
                     )}
+                  </div>
+                  <div className='flex items-center justify-between'>
                     {transaction.review_status === 'PENDING' && (
                       <Button
                         size='sm'
@@ -506,7 +512,7 @@ export default function TransactionHistoryPage({
                   height={1000}
                   className='h-[100px] w-[100px] object-contain object-center'
                 />
-                <span className='text-app-text-color text-sm'>{lang?.common?.noHistoryFound}</span>
+                <span className='text-app-table-text-body text-sm'>{lang?.common?.noHistoryFound}</span>
               </div>
             </>
           )}
@@ -521,7 +527,7 @@ export default function TransactionHistoryPage({
           )}
         </div>
       ) : (
-        <div className='space-y-1 bg-app-background-secondary rounded-[8px] border border-app-neutral600'>
+        <div className='space-y-1 bg-app-table-bg-body rounded-[8px] border border-app-table-border-body'>
           {isLoading ? (
             <div className='flex items-center justify-center py-24'>
               <Loader2 className='h-8 w-8 animate-spin text-app-primary' />

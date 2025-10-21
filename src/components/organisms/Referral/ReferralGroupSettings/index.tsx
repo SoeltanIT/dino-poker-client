@@ -56,7 +56,7 @@ export default function MyReferralGroupSettings({ lang, locale, initialData }: M
                 <LoadingText lines={3} />
               ) : settings ? (
                 <div className='space-y-3'>
-                  <div className='bg-app-background-primary rounded-lg p-4 border border-app-neutral300 space-y-2'>
+                  <div className='bg-app-table-bg-body rounded-lg p-4 border border-app-table-border-body space-y-2'>
                     <div className='flex justify-between items-center'>
                       <div className='text-sm'>{lang?.common?.availableShare}</div>
                       <div className='text-sm'>{settings.available_share}</div>
@@ -74,7 +74,7 @@ export default function MyReferralGroupSettings({ lang, locale, initialData }: M
                 </div>
               ) : (
                 <>
-                  <div className='p-8 text-center flex flex-col gap-3 items-center'>
+                  <div className='p-8 text-center flex flex-col gap-3 items-center bg-app-table-bg-body border border-app-table-border-body'>
                     <Image
                       src={'/images/betNotFound.png'}
                       alt='Bet Not Found'
@@ -91,13 +91,13 @@ export default function MyReferralGroupSettings({ lang, locale, initialData }: M
             {/* Desktop Table */}
             <div className='hidden lg:block'>
               <div className='overflow-hidden'>
-                <div className='hidden items-center md:grid md:grid-cols-3 gap-4 px-4 py-3 bg-app-background-secondary rounded-[8px] mb-[10px] text-sm font-semibold text-app-text-header-table uppercase'>
+                <div className='hidden items-center md:grid md:grid-cols-3 gap-4 px-4 py-3 bg-app-table-bg-header rounded-[8px] mb-[10px] text-sm font-semibold text-app-table-text-header uppercase'>
                   <div>{lang?.common?.availableShare}</div>
                   <div>{lang?.common?.userShare}</div>
                   <div>{lang?.common?.affiliateShare}</div>
                 </div>
 
-                <div className='rounded-lg bg-app-background-primary border border-app-neutral300'>
+                <div className='rounded-lg bg-app-table-bg-body border border-app-table-border-body'>
                   {isLoading ? (
                     <LoadingTable columns={3} rows={1} showHeader={false} />
                   ) : settings ? (
