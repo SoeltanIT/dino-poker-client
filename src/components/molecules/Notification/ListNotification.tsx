@@ -2,8 +2,9 @@
 import { GetData, useMutationQuery } from '@/@core/hooks/use-query'
 import { NotificationProps } from '@/components/molecules/Notification/types'
 import { Button } from '@/components/ui/button'
-import { ListNotifCount, ListNotificationDTO } from '@/types/listNotificationDTO'
+import { ListNotificationDTO } from '@/types/listNotificationDTO'
 import { interpolate } from '@/utils/helper/interpolate'
+import { getMessageNotification, getTitleNotification, getTypeNotification } from '@/utils/helper/notification'
 import { format } from 'date-fns'
 import { ArrowLeft, Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -18,7 +19,7 @@ const ListNotification = ({ lang }: NotificationProps) => {
   const router = useRouter()
   const { data: respListNotif, isFetching } = GetData<ListNotificationDTO[]>('/notification', ['getListNotification'])
 
-  const { data: respNotifCount } = GetData<ListNotifCount>('/notification/notifCount', ['getListNotifCount'])
+  // const { data: respNotifCount } = GetData<ListNotifCount>('/notification/notifCount', ['getListNotifCount'])
 
   const { mutateAsync: readNotification } = useMutationQuery<any, any>(
     ['readNotification'],
@@ -48,42 +49,6 @@ const ListNotification = ({ lang }: NotificationProps) => {
   const handleBackToList = () => {
     setCurrentView('list')
     setSelectedNotification(null)
-  }
-  const getTitleNotification = (type: string) => {
-    switch (type) {
-      case 'depositApproved':
-        return lang?.notification?.depositApprovedTitle || ''
-      case 'depositRejected':
-        return lang?.notification?.depositRejectedTitle || ''
-      case 'withdrawApproved':
-        return lang?.notification?.withdrawApprovedTitle || ''
-      case 'withdrawRejected':
-        return lang?.notification?.withdrawRejectedTitle || ''
-      case 'promoFailed':
-        return lang?.notification?.promotionFailedTitle || ''
-      case 'kycApproved':
-        return lang?.notification?.kycApprovedTitle || ''
-      case 'kycRejected':
-        return lang?.notification?.kycRejectedTitle || ''
-      default:
-        return ''
-    }
-  }
-
-  const getTypeNotification = (type: string) => {
-    switch (type) {
-      case 'depositApproved':
-      case 'depositRejected':
-        return lang?.common?.deposit || ''
-      case 'withdrawApproved':
-      case 'withdrawRejected':
-        return lang?.common?.withdraw || ''
-      case 'kycApproved':
-      case 'kycRejected':
-        return lang?.common?.kyc || ''
-      default:
-        return ''
-    }
   }
 
   useEffect(() => {
@@ -143,7 +108,7 @@ const ListNotification = ({ lang }: NotificationProps) => {
                         notification.read_at ? 'text-app-neutral500' : 'text-app-text-color'
                       }`}
                     >
-                      {getTitleNotification(notification.type)}
+                      {getTitleNotification(notification.type, lang)}
                     </div>
                     {!notification.is_read && <div className='h-2 w-2 bg-blue-500 rounded-full'></div>}
                   </div>
@@ -153,7 +118,7 @@ const ListNotification = ({ lang }: NotificationProps) => {
                     }`}
                   >
                     {interpolate(
-                      lang?.notification?.[notification.type] || notification.message,
+                      getMessageNotification(notification.type, lang) || notification.message,
                       notification.args ?? {}
                     )}
                   </div>
@@ -172,10 +137,10 @@ const ListNotification = ({ lang }: NotificationProps) => {
               <div className='space-y-2'>
                 <div className='flex items-center justify-between'>
                   <div className='font-bold text-app-text-color text-sm'>
-                    {getTitleNotification(selectedNotification.type)}
+                    {getTitleNotification(selectedNotification.type, lang)}
                   </div>
                   <div className='text-xs text-app-text-color bg-app-background-primary px-2 py-1 rounded'>
-                    {getTypeNotification(selectedNotification.type)}
+                    {getTypeNotification(selectedNotification.type, lang)}
                   </div>
                 </div>
                 <div className='text-app-neutral500 text-xs'>
@@ -186,7 +151,7 @@ const ListNotification = ({ lang }: NotificationProps) => {
               <div className='border-t border-app-neutral600 pt-4'>
                 <div className='text-app-text-color text-sm leading-relaxed whitespace-pre-line'>
                   {interpolate(
-                    lang?.notification?.[selectedNotification.type] || selectedNotification.message,
+                    getMessageNotification(selectedNotification.type, lang) || selectedNotification.message,
                     selectedNotification.args ?? {}
                   )}
                 </div>
