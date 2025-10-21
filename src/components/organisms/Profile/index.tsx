@@ -11,9 +11,10 @@ import {
   getLinkBankAccount,
   getLinkBetHistory,
   getLinkReferral,
-  getLinkTranscationHistory
+  getLinkTranscationHistory,
+  getLinkTransferHistory
 } from '@/utils/linkFactory/linkFactory'
-import { IdCard } from 'lucide-react'
+import { ArrowRightLeft, IdCard } from 'lucide-react'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { useCookies } from 'react-cookie'
@@ -120,6 +121,11 @@ export default function MenuProfile({
       icon: <IconTransaction />,
       label: lang?.common?.transactionHistory,
       href: getLinkTranscationHistory(locale)
+    },
+    {
+      icon: <ArrowRightLeft />,
+      label: lang?.common?.transferHistory,
+      href: getLinkTransferHistory(locale)
     },
     {
       icon: <IconReferral />,

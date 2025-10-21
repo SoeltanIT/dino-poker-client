@@ -15,6 +15,10 @@ export const getLinkTranscationHistory = (locale: string = 'ko') => {
   return `/${locale}/transaction-history`
 }
 
+export const getLinkTransferHistory = (locale: string = 'ko') => {
+  return `/${locale}/transfer-history`
+}
+
 export const getLinkMyWallet = (locale: string = 'ko') => {
   return `/${locale}/my-wallet`
 }
