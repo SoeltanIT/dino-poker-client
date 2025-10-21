@@ -1,16 +1,16 @@
 'use client'
 
-import { GetData } from '@/@core/hooks/use-query'
-import { useMutationQuery } from '@/@core/hooks/use-query'
+import { GetData, useMutationQuery } from '@/@core/hooks/use-query'
 import { IconBell } from '@/components/atoms/Icons'
 import { Button } from '@/components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { ListNotifCount, ListNotificationDTO } from '@/types/listNotificationDTO'
+import { interpolate } from '@/utils/helper/interpolate'
+import { getMessageNotification, getTitleNotification, getTypeNotification } from '@/utils/helper/notification'
 import { format } from 'date-fns'
 import { ArrowLeft, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { NotificationProps } from './types'
-import { interpolate } from '@/utils/helper/interpolate'
 
 type ViewState = 'list' | 'detail'
 
@@ -63,36 +63,6 @@ export default function NotificationDropdown({ lang }: NotificationProps) {
     setIsOpen(false)
     setCurrentView('list')
     setSelectedNotification(null)
-  }
-
-  const getTitleNotification = (type: string) => {
-    switch (type) {
-      case 'depositApproved':
-        return lang?.notification?.depositApprovedTitle || ''
-      case 'depositRejected':
-        return lang?.notification?.depositRejectedTitle || ''
-      case 'withdrawApproved':
-        return lang?.notification?.withdrawApprovedTitle || ''
-      case 'withdrawRejected':
-        return lang?.notification?.withdrawRejectedTitle || ''
-      case 'promoFailed':
-        return lang?.notification?.promotionFailedTitle || ''
-      default:
-        return ''
-    }
-  }
-
-  const getTypeNotification = (type: string) => {
-    switch (type) {
-      case 'depositApproved':
-      case 'depositRejected':
-        return lang?.common?.deposit || ''
-      case 'withdrawApproved':
-      case 'withdrawRejected':
-        return lang?.common?.withdraw || ''
-      default:
-        return ''
-    }
   }
 
   return (
@@ -164,13 +134,13 @@ export default function NotificationDropdown({ lang }: NotificationProps) {
                       >
                         <div className='flex items-center justify-between'>
                           <div className='font-bold text-app-text-color text-sm'>
-                            {getTitleNotification(notification.type)}
+                            {getTitleNotification(notification.type, lang)}
                           </div>
                           {!notification.is_read && <div className='h-2 w-2 bg-blue-500 rounded-full'></div>}
                         </div>
                         <div className='text-app-text-color text-sm leading-relaxed line-clamp-2'>
                           {interpolate(
-                            lang?.notification?.[notification.type] || notification.message,
+                            getMessageNotification(notification.type, lang) || notification.message,
                             notification.args ?? {}
                           )}
                         </div>
@@ -189,10 +159,10 @@ export default function NotificationDropdown({ lang }: NotificationProps) {
                     <div className='space-y-2'>
                       <div className='flex items-center justify-between'>
                         <div className='font-bold text-app-text-color text-sm'>
-                          {getTitleNotification(selectedNotification.type)}
+                          {getTitleNotification(selectedNotification.type, lang)}
                         </div>
                         <div className='text-xs text-app-text-color bg-app-background-primary px-2 py-1 rounded'>
-                          {getTypeNotification(selectedNotification.type)}
+                          {getTypeNotification(selectedNotification.type, lang)}
                         </div>
                       </div>
                       <div className='text-app-neutral500 text-xs'>
@@ -203,7 +173,7 @@ export default function NotificationDropdown({ lang }: NotificationProps) {
                     <div className='border-t border-app-neutral600 pt-4'>
                       <div className='text-app-text-color text-sm leading-relaxed whitespace-pre-line'>
                         {interpolate(
-                          lang?.notification?.[selectedNotification.type] || selectedNotification.message,
+                          getMessageNotification(selectedNotification.type, lang) || selectedNotification.message,
                           selectedNotification.args ?? {}
                         )}
                       </div>

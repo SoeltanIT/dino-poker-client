@@ -231,16 +231,14 @@ export default function MyReferralGroupHistory({
               {!isLoading && members.length > 0 ? (
                 <div className='space-y-3'>
                   {members.map((member, index) => (
-                    <div key={index} className='bg-app-background-secondary rounded-lg p-4 border border-gray-800'>
+                    <div key={index} className='bg-app-background-primary rounded-lg p-4 border border-app-neutral300'>
                       <div className='flex justify-between items-center'>
                         <div>
-                          <div className='text-app-neutral500 text-sm'>
-                            {format(new Date(member?.created_at), 'yyyy-MM-dd | HH:mm')}
-                          </div>
+                          <div className='text-sm'>{format(new Date(member?.created_at), 'yyyy-MM-dd | HH:mm')}</div>
                           <div className='font-semibold text-app-text-color'>{member.commission_percentage}%</div>
                         </div>
                         <div className='text-right'>
-                          <div className='text-app-neutral500 text-sm'>KRW</div>
+                          <div className='text-sm'>KRW</div>
                           <div className='text-app-success font-bold text-lg'>
                             {thousandSeparatorComma(member.amount)}
                           </div>
@@ -258,7 +256,7 @@ export default function MyReferralGroupHistory({
                     height={1000}
                     className='h-[100px] w-[100px] object-contain object-center'
                   />
-                  <p className='text-gray-300'>{lang?.common?.noMemberReferral}.</p>
+                  <p className='text-app-text-color text-sm'>{lang?.common?.noMemberReferral}.</p>
                 </div>
               )}
             </div>
@@ -273,7 +271,7 @@ export default function MyReferralGroupHistory({
                   <div>{lang?.common?.commission}</div>
                 </div>
 
-                <div className='rounded-lg bg-app-background-secondary border border-app-neutral600'>
+                <div className='rounded-lg bg-app-background-primary border border-app-neutral300'>
                   {!isLoading && members.length > 0 ? (
                     members.map((member, index) => (
                       <div key={index} className='grid grid-cols-4 gap-4 p-4 last:border-b-0'>
@@ -297,7 +295,7 @@ export default function MyReferralGroupHistory({
                         height={1000}
                         className='h-[100px] w-[100px] object-contain object-center'
                       />
-                      <p className='text-gray-300'>{lang?.common?.noMemberReferral}.</p>
+                      <p className='text-app-text-color text-sm'>{lang?.common?.noMemberReferral}.</p>
                     </div>
                   )}
                 </div>
