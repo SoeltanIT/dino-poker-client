@@ -275,7 +275,9 @@
     "kycVerification": "KYC Verification",
     "kycVerificationDescription": "Please verify your identity",
     "poweredBy": "Powered by",
-    "withdrawalSecurity": "Withdrawal Security"
+    "withdrawalSecurity": "Withdrawal Security",
+    "chipAmount":"Chip Amount",
+    "transferHistory":"Transfer History"
   },
   "game": {
     "texaspoker": "Texas Poker",
