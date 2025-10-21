@@ -16,7 +16,14 @@ import { WithdrawFormProps } from './types'
 const PRESET_AMOUNTS = ['10000', '20000', '50000', '100000']
 // const PRESET_AMOUNTS = ['10000', '20000', '50000', '100000', '500000', '1000000']
 
-export default function WithdrawForm({ onSubmit, lang, isStatus, isLoading, configData }: WithdrawFormProps) {
+export default function WithdrawForm({
+  onSubmit,
+  lang,
+  isStatus,
+  isLoading,
+  configData,
+  isLoadingConfig
+}: WithdrawFormProps) {
   const [showAccountNumber, setShowAccountNumber] = useState(false)
   const [showWithdrawalPassword, setShowWithdrawalPassword] = useState(false)
   const [errMsgStatus, setErrMsgStatus] = useState(false)
@@ -80,6 +87,7 @@ export default function WithdrawForm({ onSubmit, lang, isStatus, isLoading, conf
                   />
                 </FormControl>
                 <PresetAmountSelector
+                  isLoading={isLoadingConfig}
                   amounts={PRESET_AMOUNTS}
                   onSelect={amount => {
                     const currentAmount = Number(form.getValues('amount') || 0)

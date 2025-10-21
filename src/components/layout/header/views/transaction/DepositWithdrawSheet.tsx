@@ -6,6 +6,7 @@ import KYC from '@/components/layout/header/views/menu/kyc/KYC'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent } from '@/components/ui/sheet'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { ConfigItem } from '@/types/config'
 import { useLiveChatContext } from '@/utils/context/LiveChatProvider'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
@@ -14,7 +15,6 @@ import DepositConfirmForm from './DepositConfirmForm'
 import DepositForm from './DepositForm'
 import WithdrawForm from './WithdrawForm'
 import { DepositDataProps, DepositWithdrawSheetProps } from './types'
-import { ConfigItem } from '@/types/config'
 
 export default function DepositWithdrawSheet({
   open,
@@ -110,10 +110,21 @@ export default function DepositWithdrawSheet({
     [['user', 'me'], ['getTransactionHistory'], ['getBalance'], ['getListNotification'], ['getListNotifCount']], // ✅ tambahkan ini
     'transaction'
   )
-  const { data: respListConfig, isLoading } = GetData<ConfigItem[]>(
+  const {
+    data: respListConfig,
+    isLoading: isLoadingConfig,
+    refetch
+  } = GetData<ConfigItem[]>(
     '/config', // hits your Next.js API route, not the real backend
     ['getConfig']
   )
+
+  useEffect(() => {
+    if (open) {
+      console.log('refetching config')
+      refetch()
+    }
+  }, [open, refetch])
 
   function getValueByKey(config: ConfigItem[], key: string): string | undefined {
     return config.find(item => item.key === key)?.value
@@ -304,6 +315,7 @@ export default function DepositWithdrawSheet({
                   activeTab={activeTab}
                   setActiveTab={setActiveTab}
                   configData={valueMaxDeposit}
+                  isLoadingConfig={isLoadingConfig}
                 />
               ) : (
                 <DepositConfirmForm
