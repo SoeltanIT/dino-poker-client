@@ -244,7 +244,7 @@ export const Header = ({ lang, locale, data, balance, theme, transferBalanceFee 
               </div>
 
               {/* rate pill */}
-              <div className='mt-1 w-full flex items-center justify-center gap-1 rounded-full border border-app-border-chips px-[7.5px] py-[2.5px] text-[10px] font-medium text-app-accentYellow'>
+              <div className='mt-1 w-full flex items-center justify-center gap-1 rounded-full border border-app-border-chips px-[7.5px] py-[2.5px] text-[10px] font-medium text-app-warning'>
                 <IconKoreanWon size={IconSize.sm} className='text-app-warning' />
                 <span>
                   {transferBalanceFee?.rate?.currency ?? 'KRW'} 1,000 = {formattedRate} {lang?.common?.chips}
