@@ -3,14 +3,14 @@
 import { GetData } from '@/@core/hooks/use-query'
 import { Button } from '@/components/ui/button'
 import { PokerHistoryDTO } from '@/types/pokerHistory'
+import { useClaimRakeBack } from '@/utils/api/internal/claimRakeBack'
+import { useRakeBackSummary } from '@/utils/api/internal/getRakeBackSummary'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
 import { format } from 'date-fns'
 import { Gift, Loader2 } from 'lucide-react'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { PokerHistoryProps } from './types'
-import { useRakeBackSummary } from '@/utils/api/internal/getRakeBackSummary'
-import { claimRakeBack, useClaimRakeBack } from '@/utils/api/internal/claimRakeBack'
 
 const currencyOptions = ['Fiat', 'Crypto']
 
@@ -255,7 +255,7 @@ export default function BetHistoryPage({
             <div>{lang?.common?.status}</div>
           </div>
 
-          <div className='space-y-1 bg-app-background-secondary rounded-[8px] border border-app-neutral600'>
+          <div className='space-y-1 bg-app-background-primary rounded-[8px] border border-app-neutral300'>
             {isLoading ? (
               <div className='flex items-center justify-center py-24'>
                 <Loader2 className='h-8 w-8 animate-spin text-app-primary' />
@@ -332,7 +332,7 @@ export default function BetHistoryPage({
             ) : (
               <>
                 {/* Empty State */}
-                <div className='flex flex-col items-center justify-center py-24 text-center bg-app-background-secondary rounded-md border border-app-neutral600 gap-4'>
+                <div className='flex flex-col items-center justify-center py-24 text-center gap-4'>
                   <Image
                     src={'/images/betNotFound.png'}
                     alt='Bet Not Found'

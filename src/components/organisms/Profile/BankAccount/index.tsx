@@ -66,7 +66,7 @@ export default function BankAccount({ lang, locale, initialData }: BankAccountPr
 
         {/* Empty State */}
         {!initialData?.bank_account_number && !initialData?.bank_account_number ? (
-          <div className='flex flex-col items-center justify-center py-24 text-center bg-app-background-secondary rounded-md border border-app-neutral600 gap-4'>
+          <div className='flex flex-col items-center justify-center py-24 text-center gap-4'>
             <Image
               src={'/images/walletNotFound.png'}
               alt='Wallet Not Found'
@@ -77,7 +77,7 @@ export default function BankAccount({ lang, locale, initialData }: BankAccountPr
             <p className='text-app-text-color text-sm'>{lang?.common?.noBankDataFound}</p>
           </div>
         ) : (
-          <div className='divide-y divide-gray-200 bg-app-background-secondary text-white transition-colors rounded-[8px] border border-app-neutral600'>
+          <div className='divide-y divide-gray-200 bg-app-background-primary text-white transition-colors rounded-[8px] border border-app-neutral300'>
             {/* {mockBankAccounts.map(account => ( */}
             <div className=''>
               {/* Desktop Layout */}

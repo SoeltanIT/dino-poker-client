@@ -332,7 +332,7 @@ export default function TransactionHistoryPage({
       {/* Filter Headers */}
       <div
         className={cn(
-          'hidden items-center md:grid md:grid-cols-5 gap-4 px-4 py-3 bg-app-neutral300 rounded-[8px] mb-[10px] text-sm font-semibold text-app-text-header-table uppercase',
+          'hidden items-center md:grid md:grid-cols-5 gap-4 px-4 py-3 bg-app-background-secondary rounded-[8px] mb-[10px] text-sm font-semibold text-app-text-header-table uppercase',
           activeTab === 'fiat' ? 'md:grid-cols-5' : 'md:grid-cols-6'
         )}
       >
@@ -498,7 +498,7 @@ export default function TransactionHistoryPage({
           ) : (
             <>
               {/* Empty State */}
-              <div className='flex flex-col items-center justify-center py-24 text-center bg-app-background-secondary rounded-md border border-app-neutral600 gap-4'>
+              <div className='flex flex-col items-center justify-center py-24 text-center gap-4'>
                 <Image
                   src={'/images/transactionNotFound.png'}
                   alt='Transaction Not Found'
@@ -605,7 +605,7 @@ export default function TransactionHistoryPage({
           ) : (
             <>
               {/* Empty State */}
-              <div className='flex flex-col items-center justify-center py-24 text-center bg-app-background-secondary rounded-md border border-app-neutral600 gap-4'>
+              <div className='flex flex-col items-center justify-center py-24 text-center gap-4'>
                 <Image
                   src={'/images/transactionNotFound.png'}
                   alt='Transaction Not Found'

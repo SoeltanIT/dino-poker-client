@@ -70,20 +70,20 @@ export function AffiliateUserList({ lang, locale, initialAffiliateUserData }: Af
             <div className='space-y-3'>
               {dataList.map((affiliate, index) => (
                 <div
-                  className='bg-app-background-secondary rounded-lg p-4 border border-gray-800 space-y-2'
+                  className='bg-app-background-primary rounded-lg p-4 border border-app-neutral300 space-y-2'
                   key={index}
                 >
                   <div className='flex justify-between items-center'>
-                    <div className='text-app-neutral500 text-sm'>{lang?.common?.codeName}</div>
-                    <div className='text-app-neutral500 text-sm'>{affiliate.code_name}</div>
+                    <div className='text-sm'>{lang?.common?.codeName}</div>
+                    <div className='text-sm'>{affiliate.code_name}</div>
                   </div>
                   <div className='flex justify-between items-center'>
-                    <div className='text-app-neutral500 text-sm'>{lang?.common?.username}</div>
+                    <div className='text-sm'>{lang?.common?.username}</div>
                     <div className='text-sm'>{affiliate.username}</div>
                   </div>
 
                   <div className='flex justify-between items-center'>
-                    <div className='text-app-neutral500 text-sm'>{lang?.common?.commission}</div>
+                    <div className='text-sm'>{lang?.common?.commission}</div>
                     <div className='text-app-success font-bold text-sm'>{affiliate.commission}</div>
                   </div>
                 </div>
@@ -99,7 +99,7 @@ export function AffiliateUserList({ lang, locale, initialAffiliateUserData }: Af
                   height={1000}
                   className='h-[100px] w-[100px] object-contain object-center'
                 />
-                <p className='text-gray-300'>{lang?.common?.noAffiliate}.</p>
+                <p className='text-app-text-color text-sm'>{lang?.common?.noAffiliate}.</p>
               </div>
             </>
           )}
@@ -115,7 +115,7 @@ export function AffiliateUserList({ lang, locale, initialAffiliateUserData }: Af
               <div>{lang?.common?.commission}</div>
             </div>
 
-            <div className='rounded-lg bg-app-background-secondary border border-app-neutral600'>
+            <div className='rounded-lg bg-app-background-primary border border-app-neutral300'>
               {dataList && dataList?.length > 0 ? (
                 dataList.map((affiliate, index) => (
                   <div key={index} className='grid grid-cols-3 gap-4 p-4 last:border-b-0'>
@@ -133,7 +133,7 @@ export function AffiliateUserList({ lang, locale, initialAffiliateUserData }: Af
                     height={1000}
                     className='h-[100px] w-[100px] object-contain object-center'
                   />
-                  <p className='text-gray-300'>{lang?.common?.noAffiliate}.</p>
+                  <p className='text-app-text-color'>{lang?.common?.noAffiliate}.</p>
                 </div>
               )}
               {isLoading && <LoadingTable columns={3} rows={1} showHeader={false} />}

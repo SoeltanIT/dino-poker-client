@@ -6,13 +6,12 @@ import { ReferralHistoryItem } from '@/types/referralDTO'
 import { useClaimReferral } from '@/utils/api/internal/claimReferral'
 import { useReferralSummary } from '@/utils/api/internal/getReferralSummary'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
+import { format } from 'date-fns'
 import { ArrowLeft, Gift } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { ReferralDetailProps } from './types'
-import { format } from 'date-fns'
-
 
 export default function MyReferralDetail({
   lang,
@@ -232,7 +231,7 @@ export default function MyReferralDetail({
               )}
             </Button>
           </div>
-          
+
           {/* Member List */}
           <div className='flex-1'>
             {/* Mobile Member List */}
@@ -244,16 +243,14 @@ export default function MyReferralDetail({
               {!isLoading && members.length > 0 ? (
                 <div className='space-y-3'>
                   {members.map((member, index) => (
-                    <div key={index} className='bg-app-background-secondary rounded-lg p-4 border border-gray-800'>
+                    <div key={index} className='bg-app-background-primary rounded-lg p-4 border border-app-neutral300'>
                       <div className='flex justify-between items-center'>
                         <div>
-                          <div className='text-app-neutral500 text-sm'>
-                            {format(new Date(member?.created_at), 'yyyy-MM-dd | HH:mm')}
-                          </div>
+                          <div className='text-sm'>{format(new Date(member?.created_at), 'yyyy-MM-dd | HH:mm')}</div>
                           <div className='font-semibold text-app-text-color'>{member.referral_usage}</div>
                         </div>
                         <div className='text-right'>
-                          <div className='text-app-neutral500 text-sm'>KRW</div>
+                          <div className='text-sm'>KRW</div>
                           <div className='text-app-success font-bold text-lg'>
                             {thousandSeparatorComma(member.amount)}
                           </div>
@@ -271,7 +268,7 @@ export default function MyReferralDetail({
                     height={1000}
                     className='h-[100px] w-[100px] object-contain object-center'
                   />
-                  <p className='text-gray-300'>{lang?.common?.noMemberReferral}.</p>
+                  <p className='text-app-text-color text-sm'>{lang?.common?.noMemberReferral}.</p>
                 </div>
               )}
             </div>
@@ -285,7 +282,7 @@ export default function MyReferralDetail({
                   <div>{lang?.common?.commission}</div>
                 </div>
 
-                <div className='rounded-lg bg-app-background-secondary border border-app-neutral600'>
+                <div className='rounded-lg bg-app-background-primary border border-app-neutral300'>
                   {!isLoading && members.length > 0 ? (
                     members.map((member, index) => (
                       <div key={index} className='grid grid-cols-3 gap-4 p-4 last:border-b-0'>
@@ -308,7 +305,7 @@ export default function MyReferralDetail({
                         height={1000}
                         className='h-[100px] w-[100px] object-contain object-center'
                       />
-                      <p className='text-gray-300'>{lang?.common?.noMemberReferral}.</p>
+                      <p className='text-app-text-color'>{lang?.common?.noMemberReferral}.</p>
                     </div>
                   )}
                 </div>
