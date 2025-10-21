@@ -1,15 +1,13 @@
 'use client'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { useAffiliateList } from '@/utils/api/internal/getAffiliateList'
 import { ArrowLeft } from 'lucide-react'
-import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useState } from 'react'
 import { AffiliateList } from './AffiliateList'
+import { AffiliateUserList } from './AffiliateUserList'
 import { CreateAffiliateSheet } from './createAffiliate'
 import { MyAffiliateProps } from './types'
-import { AffiliateUserList } from './AffiliateUserList'
 
 export default function MyAffiliate({
   lang,

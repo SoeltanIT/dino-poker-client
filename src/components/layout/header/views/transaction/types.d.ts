@@ -16,6 +16,7 @@ export interface DepositFormProps {
   activeTab: string
   setActiveTab: (tab: string) => void // ✅ Add this
   configData?: string
+  isLoadingConfig?: boolean
 }
 
 export interface DepositWithdrawSheetProps {
@@ -34,6 +35,7 @@ export interface WithdrawFormProps {
   isLoading?: boolean
   isStatus?: string
   configData?: string
+  isLoadingConfig?: boolean
 }
 
 export interface DepositDataProps {

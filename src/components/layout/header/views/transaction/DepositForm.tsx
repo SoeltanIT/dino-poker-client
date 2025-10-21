@@ -27,7 +27,8 @@ export default function DepositForm({
   selectedPromotion,
   activeTab,
   setActiveTab,
-  configData
+  configData,
+  isLoadingConfig
 }: DepositFormProps) {
   const { theme } = useThemeToggle()
   const [promo, setPromo] = useState<any>(selectedPromotion || null)
@@ -129,6 +130,7 @@ export default function DepositForm({
                   </FormControl>
 
                   <PresetAmountSelector
+                    isLoading={isLoadingConfig}
                     amounts={PRESET_AMOUNTS}
                     onSelect={amount => {
                       const currentAmount = Number(form.getValues('amount') || 0)

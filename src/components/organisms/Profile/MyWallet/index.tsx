@@ -53,7 +53,7 @@ export default function MyWalletPage({ lang, locale }: MyWalletProps) {
         </div>
 
         {/* Empty State */}
-        <div className='flex flex-col items-center justify-center py-24 text-center bg-app-background-secondary rounded-md border border-app-neutral600 gap-4'>
+        <div className='flex flex-col items-center justify-center py-24 text-center gap-4'>
           <Image
             src={'/images/walletNotFound.png'}
             alt='Wallet Not Found'
