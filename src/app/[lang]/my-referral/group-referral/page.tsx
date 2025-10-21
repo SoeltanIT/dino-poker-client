@@ -13,11 +13,12 @@ export default async function Page({ params, ...props }: any) {
   let initialData = null
   let initialSummaryData = null
   let isLoading = true
+  let roles = 0
 
   try {
     // Check if user has valid session first
     const session = await getValidServerSession()
-    const roles = Number(session?.user?.roles) || 2
+    roles = Number(session?.user?.roles) || 2
     if (!session && roles !== 3) {
       // No valid session, redirect to login
       await handleServerAuthError(locale)
@@ -63,6 +64,7 @@ export default async function Page({ params, ...props }: any) {
       initialData={initialData}
       initialSummaryData={initialSummaryData}
       isLoading={isLoading}
+      roles={roles}
     />
   )
 }

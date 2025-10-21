@@ -43,3 +43,32 @@ export const useClaimReferral = (lang?: LangProps) => {
     isSuccess: !error
   }
 }
+
+export const claimAffiliate = async (): Promise<ClaimReferralResponse | null> => {
+  try {
+    const res = await serverApiClient.post<ClaimReferralResponse>(getApiEndpoint('affiliate_claim'))
+    return res?.data || null
+  } catch (error) {
+    console.error('[claimReferral] Error:', error)
+    throw error
+  }
+}
+
+export const useClaimAffiliate = (lang?: LangProps) => {
+  const { mutateAsync, isPending, error } = useMutationQuery<ClaimReferralRequest, ClaimReferralResponse>(
+    ['affiliate_claim'],
+    'post',
+    'json',
+    true, // show message
+    lang?.common?.affiliateClaimedSuccessfully,
+    [['referral_summary'], ['referral_history']], // invalidate related queries
+    'user'
+  )
+
+  return {
+    claimAffiliate: mutateAsync,
+    isLoading: isPending,
+    error,
+    isSuccess: !error
+  }
+}

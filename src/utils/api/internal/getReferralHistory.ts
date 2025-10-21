@@ -81,9 +81,6 @@ export const getReferralGroupHistory = async (
       'user'
     )
 
-    console.log('res >', res)
-    console.log('res data>', res?.data)
-
     const rawData = res?.data?.data ?? []
     const total = res?.data?.pagination?.total ?? 0
     const totalPage = Math.ceil(total / pageSize)

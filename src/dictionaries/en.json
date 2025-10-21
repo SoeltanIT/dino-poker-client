@@ -220,12 +220,14 @@
     "commissionPercentage": "Commission Percentage",
     "commission": "Comission",
     "claimReferral": "Claim Referral Bonus",
+    "claimAffiliate": "Claim Affiliate Bonus",
     "claiming": "Claiming...",
     "claimReferralDesc": "Click to claim your referral bonuses",
     "availableCommission": "Available Commission",
     "noMemberReferral": "No referral member found. Start to claim commission by inviting your friends",
     "optional": "Optional",
     "referralClaimedSuccessfully": "Referral Claimed Successfully",
+    "affiliateClaimedSuccessfully": "Affiliate Claimed Successfully",
     "rakeBackClaimedSuccessfully": "Rake Back Bonus Claimed Successfully",
     "date": "Date",
     "depositCryptoNote": "Please select promotion before continue to Crypto Deposit for many interesting offers.",
@@ -276,8 +278,8 @@
     "kycVerificationDescription": "Please verify your identity",
     "poweredBy": "Powered by",
     "withdrawalSecurity": "Withdrawal Security",
-    "chipAmount":"Chip Amount",
-    "transferHistory":"Transfer History"
+    "chipAmount": "Chip Amount",
+    "transferHistory": "Transfer History"
   },
   "game": {
     "texaspoker": "Texas Poker",

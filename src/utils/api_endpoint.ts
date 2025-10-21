@@ -26,6 +26,7 @@ export const API_ENDPOINT = {
   group_referral: '/v1/group-referral',
   betby_token: '/v1/token',
   seo: '/v1/seo',
+  affiliate_claim: '/v1/affiliate-claim',
 
   promotion: '/v1',
   my_promotion: '/v1/me',

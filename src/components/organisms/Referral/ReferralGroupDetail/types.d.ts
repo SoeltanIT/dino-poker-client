@@ -10,4 +10,5 @@ export interface MyReferralGroupHistoryProps {
   initialSummaryData?: ReferralSummaryData | null
   isLoading?: boolean
   isLogin?: boolean
+  roles?: number
 }

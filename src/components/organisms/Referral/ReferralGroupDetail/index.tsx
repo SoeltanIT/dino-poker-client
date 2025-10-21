@@ -3,7 +3,7 @@
 import { GetData } from '@/@core/hooks/use-query'
 import { Button } from '@/components/ui/button'
 import { ReferralGroupHistoryItem, ReferralHistoryItem } from '@/types/referralDTO'
-import { useClaimReferral } from '@/utils/api/internal/claimReferral'
+import { useClaimAffiliate, useClaimReferral } from '@/utils/api/internal/claimReferral'
 import { useReferralSummary } from '@/utils/api/internal/getReferralSummary'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
 import { format } from 'date-fns'
@@ -18,7 +18,8 @@ export default function MyReferralGroupHistory({
   locale,
   initialData,
   initialSummaryData,
-  isLoading: serverLoading
+  isLoading: serverLoading,
+  roles
 }: MyReferralGroupHistoryProps) {
   const [page, setPage] = useState(1)
   const [totalPage, setTotalPage] = useState(initialData?.totalPage || 1)
@@ -28,6 +29,9 @@ export default function MyReferralGroupHistory({
 
   // Claim referral functionality
   const { claimReferral, isLoading: isClaiming } = useClaimReferral(lang)
+  const { claimAffiliate, isLoading: isAffiliateClaiming } = useClaimAffiliate(lang)
+
+  let loadingState = roles === 3 ? isAffiliateClaiming : isClaiming
 
   // Use client-side hooks for data fetching with server-side initial data
   const { data: respReferralGroupHistory, isFetching: isFetchingHistory } = GetData<{
@@ -136,7 +140,7 @@ export default function MyReferralGroupHistory({
 
               <div className='hidden md:block bg-app-background-secondary rounded-lg p-4 w-full'>
                 <div className='text-app-neutral500 text-sm mb-2'>
-                  {lang?.common?.claimReferral || 'Claim Referral Bonus'}
+                  {roles === 3 ? lang?.common?.claimAffiliate : lang?.common?.claimReferral || 'Claim Bonus'}
                 </div>
                 <div className='text-app-neutral500 text-xs mb-3'>
                   <p className='text-2xl font-bold text-app-text-color'>
@@ -147,15 +151,19 @@ export default function MyReferralGroupHistory({
                 <Button
                   onClick={async () => {
                     try {
-                      await claimReferral({ url: '/referral-claim', body: {} })
+                      if (roles === 3) {
+                        await claimAffiliate({ url: '/affiliate-claim', body: {} })
+                      } else {
+                        await claimReferral({ url: '/referral-claim', body: {} })
+                      }
                     } catch (error) {
                       console.error('Failed to claim referral:', error)
                     }
                   }}
-                  disabled={isClaiming || totalAvailableCommission === 0}
+                  disabled={loadingState || totalAvailableCommission === 0}
                   className='w-full bg-app-primary hover:bg-app-primary-hover text-white'
                 >
-                  {isClaiming ? (
+                  {loadingState ? (
                     <div className='flex items-center gap-2'>
                       <div className='w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin'></div>
                       {lang?.common?.claiming || 'Claiming...'}
@@ -163,7 +171,7 @@ export default function MyReferralGroupHistory({
                   ) : (
                     <div className='flex items-center gap-2'>
                       <Gift className='w-4 h-4' />
-                      {lang?.common?.claimReferral || 'Claim Referral'}
+                      {roles === 3 ? lang?.common?.claimAffiliate : lang?.common?.claimReferral || 'Claim'}
                     </div>
                   )}
                 </Button>
@@ -177,7 +185,7 @@ export default function MyReferralGroupHistory({
           <div className='mb-4 md:hidden'>
             <div className='bg-app-background-secondary rounded-lg p-4 mb-3'>
               <div className='text-app-neutral500 text-sm mb-2'>
-                {lang?.common?.claimReferral || 'Claim Referral Bonus'}
+                {roles === 3 ? lang?.common?.claimAffiliate : lang?.common?.claimReferral || 'Claim Bonus'}
               </div>
               <p className='text-2xl font-bold text-app-text-color'>
                 KRW
@@ -187,15 +195,19 @@ export default function MyReferralGroupHistory({
             <Button
               onClick={async () => {
                 try {
-                  await claimReferral({ url: '/referral-claim', body: {} })
+                  if (roles === 3) {
+                    await claimAffiliate({ url: '/affiliate-claim', body: {} })
+                  } else {
+                    await claimReferral({ url: '/referral-claim', body: {} })
+                  }
                 } catch (error) {
                   console.error('Failed to claim referral:', error)
                 }
               }}
-              disabled={isClaiming || totalAvailableCommission === 0}
+              disabled={loadingState || totalAvailableCommission === 0}
               className='w-full bg-app-primary hover:bg-app-primary-hover text-white'
             >
-              {isClaiming ? (
+              {loadingState ? (
                 <div className='flex items-center gap-2'>
                   <div className='w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin'></div>
                   {lang?.common?.claiming || 'Claiming...'}
@@ -203,7 +215,7 @@ export default function MyReferralGroupHistory({
               ) : (
                 <div className='flex items-center gap-2'>
                   <Gift className='w-4 h-4' />
-                  {lang?.common?.claimReferral || 'Claim Referral'}
+                  {roles === 3 ? lang?.common?.claimAffiliate : lang?.common?.claimReferral || 'Claim'}
                 </div>
               )}
             </Button>
@@ -268,7 +280,7 @@ export default function MyReferralGroupHistory({
                         <div className='text-app-text-color'>
                           {format(new Date(member?.created_at), 'yyyy-MM-dd | HH:mm')}
                         </div>
-                        <div className='text-app-text-color'>{member.parent}</div>
+                        <div className='text-app-text-color'>{member.parent ?? '-'}</div>
                         <div className='text-app-text-color'>{member.commission_percentage}%</div>
                         <div className='text-app-text-color'>
                           KRW{' '}
