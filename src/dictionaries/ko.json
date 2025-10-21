@@ -329,7 +329,7 @@
     "imageUploadSuccess": "이미지가 성공적으로 업로드되었습니다",
     "uploadFailed": "업로드에 실패했습니다. 다시 시도해 주세요.",
     "placeholderPassword": "비밀번호는 4~15자 사이여야 합니다",
-    "placeholderName": "이름은 2~30자(한글 또는 영문)이어야 합니다",
+    "placeholderName": "이름을 입력하세요...",
     "placeholderUsername": "사용자 이름은 한글/영문 2~30자입니다",
     "placeholderWithdrawalPassword": "비밀번호는 4~15자 사이여야 합니다",
     "selectDate": "날짜 선택",
