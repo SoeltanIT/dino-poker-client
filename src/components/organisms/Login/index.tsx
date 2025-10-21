@@ -7,6 +7,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input'
 import TelegramButton from '@/components/ui/telegram-button'
 import { LangProps } from '@/types/langProps'
+import { useLiveChatContext } from '@/utils/context/LiveChatProvider'
 import { getLinkToForgotPassword } from '@/utils/linkFactory/linkFactory'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useQueryClient } from '@tanstack/react-query'
@@ -49,6 +50,30 @@ export default function LoginModal({
     }
   })
 
+  const { ready } = useLiveChatContext()
+
+  const handleSessionLiveChat = (session: any) => {
+    console.log('[LiveChat] handleSessionLiveChat called.')
+
+    if (!ready) {
+      console.warn('[LiveChat] Widget is not ready yet. Aborting...')
+      return
+    }
+
+    const widget = window.LiveChatWidget
+
+    if (!widget || typeof widget.call !== 'function') {
+      console.error('[LiveChat] LiveChatWidget is not available or malformed.')
+      return
+    }
+
+    widget.call('set_session_variables', { name: session.user.name, email: session.user.email })
+
+    setTimeout(() => {
+      widget.call('maximize')
+    }, 5000)
+  }
+
   const handleLoginSuccess = async () => {
     const session = await getSession()
     const token = session?.accessToken
@@ -63,6 +88,7 @@ export default function LoginModal({
       await queryClient.invalidateQueries({ queryKey: ['user', 'me'] })
       await queryClient.invalidateQueries({ queryKey: ['getBalance'] })
     }
+    handleSessionLiveChat(session)
     onClose()
     window.location.reload()
   }

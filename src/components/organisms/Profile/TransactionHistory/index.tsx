@@ -20,23 +20,47 @@ const typeOption = ['all', 'deposit', 'withdraw', 'adjustment']
 const statusOptions = ['all', 'approved', 'pending', 'rejected']
 
 const getStatusColor = (status: string) => {
-  if (status === 'APPROVED' || status === 'COMPLETED') return 'font-medium text-[#23b682]'
-  if (status === 'EXPIRED' || status === 'REJECTED') return 'font-medium text-app-danger'
-  if (status === 'PENDING') return 'font-medium text-[#e2a129]'
-  return 'text-app-text-color'
+  const normalized = status.toUpperCase()
+
+  const green = 'font-medium text-app-success'
+  const red = 'font-medium text-app-danger'
+  const yellow = 'font-medium text-app-warning'
+  const neutral = 'text-app-text-color'
+
+  switch (normalized) {
+    case 'APPROVED':
+    case 'COMPLETED':
+      return green
+    case 'EXPIRED':
+    case 'REJECTED':
+      return red
+    case 'PENDING':
+      return yellow
+    default:
+      return neutral
+  }
 }
 
 const getAmountColor = (type: string, status: string) => {
+  const normalizedType = type.toLowerCase()
+
+  const green = 'font-medium text-app-success'
+  const red = 'font-medium text-app-danger'
+  const yellow = 'font-medium text-app-warning'
+
+  // Optionally handle rejected case
   // if (status === 'REJECTED') return 'text-app-text-color'
-  if (type == 'DEPOSIT') return 'font-medium text-[#23b682]'
-  if (type == 'deposit') return 'font-medium text-[#23b682]'
-  if (type == 'adjustment_plus') return 'font-medium text-[#23b682]'
-  if (type == 'ADJUSTMENT_PLUS') return 'font-medium text-[#23b682]'
-  if (type == 'adjustment_minus') return 'font-medium text-app-danger'
-  if (type == 'ADJUSTMENT_MINUS') return 'font-medium text-app-danger'
-  if (type == 'withdraw') return ' font-medium text-app-danger'
-  if (type == 'WITHDRAW') return ' font-medium text-app-danger'
-  return ' font-medium text-[#e2a129]'
+
+  switch (normalizedType) {
+    case 'deposit':
+    case 'adjustment_plus':
+      return green
+    case 'withdraw':
+    case 'adjustment_minus':
+      return red
+    default:
+      return yellow
+  }
 }
 
 export default function TransactionHistoryPage({
@@ -274,10 +298,10 @@ export default function TransactionHistoryPage({
           {/* Type Filter */}
           <div className='flex-1'>
             <Select value={selectedTypeFilter} onValueChange={val => setSelectedTypeFilter(val)}>
-              <SelectTrigger className='w-full bg-app-background-secondary border-border uppercase text-app-color'>
+              <SelectTrigger className='w-full bg-app-neutral300 border-border uppercase text-app-color'>
                 <SelectValue placeholder={lang?.common?.selectTypes} />
               </SelectTrigger>
-              <SelectContent className='bg-app-background-primary text-app-text-color border-border'>
+              <SelectContent className='bg-app-background-primary text-app-text-color border-app-neutral300'>
                 {typeOption.map(option => (
                   <SelectItem key={option} value={option} className='uppercase'>
                     {option === 'all' ? lang?.common?.all : getTypeLabel(option)}
@@ -290,10 +314,10 @@ export default function TransactionHistoryPage({
           {/* Status Filter */}
           <div className='flex-1'>
             <Select value={selectedStatusFilter} onValueChange={val => setSelectedStatusFilter(val)}>
-              <SelectTrigger className='w-full bg-app-background-secondary border-border uppercase text-app-color'>
+              <SelectTrigger className='w-full bg-app-neutral300 border-border uppercase text-app-color'>
                 <SelectValue placeholder={lang?.common?.selectStatus} />
               </SelectTrigger>
-              <SelectContent className='bg-app-background-primary text-app-text-color border-border'>
+              <SelectContent className='bg-app-background-primary text-app-text-color border-app-neutral300'>
                 {statusOptions.map(option => (
                   <SelectItem key={option} value={option} className='uppercase'>
                     {option === 'all' ? lang?.common?.all : getStatusLabel(option)}
@@ -308,7 +332,7 @@ export default function TransactionHistoryPage({
       {/* Filter Headers */}
       <div
         className={cn(
-          'hidden items-center md:grid md:grid-cols-5 gap-4 px-4 py-3 bg-app-background-secondary rounded-[8px] mb-[10px] text-sm font-semibold text-app-text-header-table uppercase',
+          'hidden items-center md:grid md:grid-cols-5 gap-4 px-4 py-3 bg-app-neutral300 rounded-[8px] mb-[10px] text-sm font-semibold text-app-text-header-table uppercase',
           activeTab === 'fiat' ? 'md:grid-cols-5' : 'md:grid-cols-6'
         )}
       >
@@ -326,7 +350,7 @@ export default function TransactionHistoryPage({
                     <ChevronDown className='h-4 w-4 text-app-neutral500' />
                   </button>
                 </PopoverTrigger>
-                <PopoverContent className='w-40 p-1 z-50 bg-app-background-primary text-app-text-color border border-gray-800'>
+                <PopoverContent className='w-40 p-1 z-50 bg-app-background-primary text-app-text-color border border-app-neutral300'>
                   {typeOption.map(option => (
                     <button
                       key={option}
@@ -355,7 +379,7 @@ export default function TransactionHistoryPage({
                     <ChevronDown className='h-4 w-4 text-app-neutral500' />
                   </button>
                 </PopoverTrigger>
-                <PopoverContent className='w-40 p-1 z-50 bg-app-background-primary text-app-text-color border border-gray-800'>
+                <PopoverContent className='w-40 p-1 z-50 bg-app-background-primary text-app-text-color border border-app-neutral300'>
                   {statusOptions.map(option => (
                     <button
                       key={option}
@@ -386,7 +410,7 @@ export default function TransactionHistoryPage({
 
       {/* List */}
       {activeTab === 'fiat' ? (
-        <div className='space-y-1 bg-app-background-secondary rounded-[8px] border border-app-neutral600'>
+        <div className='space-y-1 bg-app-background-primary rounded-[8px] border border-app-neutral300'>
           {isLoading ? (
             <div className='flex items-center justify-center py-24'>
               <Loader2 className='h-8 w-8 animate-spin text-app-primary' />
@@ -422,8 +446,9 @@ export default function TransactionHistoryPage({
                     {transaction.review_status === 'PENDING' && (
                       <Button
                         size='sm'
+                        variant={'default'}
                         onClick={() => handleContactSupport(transaction)}
-                        className='bg-app-bg-primary-button border-app-primary border-[1px] hover:bg-app-primary-hover text-white px-3 py-1 text-xs uppercase'
+                        className='bg-app-primary hover:bg-app-primary-hover border-app-primary border-[1px] text-white px-3 py-1 text-xs uppercase'
                       >
                         {lang?.common?.contactUS}
                       </Button>
@@ -462,7 +487,7 @@ export default function TransactionHistoryPage({
                     <Button
                       size='sm'
                       onClick={() => handleContactSupport(transaction)}
-                      className='w-full bg-app-bg-primary-button border-app-primary border-[1px] hover:bg-app-primary-hover text-white px-2 py-1 !mt-2 text-xs uppercase'
+                      className='w-full bg-app-primary hover:bg-app-primary-hover border-app-primary border-[1px] text-white px-2 py-1 !mt-2 text-xs uppercase'
                     >
                       {lang?.common?.contactUS}
                     </Button>
@@ -603,6 +628,7 @@ export default function TransactionHistoryPage({
           )}
         </div>
       )}
+
       {selectedTrans && (
         <DetailTransactionHistory
           lang={lang}

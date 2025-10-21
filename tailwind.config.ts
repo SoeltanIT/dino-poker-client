@@ -114,7 +114,11 @@ const config: Config = {
         'app-bg-progress-bar': 'var(--c-progress-bar)',
         'app-bg-container-progress': 'var(--c-container-progress)',
         'app-bg-progress-disabled': 'var(--c-progress-disabled)',
-        'app-grey12op': 'var(--ds-grey-12op)'
+        'app-grey12op': 'var(--ds-grey-12op)',
+        'app-bg-chips': 'var(--c-bg-chips)',
+        'app-border-chips': 'var(--c-border-chips)',
+        'app-text-chips': 'var(--c-text-chips)',
+        'app-text-main': 'var(--c-text-main)'
       },
       backgroundImage: {
         'play-button': 'var(--ds-gradient-play-button)',

@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils'
 import { thousandSeparatorComma, unformatCommaNumber } from '@/utils/helper/formatNumber'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOff, Loader2 } from 'lucide-react'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Resolver, SubmitHandler, useForm } from 'react-hook-form'
 import { MyBalanceProps } from './types'
 
@@ -62,7 +62,7 @@ const currencies: Currency[] = [
   }
 ]
 
-export default function MyBalance({ lang, locale, onClose, data }: MyBalanceProps) {
+export default function MyBalance({ lang, locale, onClose, data, dataFee }: MyBalanceProps) {
   const [showBalance, setShowBalance] = useState(true)
   const [showBonusBalance, setShowBonusBalance] = useState(true)
   const [showIDNBalance, setShowIDNBalance] = useState(true)
@@ -133,6 +133,29 @@ export default function MyBalance({ lang, locale, onClose, data }: MyBalanceProp
     }
   })
 
+  // nilai input (string) → angka; kosong = 0
+  const transferStr = form.watch('transfer') || ''
+  const amount = Number(transferStr || 0)
+
+  // tab aktif
+  const isDeposit = activeTab === 'transferIn'
+
+  // dari API payload terbaru
+  const rateNumber = Number(dataFee?.rate?.rate ?? 1) // Rate = 1 : rate
+  const feePercent = useMemo(() => {
+    if (!isDeposit) return 0 // untuk sekarang, fee hanya untuk Transfer IN
+    const f = dataFee?.transfer_in_fee
+    if (!f || !f.is_active) return 0
+    return Number(f.value || 0) // selalu persen
+  }, [isDeposit, dataFee])
+
+  // per rumus mockup:
+  const chip = isDeposit ? amount * rateNumber : 0
+  const feeValueOnChip = isDeposit ? (chip * feePercent) / 100 : 0
+  const netChip = isDeposit ? Math.max(chip - feeValueOnChip, 0) : 0
+
+  // formatter (ubah jika butuh desimal)
+  const fmt = (n: number) => thousandSeparatorComma(Math.floor(n))
   const moveIDNBalance: SubmitHandler<FormType> = async (data: FormType) => {
     const payload = {
       type: activeTab === 'transferIn' ? 'deposit' : 'withdraw',
@@ -145,6 +168,7 @@ export default function MyBalance({ lang, locale, onClose, data }: MyBalanceProp
         body: payload
       })
       if (resp?.status === 'success') {
+        form.reset({ transfer: '' }) // <- clears and resets touched/dirty
         // console.log('resp >', resp)
       }
     } catch (error) {
@@ -154,9 +178,7 @@ export default function MyBalance({ lang, locale, onClose, data }: MyBalanceProp
 
   const handleTabChange = (value: string) => {
     setActiveTab(value)
-    form.setValue('transfer', '') // clear the value
-    form.clearErrors('transfer') // optional: clear any error
-    form.resetField?.('transfer') // optional: also reset touched/dirty (if on RHF v7.43+)
+    form.reset({ transfer: '' }) // <- clears and resets touched/dirty
   }
 
   return (
@@ -393,7 +415,7 @@ export default function MyBalance({ lang, locale, onClose, data }: MyBalanceProp
                       type='text'
                       inputMode='numeric'
                       placeholder={lang?.common?.typeAmount}
-                      value={thousandSeparatorComma(field.value || '')}
+                      value={field.value === '' ? '' : thousandSeparatorComma(field.value)}
                       onChange={e => {
                         const raw = unformatCommaNumber(e.target.value)
                         if (/^\d*$/.test(raw)) field.onChange(raw)
@@ -406,8 +428,8 @@ export default function MyBalance({ lang, locale, onClose, data }: MyBalanceProp
                       className='h-full bg-transparent border-app-neutral600 text-app-neutral500 hover:bg-gray-700 hover:text-white px-4'
                       onClick={() => {
                         // take balance from your props
-                        const allBalance = activeTab === 'transferIn' ? data?.balance : data?.provider_balance ?? 0
-                        form.setValue('transfer', String(allBalance))
+                        const allBalance = (activeTab === 'transferIn' ? data?.balance : data?.provider_balance) ?? 0
+                        form.setValue('transfer', String(allBalance), { shouldDirty: true, shouldTouch: true })
                       }}
                     >
                       ALL
@@ -418,6 +440,29 @@ export default function MyBalance({ lang, locale, onClose, data }: MyBalanceProp
               </FormItem>
             )}
           />
+
+          {/* ---- Summary (Rate, Chip, Fee, Net Chip) ---- */}
+          <div className='gap-2 flex flex-col'>
+            <div className='flex items-center justify-between'>
+              <span className='text-app-neutral500 text-sm'>{lang?.common?.rate}</span>
+              <span className='text-app-neutral500 text-sm font-semibold'>1 : {fmt(rateNumber)}</span>
+            </div>
+
+            <div className='flex items-center justify-between'>
+              <span className='text-app-neutral500 text-sm'>{lang?.common?.chip}</span>
+              <span className='text-app-neutral500 text-sm font-semibold'>{fmt(chip)}</span>
+            </div>
+
+            <div className='flex items-center justify-between'>
+              <span className='text-app-neutral500 text-sm'>{lang?.common?.fee}</span>
+              <span className='text-app-neutral500 text-sm font-semibold'>{isDeposit ? `${feePercent}%` : '0%'}</span>
+            </div>
+
+            <div className='flex items-center justify-between'>
+              <span className='text-app-text-color text-base font-semibold'>{lang?.common?.netChip}</span>
+              <span className='text-app-text-color text-base font-semibold'>{fmt(netChip)}</span>
+            </div>
+          </div>
 
           <div className='pt-2 pb-10'>
             <Button

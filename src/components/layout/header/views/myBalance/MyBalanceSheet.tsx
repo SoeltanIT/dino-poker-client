@@ -8,7 +8,7 @@ import { ToastContainer } from 'react-toastify'
 import MyBalance from './MyBalance'
 import { MyBalanceSheetProps } from './types'
 
-export default function BalanceSheet({ lang, locale, data, onShow }: MyBalanceSheetProps) {
+export default function BalanceSheet({ lang, locale, data, dataFee, onShow }: MyBalanceSheetProps) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -26,7 +26,7 @@ export default function BalanceSheet({ lang, locale, data, onShow }: MyBalanceSh
       </SheetTrigger>
       <SheetContent side='right' className='w-full sm:max-w-md overflow-y-auto scrollbar-hide'>
         <ToastContainer />
-        <MyBalance lang={lang} locale={locale} data={data} />
+        <MyBalance lang={lang} locale={locale} data={data} dataFee={dataFee} />
       </SheetContent>
     </Sheet>
   )

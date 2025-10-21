@@ -16,6 +16,8 @@ import { signOut } from 'next-auth/react'
 import { useCookies } from 'react-cookie'
 import GlobalSheet from '../GlobalSheet'
 import { NavbarProps } from './types'
+import { useLiveChatContext } from '@/utils/context/LiveChatProvider'
+import { resetLiveChatSession } from '@/lib/livechat-reset'
 
 export const Navbar = ({ locale, lang, isLogin, data }: NavbarProps) => {
   const pathname = usePathname()
@@ -51,10 +53,33 @@ export const Navbar = ({ locale, lang, isLogin, data }: NavbarProps) => {
     }
   ]
 
+  const { ready } = useLiveChatContext()
+
   const [, , removeCookie] = useCookies(['_authorization'])
+
+  const handleSessionLiveChat = () => {
+    console.log('[LiveChat] handleSessionLiveChat called.')
+
+    if (!ready) {
+      console.warn('[LiveChat] Widget is not ready yet. Aborting...')
+      return
+    }
+
+    const widget = window.LiveChatWidget
+
+    if (!widget || typeof widget.call !== 'function') {
+      console.error('[LiveChat] LiveChatWidget is not available or malformed.')
+      return
+    }
+
+    widget.call('logout')
+  }
 
   const handleLogout = async () => {
     try {
+      // 1) Reset LiveChat identity/session
+      resetLiveChatSession({ hardReload: false }) // set true if you prefer full page reload
+      handleSessionLiveChat()
       // Hapus manual token
       removeCookie('_authorization', { path: '/' })
 

@@ -1,16 +1,16 @@
 'use client'
 
+import { GetData } from '@/@core/hooks/use-query'
+import { UserMeResponse } from '@/@core/interface/User'
+import DepositWithdrawSheet from '@/components/layout/header/views/transaction/DepositWithdrawSheet'
 import CountdownTimerPromotion from '@/components/molecules/CountdownTimer/CountdownTimerPromotion'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { ArrowLeft, Clock, ImageIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { DetailPromotionProps } from './types'
-import DepositWithdrawSheet from '@/components/layout/header/views/transaction/DepositWithdrawSheet'
 import { useState } from 'react'
-import { GetData } from '@/@core/hooks/use-query'
-import { UserMeResponse } from '@/@core/interface/User'
+import { DetailPromotionProps } from './types'
 
 export default function PromotionDetail({ initialData, lang, locale, isLogin }: DetailPromotionProps) {
   const [activeTab, setActiveTab] = useState<'DEPOSIT' | 'WITHDRAW'>('DEPOSIT')

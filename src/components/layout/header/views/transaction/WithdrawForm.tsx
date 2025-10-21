@@ -5,24 +5,27 @@ import { Eye, EyeOff, Loader2 } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { WithdrawFormData, WithdrawSchema } from '@/@core/utils/schema/Transaction/WithdrawSchema'
 import PresetAmountSelector from '@/components/molecules/PresetAmountSelector'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { thousandSeparatorComma, unformatCommaNumber } from '@/utils/helper/formatNumber'
 import { WithdrawFormProps } from './types'
-import { WithdrawFormData, WithdrawSchema } from '@/@core/utils/schema/Transaction/WithdrawSchema'
 
 const PRESET_AMOUNTS = ['10000', '20000', '50000', '100000']
 // const PRESET_AMOUNTS = ['10000', '20000', '50000', '100000', '500000', '1000000']
 
-export default function WithdrawForm({ onSubmit, lang, isStatus, isLoading }: WithdrawFormProps) {
+export default function WithdrawForm({ onSubmit, lang, isStatus, isLoading, configData }: WithdrawFormProps) {
   const [showAccountNumber, setShowAccountNumber] = useState(false)
   const [showWithdrawalPassword, setShowWithdrawalPassword] = useState(false)
   const [errMsgStatus, setErrMsgStatus] = useState(false)
 
+  let valueMax = thousandSeparatorComma(configData ?? 9000000)
+  let descWithdraw = lang?.common?.minMaxAmount?.replace('MAX', valueMax)
+
   const form = useForm<WithdrawFormData>({
-    resolver: zodResolver(WithdrawSchema(lang)),
+    resolver: zodResolver(WithdrawSchema(lang, Number(configData))),
     defaultValues: {
       amount: '',
       // bankName: '',
@@ -82,10 +85,10 @@ export default function WithdrawForm({ onSubmit, lang, isStatus, isLoading }: Wi
                     const currentAmount = Number(form.getValues('amount') || 0)
                     const addedAmount = Number(amount)
                     const newAmount = currentAmount + addedAmount
-                    form.setValue('amount', newAmount.toString())
+                    form.setValue('amount', newAmount.toString(), { shouldDirty: true, shouldValidate: true })
                   }}
                 />
-                <p className='text-app-neutral500 text-xs'>{lang?.common?.minMaxAmount}</p>
+                <p className='text-app-neutral500 text-xs'>{descWithdraw}</p>
                 <FormMessage />
               </FormItem>
             )}

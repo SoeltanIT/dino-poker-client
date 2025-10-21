@@ -172,7 +172,9 @@
     "unverified": "미인증",
     "transferSucces": "잔액이 성공적으로 이체되었습니다",
     "depositSuccess": "입금이 성공적으로 완료되었습니다",
+    "depositReqSuccess": "입금 요청이 성공적으로 완료되었습니다",
     "withdrawSuccess": "출금이 성공적으로 완료되었습니다",
+    "withdrawReqSuccess": "출금 요청이 성공적으로 완료되었습니다",
     "changePasswordSuccess": "변경되었습니다",
     "verifyKYCSuccess": "본인 인증이 성공적으로 완료되었습니다",
     "seeMore": "더 보기",
@@ -263,8 +265,13 @@
     "noAffiliate": "제휴를 찾을 수 없습니다",
     "userAffiliate": "사용자 제휴",
     "affiliate": "제휴",
+    "rate": "환율",
+    "chip": "칩",
+    "chips": "칩",
+    "fee": "수수료",
+    "netChip": "순 칩",
     "kyc": "KYC",
-    "kycDescription": "출금을 위해 인증하세요.",
+    "kycDescription": "입금 및 출금을 위해 인증을 완료하세요.",
     "kycVerification": "KYC 인증",
     "kycVerificationDescription": "신원을 확인해 주세요",
     "poweredBy": "제공:",
@@ -415,11 +422,15 @@
     "withdrawApprovedTitle": "출금 승인됨",
     "withdrawRejectedTitle": "출금 거절됨",
     "promotionFailedTitle": "프로모션 적용 실패",
+    "kycApprovedTitle": "KYC 승인 완료",
+    "kycRejectedTitle": "KYC 승인 거절",
     "promoFailed": "예치금이 최소 조건에 미달하여 프로모션을 적용할 수 없습니다.",
     "depositApproved": "{{amount}}원이 입금되었습니다. 계좌 잔액을 확인해 주세요.",
     "depositRejected": "{{amount}}원 입금이 거절되었습니다. 자세한 내용은 라이브챗으로 문의해 주세요.",
     "withdrawApproved": "{{amount}}원이 출금되었습니다. 계좌 잔액을 확인해 주세요.",
-    "withdrawRejected": "{{amount}}원 출금이 거절되었습니다. 자세한 내용은 라이브챗으로 문의해 주세요."
+    "withdrawRejected": "{{amount}}원 출금이 거절되었습니다. 자세한 내용은 라이브챗으로 문의해 주세요.",
+    "kycApproved": "신원 인증이 완료되었습니다. 이제 계정이 인증되었으며 모든 기능을 이용하실 수 있습니다.",
+    "kycRejected": "제출하신 서류를 확인할 수 없습니다. 인증을 완료하기 위해 필요한 서류를 다시 제출해 주세요."
   },
   "metadata": {
     "title": "KPOKER.gg - 온라인 포커, 텍사스 홀덤 & 라이브 토너먼트",
@@ -511,7 +522,7 @@
   "header": {
     "mainBalance": "주요 잔액",
     "mainShort": "주요..",
-    "idnBalance": "IDN 잔액",
+    "idnBalance": "IDN 포커 잔액",
     "convert": "환전",
     "notif": "알림"
   }

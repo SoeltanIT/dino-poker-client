@@ -8,9 +8,17 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { LangProps } from '@/types/langProps'
 import { ToastContainer } from 'react-toastify'
 
-export default function KYC({ lang, isStatus, onClose }: { lang: LangProps; isStatus?: string; onClose: () => void }) {
-  const [open, setOpen] = useState(false)
-
+export default function KYC({
+  open,
+  lang,
+  isStatus,
+  onClose
+}: {
+  open: boolean
+  lang: LangProps
+  isStatus?: string
+  onClose: () => void
+}) {
   const getStatusColor = (status?: string) => {
     if (status === 'APPROVED') return 'border-app-success text-app-success'
     if (status === 'REJECTED') return 'border-app-danger text-app-danger'
@@ -34,13 +42,12 @@ export default function KYC({ lang, isStatus, onClose }: { lang: LangProps; isSt
   }
 
   const onPressClose = () => {
-    setOpen(false)
     onClose()
   }
 
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>
+    <Sheet open={open} onOpenChange={onClose}>
+      {/* <SheetTrigger asChild>
         <button
           disabled={isStatus === 'APPROVED'}
           className='h-10 w-full cursor-pointer flex items-center justify-between gap-[7px] hover:text-app-text-color'
@@ -49,10 +56,7 @@ export default function KYC({ lang, isStatus, onClose }: { lang: LangProps; isSt
             <IdCard />
             <span>{lang?.common?.verification}</span>
           </div>
-          {/* <span className={`${getStatusColor(isStatus ?? '')}`}>({isStatus})</span> */}
-          {/* {isStatus === 'APPROVED' ? (
-            <IconAlert className={`${getStatusColor(isStatus ?? '')}`} />
-          ) : ( */}
+
           {getStatusText(isStatus) !== '' && (
             <div
               className={`py-1 px-3 border ${getStatusColor(
@@ -62,9 +66,10 @@ export default function KYC({ lang, isStatus, onClose }: { lang: LangProps; isSt
               {getStatusText(isStatus)}
             </div>
           )}
-          {/* )} */}
+          {
         </button>
-      </SheetTrigger>
+      </SheetTrigger> */}
+
       <SheetContent className='w-full sm:max-w-md overflow-y-auto scrollbar-hide'>
         <ToastContainer />
 
