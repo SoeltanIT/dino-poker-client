@@ -9,10 +9,29 @@ export const KYCSchema = (lang?: LangProps) =>
         .min(2, { message: lang?.form?.name_min || 'Name must be at least 2 characters' })
         .max(50, { message: lang?.form?.name_max || 'Name must not exceed 50 characters' }),
 
-      date_of_birth: z.date({
-        required_error: lang?.form?.dob_required || 'Date of birth is required',
-        invalid_type_error: lang?.form?.dob_invalid || 'Invalid date'
-      }),
+      date_of_birth: z
+        .date({
+          required_error: lang?.form?.dob_required || 'Date of birth is required',
+          invalid_type_error: lang?.form?.dob_invalid || 'Invalid date'
+        })
+        .refine(
+          date => {
+            const today = new Date()
+            const birthDate = new Date(date)
+            const age = today.getFullYear() - birthDate.getFullYear()
+            const monthDiff = today.getMonth() - birthDate.getMonth()
+            const dayDiff = today.getDate() - birthDate.getDate()
+
+            // Check if user has turned 19 yet this year
+            if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+              return age - 1 >= 19
+            }
+            return age >= 19
+          },
+          {
+            message: lang?.form?.dob_min_age || 'You must be at least 19 years old'
+          }
+        ),
 
       phone_number: z
         .string()
@@ -74,10 +93,29 @@ export const KYCSchemaStep1 = (lang?: LangProps) =>
       .min(2, { message: lang?.form?.name_min || 'Name must be at least 2 characters' })
       .max(50, { message: lang?.form?.name_max || 'Name must not exceed 50 characters' }),
 
-    date_of_birth: z.date({
-      required_error: lang?.form?.dob_required || 'Date of birth is required',
-      invalid_type_error: lang?.form?.dob_invalid || 'Invalid date'
-    }),
+    date_of_birth: z
+      .date({
+        required_error: lang?.form?.dob_required || 'Date of birth is required',
+        invalid_type_error: lang?.form?.dob_invalid || 'Invalid date'
+      })
+      .refine(
+        date => {
+          const today = new Date()
+          const birthDate = new Date(date)
+          const age = today.getFullYear() - birthDate.getFullYear()
+          const monthDiff = today.getMonth() - birthDate.getMonth()
+          const dayDiff = today.getDate() - birthDate.getDate()
+
+          // Check if user has turned 19 yet this year
+          if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+            return age - 1 >= 19
+          }
+          return age >= 19
+        },
+        {
+          message: lang?.form?.dob_min_age || 'You must be at least 19 years old'
+        }
+      ),
 
     phone_number: z
       .string()
