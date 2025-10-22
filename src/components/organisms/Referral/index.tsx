@@ -35,25 +35,25 @@ const renderButtonActions = (lang: LangProps | undefined, locale: string | undef
             {lang?.common?.settings}
             <ChevronRight className='w-4 h-4' />
           </Link>
-          <Link
+          {/* <Link
             href={getLinkReferralGroupHistory(locale)}
             className='bg-app-primary hover:bg-app-primary-hover text-white px-2 py-2 rounded-lg flex items-center gap-2 uppercase text-sm'
           >
             {lang?.common?.history}
             <ChevronRight className='w-4 h-4' />
-          </Link>
+          </Link> */}
         </div>
       )
-    case 2:
-      return (
-        <Link
-          href={getLinkReferralDetail(locale)}
-          className='bg-app-primary hover:bg-app-primary-hover text-white px-2 py-2 rounded-lg flex items-center gap-2 uppercase text-sm'
-        >
-          {lang?.common?.detail}
-          <ChevronRight className='w-4 h-4' />
-        </Link>
-      )
+    // case 2:
+    //   return (
+    //     <Link
+    //       href={getLinkReferralDetail(locale)}
+    //       className='bg-app-primary hover:bg-app-primary-hover text-white px-2 py-2 rounded-lg flex items-center gap-2 uppercase text-sm'
+    //     >
+    //       {lang?.common?.detail}
+    //       <ChevronRight className='w-4 h-4' />
+    //     </Link>
+    //   )
 
     default:
       return null
@@ -67,7 +67,8 @@ export default function MyReferral({ lang, locale, initialData, isLoading }: MyR
   const isLoadingSession = status === 'loading'
 
   return (
-    <div className='min-h-screen flex flex-col w-full text-app-text-color px-6 lg:px-20 my-10'>
+    //  <div className='min-h-screen flex flex-col w-full text-app-text-color px-6 lg:px-20 my-10'>
+    <div className='flex flex-col w-full text-app-text-color px-6 lg:px-20 mt-10'>
       <div className='container flex flex-col'>
         {/* Header */}
         <div className='mb-[36px]'>

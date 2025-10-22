@@ -3,14 +3,13 @@
 import { GetData } from '@/@core/hooks/use-query'
 import { LoadingTable, LoadingText } from '@/components/atoms/Loading'
 import { Button } from '@/components/ui/button'
-import { ReferralGroupHistoryItem, ReferralHistoryItem } from '@/types/referralDTO'
+import { ReferralGroupHistoryItem } from '@/types/referralDTO'
 import { useClaimAffiliate, useClaimReferral } from '@/utils/api/internal/claimReferral'
 import { useReferralSummary } from '@/utils/api/internal/getReferralSummary'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
 import { format } from 'date-fns'
-import { ArrowLeft, Gift } from 'lucide-react'
+import { Gift } from 'lucide-react'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { MyReferralGroupHistoryProps } from './types'
 
@@ -96,20 +95,21 @@ export default function MyReferralGroupHistory({
   }
 
   return (
-    <div className='min-h-screen flex flex-col w-full text-app-text-color px-6 lg:px-20 my-10 mx-auto'>
+    // <div className='min-h-screen flex flex-col w-full text-app-text-color px-6 lg:px-20 my-10 mx-auto'>
+    <div className='flex flex-col w-full text-app-text-color px-6 lg:px-20 mb-10 mx-auto'>
       <div className='flex flex-col'>
         {/* Back Button */}
 
         {/* Desktop Header */}
         <div className='flex lg:flex-row flex-col mb-4 lg:mb-0 items-center justify-between'>
           <div className='w-full lg:mb-8 mb-2'>
-            <Link
+            {/* <Link
               href={`/${locale}/my-referral`}
               className='flex items-center gap-2 text-app-text-color hover:opacity-90 mb-2 p-0 h-auto hover:bg-transparent'
             >
               <ArrowLeft className='w-5 h-5' />
               <span>{lang?.common?.back}</span>
-            </Link>
+            </Link> */}
             <h1 className='text-2xl font-bold uppercase'>{lang?.common?.myReferralDetail}</h1>
           </div>
 

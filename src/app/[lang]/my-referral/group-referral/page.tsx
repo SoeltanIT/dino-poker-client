@@ -1,5 +1,5 @@
 import { getValidServerSession, handleServerAuthError } from '@/@core/lib/server-auth-utils'
-import MyReferralGroupHistoryProps from '@/components/organisms/Referral/ReferralGroupDetail'
+import MyReferralGroupHistory from '@/components/organisms/Referral/ReferralGroupDetail'
 import { getDictionary, getLocale } from '@/dictionaries/dictionaries'
 import { getReferralGroupHistory } from '@/utils/api/internal/getReferralHistory'
 import { getReferralSummary } from '@/utils/api/internal/getReferralSummary'
@@ -13,7 +13,7 @@ export default async function Page({ params, ...props }: any) {
   let initialData = null
   let initialSummaryData = null
   let isLoading = true
-  let roles = 0
+  let roles = 2
 
   try {
     // Check if user has valid session first
@@ -58,7 +58,7 @@ export default async function Page({ params, ...props }: any) {
   }
 
   return (
-    <MyReferralGroupHistoryProps
+    <MyReferralGroupHistory
       lang={dict}
       locale={locale}
       initialData={initialData}
