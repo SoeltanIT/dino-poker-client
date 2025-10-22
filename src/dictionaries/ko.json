@@ -524,6 +524,7 @@
     "infoDate": "종료일이 시작일보다 이전이어서 초기화되었습니다."
   },
   "header": {
+    "totalBalance": "총 잔액",
     "mainBalance": "주요 잔액",
     "mainShort": "주요..",
     "idnBalance": "IDN 포커 잔액",

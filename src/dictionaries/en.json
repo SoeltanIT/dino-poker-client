@@ -524,6 +524,7 @@
     "infoDate": "End date cleared because it was earlier than start date."
   },
   "header": {
+    "totalBalance": "Total Balance",
     "mainBalance": "Main Balance",
     "mainShort": "Main...",
     "idnBalance": "IDN Poker Balance",
