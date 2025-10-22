@@ -10,6 +10,7 @@ import { useState } from 'react'
 
 const HeaderBalance = ({ lang, locale, data, onShow, dataFee }: MyBalanceSheetProps) => {
   const [open, setOpen] = useState(false)
+  let totalBalance = (data && Number(data.balance + data?.provider_balance)) || 0
   let chipsCalculation = Number(data?.provider_balance ?? 0) * (dataFee?.rate?.rate ?? 11)
 
   return (
@@ -22,7 +23,7 @@ const HeaderBalance = ({ lang, locale, data, onShow, dataFee }: MyBalanceSheetPr
             onShow ? (
               <div>
                 <p className='flex items-center gap-1 xs:text-[12px] text-[9px] font-semibold text-app-text-color'>
-                  {lang?.header?.mainBalance}{' '}
+                  {lang?.header?.totalBalance}{' '}
                   {open ? (
                     <ChevronUp size={12} className='-mb-[2px]' />
                   ) : (
@@ -32,10 +33,10 @@ const HeaderBalance = ({ lang, locale, data, onShow, dataFee }: MyBalanceSheetPr
                 <span
                   className={cn(
                     'flex gap-1 -mt-1 font-semibold',
-                    String(data.balance).length > 7 ? 'text-xs' : 'text-base'
+                    String(totalBalance).length > 7 ? 'text-xs' : 'text-base'
                   )}
                 >
-                  {thousandSeparatorComma(Number(data.balance))}
+                  {thousandSeparatorComma(Number(totalBalance))}
                 </span>
               </div>
             ) : (
