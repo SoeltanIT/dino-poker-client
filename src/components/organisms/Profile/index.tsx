@@ -2,6 +2,7 @@
 
 import { IconBank, IconCoin, IconLogout, IconReferral, IconTransaction } from '@/components/atoms/Icons'
 import ChangePasswordForm from '@/components/layout/header/views/menu/changePassword/ChangePassword'
+import KYC from '@/components/layout/header/views/menu/kyc/KYC'
 import ThemeSwitcher from '@/components/molecules/ThemeSwitcher'
 import { useTelegramMiniApp } from '@/components/providers/TelegramMiniApp'
 import { resetLiveChatSession } from '@/lib/livechat-reset'
@@ -17,10 +18,9 @@ import {
 import { ArrowRightLeft, IdCard } from 'lucide-react'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
+import { useState } from 'react'
 import { useCookies } from 'react-cookie'
 import { MenuProfileProps } from './types'
-import { useState } from 'react'
-import KYC from '@/components/layout/header/views/menu/kyc/KYC'
 
 export default function MenuProfile({
   data,
@@ -61,36 +61,46 @@ export default function MenuProfile({
 
   const { ready } = useLiveChatContext()
 
-  const handleSessionLiveChat = () => {
-    console.log('[LiveChat] handleSessionLiveChat called.')
+  // const handleSessionLiveChat = () => {
+  //   console.log('[LiveChat] handleSessionLiveChat called.')
 
-    if (!ready) {
-      console.warn('[LiveChat] Widget is not ready yet. Aborting...')
-      return
-    }
+  //   if (!ready) {
+  //     console.warn('[LiveChat] Widget is not ready yet. Aborting...')
+  //     return
+  //   }
 
-    const widget = window.LiveChatWidget
+  //   const widget = window.LiveChatWidget
 
-    if (!widget || typeof widget.call !== 'function') {
-      console.error('[LiveChat] LiveChatWidget is not available or malformed.')
-      return
-    }
+  //   if (!widget || typeof widget.call !== 'function') {
+  //     console.error('[LiveChat] LiveChatWidget is not available or malformed.')
+  //     return
+  //   }
 
-    widget.call('logout')
+  //   widget.call('logout')
+  // }
+
+  function logLcCookies(tag: string) {
+    const raw = document.cookie.split(';').map(s => s.trim())
+    const lc = raw.filter(c => /(lc|livechat)/i.test(c))
+    console.log(`[LC cookies ${tag}]`, lc)
   }
 
   const handleLogout = async () => {
     try {
       // 1) Reset LiveChat identity/session
+      logLcCookies('BEFORE')
       resetLiveChatSession({ hardReload: false }) // set true if you prefer full page reload
-      handleSessionLiveChat()
+      logLcCookies('AFTER')
       // Hapus manual token
       removeCookie('_authorization', { path: '/' })
 
       // Logout dari next-auth
-      await signOut({ callbackUrl: `/${locale ?? 'en'}` })
+      await signOut({ redirect: false })
 
       closeApp()
+
+      // D) Now do a full navigation
+      location.replace(`/${locale ?? 'ko'}`)
     } catch (error) {
       //console.error('[Logout Error]', error)
     }

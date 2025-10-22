@@ -1,7 +1,8 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState } from 'react'
+import { getSession } from 'next-auth/react'
 import { usePathname } from 'next/navigation'
+import { createContext, useContext, useEffect, useRef, useState } from 'react'
 
 interface LiveChatContextProps {
   ready: boolean
@@ -64,12 +65,29 @@ export const LiveChatProvider = ({ children, licenseId }: { children: React.Reac
     script.src = 'https://cdn.livechatinc.com/tracking.js'
     script.async = true
     script.type = 'text/javascript'
-    script.onload = () => {
+    script.onload = async () => {
       console.log('[LiveChatContext] ✅ Script loaded')
       setReady(true)
+
+      window.LiveChatWidget?.once?.('ready', async () => {
+        const session = await getSession()
+        const hasToken = Boolean(session?.accessToken)
+
+        if (hasToken) {
+          window.LiveChatWidget?.call?.('set_session_variables', {
+            name: session?.user?.name ?? '',
+            email: session?.user?.email ?? ''
+          })
+        } else {
+          // Option A (recommended): don't set identity for guests at all
+          // Option B (display-only): set a name but leave email empty
+          window.LiveChatWidget?.call?.('set_session_variables', { name: 'Guest' })
+          window.LiveChatWidget?.call('set_customer_name', 'Guest')
+        }
+      })
     }
     document.head.appendChild(script)
-  }, [pathname, licenseId])
+  }, [licenseId])
 
   return <LiveChatContext.Provider value={{ ready }}>{children}</LiveChatContext.Provider>
 }
