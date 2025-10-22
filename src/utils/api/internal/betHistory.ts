@@ -39,9 +39,6 @@ export const getListBetTransaction = async ({
     status: status
   }
 
-  // console.log('[getListBetTransaction] params:', params)
-  // console.log('[getListBetTransaction] type:', type)
-
   try {
     const res = await serverApiClient.get(
       `${getApiEndpoint('bet_history')}`,
