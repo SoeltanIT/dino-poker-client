@@ -36,7 +36,7 @@ const HeaderBalance = ({ lang, locale, data, onShow, dataFee }: MyBalanceSheetPr
                     String(totalBalance).length > 7 ? 'text-xs' : 'text-base'
                   )}
                 >
-                  {thousandSeparatorComma(Number(totalBalance))}
+                  {thousandSeparatorComma(totalBalance)}
                 </span>
               </div>
             ) : (

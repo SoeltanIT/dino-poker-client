@@ -448,7 +448,7 @@ export default function TransactionHistoryPage({
                       </span>
                     )}
                   </div>
-                  <div className='flex items-center justify-between'>
+                  <div className='flex items-center justify-end'>
                     {transaction.review_status === 'PENDING' && (
                       <Button
                         size='sm'

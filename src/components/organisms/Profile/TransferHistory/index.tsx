@@ -279,12 +279,12 @@ export default function TransactionHistoryPage({
             return (
               <div key={index} className='p-4 rounded-[8px] transition-colors'>
                 <div className='hidden md:grid md:grid-cols-5 gap-4 items-center'>
-                  <div className='text-sm text-app-neutral500'>
+                  <div className='text-sm text-app-text-color'>
                     {format(new Date(item.createdAt), 'yyyy-MM-dd | HH:mm')}
                   </div>
-                  <div className='text-sm text-app-neutral500'>{item?.type}</div>
-                  <div className='text-sm text-app-neutral500'>{thousandSeparatorComma(item?.amount)}</div>
-                  <div className='text-sm text-app-neutral500'>{item?.rate}</div>
+                  <div className='text-sm text-app-text-color uppercase'>{item?.typeLabel}</div>
+                  <div className='text-sm text-app-text-color'>{thousandSeparatorComma(item?.amount)}</div>
+                  <div className='text-sm text-app-text-color'>{item?.rate}</div>
                   <div className='text-sm text-app-text-color font-medium'>
                     {thousandSeparatorComma(chipCalculation)}
                   </div>
