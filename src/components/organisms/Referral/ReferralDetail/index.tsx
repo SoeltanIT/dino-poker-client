@@ -88,20 +88,21 @@ export default function MyReferralDetail({
   }
 
   return (
-    <div className='min-h-screen flex flex-col w-full text-app-text-color px-6 lg:px-20 my-10 mx-auto'>
+    // <div className='min-h-screen flex flex-col w-full text-app-text-color px-6 lg:px-20 my-10 mx-auto'>
+    <div className='min-h-screen flex flex-col w-full text-app-text-color px-6 lg:px-20 mb-10 mx-auto'>
       <div className='container flex flex-col'>
         {/* Back Button */}
 
         {/* Desktop Header */}
         <div className='flex lg:flex-row flex-col mb-4 lg:mb-0 items-center justify-between'>
           <div className='w-full lg:mb-8 mb-2'>
-            <Link
+            {/* <Link
               href={`/${locale}/my-referral`}
               className='flex items-center gap-2 text-app-text-color hover:opacity-90 mb-2 p-0 h-auto hover:bg-transparent'
             >
               <ArrowLeft className='w-5 h-5' />
               <span>{lang?.common?.back}</span>
-            </Link>
+            </Link> */}
             <h1 className='text-2xl font-bold uppercase'>{lang?.common?.myReferralDetail}</h1>
           </div>
 
