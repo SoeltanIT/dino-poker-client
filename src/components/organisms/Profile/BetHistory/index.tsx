@@ -10,7 +10,9 @@ import { format } from 'date-fns'
 import { Gift, Loader2 } from 'lucide-react'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { PokerHistoryProps } from './types'
+import { BetHistoryProps, PokerHistoryProps } from './types'
+import { BetHistoryDTO } from '@/types/betHistoryDTO'
+import DetailBetHistory from '@/components/organisms/Profile/BetHistory/DetailBetHistory'
 
 const currencyOptions = ['Fiat', 'Crypto']
 
@@ -42,7 +44,7 @@ export default function BetHistoryPage({
   initialData,
   isInitialLoading,
   initialTotalPage
-}: PokerHistoryProps) {
+}: BetHistoryProps) {
   const getStatusLabel = (status: string) => {
     switch (status.toLowerCase()) {
       case 'win':
@@ -56,18 +58,18 @@ export default function BetHistoryPage({
     }
   }
 
-  const [betHistory, setBetHistory] = useState<PokerHistoryDTO[]>(initialData?.data || [])
+  const [betHistory, setBetHistory] = useState<BetHistoryDTO[]>(initialData?.data || [])
   const [page, setPage] = useState(initialPage || 1)
   const [totalPage, setTotalPage] = useState(initialTotalPage || 1)
   const [isLoading, setIsLoading] = useState(isInitialLoading || false)
 
-  const [selectedBet, setSelectedBet] = useState<PokerHistoryDTO | null>(null)
+  const [selectedBet, setSelectedBet] = useState<BetHistoryDTO | null>(null)
   const [openDetail, setOpenDetail] = useState(false)
 
   const shouldFetch = page !== initialPage
 
   // Fetch data using GetData
-  const { data, isFetching, refetch } = GetData<{ data: PokerHistoryDTO[]; totalPage: number }>(
+  const { data, isFetching, refetch } = GetData<{ data: BetHistoryDTO[]; totalPage: number }>(
     `/poker_history`,
     ['getPokerHistory', page],
     true,
@@ -286,16 +288,16 @@ export default function BetHistoryPage({
                         <div className={`text-sm ${getTextColor(bet.status)} uppercase`}>
                           {getStatusLabel(bet.status)}
                         </div>
-                        {/* <Button
-                      size='sm'
-                      // onClick={() => {
-                      //   setSelectedBet(bet)
-                      //   setOpenDetail(true)
-                      // }}
-                      className='flex bg-app-bg-primary-button border-app-primary border-[1px] hover:bg-app-primary-hover text-white px-4 py-1 !mt-2 text-xs uppercase'
-                    >
-                      {lang?.common?.detail}
-                    </Button> */}
+                        <Button
+                          size='sm'
+                          onClick={() => {
+                            setSelectedBet(bet)
+                            setOpenDetail(true)
+                          }}
+                          className='flex bg-app-primary border-app-primary border-[1px] hover:bg-app-primary-hover text-white px-4 py-1 !mt-2 text-xs uppercase'
+                        >
+                          {lang?.common?.detail}
+                        </Button>
                       </div>
                     </div>
 
@@ -321,16 +323,16 @@ export default function BetHistoryPage({
                         </div>
                       </div>
 
-                      {/* <Button
-                    size='sm'
-                    // onClick={() => {
-                    //   setSelectedBet(bet)
-                    //   setOpenDetail(true)
-                    // }}
-                    className='flex w-full md:w-[50%] bg-app-bg-primary-button border-app-primary border-[1px] hover:bg-app-primary-hover text-white px-2 py-1 !mt-2 text-xs uppercase'
-                  >
-                    {lang?.common?.detail}
-                  </Button> */}
+                      <Button
+                        size='sm'
+                        onClick={() => {
+                          setSelectedBet(bet)
+                          setOpenDetail(true)
+                        }}
+                        className='flex w-full md:w-[50%] bg-app-bg-primary-button border-app-primary border-[1px] hover:bg-app-primary-hover text-white px-2 py-1 !mt-2 text-xs uppercase'
+                      >
+                        {lang?.common?.detail}
+                      </Button>
                     </div>
                   </div>
                 )
@@ -363,7 +365,7 @@ export default function BetHistoryPage({
         </div>
       </div>
 
-      {/* <DetailBetHistory lang={lang} detail={selectedBet} open={openDetail} setOpen={setOpenDetail} /> */}
+      <DetailBetHistory lang={lang} detail={selectedBet} open={openDetail} setOpen={setOpenDetail} />
     </div>
   )
 }
