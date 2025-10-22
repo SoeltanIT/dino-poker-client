@@ -96,7 +96,7 @@ export default function MyReferralGroupHistory({
 
   return (
     // <div className='min-h-screen flex flex-col w-full text-app-text-color px-6 lg:px-20 my-10 mx-auto'>
-    <div className='flex flex-col w-full text-app-text-color px-6 lg:px-20 mb-10 mx-auto'>
+    <div className='min-h-screen flex flex-col w-full text-app-text-color px-6 lg:px-20 mb-10 mx-auto'>
       <div className='flex flex-col'>
         {/* Back Button */}
 
