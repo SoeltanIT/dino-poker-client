@@ -442,27 +442,29 @@ export default function MyBalance({ lang, locale, onClose, data, dataFee }: MyBa
           />
 
           {/* ---- Summary (Rate, Chip, Fee, Net Chip) ---- */}
-          <div className='gap-2 flex flex-col'>
-            <div className='flex items-center justify-between'>
-              <span className='text-app-neutral500 text-sm'>{lang?.common?.rate}</span>
-              <span className='text-app-neutral500 text-sm font-semibold'>1 : {fmt(rateNumber)}</span>
-            </div>
+          {isDeposit && (
+            <div className='gap-2 flex flex-col'>
+              <div className='flex items-center justify-between'>
+                <span className='text-app-neutral500 text-sm'>{lang?.common?.rate}</span>
+                <span className='text-app-neutral500 text-sm font-semibold'>1 : {fmt(rateNumber)}</span>
+              </div>
 
-            <div className='flex items-center justify-between'>
-              <span className='text-app-neutral500 text-sm'>{lang?.common?.chip}</span>
-              <span className='text-app-neutral500 text-sm font-semibold'>{fmt(chip)}</span>
-            </div>
+              <div className='flex items-center justify-between'>
+                <span className='text-app-neutral500 text-sm'>{lang?.common?.chip}</span>
+                <span className='text-app-neutral500 text-sm font-semibold'>{fmt(chip)}</span>
+              </div>
 
-            <div className='flex items-center justify-between'>
-              <span className='text-app-neutral500 text-sm'>{lang?.common?.fee}</span>
-              <span className='text-app-neutral500 text-sm font-semibold'>{isDeposit ? `${feePercent}%` : '0%'}</span>
-            </div>
+              <div className='flex items-center justify-between'>
+                <span className='text-app-neutral500 text-sm'>{lang?.common?.fee}</span>
+                <span className='text-app-neutral500 text-sm font-semibold'>{isDeposit ? `${feePercent}%` : '0%'}</span>
+              </div>
 
-            <div className='flex items-center justify-between'>
-              <span className='text-app-text-color text-base font-semibold'>{lang?.common?.netChip}</span>
-              <span className='text-app-text-color text-base font-semibold'>{fmt(netChip)}</span>
+              <div className='flex items-center justify-between'>
+                <span className='text-app-text-color text-base font-semibold'>{lang?.common?.netChip}</span>
+                <span className='text-app-text-color text-base font-semibold'>{fmt(netChip)}</span>
+              </div>
             </div>
-          </div>
+          )}
 
           <div className='pt-2 pb-10'>
             <Button

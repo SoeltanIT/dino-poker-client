@@ -2,56 +2,59 @@
 export function resetLiveChatSession(opts: { hardReload?: boolean } = {}) {
   if (typeof window === 'undefined') return
 
+  // 0) Politely destroy current instance (no-ops if not loaded)
+  try {
+    window.LiveChatWidget?.call?.('destroy')
+  } catch {}
+
+  // 1) Kill cookies across domain variants
   const expire = 'Thu, 01 Jan 1970 00:00:00 GMT'
-  const names = ['lc_cid', 'lc_cst', '__lc_cid', '__lc_cst']
+  const names = [
+    // current + legacy + v2 variants
+    'lc_cid',
+    'lc_cst',
+    '__lc_cid',
+    '__lc_cst',
+    '__lc2_cid',
+    '__lc2_cst'
+  ]
   const host = location.hostname.replace(/^www\./, '')
   const domains = [host, `.${host}`]
 
-  // 1) Kill cookies across domain variants
   names.forEach(n => {
+    // default path
     document.cookie = `${n}=; expires=${expire}; path=/`
+    // explicit domain variants
     domains.forEach(d => {
       document.cookie = `${n}=; expires=${expire}; path=/; domain=${d}`
     })
   })
 
-  // 2) Nuke storage keys LC uses
+  // 2) Nuke storage keys LiveChat may use
   try {
     localStorage.removeItem('@@lc_auth_token')
     localStorage.removeItem('@@lc_ids')
 
-    for (const k of Object.keys(localStorage)) {
-      if (/livechat|^lc[_-]?/i.test(k)) localStorage.removeItem(k)
-    }
-    for (const k of Object.keys(sessionStorage)) {
-      if (/livechat|^lc[_-]?/i.test(k)) sessionStorage.removeItem(k)
+    for (const store of [localStorage, sessionStorage]) {
+      Object.keys(store).forEach(k => {
+        const kk = k.toLowerCase()
+        if (kk.includes('livechat') || kk.startsWith('lc') || kk.startsWith('__lc')) {
+          store.removeItem(k)
+        }
+      })
     }
   } catch {}
 
-  // 3) Politely close UI if API is around
+  // 3) Clean global proxy so a fresh queue is made on next init
   try {
-    // @ts-ignore
-    const api = (window as any).LC_API
-    api?.close_chat?.()
-    api?.minimize_chat_window?.()
+    delete (window as any).LiveChatWidget
   } catch {}
 
-  // 4) Reload widget or the page
+  // 4) Reload page or re-inject script
   if (opts.hardReload) {
     location.reload()
     return
   }
 
-  // Soft reload: remove tracking.js and re-inject
-  const SRC_PART = 'cdn.livechatinc.com/tracking.js'
-  document.querySelectorAll(`script[src*="${SRC_PART}"]`).forEach(s => s.parentElement?.removeChild(s))
 
-  // Clear the proxy so a fresh queue is made on next init
-  // @ts-ignore
-  delete (window as any).LiveChatWidget
-
-  const s = document.createElement('script')
-  s.async = true
-  s.src = 'https://cdn.livechatinc.com/tracking.js'
-  document.head.appendChild(s)
 }

@@ -1,9 +1,8 @@
 'use client'
 
-import { DialogHeader, DialogFooter, DialogTitle, DialogDescription } from '@/components/ui/dialog'
-import { X } from 'lucide-react'
-import { LangProps } from '@/types/langProps'
+import { DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Locale } from '@/i18n-config'
+import { LangProps } from '@/types/langProps'
 
 interface LogoutModalProps {
   onClose: () => void

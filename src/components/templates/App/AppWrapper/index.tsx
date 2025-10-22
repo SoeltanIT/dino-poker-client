@@ -60,7 +60,7 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config }) =>
     undefined,
     undefined,
     'GET', // method
-    undefined,
+    {},
     'transaction'
   )
 

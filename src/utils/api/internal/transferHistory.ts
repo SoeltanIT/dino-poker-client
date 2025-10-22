@@ -73,6 +73,8 @@ export const getListTransferHistory = async ({
       'transaction'
     )
 
+    console.log('getListTransferHistory response >>', res.data)
+
     const raw = res?.data
     const list = raw?.data ?? []
     const pag = raw?.pagination ?? {}

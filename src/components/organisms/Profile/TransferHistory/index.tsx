@@ -108,13 +108,13 @@ export default function TransactionHistoryPage({
   }>(
     `/transfer_history`,
     ['getTransferHistory', page], // You can still use this as queryKey cache
-    true,
+    false,
     undefined,
     true,
     undefined,
     undefined,
     undefined,
-    'GET', // method
+    'POST', // method
     {
       page,
       pageSize: 10
