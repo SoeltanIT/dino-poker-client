@@ -1,8 +1,9 @@
 import { getValidServerSession, handleServerAuthError } from '@/@core/lib/server-auth-utils'
 import BetHistoryPage from '@/components/organisms/Profile/BetHistory'
 import { getDictionary, getLocale } from '@/dictionaries/dictionaries'
+import { getListBetTransaction } from '@/utils/api/internal/betHistory'
 import { getRakeBackSummary } from '@/utils/api/internal/getRakeBackSummary'
-import { getListPokerTransaction } from '@/utils/api/internal/pokerHistory'
+// import { getListPokerTransaction } from '@/utils/api/internal/pokerHistory'
 
 // export const runtime = 'edge'
 
@@ -24,14 +25,8 @@ export default async function Page({ params, ...props }: any) {
       return null // This won't be reached due to redirect
     }
 
-    // Fetch user data
-    initialData = await getListPokerTransaction({
-      page: 1,
-      pageSize: 10 // semua status
-    })
-
     const [historyData, summaryData] = await Promise.all([
-      getListPokerTransaction({
+      getListBetTransaction({
         page: 1,
         pageSize: 10
       }),
