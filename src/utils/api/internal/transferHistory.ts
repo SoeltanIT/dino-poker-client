@@ -20,6 +20,7 @@ export interface TransferHistoryItem {
   currency: string // e.g. "IDR"
   rate: number // currency rate (normalized from string)
   point: number // current game points
+  typeLabel?: string // human-readable label for UI
 }
 
 export interface TransferHistoryListResponse {
@@ -62,6 +63,9 @@ interface RawResponse {
   pagination?: RawPagination
 }
 
+const toInt = (v: unknown) => Math.round(Number(v ?? 0))
+const toTypeLabel = (t: string) => (t === 'transfer_in' ? 'Transfer In' : 'Transfer Out')
+
 export const getListTransferHistory = async ({
   page = 1,
   pageSize = 10
@@ -73,8 +77,6 @@ export const getListTransferHistory = async ({
       'transaction'
     )
 
-    console.log('getListTransferHistory response >>', res.data)
-
     const raw = res?.data
     const list = raw?.data ?? []
     const pag = raw?.pagination ?? {}
@@ -82,20 +84,24 @@ export const getListTransferHistory = async ({
     const totalPage = pageSize > 0 ? Math.ceil(total / pageSize) : 0
 
     const data: TransferHistoryItem[] = list.map(item => {
-      const normalizedType = item.type === 'tranfer_out' ? 'transfer_out' : (item.type as TransferDirection)
+      const normalizedType: TransferDirection =
+        item.type === 'tranfer_out' ? 'transfer_out' : (item.type as TransferDirection)
 
       return {
         createdAt: item.created_at ?? '',
-        userId: item.user_id ?? '',
+        userId: String(item.user_id ?? ''),
         username: item.username ?? '',
-        amount: Number(item.amount ?? 0),
-        type: normalizedType,
-        chipAmount: Number(item.chip_amount ?? 0),
-        lastBalance: Number(item.last_balance ?? 0),
-        balance: Number(item.balance ?? 0),
+        amount: toInt(item.amount), // 98.01 -> 98
+        type: normalizedType, // keeps machine-usable value
+        chipAmount: toInt(item.chip_amount), // 1078.110000... -> 1078
+        lastBalance: toInt(item.last_balance), // already int, but safe
+        balance: toInt(item.balance), // 189965.01 -> 189965
         currency: item.currency ?? '',
         rate: Number(item.rate ?? '0'),
-        point: Number(item.point ?? 0)
+        point: toInt(item.point),
+
+        // ➕ add this if you want a human-readable label in the UI
+        typeLabel: toTypeLabel(normalizedType)
       }
     })
 
