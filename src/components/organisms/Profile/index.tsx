@@ -59,38 +59,11 @@ export default function MenuProfile({
 
   const isStatus = data?.status
 
-  const { ready } = useLiveChatContext()
-
-  // const handleSessionLiveChat = () => {
-  //   console.log('[LiveChat] handleSessionLiveChat called.')
-
-  //   if (!ready) {
-  //     console.warn('[LiveChat] Widget is not ready yet. Aborting...')
-  //     return
-  //   }
-
-  //   const widget = window.LiveChatWidget
-
-  //   if (!widget || typeof widget.call !== 'function') {
-  //     console.error('[LiveChat] LiveChatWidget is not available or malformed.')
-  //     return
-  //   }
-
-  //   widget.call('logout')
-  // }
-
-  function logLcCookies(tag: string) {
-    const raw = document.cookie.split(';').map(s => s.trim())
-    const lc = raw.filter(c => /(lc|livechat)/i.test(c))
-    console.log(`[LC cookies ${tag}]`, lc)
-  }
-
   const handleLogout = async () => {
     try {
       // 1) Reset LiveChat identity/session
-      logLcCookies('BEFORE')
       resetLiveChatSession({ hardReload: false }) // set true if you prefer full page reload
-      logLcCookies('AFTER')
+
       // Hapus manual token
       removeCookie('_authorization', { path: '/' })
 
