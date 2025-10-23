@@ -279,7 +279,8 @@
     "poweredBy": "제공:",
     "withdrawalSecurity": "출금 보안",
     "chipAmount": "칩 금액",
-    "transferHistory": "이체 내역"
+    "transferHistory": "이체 내역",
+    "createdAt": "생성일"
   },
   "game": {
     "texaspoker": "텍사스 홀덤",
@@ -530,5 +531,17 @@
     "idnBalance": "IDN 포커 잔액",
     "convert": "환전",
     "notif": "알림"
+  },
+  "detailBet": {
+    "gameName": "게임 이름",
+    "transactionNo": "거래 번호",
+    "table": "테이블",
+    "period": "기간",
+    "betAmount": "베팅 금액",
+    "resultAmount": "결과 금액",
+    "tournamentId": "토너먼트 ID",
+    "tournamentName": "토너먼트 이름",
+    "betType": "베팅 유형",
+    "betName": "베팅 이름"
   }
 }

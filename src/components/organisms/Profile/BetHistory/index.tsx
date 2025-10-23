@@ -1,7 +1,9 @@
 'use client'
 
 import { GetData } from '@/@core/hooks/use-query'
+import DetailBetHistory from '@/components/organisms/Profile/BetHistory/DetailBetHistory'
 import { Button } from '@/components/ui/button'
+import { BetPokerHistoryDTO } from '@/types/betHistoryDTO'
 import { useClaimRakeBack } from '@/utils/api/internal/claimRakeBack'
 import { useRakeBackSummary } from '@/utils/api/internal/getRakeBackSummary'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
@@ -9,10 +11,7 @@ import { format } from 'date-fns'
 import { Gift, Loader2 } from 'lucide-react'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { BetHistoryProps, PokerHistoryProps } from './types'
-import { BetHistoryDTO } from '@/types/betHistoryDTO'
-import DetailBetHistory from '@/components/organisms/Profile/BetHistory/DetailBetHistory'
-import { PokerHistoryDTO } from '@/types/pokerHistory'
+import { BetHistoryProps } from './types'
 
 const currencyOptions = ['Fiat', 'Crypto']
 
@@ -23,11 +22,11 @@ const getStatusColor = (status: string) => {
   return 'text-app-text-color'
 }
 
-const getTextColor = (type: string) => {
-  switch (type.toLowerCase()) {
-    case 'win':
+const getTextColor = (status: string) => {
+  switch (status.toLowerCase()) {
+    case 'won':
       return 'text-app-success'
-    case 'lose':
+    case 'lost':
       return 'text-app-danger'
     case 'pending':
       return 'text-app-accentYellow'
@@ -44,12 +43,12 @@ export default function BetHistoryPage({
   initialData,
   isInitialLoading,
   initialTotalPage
-}: PokerHistoryProps) {
+}: BetHistoryProps) {
   const getStatusLabel = (status: string) => {
     switch (status.toLowerCase()) {
-      case 'win':
+      case 'won':
         return lang?.common?.won || 'Won'
-      case 'lose':
+      case 'lost':
         return lang?.common?.lost || 'Lost'
       case 'pending':
         return lang?.common?.pending || 'Pending'
@@ -58,23 +57,26 @@ export default function BetHistoryPage({
     }
   }
 
-  const [betHistory, setBetHistory] = useState<PokerHistoryDTO[]>(initialData?.data || [])
+  const [betHistory, setBetHistory] = useState<BetPokerHistoryDTO[]>(initialData?.data || [])
   const [page, setPage] = useState(initialPage || 1)
   const [totalPage, setTotalPage] = useState(initialTotalPage || 1)
   const [isLoading, setIsLoading] = useState(isInitialLoading || false)
 
-  const [selectedBet, setSelectedBet] = useState<PokerHistoryDTO | null>(null)
+  const [selectedBet, setSelectedBet] = useState<string | null>(null)
+  const [detailBetData, setDetailBetData] = useState<BetPokerHistoryDTO | null>(null)
   const [openDetail, setOpenDetail] = useState(false)
+
+  const [loadingId, setLoadingId] = useState<string | null>(null)
 
   const shouldFetch = page !== initialPage
 
   // Fetch data using GetData
   // const { data, isFetching, refetch } = GetData<{ data: BetHistoryDTO[]; totalPage: number }>(
-  const { data, isFetching, refetch } = GetData<{ data: PokerHistoryDTO[]; totalPage: number }>(
-    // `/bet_history`,
-    // ['getBetHistory', page],
-    `/poker_history`,
-    ['getPokerHistory', page],
+  const { data, isFetching, refetch } = GetData<{ data: BetPokerHistoryDTO[]; totalPage: number }>(
+    `/bet_history`,
+    ['getBetHistory', page],
+    // `/poker_history`,
+    // ['getPokerHistory', page],
     true,
     undefined,
     true,
@@ -88,6 +90,33 @@ export default function BetHistoryPage({
     },
     'transaction'
   )
+
+  const { data: dataDetail, isFetching: fetchDataDetail } = GetData<BetPokerHistoryDTO>(
+    '/bet_history_detail',
+    ['getDetailBetHistory', selectedBet], // include id in key
+    false, // skipAuth (require auth) — or true if you really want to skip
+    undefined, // initialData
+    !!selectedBet, // <-- ENABLED lives here (5th arg)
+    false, // isShowMsg (optional)
+    undefined, // successMessage
+    undefined, // otherQueryOptions
+    'POST', // method (matches your Next route)
+    { id: selectedBet }, // body
+    'transaction' // apiType
+  )
+
+  // when detail arrives / fetch finishes -> clear loadingId and set detail data
+  useEffect(() => {
+    if (dataDetail) setDetailBetData(dataDetail)
+    if (!fetchDataDetail) setLoadingId(null)
+  }, [dataDetail, fetchDataDetail])
+
+  // button handler
+  const handleOpenDetail = (betId: string) => {
+    setSelectedBet(betId)
+    setLoadingId(betId) // <--- mark which row is loading
+    setOpenDetail(true)
+  }
 
   const { claimRakeBack, isLoading: isClaiming } = useClaimRakeBack(lang)
 
@@ -108,8 +137,8 @@ export default function BetHistoryPage({
           return data.data
         } else {
           // Check for duplicates before appending
-          const existingIds = new Set(prev.map(bet => `${bet.created_at}-${bet.amount}`))
-          const newData = data.data.filter(bet => !existingIds.has(`${bet.created_at}-${bet.amount}`))
+          const existingIds = new Set(prev.map(bet => `${bet.createdAt}-${bet.amount}`))
+          const newData = data.data.filter(bet => !existingIds.has(`${bet.createdAt}-${bet.amount}`))
           return [...prev, ...newData]
         }
       })
@@ -279,37 +308,36 @@ export default function BetHistoryPage({
                   <div key={index} className='p-4 rounded-[8px] transition-colors'>
                     <div className='hidden md:grid md:grid-cols-4 gap-4 items-center'>
                       <div className='text-sm text-app-text-color'>
-                        {format(new Date(bet.created_at), 'yyyy-MM-dd | HH:mm')}
+                        {format(new Date(bet.createdAt), 'yyyy-MM-dd | HH:mm')}
                       </div>
-                      <div className='text-sm text-app-text-color uppercase'>{bet.game_name}</div>
+                      <div className='text-sm text-app-text-color uppercase'>{bet.gameName}</div>
                       <div className={`text-sm font-medium ${getTextColor(bet.status)}`}>
                         <span className='text-app-neutral500'>KRW </span>
-                        {betStatus === 'win' ? '+' : betStatus === 'pending' ? '' : bet.amount != 0 ? '-' : ''}
+                        {betStatus === 'won' ? '+' : betStatus === 'pending' ? '' : bet.amount != 0 ? '-' : ''}
                         {thousandSeparatorComma(Math.floor(bet.amount))}
                       </div>
                       <div className='flex justify-between items-center'>
-                        <div className={`text-sm ${getTextColor(bet.status)} uppercase`}>
-                          {getStatusLabel(bet.status)}
-                        </div>
-                        {/* <Button
+                        <div className={`text-sm ${getTextColor(bet.status)} uppercase`}>{getStatusLabel(bet.status)}</div>
+                        <Button
                           size='sm'
-                          onClick={() => {
-                            setSelectedBet(bet)
-                            setOpenDetail(true)
-                          }}
-                          className='flex bg-app-primary border-app-primary border-[1px] hover:bg-app-primary-hover text-white px-4 py-1 !mt-2 text-xs uppercase'
+                          onClick={() => handleOpenDetail(bet.id)}
+                          className='min-w-[35%] flex bg-app-primary border-app-primary border-[1px] hover:bg-app-primary-hover text-white px-4 py-1 !mt-2 text-xs uppercase'
                         >
-                          {lang?.common?.detail}
-                        </Button> */}
+                          {loadingId === bet.id && fetchDataDetail ? (
+                            <Loader2 className='h-4 w-4 animate-spin' />
+                          ) : (
+                            lang?.common?.detail
+                          )}
+                        </Button>
                       </div>
                     </div>
 
                     <div className='md:hidden space-y-1'>
                       <div className='flex justify-between items-center'>
                         <div className='text-xs text-app-text-color'>
-                          {format(new Date(bet.created_at), 'yyyy-MM-dd | HH:mm')}
+                          {format(new Date(bet.createdAt), 'yyyy-MM-dd | HH:mm')}
                         </div>
-                        <span className={`text-xs`}>{bet.game_name}</span>
+                        <span className={`text-xs`}>{bet.gameName}</span>
                       </div>
 
                       <div className='flex justify-between items-center'>
@@ -322,20 +350,21 @@ export default function BetHistoryPage({
                             bet.status
                           )}`}
                         >
-                          {getStatusLabel(bet.status)}
+                          {bet.status}
                         </div>
                       </div>
 
-                      {/* <Button
+                      <Button
                         size='sm'
-                        onClick={() => {
-                          setSelectedBet(bet)
-                          setOpenDetail(true)
-                        }}
-                        className='flex w-full md:w-[50%] bg-app-bg-primary-button border-app-primary border-[1px] hover:bg-app-primary-hover text-white px-2 py-1 !mt-2 text-xs uppercase'
+                        onClick={() => handleOpenDetail(bet.id)}
+                        className='flex w-full md:w-[50%] min-w-[50%] bg-app-primary border-app-primary border-[1px] hover:bg-app-primary-hover text-white px-2 py-1 !mt-2 text-xs uppercase'
                       >
-                        {lang?.common?.detail}
-                      </Button> */}
+                        {loadingId === bet.id && fetchDataDetail ? (
+                          <Loader2 className='h-4 w-4 animate-spin' />
+                        ) : (
+                          lang?.common?.detail
+                        )}
+                      </Button>
                     </div>
                   </div>
                 )
@@ -368,7 +397,20 @@ export default function BetHistoryPage({
         </div>
       </div>
 
-      {/* <DetailBetHistory lang={lang} detail={selectedBet} open={openDetail} setOpen={setOpenDetail} /> */}
+      <DetailBetHistory
+        lang={lang}
+        detail={detailBetData}
+        loading={fetchDataDetail} // <--- NEW
+        open={openDetail}
+        setOpen={(v: boolean) => {
+          setOpenDetail(v)
+          if (!v) {
+            setSelectedBet(null)
+            setDetailBetData(null)
+            setLoadingId(null) // <--- clear on close
+          }
+        }}
+      />
     </div>
   )
 }

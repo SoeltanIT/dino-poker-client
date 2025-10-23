@@ -1,7 +1,7 @@
-import axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios'
-import { getSession } from 'next-auth/react'
-import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/authOptions'
+import axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios'
+import { getServerSession } from 'next-auth'
+import { getSession } from 'next-auth/react'
 
 // 🔥 FRONTEND URLs - Next.js API routes (proxy to real backend)
 const FRONTEND_API_BASE = '/api/users' // Next.js API routes

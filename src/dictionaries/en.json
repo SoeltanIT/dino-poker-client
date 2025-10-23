@@ -279,7 +279,8 @@
     "poweredBy": "Powered by",
     "withdrawalSecurity": "Withdrawal Security",
     "chipAmount": "Chip Amount",
-    "transferHistory": "Transfer History"
+    "transferHistory": "Transfer History",
+    "createdAt": "Created At"
   },
   "game": {
     "texaspoker": "Texas Poker",
@@ -530,5 +531,17 @@
     "idnBalance": "IDN Poker Balance",
     "convert": "Convert",
     "notif": "Notif"
+  },
+  "detailBet": {
+    "gameName": "Game Name",
+    "transactionNo": "Transaction No",
+    "table": "Table",
+    "period": "Period",
+    "betAmount": "Bet Amount",
+    "resultAmount": "Result Amount",
+    "tournamentId": "Tournament ID",
+    "tournamentName": "Tournament Name",
+    "betType": "Bet Type",
+    "betName": "Bet Name"
   }
 }

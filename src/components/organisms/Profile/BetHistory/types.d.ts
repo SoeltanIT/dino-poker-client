@@ -2,8 +2,8 @@ import { Locale } from '@/i18n-config'
 import { BetHistoryDTO } from '@/types/betHistoryDTO'
 import { LangProps } from '@/types/langProps'
 import { RakeBackSummaryResponse } from '@/types/rakeBackDTO'
-import { TransactionListResponse } from '@/utils/api/internal/pokerHistory'
-// import { TransactionListResponse } from '@/utils/api/internal/betHistory'
+// import { TransactionListResponse } from '@/utils/api/internal/pokerHistory'
+import { TransactionListResponse } from '@/utils/api/internal/betHistory'
 
 export interface BetHistoryProps {
   lang?: LangProps

@@ -68,12 +68,9 @@ export default function MenuProfile({
       removeCookie('_authorization', { path: '/' })
 
       // Logout dari next-auth
-      await signOut({ redirect: false })
+      await signOut({ callbackUrl: `/${locale ?? 'en'}` })
 
       closeApp()
-
-      // D) Now do a full navigation
-      location.replace(`/${locale ?? 'ko'}`)
     } catch (error) {
       //console.error('[Logout Error]', error)
     }

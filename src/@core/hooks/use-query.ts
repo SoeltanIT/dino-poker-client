@@ -1,11 +1,11 @@
 'use client'
 
-import { keepPreviousData, useQuery, useMutation, useQueryClient, type UseQueryOptions } from '@tanstack/react-query'
+import { keepPreviousData, useMutation, useQuery, useQueryClient, type UseQueryOptions } from '@tanstack/react-query'
+import type { AxiosError, AxiosRequestConfig } from 'axios'
 import { useSession } from 'next-auth/react' // 👈 This is where status comes from
 import { toast } from 'react-toastify'
-import type { AxiosRequestConfig, AxiosError } from 'axios'
-import { handleError } from '../utils/handleError'
 import { getApiClient } from '../lib/axios-client'
+import { handleError } from '../utils/handleError'
 
 type CacheOptions = {
   sMaxage?: number // seconds for CDN
