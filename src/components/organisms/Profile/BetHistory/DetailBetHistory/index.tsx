@@ -1,8 +1,13 @@
 'use client'
 
 import { Sheet, SheetContent } from '@/components/ui/sheet'
-import { DetailBetHistoryProps } from './types'
 import { cn } from '@/lib/utils'
+import { DetailBetDTO, DetailPokerDTO, isBet, isPoker } from '@/types/betHistoryDTO'
+import { LangProps } from '@/types/langProps'
+import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
+import { format } from 'date-fns'
+import { ToastContainer } from 'react-toastify'
+import { DetailBetHistoryProps } from './types'
 
 const getTextColor = (status?: string) => {
   if (status === 'won') return 'text-app-success'
@@ -11,7 +16,69 @@ const getTextColor = (status?: string) => {
   return 'text-app-text-color'
 }
 
-export default function DetailBetHistory({ lang, detail, open, setOpen }: DetailBetHistoryProps) {
+function Row({ label, value }: { label: string; value?: React.ReactNode }) {
+  return (
+    <div>
+      <p className='text-sm text-app-neutral500 mb-1'>{label}</p>
+      <p className='text-app-text-color font-medium break-words'>{value ?? '-'}</p>
+    </div>
+  )
+}
+
+function PokerSection({ detail, lang }: { detail: DetailPokerDTO; lang?: LangProps }) {
+  return (
+    <div className='space-y-4'>
+      <Row label={lang?.detailBet?.transactionNo} value={detail.transactionNo} />
+      <Row label={lang?.detailBet?.gameName || 'Game'} value={detail.gameName || '-'} />
+      <Row label={lang?.detailBet?.table} value={detail.table} />
+      <Row label={lang?.detailBet?.period} value={detail.periode} />
+      <Row
+        label={lang?.detailBet?.betAmount || 'Bet Amount'}
+        value={
+          detail.currency
+            ? `${thousandSeparatorComma(detail.betAmount)} ${detail.currency}`
+            : thousandSeparatorComma(detail.betAmount)
+        }
+      />
+      <Row
+        label={lang?.detailBet?.resultAmount || 'Result Amount'}
+        value={
+          detail.currency
+            ? `${thousandSeparatorComma(detail.resultAmount)} ${detail.currency}`
+            : thousandSeparatorComma(detail.resultAmount)
+        }
+      />
+      {/* {detail.hand ? <Row label='Hand' value={detail.hand} /> : null}
+      {detail.card ? (
+        <div>
+          <p className='text-sm text-app-neutral500 mb-1'>Cards</p>
+          <code className='text-app-text-color font-medium rounded bg-app-bg-secondary/50 px-2 py-1'>
+            {detail.card.trim()}
+          </code>
+        </div>
+      ) : null}
+      {detail.room ? <Row label='Room' value={detail.room} /> : null}
+      {detail.tableNo ? <Row label='Table No' value={detail.tableNo} /> : null}
+      {detail.matchName ? <Row label={lang?.common?.match || 'Match'} value={detail.matchName} /> : null} */}
+    </div>
+  )
+}
+
+function BetSection({ detail, lang }: { detail: DetailBetDTO; lang?: LangProps }) {
+  return (
+    <div className='space-y-4'>
+      <Row label={lang?.detailBet?.gameName || 'Game'} value={detail.gameName || '-'} />
+      <Row label={lang?.detailBet?.tournamentId || 'Tournament'} value={detail.tournamentId} />
+      <Row label={lang?.detailBet?.tournamentName || 'Tournament'} value={detail.tournamentName} />
+      {/* {detail.matchName ? <Row label={lang?.common?.match || 'Match'} value={detail.matchName} /> : null} */}
+      <Row label={lang?.detailBet?.betType || 'Bet Type'} value={detail.betType} />
+      <Row label={lang?.detailBet?.betName || 'Bet Name'} value={detail.betName} />
+      {/* <Row label={lang?.common?.selection || 'Selection'} value={detail.betTeam} /> */}
+    </div>
+  )
+}
+
+export default function DetailBetHistory({ lang, detail, open, setOpen, loading }: DetailBetHistoryProps) {
   // const [open, setOpen] = useState(false)
 
   const getStatusLabel = (status?: string) => {
@@ -27,74 +94,52 @@ export default function DetailBetHistory({ lang, detail, open, setOpen }: Detail
     }
   }
 
+  if (!detail) return null
+
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetContent side='right' className='w-full sm:max-w-md overflow-y-auto scrollbar-hide'>
+        <ToastContainer position='top-right' />
+
         {/* Header */}
         <div className='flex items-center justify-between mt-6 mb-2'>
           <h1 className='text-xl uppercase font-bold text-app-text-color tracking-wide'>
-            {lang?.common?.detailBetHistory}
+            {lang?.common?.detailBetHistory || 'Detail Bet History'}
           </h1>
         </div>
 
-        {/* ID */}
-        <div className='mb-6'>
-          <p className='text-sm text-app-text-color'>ID: {detail?.id}</p>
-        </div>
-
-        <div className='mb-8'>
+        {!detail ? (
+          // Skeleton while loading
           <div className='space-y-4'>
-            {/* Sport */}
-            <div>
-              <p className='text-sm text-app-neutral500 mb-1'>{lang?.common?.gameName}</p>
-              <p className='text-app-text-color font-medium'>{detail?.game_name}</p>
-            </div>
-
-            {/* Tournament */}
-            <div>
-              <p className='text-sm text-app-neutral500 mb-1'>{lang?.common?.tournament}</p>
-              <p className='text-app-text-color font-medium'>{detail?.tournament_name}</p>
-            </div>
-
-            {/* Match ID */}
-            <div>
-              <p className='text-sm text-app-neutral500 mb-1'>{lang?.common?.matchID}</p>
-              <p className='text-app-text-color font-medium'>{detail?.match_id}</p>
-            </div>
-
-            {/* Teams */}
-            <div>
-              <p className='text-sm text-app-neutral500 mb-1'>{lang?.common?.teams}</p>
-              <p className='text-app-text-color font-medium'>{detail?.teams}</p>
-            </div>
-
-            {/* Market D - Name */}
-            {/* <div>
-              <p className='text-sm text-app-neutral500 mb-1'>Market D - Name</p>
-              <p className='text-app-text-color font-medium'>2 - Match winner - threeway</p>
-            </div> */}
-
-            {/* Selection */}
-            <div>
-              <p className='text-sm text-app-neutral500 mb-1'>{lang?.common?.selection}</p>
-              <p className='text-app-text-color font-medium'>{detail?.selection}</p>
-            </div>
-
-            {/* Odds */}
-            {/* <div>
-              <p className='text-sm text-app-neutral500 mb-1'>Odds</p>
-              <p className='text-app-text-color font-medium'>3.1</p>
-            </div> */}
-
-            {/* Status */}
-            <div>
-              <p className='text-sm text-app-neutral500 mb-1'>{lang?.common?.status}</p>
-              <p className={cn('font-medium capitalize', getTextColor(detail?.status))}>
-                {getStatusLabel(detail?.status)}
+            <div className='h-4 w-40 bg-app-bg-secondary/50 rounded animate-pulse' />
+            <div className='h-4 w-28 bg-app-bg-secondary/50 rounded animate-pulse' />
+            <div className='h-4 w-24 bg-app-bg-secondary/50 rounded animate-pulse' />
+            <div className='h-24 w-full bg-app-bg-secondary/50 rounded animate-pulse' />
+          </div>
+        ) : (
+          <>
+            <div className='mb-6 space-y-1'>
+              <p className='text-sm text-app-text-color'>ID: {detail.id}</p>
+              <p className='text-xs text-app-neutral500'>
+                {lang?.common?.createdAt || 'Created at'}: {format(new Date(detail?.createdAt), 'yyyy-MM-dd | HH:mm')}
+              </p>
+              <p className={cn('text-sm font-medium uppercase', getTextColor(detail.status))}>
+                {lang?.common?.status || 'Status'}: {getStatusLabel(detail.status)}
               </p>
             </div>
-          </div>
-        </div>
+
+            {/* Body by type */}
+            <div className='mb-8'>
+              {isPoker(detail) ? (
+                <PokerSection detail={detail} lang={lang} />
+              ) : isBet(detail) ? (
+                <BetSection detail={detail} lang={lang} />
+              ) : (
+                <div className='text-app-neutral500 text-sm'>-</div>
+              )}
+            </div>
+          </>
+        )}
       </SheetContent>
     </Sheet>
   )

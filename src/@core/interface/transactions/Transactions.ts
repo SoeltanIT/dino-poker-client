@@ -1,13 +1,13 @@
 // @/core/interface/Transaction.ts
 
 export interface TransactionItem {
-  id: number
-  transaction_id: number
+  id: string
+  transaction_id: string
   amount: number
   bank_account_name: string
   bank_account_number: string
-  user_id: number
-  review_by: number
+  user_id: string
+  review_by: string
   review_status: 'PENDING' | 'APPROVED' | 'REJECTED' | ''
   reviewed_at: string
   created_at: string

@@ -26,8 +26,8 @@ export default async function Page({ params, ...props }: any) {
     }
 
     const [historyData, summaryData] = await Promise.all([
-      // getListBetTransaction({
-      getListPokerTransaction({
+      getListBetTransaction({
+        // getListPokerTransaction({
         page: 1,
         pageSize: 10
       }),

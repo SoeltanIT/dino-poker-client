@@ -22,7 +22,7 @@ export interface ReferralHistoryResponse {
 }
 
 export interface ReferralSettingsItem {
-  user_id: number
+  user_id: string
   available_share: number
   user_share: number
   affiliate_share: number

@@ -139,44 +139,47 @@ export default function MyReferralGroupHistory({
                 </div>
               </div>
 
-              <div className='hidden md:block bg-app-background-secondary rounded-lg p-4 w-full'>
-                <div className='text-app-neutral500 text-sm mb-2'>
-                  {roles === 3 ? lang?.common?.claimAffiliate : lang?.common?.claimReferral || 'Claim Bonus'}
-                </div>
-                <div className='text-app-neutral500 text-xs mb-3'>
-                  <p className='text-2xl font-bold text-app-text-color'>
-                    KRW
-                    <span className='text-app-success'>{` ${totalAvailableCommission.toLocaleString()}`}</span>
-                  </p>
-                </div>
-                <Button
-                  onClick={async () => {
-                    try {
-                      if (roles === 3) {
-                        await claimAffiliate({ url: '/affiliate-claim', body: {} })
-                      } else {
-                        await claimReferral({ url: '/referral-claim', body: {} })
+              {roles !== 3 && (
+                <div className='hidden md:block bg-app-background-secondary rounded-lg p-4 w-full'>
+                  <div className='text-app-neutral500 text-sm mb-2'>
+                    {roles === 3 ? lang?.common?.claimAffiliate : lang?.common?.claimReferral || 'Claim Bonus'}
+                  </div>
+                  <div className='text-app-neutral500 text-xs mb-3'>
+                    <p className='text-2xl font-bold text-app-text-color'>
+                      KRW
+                      <span className='text-app-success'>{` ${totalAvailableCommission.toLocaleString()}`}</span>
+                    </p>
+                  </div>
+                  <Button
+                    onClick={async () => {
+                      try {
+                        if (roles === 3) {
+                          await claimAffiliate({ url: '/affiliate-claim', body: {} })
+                        } else {
+                          await claimReferral({ url: '/referral-claim', body: {} })
+                        }
+                      } catch (error) {
+                        console.error('Failed to claim referral:', error)
                       }
-                    } catch (error) {
-                      console.error('Failed to claim referral:', error)
-                    }
-                  }}
-                  disabled={loadingState || totalAvailableCommission === 0}
-                  className='w-full bg-app-primary hover:bg-app-primary-hover text-white'
-                >
-                  {loadingState ? (
-                    <div className='flex items-center gap-2'>
-                      <div className='w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin'></div>
-                      {lang?.common?.claiming || 'Claiming...'}
-                    </div>
-                  ) : (
-                    <div className='flex items-center gap-2'>
-                      <Gift className='w-4 h-4' />
-                      {roles === 3 ? lang?.common?.claimAffiliate : lang?.common?.claimReferral || 'Claim'}
-                    </div>
-                  )}
-                </Button>
-              </div>
+                    }}
+                    disabled={loadingState || totalAvailableCommission === 0}
+                    className='w-full bg-app-primary hover:bg-app-primary-hover text-white'
+                  >
+                    {loadingState ? (
+                      <div className='flex items-center gap-2'>
+                        <div className='w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin'></div>
+                        {lang?.common?.claiming || 'Claiming...'}
+                      </div>
+                    ) : (
+                      <div className='flex items-center gap-2'>
+                        <Gift className='w-4 h-4' />
+                        {roles === 3 ? lang?.common?.claimAffiliate : lang?.common?.claimReferral || 'Claim'}
+                      </div>
+                    )}
+                  </Button>
+                </div>
+              )}
+
               <div className='bg-app-background-secondary rounded-lg p-4 w-full'>
                 <div className='text-app-neutral500 text-sm mb-1'>{lang?.common?.totalMember}</div>
                 <div className='text-2xl font-bold text-app-text-color'>{totalMembers}</div>

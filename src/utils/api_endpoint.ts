@@ -43,6 +43,7 @@ export const API_ENDPOINT = {
   transaction_history: '/v1',
   transaction_crypto: '/v1/cryptos',
   bet_history: '/v1/bets/history',
+  detail_bet_history: '/v1/bets',
   blockchains: '/v1/cryptos/blockchains',
   blockchains_token: '/v1/cryptos/tokens',
   // poker_history: '/v1/win-lose-history',
