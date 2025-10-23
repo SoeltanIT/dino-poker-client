@@ -43,11 +43,10 @@ export default function CreateAffiliateSheet({ lang, trigger, onSuccess, parentC
       password: '',
       bank_name: '',
       bank_account_number: '',
-      parent_code: parentCode,
-      commission: 0
+      parent_code: parentCode
     }
   })
-
+  console.log(form.formState.errors)
   const { mutateAsync: createAffiliate, isPending } = useMutationQuery<any, any>(
     ['getAffiliateList'],
     'post',

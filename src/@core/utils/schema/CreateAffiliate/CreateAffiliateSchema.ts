@@ -1,5 +1,5 @@
-import { z } from 'zod'
 import { LangProps } from '@/types/langProps'
+import { z } from 'zod'
 
 export const CreateAffiliateSchema = (lang: LangProps) =>
   z.object({
@@ -21,14 +21,7 @@ export const CreateAffiliateSchema = (lang: LangProps) =>
       .min(8, { message: lang?.form?.bank_account_min || 'Account number must be at least 8 characters' })
       .max(20, { message: lang?.form?.bank_account_max || 'Account number must be at most 20 characters' })
       .regex(/^\d+$/, { message: lang?.form?.bank_account_numeric || 'Account number must contain only numbers' }),
-    parent_code: z.string().optional(),
-    commission: z
-      .number({
-        required_error: 'Commission is required',
-        invalid_type_error: 'Commission must be a number'
-      })
-      .min(0, { message: 'Commission must be at least 0' })
-      .max(100, { message: 'Commission cannot exceed 100' })
+    parent_code: z.string().optional()
   })
 
 export type CreateAffiliateType = z.infer<ReturnType<typeof CreateAffiliateSchema>>
