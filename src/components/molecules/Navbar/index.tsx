@@ -36,11 +36,11 @@ export const Navbar = ({ locale, lang, isLogin, data }: NavbarProps) => {
       href: `/${locale}/notification`,
       icon: IconBell
     },
-    {
-      name: lang?.common?.sport,
-      href: `/${locale}/sport`,
-      icon: Volleyball
-    },
+    // {
+    //   name: lang?.common?.sport,
+    //   href: `/${locale}/sport`,
+    //   icon: Volleyball
+    // },
     // {
     //   name: lang?.common?.promotion,
     //   href: `/${locale}/promotion`,
@@ -103,7 +103,7 @@ export const Navbar = ({ locale, lang, isLogin, data }: NavbarProps) => {
                   trigger={
                     <button className='flex flex-col items-center gap-1 focus:outline-none'>
                       <Icon className='text-app-neutral500 h-7 w-7' />
-                      <span className='text-[10px] uppercase text-app-neutral500'>{item.name}</span>
+                      <span className='text-[12px] uppercase text-app-neutral500'>{item.name}</span>
                     </button>
                   }
                   className='[&>button.absolute]:hidden !py-2'
@@ -128,7 +128,7 @@ export const Navbar = ({ locale, lang, isLogin, data }: NavbarProps) => {
                     className='flex flex-col items-center gap-1 focus:outline-none'
                   >
                     <Icon className='text-app-neutral500 h-7 w-7' />
-                    <span className='text-[10px] uppercase text-app-neutral500'>{item.name}</span>
+                    <span className='text-[12px] uppercase text-app-neutral500'>{item.name}</span>
                   </button>
                 </div>
               )
@@ -139,7 +139,7 @@ export const Navbar = ({ locale, lang, isLogin, data }: NavbarProps) => {
                 <Icon className={clsx('h-7 w-7', isActive ? 'text-app-text-color' : 'text-app-neutral500')} />
                 <span
                   className={clsx(
-                    'text-[10px] uppercase',
+                    'text-[12px] uppercase',
                     isActive ? 'text-app-text-color font-bold' : 'text-app-neutral500'
                   )}
                 >
