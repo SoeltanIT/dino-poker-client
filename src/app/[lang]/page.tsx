@@ -22,10 +22,7 @@ export default async function Home({ params, ...props }: any) {
     // Fetch user data
     // initialData = await getGameList({ page: 1, pageSize: 12 })
     const url = absoluteUrl(`/api/transactions/game_list?page=1&pageSize=12`)
-    const res = await fetch(url, {
-      headers: { 'x-s-maxage': '120', 'x-swr': '60' } // optional per-request TTL
-      // don't set cache:'no-store' unless you specifically want to bypass Next's own fetch cache
-    })
+    const res = await fetch(url, { next: { revalidate: 2 * 60 } })
     initialData = await res.json()
 
     if (initialData) {
