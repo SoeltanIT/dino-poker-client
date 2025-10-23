@@ -167,9 +167,8 @@ export default function MyBalance({ lang, locale, onClose, data, dataFee }: MyBa
         url: '/transferIDNBalance',
         body: payload
       })
-      if (resp?.status === 'success') {
-        form.reset({ transfer: '' }) // <- clears and resets touched/dirty
-        // console.log('resp >', resp)
+      if (resp?.message === 'success') {
+        form.resetField('transfer', { defaultValue: '' }) // ✅ clear input after success
       }
     } catch (error) {
       return
