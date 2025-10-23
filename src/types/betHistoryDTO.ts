@@ -1,7 +1,7 @@
 // types/transaction.ts
 
 export interface BetHistoryDTO {
-  id: number
+  id: string
   amount: number
   created_at: string
   status: string

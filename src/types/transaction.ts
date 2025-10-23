@@ -1,7 +1,7 @@
 // types/transaction.ts
 
 export interface DepositWithdrawHistory {
-  id: number
+  id: string
   amount: number
   status: 'PENDING' | 'APPROVED' | 'REJECTED'
   created_at: string
@@ -9,11 +9,11 @@ export interface DepositWithdrawHistory {
   bank_account_name?: string
   bank_account_number?: string
   updated_at?: string
-  transaction_id?: number
-  user_id?: number
+  transaction_id?: string
+  user_id?: string
   reviewed_at?: string
   review_status?: 'PENDING' | 'APPROVED' | 'REJECTED' | ''
-  review_by?: number
+  review_by?: string
   unique_number_id?: number
 }
 
