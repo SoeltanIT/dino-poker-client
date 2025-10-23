@@ -10,14 +10,14 @@ import LoginModal from '@/components/organisms/Login'
 import MenuProfile from '@/components/organisms/Profile'
 import { LogoutModal } from '@/components/organisms/Profile/Logout'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
+import { resetLiveChatSession } from '@/lib/livechat-reset'
 import { UserFullDTO } from '@/types/userDTO'
+import { useLiveChatContext } from '@/utils/context/LiveChatProvider'
 import { Volleyball } from 'lucide-react'
 import { signOut } from 'next-auth/react'
 import { useCookies } from 'react-cookie'
 import GlobalSheet from '../GlobalSheet'
 import { NavbarProps } from './types'
-import { useLiveChatContext } from '@/utils/context/LiveChatProvider'
-import { resetLiveChatSession } from '@/lib/livechat-reset'
 
 export const Navbar = ({ locale, lang, isLogin, data }: NavbarProps) => {
   const pathname = usePathname()
@@ -90,7 +90,7 @@ export const Navbar = ({ locale, lang, isLogin, data }: NavbarProps) => {
 
   return (
     <>
-      <nav className='fixed md:hidden bottom-0 left-0 right-0 bg-app-background-secondary text-app-text-color h-[60px] flex justify-center items-center border-t border-app-background-primary z-20'>
+      <nav className='fixed md:hidden bottom-0 left-0 right-0 bg-app-background-secondary text-app-text-color h-[80px] flex justify-center items-center border-t border-app-background-primary z-20'>
         <div className='flex justify-around w-full max-w-[375px] px-6'>
           {navItems?.map(item => {
             const isActive = pathname === item.href
@@ -102,7 +102,7 @@ export const Navbar = ({ locale, lang, isLogin, data }: NavbarProps) => {
                   key={item.name}
                   trigger={
                     <button className='flex flex-col items-center gap-1 focus:outline-none'>
-                      <Icon className='text-app-neutral500 h-5 w-5' />
+                      <Icon className='text-app-neutral500 h-7 w-7' />
                       <span className='text-[10px] uppercase text-app-neutral500'>{item.name}</span>
                     </button>
                   }
@@ -127,7 +127,7 @@ export const Navbar = ({ locale, lang, isLogin, data }: NavbarProps) => {
                     onClick={() => setIsModalOpen(true)}
                     className='flex flex-col items-center gap-1 focus:outline-none'
                   >
-                    <Icon className='text-app-neutral500 h-5 w-5' />
+                    <Icon className='text-app-neutral500 h-7 w-7' />
                     <span className='text-[10px] uppercase text-app-neutral500'>{item.name}</span>
                   </button>
                 </div>
@@ -136,7 +136,7 @@ export const Navbar = ({ locale, lang, isLogin, data }: NavbarProps) => {
 
             return (
               <Link key={item.name} href={item.href} className='flex flex-col items-center gap-1'>
-                <Icon className={clsx('h-5 w-5', isActive ? 'text-app-text-color' : 'text-app-neutral500')} />
+                <Icon className={clsx('h-7 w-7', isActive ? 'text-app-text-color' : 'text-app-neutral500')} />
                 <span
                   className={clsx(
                     'text-[10px] uppercase',
