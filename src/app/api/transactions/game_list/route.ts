@@ -9,11 +9,12 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url)
     const page = Number(searchParams.get('page') ?? 1)
     const pageSize = Number(searchParams.get('pageSize') ?? 12) // read client-provided hints (optional)
+    const providerName = searchParams.get('provider_name') ?? 'Fizzy Bubbly' // default filter untuk Fizzy Bubbly
     const sMax = Number(request.headers.get('x-s-maxage') ?? '120')
     const swr = Number(request.headers.get('x-swr') ?? '60')
-    const cacheKey = request.headers.get('x-cache-key') ?? `games-page-${page}`
+    const cacheKey = request.headers.get('x-cache-key') ?? `games-page-${page}-${providerName}`
 
-    const data = await getGameList({ page, pageSize })
+    const data = await getGameList({ page, pageSize, providerName })
 
     return new Response(JSON.stringify(data), {
       status: 200,

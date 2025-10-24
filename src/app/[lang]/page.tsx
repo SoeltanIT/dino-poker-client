@@ -13,7 +13,6 @@ function absoluteUrl(path: string) {
 export default async function Home({ params, ...props }: any) {
   const locale = await getLocal()
   const dict = await getDictionary(params?.lang)
-
   let initialData = null
 
   let isLoading = true
@@ -21,7 +20,7 @@ export default async function Home({ params, ...props }: any) {
   try {
     // Fetch user data
     // initialData = await getGameList({ page: 1, pageSize: 12 })
-    const url = absoluteUrl(`/api/transactions/game_list?page=1&pageSize=12`)
+    const url = absoluteUrl(`/api/transactions/game_list?page=1&pageSize=12&provider_name=Fizzy Bubbly`)
     const res = await fetch(url, { next: { revalidate: 2 * 60 } })
     initialData = await res.json()
 
@@ -31,7 +30,6 @@ export default async function Home({ params, ...props }: any) {
   } catch (err: any) {
     console.log('err', err)
   }
-
   return (
     <ListGamePage
       lang={dict}
