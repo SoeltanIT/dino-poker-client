@@ -1,18 +1,17 @@
 'use client'
 
 import { GetData } from '@/@core/hooks/use-query'
-import { GameCard } from '@/components/atoms/Card/GameCard'
+import GameCardLive from '@/components/atoms/Card/GameCardLive'
+import { GameCardSkeleton } from '@/components/atoms/Skeleton/GameCardSkeleton'
+import { GameGridSkeleton } from '@/components/atoms/Skeleton/GameGridSkeleton'
 import { Button } from '@/components/ui/button'
 import { gameDTO } from '@/types/gameDTO'
+import { keepPreviousData } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import LoginModal from '../Login'
 import { GameListProps } from './types'
-import { GameGridSkeleton } from '@/components/atoms/Skeleton/GameGridSkeleton'
-import { GameCardSkeleton } from '@/components/atoms/Skeleton/GameCardSkeleton'
-import GameCardLive from '@/components/atoms/Card/GameCardLive'
-import { keepPreviousData } from '@tanstack/react-query'
-
 export default function ListGamePage({
   lang,
   locale,
@@ -21,6 +20,7 @@ export default function ListGamePage({
   isInitialLoading,
   initialTotalPage
 }: GameListProps) {
+  const router = useRouter()
   const { data: session, status } = useSession()
   const isLogin = status === 'authenticated'
   const roles = (session?.user as any)?.roles || 2
@@ -168,7 +168,8 @@ export default function ListGamePage({
     if (launchUrl && !isFetchingGameDetail) {
       const redirect = `/redirect?url=${encodeURIComponent(launchUrl)}`
       // window.open(redirect, '_blank', 'noopener') // open in a new tab
-      openGamePopup(redirect)
+      // openGamePopup(redirect)
+      router.push('/play-game/' + openingGameId)
       setOpeningGameId(null)
     } else if (!isFetchingGameDetail && gameDetailError) {
       if (popupRef.current && !popupRef.current.closed) popupRef.current.close()
