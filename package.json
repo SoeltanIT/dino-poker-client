@@ -31,6 +31,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^2.29.3",
+    "flags": "^4.0.1",
     "html-to-image": "1.11.11",
     "joi": "^17.13.3",
     "jwt-decode": "^4.0.0",

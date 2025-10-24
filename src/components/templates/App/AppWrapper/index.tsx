@@ -27,10 +27,11 @@ interface AppTemplateProps {
   lang?: LangProps
   locale?: Locale
   config: ConfigType
+  showSports: boolean
   // livechatId: string
 }
 
-const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config }) => {
+const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config, showSports }) => {
   const { ready } = useLiveChatContext()
   const pathname = usePathname()
 
@@ -90,6 +91,7 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config }) =>
             balance={respBalance?.data}
             transferBalanceFee={respTransferBalanceFee?.data}
             theme={hasMounted ? theme : 'light'}
+            showSports={showSports} // ✅ pass the flag to Header
           />
         </div>
 
@@ -100,7 +102,13 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config }) =>
         </main>
       </div>
 
-      <Navbar locale={locale ?? 'en'} lang={lang} data={userData} isLogin={!!userData?.data && !isSessionLoading} />
+      <Navbar
+        locale={locale ?? 'en'}
+        lang={lang}
+        data={userData}
+        isLogin={!!userData?.data && !isSessionLoading}
+        showSports={showSports}
+      />
 
       {/* Floating Help Button */}
       {parts[1] !== 'sport' && (

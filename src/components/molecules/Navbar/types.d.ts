@@ -7,4 +7,5 @@ export interface NavbarProps {
   locale: Locale
   isLogin: boolean
   data?: UserMeResponse
+  showSports: boolean
 }

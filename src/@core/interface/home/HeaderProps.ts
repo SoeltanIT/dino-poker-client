@@ -13,4 +13,5 @@ export interface HeaderProps {
   balance?: BalanceDTO
   theme: string
   transferBalanceFee?: TransferFeePayload // ← changed
+  showSports: boolean
 }

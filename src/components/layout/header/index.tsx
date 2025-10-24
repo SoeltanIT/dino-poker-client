@@ -27,7 +27,7 @@ import { usePathname } from 'next/navigation'
 import ProfilePopover from './views/menu/ProfilePopover'
 import RegisterForm from './views/register/RegisterForm'
 
-export const Header = ({ lang, locale, data, balance, theme, transferBalanceFee }: HeaderProps) => {
+export const Header = ({ lang, locale, data, balance, theme, transferBalanceFee, showSports }: HeaderProps) => {
   const pathname = usePathname()
   const logo = theme === 'dark' ? '/images/logo_light.png' : '/images/logo_dark.png'
 
@@ -169,31 +169,33 @@ export const Header = ({ lang, locale, data, balance, theme, transferBalanceFee 
               </span>
             </Link>
 
-            {/* <Link
-              className={cn(
-                'flex items-center justify-center cursor-pointer gap-2 p-3 group',
-                pathname === `/${locale}/sport` && 'border-b-[1px] border-b-app-text-color'
-              )}
-              href={{ pathname: `/${locale}/sport` }}
-            >
-              <Volleyball
+            {showSports && (
+              <Link
                 className={cn(
-                  pathname === `/${locale}/sport`
-                    ? 'text-app-text-color'
-                    : 'text-app-neutral500 group-hover:text-app-text-color'
+                  'flex items-center justify-center cursor-pointer gap-2 p-3 group',
+                  pathname === `/${locale}/sport` && 'border-b-[1px] border-b-app-text-color'
                 )}
-              />
-              <span
-                className={cn(
-                  'uppercase font-bold text-sm',
-                  pathname === `/${locale}/sport`
-                    ? 'text-app-text-color'
-                    : 'text-app-neutral500 group-hover:text-app-text-color'
-                )}
+                href={{ pathname: `/${locale}/sport` }}
               >
-                {lang?.common?.sport}
-              </span>
-            </Link> */}
+                <Volleyball
+                  className={cn(
+                    pathname === `/${locale}/sport`
+                      ? 'text-app-text-color'
+                      : 'text-app-neutral500 group-hover:text-app-text-color'
+                  )}
+                />
+                <span
+                  className={cn(
+                    'uppercase font-bold text-sm',
+                    pathname === `/${locale}/sport`
+                      ? 'text-app-text-color'
+                      : 'text-app-neutral500 group-hover:text-app-text-color'
+                  )}
+                >
+                  {lang?.common?.sport}
+                </span>
+              </Link>
+            )}
 
             {/* <Link
               className={cn(
@@ -351,25 +353,27 @@ export const Header = ({ lang, locale, data, balance, theme, transferBalanceFee 
                   </span>
                 </Link>
 
-                {/* <Link
-                  className={cn(
-                    'flex items-center justify-center cursor-pointer gap-2 p-3',
-                    pathname === `/${locale}/sport` && 'border-b-[1px] border-b-app-text-color'
-                  )}
-                  href={`/${locale}/sport`}
-                >
-                  <Volleyball
-                    className={cn(pathname === `/${locale}/sport` ? 'text-app-text-color' : 'text-app-neutral500')}
-                  />
-                  <span
+                {showSports && (
+                  <Link
                     className={cn(
-                      'uppercase font-bold text-sm',
-                      pathname === `/${locale}/sport` ? 'text-app-text-color' : 'text-app-neutral500'
+                      'flex items-center justify-center cursor-pointer gap-2 p-3',
+                      pathname === `/${locale}/sport` && 'border-b-[1px] border-b-app-text-color'
                     )}
+                    href={`/${locale}/sport`}
                   >
-                    {lang?.common?.sport}
-                  </span>
-                </Link> */}
+                    <Volleyball
+                      className={cn(pathname === `/${locale}/sport` ? 'text-app-text-color' : 'text-app-neutral500')}
+                    />
+                    <span
+                      className={cn(
+                        'uppercase font-bold text-sm',
+                        pathname === `/${locale}/sport` ? 'text-app-text-color' : 'text-app-neutral500'
+                      )}
+                    >
+                      {lang?.common?.sport}
+                    </span>
+                  </Link>
+                )}
 
                 {/* <Link
                   className={cn(

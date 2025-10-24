@@ -19,13 +19,19 @@ import { useCookies } from 'react-cookie'
 import GlobalSheet from '../GlobalSheet'
 import { NavbarProps } from './types'
 
-export const Navbar = ({ locale, lang, isLogin, data }: NavbarProps) => {
+type NavItem = {
+  name: string
+  href: string
+  icon: React.ComponentType<any>
+}
+
+export const Navbar = ({ locale, lang, isLogin, data, showSports }: NavbarProps) => {
   const pathname = usePathname()
   const [isOpenLogout, setIsOpenLogout] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const buttonLogoutRef = useRef<HTMLButtonElement>(null)
 
-  const navItems = [
+  const navItems: NavItem[] = [
     {
       name: lang?.common?.home,
       href: `/${locale}`,
@@ -52,6 +58,14 @@ export const Navbar = ({ locale, lang, isLogin, data }: NavbarProps) => {
       icon: IconUser
     }
   ]
+
+  if (showSports) {
+    navItems.splice(2, 0, {
+      name: lang?.common?.sport,
+      href: `/${locale}/sport`,
+      icon: Volleyball
+    })
+  }
 
   const { ready } = useLiveChatContext()
 
