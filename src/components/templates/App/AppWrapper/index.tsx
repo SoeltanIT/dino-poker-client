@@ -21,16 +21,22 @@ import { useThemeToggle } from '@/utils/hooks/useTheme'
 import { useSession } from 'next-auth/react'
 import { usePathname } from 'next/navigation'
 import { FC, ReactNode, useEffect } from 'react'
-
+// types you can reuse across components
+export type FeatureFlags = {
+  sports: boolean
+  promotion: boolean
+  // add more toggles here in the future
+}
 interface AppTemplateProps {
   children?: ReactNode | string
   lang?: LangProps
   locale?: Locale
   config: ConfigType
+  features: FeatureFlags
   // livechatId: string
 }
 
-const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config }) => {
+const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config, features }) => {
   const { ready } = useLiveChatContext()
   const pathname = usePathname()
 
@@ -90,6 +96,7 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config }) =>
             balance={respBalance?.data}
             transferBalanceFee={respTransferBalanceFee?.data}
             theme={hasMounted ? theme : 'light'}
+            features={features}
           />
         </div>
 
@@ -100,7 +107,13 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config }) =>
         </main>
       </div>
 
-      <Navbar locale={locale ?? 'en'} lang={lang} data={userData} isLogin={!!userData?.data && !isSessionLoading} />
+      <Navbar
+        locale={locale ?? 'en'}
+        lang={lang}
+        data={userData}
+        isLogin={!!userData?.data && !isSessionLoading}
+        features={features}
+      />
 
       {/* Floating Help Button */}
       {parts[1] !== 'sport' && (

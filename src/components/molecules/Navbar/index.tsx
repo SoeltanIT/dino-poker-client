@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useRef, useState } from 'react'
 
-import { IconBell, IconHome, IconUser } from '@/components/atoms/Icons'
+import { IconBell, IconHome, IconTicket, IconUser } from '@/components/atoms/Icons'
 import LoginModal from '@/components/organisms/Login'
 import MenuProfile from '@/components/organisms/Profile'
 import { LogoutModal } from '@/components/organisms/Profile/Logout'
@@ -19,13 +19,19 @@ import { useCookies } from 'react-cookie'
 import GlobalSheet from '../GlobalSheet'
 import { NavbarProps } from './types'
 
-export const Navbar = ({ locale, lang, isLogin, data }: NavbarProps) => {
+type NavItem = {
+  name: string
+  href: string
+  icon: React.ComponentType<any>
+}
+
+export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) => {
   const pathname = usePathname()
   const [isOpenLogout, setIsOpenLogout] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const buttonLogoutRef = useRef<HTMLButtonElement>(null)
 
-  const navItems = [
+  const navItems: NavItem[] = [
     {
       name: lang?.common?.home,
       href: `/${locale}`,
@@ -36,11 +42,11 @@ export const Navbar = ({ locale, lang, isLogin, data }: NavbarProps) => {
       href: `/${locale}/notification`,
       icon: IconBell
     },
-    {
-      name: lang?.common?.sport,
-      href: `/${locale}/sport`,
-      icon: Volleyball
-    },
+    // {
+    //   name: lang?.common?.sport,
+    //   href: `/${locale}/sport`,
+    //   icon: Volleyball
+    // },
     // {
     //   name: lang?.common?.promotion,
     //   href: `/${locale}/promotion`,
@@ -52,6 +58,22 @@ export const Navbar = ({ locale, lang, isLogin, data }: NavbarProps) => {
       icon: IconUser
     }
   ]
+
+  if (features?.sports) {
+    navItems.splice(2, 0, {
+      name: lang?.common?.sport,
+      href: `/${locale}/sport`,
+      icon: Volleyball
+    })
+  }
+
+  if (features?.promotion) {
+    navItems.splice(3, 0, {
+      name: lang?.common?.promotion,
+      href: `/${locale}/promotion`,
+      icon: IconTicket
+    })
+  }
 
   const { ready } = useLiveChatContext()
 
