@@ -8,7 +8,7 @@
 npm i -g vercel
 ```
 
-### **2. Login ke Vercel**
+### **2. Login ke Vercel**x
 
 ```bash
 vercel login
