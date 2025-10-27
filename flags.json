@@ -1,0 +1,32 @@
+{
+  "loginButtonStyle": {
+    "options": [
+      { "value": "default", "label": "Default Style" },
+      { "value": "modern", "label": "Modern Style" },
+      { "value": "minimal", "label": "Minimal Style" }
+    ],
+    "defaultValue": "default"
+  },
+  "logoVariant": {
+    "options": [
+      { "value": "light", "label": "Light Logo" },
+      { "value": "dark", "label": "Dark Logo" },
+      { "value": "animated", "label": "Animated Logo" }
+    ],
+    "defaultValue": "light"
+  },
+  "showLoginButton": {
+    "options": [
+      { "value": true, "label": "Show Login Button" },
+      { "value": false, "label": "Hide Login Button" }
+    ],
+    "defaultValue": true
+  },
+  "showLogo": {
+    "options": [
+      { "value": true, "label": "Show Logo" },
+      { "value": false, "label": "Hide Logo" }
+    ],
+    "defaultValue": true
+  }
+}

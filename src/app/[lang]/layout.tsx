@@ -5,6 +5,7 @@ import { Locale } from '@/i18n-config'
 import { ConfigType } from '@/types/config'
 import { getSEOPage } from '@/utils/api/internal/getSEOPage'
 import { getWebConfig } from '@/utils/api/internal/webConfig'
+import { VercelToolbar } from '@vercel/toolbar/next'
 import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
 import { ToastContainer } from 'react-toastify'
@@ -185,6 +186,7 @@ export default async function RootLayout({
           <AppTemplate config={configMap} {...props}>
             {children}
           </AppTemplate>
+          <VercelToolbar />
           <ToastContainer />
         </Providers>
 
