@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-import createWithVercelToolbar from '@vercel/toolbar/plugins/next'
+import withVercelToolbar from '@vercel/toolbar/plugins/next'
 const nextConfig = {
   output: 'standalone',
   images: {
@@ -24,6 +24,5 @@ const nextConfig = {
   }
 }
 
-const withVercelToolbar = createWithVercelToolbar()
 // Instead of module.exports = nextConfig, do this:
 export default withVercelToolbar()(nextConfig)
