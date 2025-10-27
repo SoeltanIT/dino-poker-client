@@ -36,11 +36,11 @@ export const Navbar = ({ locale, lang, isLogin, data }: NavbarProps) => {
       href: `/${locale}/notification`,
       icon: IconBell
     },
-    // {
-    //   name: lang?.common?.sport,
-    //   href: `/${locale}/sport`,
-    //   icon: Volleyball
-    // },
+    {
+      name: lang?.common?.sport,
+      href: `/${locale}/sport`,
+      icon: Volleyball
+    },
     // {
     //   name: lang?.common?.promotion,
     //   href: `/${locale}/promotion`,
