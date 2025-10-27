@@ -1,6 +1,6 @@
 import { match as matchLocale } from '@formatjs/intl-localematcher'
-import Negotiator from 'negotiator'
 import { jwtDecode } from 'jwt-decode'
+import Negotiator from 'negotiator'
 import { getToken } from 'next-auth/jwt'
 import { type NextRequest, NextResponse } from 'next/server'
 import { i18n } from './i18n-config'
@@ -16,7 +16,7 @@ const getLocale = (request: NextRequest): string => {
   return matchLocale(languages, i18n.locales, i18n.defaultLocale)
 }
 
-const isBypassedPath = (path: string) => /(firebase-messaging-sw|api|robots|sitemap|google)/.test(path)
+const isBypassedPath = (path: string) => /(firebase-messaging-sw|api|robots|sitemap|google|\.well-known)/.test(path)
 
 const protectedRoutes = [
   '/bank-account',
@@ -157,5 +157,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/|favicon.ico|images|robots.txt|sitemap).*)']
+  matcher: ['/((?!api|_next/|favicon.ico|images|robots.txt|sitemap|.well-known).*)']
 }
