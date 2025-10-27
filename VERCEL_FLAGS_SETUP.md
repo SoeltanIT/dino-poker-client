@@ -17,7 +17,7 @@ vercel login
 ### **3. Link Project ke Vercel**
 
 ```bash
-vercel link --yes
+vercel link --ye
 ```
 
 ### **4. Deploy dengan Flags**
