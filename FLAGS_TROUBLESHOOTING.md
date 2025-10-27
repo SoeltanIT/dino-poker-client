@@ -6,7 +6,7 @@
 
 1. **Permission Issue** - Git author tidak memiliki akses ke team Vercel
 2. **Flags Configuration** - Flags tidak terdeteksi dengan benar
-3. **Deployment Issue** - Project belum ter-deploy dengan flags
+3. **Deployment Issue** - Project belum ter-deploy dengan flag
 
 ### **🔧 Solusi:**
 
