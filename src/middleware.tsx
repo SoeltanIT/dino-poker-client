@@ -32,6 +32,11 @@ export async function middleware(req: NextRequest) {
   const { pathname, searchParams } = req.nextUrl
   const currentLocale = pathname.split('/')[1]
 
+  // 🚫 skip middleware for vercel flags discovery endpoint
+  if (pathname.startsWith('/.well-known/vercel/flags')) {
+    return NextResponse.next()
+  }
+
   if (isBypassedPath(pathname)) return NextResponse.next()
 
   // 🌐 Locale handling (unchanged)
@@ -157,5 +162,6 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/|favicon.ico|images|robots.txt|sitemap).*)']
+  matcher: ['/((?!api|_next/|favicon.ico|images|robots.txt|sitemap|\\.well-known).*)']
 }
+
