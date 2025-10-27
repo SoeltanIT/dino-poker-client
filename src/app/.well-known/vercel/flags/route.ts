@@ -1,5 +1,5 @@
 import { createFlagsDiscoveryEndpoint, getProviderData, KeyedFlagDefinitionType } from 'flags/next'
-import * as flags from '../../../@core/utils/flags'
+import * as flags from '../../../../@core/utils/flags'
 /**
  * This route sets up the Flags Explorer
  * https://vercel.com/docs/feature-flags/flags-explorer/getting-started#creating-the-flags-api-endpoint
