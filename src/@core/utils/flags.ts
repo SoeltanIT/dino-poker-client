@@ -27,9 +27,3 @@ export const showLogoFlag = flag({
   defaultValue: true,
   decide: () => true
 })
-
-// 🎯 Helper functions untuk type safety
-export const getLoginButtonStyle = async () => (await loginButtonStyleFlag()) as 'default' | 'modern' | 'minimal'
-export const getLogoVariant = async () => (await logoVariantFlag()) as 'light' | 'dark' | 'animated'
-export const shouldShowLoginButton = async () => (await showLoginButtonFlag()) as boolean
-export const shouldShowLogo = async () => (await showLogoFlag()) as boolean
