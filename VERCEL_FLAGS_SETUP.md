@@ -1,6 +1,6 @@
 # 🎯 Vercel Flags Integration Guide
 
-## 📋 **Setup Vercel Flags**
+## 📋 **Setup Vercel Flag**
 
 ### **1. Install Vercel CLI**
 
