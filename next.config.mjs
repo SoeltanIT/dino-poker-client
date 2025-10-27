@@ -26,4 +26,4 @@ const nextConfig = {
 
 const withVercelToolbar = createWithVercelToolbar()
 // Instead of module.exports = nextConfig, do this:
-export default withVercelToolbar(nextConfig)
+export default withVercelToolbar()(nextConfig)
