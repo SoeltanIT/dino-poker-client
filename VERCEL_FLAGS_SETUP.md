@@ -4,7 +4,7 @@
 
 ### **1. Install Vercel CLI**
 
-```bash
+```bashs
 npm i -g vercel
 ```
 
