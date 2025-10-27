@@ -8,7 +8,7 @@
 2. **Flags Configuration** - Flags tidak terdeteksi dengan benar
 3. **Deployment Issue** - Project belum ter-deploy dengan flag
 
-### **🔧 Solusi:**
+### **🔧 Solusi:*
 
 #### **1. Fix Permission Issue**
 
