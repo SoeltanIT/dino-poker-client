@@ -1,28 +1,31 @@
-import { flag } from 'flags/next'
-import flagsConfig from '../../../flags.json'
+import { flag } from '@vercel/flags/next'
 
 // 🎯 Login Button Style Flag
 export const loginButtonStyleFlag = flag({
   key: 'loginButtonStyle',
-  decide: () => flagsConfig.loginButtonStyle.defaultValue
+  defaultValue: 'default',
+  decide: () => 'default'
 })
 
 // 🎯 Logo Variant Flag
 export const logoVariantFlag = flag({
   key: 'logoVariant',
-  decide: () => flagsConfig.logoVariant.defaultValue
+  defaultValue: 'light',
+  decide: () => 'light'
 })
 
 // 🎯 Show Login Button Flag
 export const showLoginButtonFlag = flag({
   key: 'showLoginButton',
-  decide: () => flagsConfig.showLoginButton.defaultValue
+  defaultValue: true,
+  decide: () => true
 })
 
 // 🎯 Show Logo Flag
 export const showLogoFlag = flag({
   key: 'showLogo',
-  decide: () => flagsConfig.showLogo.defaultValue
+  defaultValue: true,
+  decide: () => true
 })
 
 // 🎯 Helper functions untuk type safety
