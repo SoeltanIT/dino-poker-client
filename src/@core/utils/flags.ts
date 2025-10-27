@@ -1,4 +1,4 @@
-import { flag } from '@vercel/flags/next'
+import { flag } from 'flags/next'
 
 // 🎯 Login Button Style Flag
 export const loginButtonStyleFlag = flag({
