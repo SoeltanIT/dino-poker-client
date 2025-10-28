@@ -16,6 +16,7 @@ import { useThemeToggle } from '@/utils/hooks/useTheme'
 import { Loader2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { DepositFormProps } from './types'
+import { TabSwitcher } from '@/components/molecules/TabSwitcher'
 
 const PRESET_AMOUNTS = ['10000', '20000', '50000', '100000']
 
@@ -100,7 +101,7 @@ export default function DepositForm({
   return (
     <>
       {/* ⬇️ Use the handler here */}
-      {/* <TabSwitcher tabs={tabs} activeTab={activeTab} onTabChange={handleTabChange} /> */}
+      <TabSwitcher tabs={tabs} activeTab={activeTab} onTabChange={handleTabChange} />
 
       {activeTab === 'fiat' && (
         <Form {...form}>

@@ -13,6 +13,9 @@ import { toPng } from 'html-to-image'
 import { useSession } from 'next-auth/react'
 import { useRef } from 'react'
 import { DepositConfirmFormProps, DepositDataProps } from './types'
+import { copyToClipboard } from '@/utils/helper/copyToClipboard'
+import MyQRCode from '@/components/molecules/QRCode'
+import { Copy } from 'lucide-react'
 
 export default function DepositConfirmForm({
   lang,
@@ -120,7 +123,7 @@ export default function DepositConfirmForm({
           </span>
         )}
 
-        {/* {activeTab === 'crypto' && (
+        {activeTab === 'crypto' && (
           <>
             <div className='flex flex-col items-center justify-center gap-4 mb-[30px] mt-6'>
               <MyQRCode ref={qrRef} value={data?.wallet_address || ''} />
@@ -146,9 +149,9 @@ export default function DepositConfirmForm({
               </div>
             </div>
           </>
-        )} */}
+        )}
       </div>
-      {activeTab === 'crypto' && (
+      {/* {activeTab === 'crypto' && (
         <>
           {data?.promotion?.name !== '' && (
             <div className='mb-6'>
@@ -186,7 +189,7 @@ export default function DepositConfirmForm({
             frameBorder='0'
           />
         </>
-      )}
+      )} */}
       {/* Footer Buttons */}
       <div className='mt-auto pb-6 flex flex-col gap-4'>
         <Button
