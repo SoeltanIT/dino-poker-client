@@ -1,6 +1,7 @@
 import { UserMeResponse } from '@/@core/interface/User'
 import { DepositFormData } from '@/@core/utils/schema/Transaction/DepositCryptoSchema'
 import { WithdrawFormData } from '@/@core/utils/schema/Transaction/WithdrawSchema'
+import { FeatureFlags } from '@/components/templates/App/AppWrapper'
 import { Locale } from '@/i18n-config'
 import { LangProps } from '@/types/langProps'
 
@@ -17,6 +18,7 @@ export interface DepositFormProps {
   setActiveTab: (tab: string) => void // ✅ Add this
   configData?: string
   isLoadingConfig?: boolean
+  features?: FeatureFlags
 }
 
 export interface DepositWithdrawSheetProps {
@@ -26,6 +28,7 @@ export interface DepositWithdrawSheetProps {
   locale?: Locale
   data?: UserMeResponse
   selectedPromotion?: any
+  features?: FeatureFlags
 }
 
 export interface WithdrawFormProps {
