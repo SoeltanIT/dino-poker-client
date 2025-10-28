@@ -4,6 +4,7 @@ import { getApiEndpoint } from '@/utils/api_endpoint'
 export const getDetailTransactionCrypto = async (id: string): Promise<any> => {
   try {
     const res = await serverApiClient.get(`${getApiEndpoint('transaction_crypto')}/${id}`, undefined, 'transaction')
+    console.log('res>', res)
     return res?.data?.data ?? []
   } catch (err) {}
 }

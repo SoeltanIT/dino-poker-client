@@ -2,20 +2,21 @@
 
 import { GetData } from '@/@core/hooks/use-query'
 import { IconDPUniversal, IconTicket } from '@/components/atoms/Icons'
+import MyQRCode from '@/components/molecules/QRCode'
+import CryptoDepositSkeleton from '@/components/molecules/Skeleton/CryptoSkeleton'
 import { Button } from '@/components/ui/button'
 import { ConfigItem } from '@/types/config'
 import { useLiveChatContext } from '@/utils/context/LiveChatProvider'
+import { copyToClipboard } from '@/utils/helper/copyToClipboard'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
 import { useThemeToggle } from '@/utils/hooks/useTheme'
 import { getLinkTranscationHistory } from '@/utils/linkFactory/linkFactory'
 import { format } from 'date-fns'
 import { toPng } from 'html-to-image'
+import { Copy } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useRef } from 'react'
 import { DepositConfirmFormProps, DepositDataProps } from './types'
-import { copyToClipboard } from '@/utils/helper/copyToClipboard'
-import MyQRCode from '@/components/molecules/QRCode'
-import { Copy } from 'lucide-react'
 
 export default function DepositConfirmForm({
   lang,
@@ -35,6 +36,22 @@ export default function DepositConfirmForm({
   function getValueByKey(config: ConfigItem[], key: string): string | undefined {
     return config.find(item => item.key === key)?.value
   }
+
+  const { data: respDetailCrypto, isFetching: isFetchDetailCrypto } = GetData<any>(
+    '/detail_transaction_crypto',
+    ['detail_trans_crypto', data?.deposit_id], // <-- important
+    false, // skipAuth
+    undefined, // initialData
+    Boolean(data && data?.deposit_id), // <-- enabled
+    undefined,
+    undefined,
+    undefined,
+    'POST',
+    { id: data?.deposit_id },
+    'transaction'
+  )
+
+  console?.log('data detail >', respDetailCrypto)
 
   const handleContactSupport = (transaction: DepositDataProps) => {
     console.log('[LiveChat] handleContactSupport called.')
@@ -89,6 +106,10 @@ export default function DepositConfirmForm({
       })
   }
 
+  if (isFetchDetailCrypto) {
+    return <CryptoDepositSkeleton activeTab={activeTab} />
+  }
+
   return (
     <>
       <div className='mb-5'>
@@ -125,6 +146,31 @@ export default function DepositConfirmForm({
 
         {activeTab === 'crypto' && (
           <>
+            {data?.promotion?.name !== '' && (
+              <div className='mb-6'>
+                <div className='space-y-4'>
+                  <div className='bg-app-background-secondary py-2 px-4 rounded-[8px]'>
+                    <div className='flex flex-row items-center gap-2 mb-1'>
+                      <IconTicket className='text-app-neutral500' />
+                      <p className='text-sm text-app-neutral500'>{lang?.common?.appliedPromotion}</p>
+                    </div>
+                    <p className='text-app-text-color text-sm'>
+                      {data?.promotion?.name !== '' ? data?.promotion?.name : '-'}
+                    </p>
+                  </div>
+
+                  <div className='bg-app-background-secondary py-2 px-4 rounded-[8px]'>
+                    <div className='flex flex-row items-center gap-2 mb-1'>
+                      <IconDPUniversal className='text-app-neutral500' />
+                      <p className='text-sm text-app-neutral500'>{lang?.common?.minimalDeposit}</p>
+                    </div>
+                    <p className='text-app-text-color text-sm'>
+                      ₩{thousandSeparatorComma(data?.promotion?.min_deposit ?? '0')}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
             <div className='flex flex-col items-center justify-center gap-4 mb-[30px] mt-6'>
               <MyQRCode ref={qrRef} value={data?.wallet_address || ''} />
               <Button
@@ -145,7 +191,7 @@ export default function DepositConfirmForm({
               </div>
 
               <div className='bg-app-white100 text-sm break-words whitespace-normal mt-2 rounded-lg py-2 px-3 text-app-text-color'>
-                {data?.wallet_address}
+                {data?.wallet_address || '-'}
               </div>
             </div>
           </>

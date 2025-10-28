@@ -15,6 +15,7 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import DetailTransactionHistory from './DetailTransactionHistory'
 import { TransactionHistoryProps } from './types'
+import { TabSwitcher } from '@/components/molecules/TabSwitcher'
 
 const typeOption = ['all', 'deposit', 'withdraw', 'adjustment']
 const statusOptions = ['all', 'approved', 'pending', 'rejected']
@@ -290,7 +291,7 @@ export default function TransactionHistoryPage({
         </div>
       </div>
 
-      {/* <TabSwitcher tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} /> */}
+      <TabSwitcher tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
 
       {/* Mobile View */}
       {activeTab === 'fiat' && (
@@ -600,7 +601,7 @@ export default function TransactionHistoryPage({
                         setSelectedTrans(transaction)
                         setOpenDetail(true)
                       }}
-                      className='w-full bg-app-bg-primary-button border-app-primary border-[1px] hover:bg-app-primary-hover text-white px-2 py-1 !mt-2 text-xs uppercase'
+                      className='w-full bg-app-primary hover:bg-app-primary-hover border-app-primary border-[1px] text-white px-2 py-1 !mt-2 text-xs uppercase'
                     >
                       {lang?.common?.detail}
                     </Button>
