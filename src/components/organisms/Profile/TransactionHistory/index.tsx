@@ -1,6 +1,7 @@
 'use client'
 
 import { GetData } from '@/@core/hooks/use-query'
+import { TabSwitcher } from '@/components/molecules/TabSwitcher'
 import { Button } from '@/components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -15,7 +16,6 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import DetailTransactionHistory from './DetailTransactionHistory'
 import { TransactionHistoryProps } from './types'
-import { TabSwitcher } from '@/components/molecules/TabSwitcher'
 
 const typeOption = ['all', 'deposit', 'withdraw', 'adjustment']
 const statusOptions = ['all', 'approved', 'pending', 'rejected']
@@ -144,10 +144,14 @@ export default function TransactionHistoryPage({
     'POST', // method
     {
       page: pageCrypto,
-      pageSize: 10
+      pageSize: 10,
+      type,
+      status
     },
     'transaction'
   )
+
+  console.log('respCrypto >>', respDepoCrypto)
 
   useEffect(() => {
     if (activeTab === 'fiat') {
@@ -294,25 +298,24 @@ export default function TransactionHistoryPage({
       <TabSwitcher tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
 
       {/* Mobile View */}
-      {activeTab === 'fiat' && (
-        <div className='flex md:hidden gap-3 pb-4 w-full'>
-          {/* Type Filter */}
-          <div className='flex-1'>
-            <Select value={selectedTypeFilter} onValueChange={val => setSelectedTypeFilter(val)}>
-              <SelectTrigger className='w-full bg-app-neutral300 border-border uppercase text-app-color'>
-                <SelectValue placeholder={lang?.common?.selectTypes} />
-              </SelectTrigger>
-              <SelectContent className='bg-app-background-primary text-app-text-color border-app-neutral300'>
-                {typeOption.map(option => (
-                  <SelectItem key={option} value={option} className='uppercase'>
-                    {option === 'all' ? lang?.common?.all : getTypeLabel(option)}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
 
-          {/* Status Filter */}
+      <div className='flex md:hidden gap-3 pb-4 w-full'>
+        {/* Type Filter */}
+        <div className='flex-1'>
+          <Select value={selectedTypeFilter} onValueChange={val => setSelectedTypeFilter(val)}>
+            <SelectTrigger className='w-full bg-app-neutral300 border-border uppercase text-app-color'>
+              <SelectValue placeholder={lang?.common?.selectTypes} />
+            </SelectTrigger>
+            <SelectContent className='bg-app-background-primary text-app-text-color border-app-neutral300'>
+              {typeOption.map(option => (
+                <SelectItem key={option} value={option} className='uppercase'>
+                  {option === 'all' ? lang?.common?.all : getTypeLabel(option)}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        {activeTab === 'fiat' && (
           <div className='flex-1'>
             <Select value={selectedStatusFilter} onValueChange={val => setSelectedStatusFilter(val)}>
               <SelectTrigger className='w-full bg-app-neutral300 border-border uppercase text-app-color'>
@@ -327,14 +330,14 @@ export default function TransactionHistoryPage({
               </SelectContent>
             </Select>
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* Filter Headers */}
       <div
         className={cn(
           'hidden items-center md:grid gap-4 px-4 py-3 bg-app-table-bg-header rounded-[8px] mb-[10px] text-sm font-semibold text-app-table-text-header uppercase',
-          activeTab === 'fiat' ? 'md:grid-cols-6' : 'md:grid-cols-6'
+          activeTab === 'fiat' ? 'md:grid-cols-6' : 'md:grid-cols-7'
         )}
       >
         {activeTab === 'fiat' ? (
@@ -400,6 +403,32 @@ export default function TransactionHistoryPage({
         ) : (
           <>
             <div>{lang?.common?.time}</div>
+            <div className='flex items-center gap-2'>
+              <span>
+                {lang?.common?.type} ({getTypeLabel(selectedTypeFilter)})
+              </span>
+              <Popover open={isTypeOpen} onOpenChange={setIsTypeOpen}>
+                <PopoverTrigger asChild>
+                  <button className='flex items-center justify-center hover:bg-app-white100 rounded-md p-1'>
+                    <ChevronDown className='h-4 w-4 text-app-neutral500' />
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent className='w-40 p-1 z-50 bg-app-background-primary text-app-text-color border border-app-neutral300'>
+                  {typeOption.map(option => (
+                    <button
+                      key={option}
+                      onClick={() => {
+                        setSelectedTypeFilter(option)
+                        setIsTypeOpen(false) // ✅ Close on select
+                      }}
+                      className='w-full text-left px-3 py-2 text-xs hover:bg-app-neutral300 uppercase'
+                    >
+                      {getTypeLabel(option)}
+                    </button>
+                  ))}
+                </PopoverContent>
+              </Popover>
+            </div>
             <div>{lang?.common?.blockchain}</div>
             <div>{lang?.common?.token}</div>
             <div>{lang?.common?.cryptoAmount}</div>
@@ -537,10 +566,11 @@ export default function TransactionHistoryPage({
           ) : transactionsCrypto?.length > 0 ? (
             transactionsCrypto.map((transaction, index) => (
               <div key={index} className='p-4 rounded-[8px] transition-colors'>
-                <div className='hidden md:grid md:grid-cols-6 gap-4 items-center'>
+                <div className='hidden md:grid md:grid-cols-7 gap-4 items-center'>
                   <div className='text-sm text-app-text-color'>
                     {format(new Date(transaction?.created_at), 'yyyy-MM-dd | HH:mm')}
                   </div>
+                  <div className='text-sm text-app-text-color uppercase'>{transaction?.type ?? '-'}</div>
                   <div className='text-sm text-app-text-color uppercase'>{transaction?.blockchains ?? '-'}</div>
                   <div className='text-sm text-app-text-color uppercase'>{transaction?.token ?? '-'}</div>
                   <div className={`text-sm font-medium ${getStatusColor(transaction.status?.toUpperCase() ?? '')}`}>

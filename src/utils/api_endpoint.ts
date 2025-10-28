@@ -46,6 +46,7 @@ export const API_ENDPOINT = {
   detail_bet_history: '/v1/bets',
   blockchains: '/v1/cryptos/blockchains',
   blockchains_token: '/v1/cryptos/tokens',
+  cryptos_supported: '/v1/cryptos/supported',
   // poker_history: '/v1/win-lose-history',
   poker_history: '/v1',
   transfer_history: '/v1/transfer/history',

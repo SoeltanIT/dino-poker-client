@@ -314,6 +314,7 @@ export const Header = ({ lang, locale, data, balance, theme, transferBalanceFee,
                     data={data?.data as UserFullDTO}
                     onClose={onClose}
                     buttonLogoutRef={buttonLogoutRef}
+                    features={features}
                   />
                 )}
               </ProfilePopover>

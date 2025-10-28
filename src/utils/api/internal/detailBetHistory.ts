@@ -59,7 +59,7 @@ export const getDetailBetHistory = async (id: string): Promise<any> => {
     if (!rawData) return null
 
     const isPoker =
-      (rawData?.provider ?? '').toLowerCase() === 'poker' || (rawData?.details?.game ?? '').toUpperCase() === 'TXH'
+      (rawData?.provider ?? '').toLowerCase() === 'idn_poker' || (rawData?.details?.game ?? '').toUpperCase() === 'TXH'
 
     const mappedData = isPoker ? mapDetailPokerHistory(rawData) : mapDetailBetHistory(rawData)
 

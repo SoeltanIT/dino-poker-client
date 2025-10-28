@@ -317,7 +317,9 @@ export default function BetHistoryPage({
                         {thousandSeparatorComma(Math.floor(bet.amount))}
                       </div>
                       <div className='flex justify-between items-center'>
-                        <div className={`text-sm ${getTextColor(bet.status)} uppercase`}>{getStatusLabel(bet.status)}</div>
+                        <div className={`text-sm ${getTextColor(bet.status)} uppercase`}>
+                          {getStatusLabel(bet.status)}
+                        </div>
                         <Button
                           size='sm'
                           onClick={() => handleOpenDetail(bet.id)}

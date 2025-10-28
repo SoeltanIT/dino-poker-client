@@ -142,6 +142,8 @@ export default function DepositWithdrawSheet({
         const resp = await depositCryptoRequest({
           url: '/deposit_crypto',
           body: {
+            blockchain_id: parseInt(data?.coin_network),
+            token_symbol: data?.crypto,
             promotion_id: data?.promo_id ?? ''
           }
         })

@@ -3,11 +3,13 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
+import { GetData } from '@/@core/hooks/use-query'
 import { DepositCryptoFormData, DepositCryptoSchema } from '@/@core/utils/schema/Transaction/DepositCryptoSchema'
 import { DepositFormData, DepositSchema } from '@/@core/utils/schema/Transaction/DepositSchema'
-import { IconSize } from '@/components/atoms/Icons'
-import IconDepositCrypto from '@/components/atoms/Icons/DepositCrypto'
+import { IconAlert } from '@/components/atoms/Icons'
 import PresetAmountSelector from '@/components/molecules/PresetAmountSelector'
+import { TabSwitcher } from '@/components/molecules/TabSwitcher'
+import PromotionSelector from '@/components/organisms/Promotion/SelectPromotion'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
@@ -16,9 +18,7 @@ import { useThemeToggle } from '@/utils/hooks/useTheme'
 import { Loader2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { DepositFormProps } from './types'
-import { TabSwitcher } from '@/components/molecules/TabSwitcher'
-import PromotionSelector from '@/components/organisms/Promotion/SelectPromotion'
-import { GetData } from '@/@core/hooks/use-query'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 const PRESET_AMOUNTS = ['10000', '20000', '50000', '100000']
 
@@ -74,9 +74,41 @@ export default function DepositForm({
     resolver: zodResolver(DepositCryptoSchema(lang)),
     shouldUnregister: true,
     defaultValues: {
-      promo_id: ''
+      promo_id: '',
+      crypto: '',
+      coin_network: ''
     }
   })
+
+  const crypto = formCrypto.watch('crypto')
+
+  const { data: respCryptoSupported, isFetching: cryptoLoading } = GetData<any>(
+    '/crypto_supported',
+    ['getCryptoSupported'],
+    false,
+    undefined,
+    true,
+    undefined,
+    undefined,
+    undefined,
+    'GET',
+    undefined,
+    'transaction'
+  )
+
+  // current selected crypto symbol from form
+  const selectedCryptoSymbol = formCrypto.watch('crypto')
+
+  // find the full crypto object for that symbol
+  const selectedCryptoData = respCryptoSupported?.find((c: any) => c.symbol === selectedCryptoSymbol)
+
+  // addresses for that crypto, fallback to []
+  const availableNetworks = selectedCryptoData?.addresses ?? []
+
+  useEffect(() => {
+    // whenever crypto changes, reset coin_network
+    formCrypto.setValue('coin_network', '', { shouldDirty: true, shouldValidate: true })
+  }, [selectedCryptoSymbol, formCrypto])
 
   // ✅ Keep initial selectedPromotion (if provided on mount)
   useEffect(() => {
@@ -178,12 +210,117 @@ export default function DepositForm({
       {activeTab === 'crypto' && (
         <Form {...formCrypto}>
           <form onSubmit={formCrypto.handleSubmit(values => onSubmit(values, 'crypto'))} className='space-y-6'>
-            {/* (crypto selection fields commented out in your version) */}
+            {/* 1. Select crypto */}
+            <FormField
+              control={formCrypto.control}
+              name='crypto'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className='text-app-text-color'>
+                    {lang?.common?.selectCrypto}
+                    <span className='text-app-danger'>*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Select
+                      value={field.value}
+                      onValueChange={val => {
+                        field.onChange(val)
+                      }}
+                      disabled={cryptoLoading}
+                    >
+                      <SelectTrigger className='bg-app-white100 text-app-text-color uppercase'>
+                        <SelectValue placeholder={lang?.common?.selectCrypto} />
+                      </SelectTrigger>
+                      <SelectContent className='bg-app-background-primary'>
+                        {cryptoLoading ? (
+                          <SelectItem value='loading' disabled className='text-app-text-color uppercase'>
+                            Loading Data...
+                          </SelectItem>
+                        ) : respCryptoSupported && respCryptoSupported.length > 0 ? (
+                          respCryptoSupported
+                            .filter((item: any) => item?.is_active)
+                            .map((item: any) => (
+                              <SelectItem
+                                key={item.symbol}
+                                value={item.symbol}
+                                className='text-app-text-color uppercase'
+                              >
+                                {item.symbol} {item.name && item.name !== item.symbol ? `(${item.name})` : ''}
+                              </SelectItem>
+                            ))
+                        ) : (
+                          <SelectItem value='noDataCryptoAvailable' disabled className='text-app-text-color uppercase'>
+                            {lang?.common?.noCryptoAvailable}
+                          </SelectItem>
+                        )}
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-            <div className='flex items-center justify-center w-full flex-col gap-2 pt-4'>
+            {/* 2. Select network */}
+            <FormField
+              control={formCrypto.control}
+              name='coin_network'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className='text-app-text-color'>
+                    {lang?.common?.selectCoinNetwork}
+                    <span className='text-app-danger'>*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Select
+                      value={field.value}
+                      onValueChange={val => {
+                        field.onChange(val)
+                      }}
+                      disabled={!selectedCryptoSymbol || cryptoLoading}
+                    >
+                      <SelectTrigger className='bg-app-white100 text-app-text-color uppercase'>
+                        <SelectValue placeholder={lang?.common?.selectCoinNetwork} />
+                      </SelectTrigger>
+                      <SelectContent className='bg-app-background-primary'>
+                        {!selectedCryptoSymbol ? (
+                          <SelectItem value='pickCryptoFirst' disabled className='text-app-text-color uppercase'>
+                            {lang?.common?.selectCryptoFirst ?? 'Select crypto first'}
+                          </SelectItem>
+                        ) : availableNetworks.length === 0 ? (
+                          <SelectItem value='noCoinNetworkAvailable' disabled className='text-app-text-color uppercase'>
+                            {lang?.common?.noCoinNetworkAvailable}
+                          </SelectItem>
+                        ) : (
+                          availableNetworks.map((net: any) => (
+                            <SelectItem
+                              key={net.blockchain_id}
+                              value={String(net.blockchain_id)}
+                              className='text-app-text-color uppercase'
+                            >
+                              {net.blockchain_name} {net.blockchain_id ? `(${net.blockchain_id})` : ''}
+                            </SelectItem>
+                          ))
+                        )}
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {selectedCryptoSymbol && (
+              <div className='flex flex-row items-center gap-2 px-4 py-[10px] bg-[#FDB42C1A] rounded-lg'>
+                <IconAlert className='min-w-[24px] min-h-[24px] text-app-pending' />
+                <span className='text-sm text-app-text-color'>{lang?.common?.cryptoNotes}</span>
+              </div>
+            )}
+
+            {/* <div className='flex items-center justify-center w-full flex-col gap-2 pt-4'>
               <IconDepositCrypto size={IconSize['3xl']} theme={theme} />
               <span className='text-app-text-color text-sm w-[60%] text-center'>{lang?.common?.depositCryptoNote}</span>
-            </div>
+            </div> */}
 
             <div className='pt-4'>
               {features?.promotion && (
@@ -198,6 +335,7 @@ export default function DepositForm({
                   isLoading={promoLoading}
                 />
               )}
+
               <Button
                 type='submit'
                 disabled={isLoading}
