@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useRef, useState } from 'react'
 
-import { IconBell, IconHome, IconTicket, IconUser } from '@/components/atoms/Icons'
+import { IconBell, IconBetby, IconHome, IconTicket, IconUser } from '@/components/atoms/Icons'
 import LoginModal from '@/components/organisms/Login'
 import MenuProfile from '@/components/organisms/Profile'
 import { LogoutModal } from '@/components/organisms/Profile/Logout'
@@ -13,7 +13,6 @@ import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { resetLiveChatSession } from '@/lib/livechat-reset'
 import { UserFullDTO } from '@/types/userDTO'
 import { useLiveChatContext } from '@/utils/context/LiveChatProvider'
-import { Volleyball } from 'lucide-react'
 import { signOut } from 'next-auth/react'
 import { useCookies } from 'react-cookie'
 import GlobalSheet from '../GlobalSheet'
@@ -63,12 +62,13 @@ export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) =
     navItems.splice(2, 0, {
       name: lang?.common?.sport,
       href: `/${locale}/sport`,
-      icon: Volleyball
+      icon: IconBetby
     })
   }
 
   if (features?.promotion) {
-    navItems.splice(3, 0, {
+    let navbarSport = features?.sports ? 3 : 2
+    navItems.splice(navbarSport, 0, {
       name: lang?.common?.promotion,
       href: `/${locale}/promotion`,
       icon: IconTicket
@@ -114,62 +114,70 @@ export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) =
     <>
       <nav className='fixed md:hidden bottom-0 left-0 right-0 bg-app-background-secondary text-app-text-color h-[80px] flex justify-center items-center border-t border-app-background-primary z-20'>
         <div className='flex justify-around w-full max-w-[375px] px-6'>
-          {navItems?.map(item => {
-            const isActive = pathname === item.href
-            const Icon = item.icon
+          {navItems
+            // 🧠 Filter out Notification item if no data
+            .filter(item => {
+              if (item.name === lang?.header?.notif && !data) return false
+              return true
+            })
+            .map(item => {
+              const isActive = pathname === item.href
+              const Icon = item.icon
 
-            if (item.name === lang?.common?.profile && data) {
-              return (
-                <GlobalSheet
-                  key={item.name}
-                  trigger={
-                    <button className='flex flex-col items-center gap-1 focus:outline-none'>
+              if (item.name === lang?.common?.profile && data) {
+                return (
+                  <GlobalSheet
+                    key={item.name}
+                    trigger={
+                      <button className='flex flex-col items-center gap-1 focus:outline-none'>
+                        <Icon className='text-app-neutral500 h-7 w-7' />
+                        <span className='text-[12px] uppercase text-app-neutral500'>{item.name}</span>
+                      </button>
+                    }
+                    className='[&>button.absolute]:hidden !py-2'
+                  >
+                    {({ onClose }) => (
+                      <MenuProfile
+                        data={data?.data as UserFullDTO}
+                        locale={locale}
+                        lang={lang}
+                        onClose={onClose}
+                        buttonLogoutRef={buttonLogoutRef}
+                      />
+                    )}
+                  </GlobalSheet>
+                )
+              }
+
+              if (item.name === lang?.common?.profile && !data) {
+                return (
+                  <div key={item.name}>
+                    <button
+                      onClick={() => setIsModalOpen(true)}
+                      className='flex flex-col items-center gap-1 focus:outline-none'
+                    >
                       <Icon className='text-app-neutral500 h-7 w-7' />
                       <span className='text-[12px] uppercase text-app-neutral500'>{item.name}</span>
                     </button>
-                  }
-                  className='[&>button.absolute]:hidden !py-2'
-                >
-                  {({ onClose }) => (
-                    <MenuProfile
-                      data={data?.data as UserFullDTO}
-                      locale={locale}
-                      lang={lang}
-                      onClose={onClose} // ✅ menutup Sheet saat menu dipencet
-                      // setIsOpenLogout={() => setIsOpenLogout(true)}
-                      buttonLogoutRef={buttonLogoutRef}
-                    />
-                  )}
-                </GlobalSheet>
-              )
-            } else if (item.name === lang?.common?.profile && !data) {
-              return (
-                <div className='' key={item.name}>
-                  <button
-                    onClick={() => setIsModalOpen(true)}
-                    className='flex flex-col items-center gap-1 focus:outline-none'
-                  >
-                    <Icon className='text-app-neutral500 h-7 w-7' />
-                    <span className='text-[12px] uppercase text-app-neutral500'>{item.name}</span>
-                  </button>
-                </div>
-              )
-            }
+                  </div>
+                )
+              }
 
-            return (
-              <Link key={item.name} href={item.href} className='flex flex-col items-center gap-1'>
-                <Icon className={clsx('h-7 w-7', isActive ? 'text-app-text-color' : 'text-app-neutral500')} />
-                <span
-                  className={clsx(
-                    'text-[12px] uppercase',
-                    isActive ? 'text-app-text-color font-bold' : 'text-app-neutral500'
-                  )}
-                >
-                  {item.name}
-                </span>
-              </Link>
-            )
-          })}
+              // ✅ Default link for others
+              return (
+                <Link key={item.name} href={item.href} className='flex flex-col items-center gap-1'>
+                  <Icon className={clsx('h-7 w-7', isActive ? 'text-app-text-color' : 'text-app-neutral500')} />
+                  <span
+                    className={clsx(
+                      'text-[12px] uppercase',
+                      isActive ? 'text-app-text-color font-bold' : 'text-app-neutral500'
+                    )}
+                  >
+                    {item.name}
+                  </span>
+                </Link>
+              )
+            })}
         </div>
       </nav>
 

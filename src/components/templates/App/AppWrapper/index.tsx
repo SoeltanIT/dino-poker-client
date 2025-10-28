@@ -117,7 +117,7 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config, feat
 
       {/* Floating Help Button */}
       {parts[1] !== 'sport' && (
-        <div className={cn('fixed bottom-[70px] md:bottom-6 right-4 z-[50]', parts[1] === 'sport' && 'md:bottom-16')}>
+        <div className={cn('fixed bottom-[87px] md:bottom-6 right-4 z-[50]', parts[1] === 'sport' && 'md:bottom-16')}>
           <div className='flex md:hidden items-center justify-center w-14 h-14 bg-app-primary hover:bg-app-primary-hover rounded-full shadow-lg'>
             <LocaleSwitcherDropdown lang={locale} />
           </div>

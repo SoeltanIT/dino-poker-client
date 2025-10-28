@@ -182,7 +182,7 @@ export const BetByIframe = ({
         betslipZIndex: 999,
         themeName: theme === 'dark' ? 'gowin-dark-tile' : 'gowin-light-tile',
         currency: 'KRW',
-        betSlipOffsetBottom: window.innerWidth >= 768 ? 0 : 60,
+        betSlipOffsetBottom: window.innerWidth >= 768 ? 0 : 70,
         betSlipOffsetTop: window.innerWidth >= 768 ? 81 : 72,
         stickyTop: window.innerWidth >= 768 ? 81 : 72,
         onLogin: () => {
@@ -260,7 +260,7 @@ export const BetByIframe = ({
     rendererRef.current.updateOptions({
       themeName: theme === 'dark' ? 'gowin-dark-tile' : 'gowin-light-tile',
       betSlipOffsetTop: window.innerWidth >= 768 ? 81 : 72,
-      betSlipOffsetBottom: window?.innerWidth >= 768 ? 0 : 60,
+      betSlipOffsetBottom: window?.innerWidth >= 768 ? 0 : 70,
       stickyTop: window.innerWidth >= 768 ? 81 : 72
     })
 
@@ -305,7 +305,7 @@ export const BetByIframe = ({
       </div> */}
 
       {!isOpenBetSlip && (
-        <div className={cn('fixed bottom-[70px] md:bottom-16 right-4 z-[50]')}>
+        <div className={cn('fixed bottom-[87px] md:bottom-16 right-4 z-[50]')}>
           <div className='flex md:hidden items-center justify-center w-14 h-14 bg-app-primary hover:bg-app-primary-hover rounded-full shadow-lg'>
             <LocaleSwitcherDropdown lang={locale} />
           </div>
