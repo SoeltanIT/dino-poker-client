@@ -25,8 +25,6 @@ export default function ListGamePage({
   const isLogin = status === 'authenticated'
   const roles = (session?.user as any)?.roles || 2
   const [listGame, setListGame] = useState<gameDTO[]>(initialData || [])
-  // console.log('listgame >', listGame)
-  // console.log('game data >', initialData)
   const [page, setPage] = useState(initialPage || 1)
   const [totalPage, setTotalPage] = useState(initialTotalPage || 1)
   const [isLoading, setIsLoading] = useState(isInitialLoading || false)
