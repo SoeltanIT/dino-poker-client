@@ -36,11 +36,6 @@ export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) =
       href: `/${locale}`,
       icon: IconHome
     },
-    {
-      name: lang?.header?.notif,
-      href: `/${locale}/notification`,
-      icon: IconBell
-    },
     // {
     //   name: lang?.common?.sport,
     //   href: `/${locale}/sport`,
@@ -52,26 +47,31 @@ export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) =
     //   icon: IconTicket
     // },
     {
+      name: lang?.header?.notif,
+      href: `/${locale}/notification`,
+      icon: IconBell
+    },
+    {
       name: lang?.common?.profile,
       href: '',
       icon: IconUser
     }
   ]
 
+  if (features?.promotion) {
+    let navbarSport = features?.sports ? 1 : 2
+    navItems.splice(navbarSport, 0, {
+      name: lang?.common?.promotion,
+      href: `/${locale}/promotion`,
+      icon: IconTicket
+    })
+  }
+
   if (features?.sports) {
     navItems.splice(2, 0, {
       name: lang?.common?.sport,
       href: `/${locale}/sport`,
       icon: IconBetby
-    })
-  }
-
-  if (features?.promotion) {
-    let navbarSport = features?.sports ? 3 : 2
-    navItems.splice(navbarSport, 0, {
-      name: lang?.common?.promotion,
-      href: `/${locale}/promotion`,
-      icon: IconTicket
     })
   }
 
