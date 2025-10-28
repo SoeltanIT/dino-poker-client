@@ -143,6 +143,7 @@ export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) =
                         lang={lang}
                         onClose={onClose}
                         buttonLogoutRef={buttonLogoutRef}
+                        features={features}
                       />
                     )}
                   </GlobalSheet>

@@ -1,6 +1,6 @@
 'use client'
 
-import { IconBank, IconCoin, IconLogout, IconReferral, IconTransaction } from '@/components/atoms/Icons'
+import { IconBank, IconCoin, IconLogout, IconPromotion, IconReferral, IconTransaction } from '@/components/atoms/Icons'
 import ChangePasswordForm from '@/components/layout/header/views/menu/changePassword/ChangePassword'
 import KYC from '@/components/layout/header/views/menu/kyc/KYC'
 import ThemeSwitcher from '@/components/molecules/ThemeSwitcher'
@@ -11,6 +11,7 @@ import { getInitials } from '@/utils/helper/getInitials'
 import {
   getLinkBankAccount,
   getLinkBetHistory,
+  getLinkMyPromotion,
   getLinkReferral,
   getLinkTranscationHistory,
   getLinkTransferHistory
@@ -28,7 +29,8 @@ export default function MenuProfile({
   buttonLogoutRef,
   // setIsOpenLogout,
   locale,
-  lang
+  lang,
+  features
 }: MenuProfileProps) {
   const getStatusColor = (status?: string) => {
     if (status === 'APPROVED') return 'border-app-success text-app-success'
@@ -82,11 +84,6 @@ export default function MenuProfile({
     //   label: lang?.common?.myWallet,
     //   href: getLinkMyWallet(locale)
     // },
-    // {
-    //   icon: <IconPromotion />,
-    //   label: lang?.common?.myPromotion,
-    //   href: getLinkMyPromotion(locale)
-    // },
     {
       icon: <IconBank />,
       label: lang?.common?.bankAccount,
@@ -113,6 +110,14 @@ export default function MenuProfile({
       href: getLinkReferral(locale)
     }
   ]
+
+  if (features?.promotion) {
+    menuItems.splice(1, 0, {
+      icon: <IconPromotion />,
+      label: lang?.common?.myPromotion,
+      href: getLinkMyPromotion(locale)
+    })
+  }
 
   return (
     <>
