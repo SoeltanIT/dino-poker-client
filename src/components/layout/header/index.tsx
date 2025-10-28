@@ -463,6 +463,7 @@ export const Header = ({ lang, locale, data, balance, theme, transferBalanceFee,
           lang={lang}
           locale={locale}
           data={data}
+          features={features}
         />
       )}
 

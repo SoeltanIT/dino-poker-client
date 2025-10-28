@@ -23,7 +23,8 @@ export default function DepositWithdrawSheet({
   lang,
   locale,
   data,
-  selectedPromotion // ✅ Add this
+  selectedPromotion, // ✅ Add this
+  features
 }: DepositWithdrawSheetProps & { open: boolean; onClose: () => void }) {
   const { ready } = useLiveChatContext()
   const { data: session } = useSession()
@@ -316,6 +317,7 @@ export default function DepositWithdrawSheet({
                   setActiveTab={setActiveTab}
                   configData={valueMaxDeposit}
                   isLoadingConfig={isLoadingConfig}
+                  features={features}
                 />
               ) : (
                 <DepositConfirmForm
