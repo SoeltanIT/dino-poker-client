@@ -2,12 +2,12 @@
 
 import CountdownTimerPromotion from '@/components/molecules/CountdownTimer/CountdownTimerPromotion'
 import { Card, CardContent } from '@/components/ui/card'
+import { truncateHtml } from '@/utils/helper/truncateHtml'
 import { Clock, ImageIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { PromotionProps } from './types'
-import { truncateHtml } from '@/utils/helper/truncateHtml'
 import { useState } from 'react'
+import { PromotionProps } from './types'
 
 export default function PromotionListing({ lang, locale, initialData }: PromotionProps) {
   // const [activeFilter, setActiveFilter] = useState<'all' | 'trending' | 'member'>('all')
@@ -191,7 +191,7 @@ export default function PromotionListing({ lang, locale, initialData }: Promotio
 
           {/* Promotion Cards */}
           <div className='gap-4 flex flex-col'>
-            {initialData &&
+            {initialData && initialData.length === 0 ? (
               initialData.map(promo => (
                 <Link key={promo.id} href={`/promotion/${promo.id}`}>
                   <Card className='cursor-pointer transition-opacity bg-app-white100 overflow-hidden'>
@@ -243,7 +243,13 @@ export default function PromotionListing({ lang, locale, initialData }: Promotio
                     </CardContent>
                   </Card>
                 </Link>
-              ))}
+              ))
+            ) : (
+              <div className='flex flex-col items-center justify-center w-full h-[50vh]'>
+                <ImageIcon width={75} height={75} className='text-app-text-color' />
+                <span className='mt-3'>{lang?.common?.noPromoFound}</span>
+              </div>
+            )}
           </div>
         </div>
       </div>
