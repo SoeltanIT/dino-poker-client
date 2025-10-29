@@ -191,7 +191,7 @@ export default function PromotionListing({ lang, locale, initialData }: Promotio
 
           {/* Promotion Cards */}
           <div className='gap-4 flex flex-col'>
-            {initialData && initialData.length === 0 ? (
+            {initialData && initialData.length > 0 ? (
               initialData.map(promo => (
                 <Link key={promo.id} href={`/promotion/${promo.id}`}>
                   <Card className='cursor-pointer transition-opacity bg-app-white100 overflow-hidden'>
