@@ -19,6 +19,11 @@ export interface DepositFormProps {
   configData?: string
   isLoadingConfig?: boolean
   features?: FeatureFlags
+  isStatus?: string
+  onClose: () => void
+  openContactUS: () => void
+  cryptoData: any
+  cryptoLoading: boolean
 }
 
 export interface DepositWithdrawSheetProps {
@@ -32,13 +37,19 @@ export interface DepositWithdrawSheetProps {
 }
 
 export interface WithdrawFormProps {
-  onSubmit: (data: WithdrawFormData) => void
+  onSubmit: (data: any, activeTab: string) => void
   lang?: LangProps
   locale?: Locale
   isLoading?: boolean
   isStatus?: string
   configData?: string
   isLoadingConfig?: boolean
+  onClose: () => void
+  openContactUS: () => void
+  activeTab: string
+  setActiveTab: (tab: string) => void // ✅ Add this
+  cryptoData: any
+  cryptoLoading: boolean
 }
 
 export interface DepositDataProps {

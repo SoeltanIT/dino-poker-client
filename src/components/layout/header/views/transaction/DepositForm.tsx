@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form'
 import { GetData } from '@/@core/hooks/use-query'
 import { DepositCryptoFormData, DepositCryptoSchema } from '@/@core/utils/schema/Transaction/DepositCryptoSchema'
 import { DepositFormData, DepositSchema } from '@/@core/utils/schema/Transaction/DepositSchema'
-import { IconAlert } from '@/components/atoms/Icons'
+import { IconAlert, IconSize, IconVerifyCheck } from '@/components/atoms/Icons'
 import PresetAmountSelector from '@/components/molecules/PresetAmountSelector'
 import { TabSwitcher } from '@/components/molecules/TabSwitcher'
 import PromotionSelector from '@/components/organisms/Promotion/SelectPromotion'
@@ -19,6 +19,7 @@ import { Loader2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { DepositFormProps } from './types'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import KYC from '@/components/layout/header/views/menu/kyc/KYC'
 
 const PRESET_AMOUNTS = ['10000', '20000', '50000', '100000']
 
@@ -32,11 +33,16 @@ export default function DepositForm({
   setActiveTab,
   configData,
   isLoadingConfig,
-  features
+  features,
+  isStatus,
+  onClose,
+  openContactUS,
+  cryptoData,
+  cryptoLoading
 }: DepositFormProps) {
   const { theme } = useThemeToggle()
   const [promo, setPromo] = useState<any>(selectedPromotion || null)
-  const [showPassword, setShowPassword] = useState(false)
+  const [isSheetOpen, setIsSheetOpen] = useState(false)
 
   const tabs = [
     { name: 'FIAT', value: 'fiat' },
@@ -73,6 +79,8 @@ export default function DepositForm({
   const formCrypto = useForm<DepositCryptoFormData>({
     resolver: zodResolver(DepositCryptoSchema(lang)),
     shouldUnregister: true,
+    mode: 'onSubmit', // 👈 add this
+    reValidateMode: 'onChange', // optional but nice: live update after first submit
     defaultValues: {
       promo_id: '',
       crypto: '',
@@ -80,34 +88,18 @@ export default function DepositForm({
     }
   })
 
-  const crypto = formCrypto.watch('crypto')
-
-  const { data: respCryptoSupported, isFetching: cryptoLoading } = GetData<any>(
-    '/crypto_supported',
-    ['getCryptoSupported'],
-    false,
-    undefined,
-    true,
-    undefined,
-    undefined,
-    undefined,
-    'GET',
-    undefined,
-    'transaction'
-  )
-
   // current selected crypto symbol from form
   const selectedCryptoSymbol = formCrypto.watch('crypto')
 
   // find the full crypto object for that symbol
-  const selectedCryptoData = respCryptoSupported?.find((c: any) => c.symbol === selectedCryptoSymbol)
+  const selectedCryptoData = cryptoData?.find((c: any) => c.symbol === selectedCryptoSymbol)
 
   // addresses for that crypto, fallback to []
   const availableNetworks = selectedCryptoData?.addresses ?? []
 
   useEffect(() => {
     // whenever crypto changes, reset coin_network
-    formCrypto.setValue('coin_network', '', { shouldDirty: true, shouldValidate: true })
+    formCrypto.setValue('coin_network', '', { shouldDirty: true })
   }, [selectedCryptoSymbol, formCrypto])
 
   // ✅ Keep initial selectedPromotion (if provided on mount)
@@ -129,8 +121,18 @@ export default function DepositForm({
     formCrypto.setValue('promo_id', '', { shouldValidate: true, shouldDirty: true })
   }
 
-  const handleSubmit = (values: DepositFormData) => {
-    onSubmit(values, activeTab)
+  const msgVerifyStatusDeposit = (status: string) => {
+    const stat = status.toLowerCase()
+    switch (stat) {
+      case 'unverified':
+        return lang?.common.verifyCheckMsgDeposit
+      case 'pending':
+        return lang?.common.verifyPendingMsgDeposit
+      case 'rejected':
+        return lang?.common.verifyRejectedMsgDeposit
+      default:
+        return lang?.common.verifyCheckMsgDeposit
+    }
   }
 
   return (
@@ -138,74 +140,101 @@ export default function DepositForm({
       {/* ⬇️ Use the handler here */}
       <TabSwitcher tabs={tabs} activeTab={activeTab} onTabChange={handleTabChange} />
 
-      {activeTab === 'fiat' && (
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(values => onSubmit(values, 'fiat'))} className='space-y-6'>
-            <FormField
-              control={form.control}
-              name='amount'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className='text-app-text-color text-sm block'>
-                    {lang?.common?.depositAmount}
-                    <span className='text-app-danger'>*</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      ref={field.ref}
-                      onBlur={field.onBlur}
-                      type='text'
-                      inputMode='numeric'
-                      placeholder={lang?.common?.typeDepositAmount}
-                      value={thousandSeparatorComma(field.value || '')}
-                      onChange={e => {
-                        const raw = unformatCommaNumber(e.target.value)
-                        if (/^\d*$/.test(raw)) field.onChange(raw)
+      {activeTab === 'fiat' &&
+        (isStatus && isStatus !== 'APPROVED' ? (
+          <div className='h-[70vh] flex flex-col justify-center items-center mt-10'>
+            <IconVerifyCheck size={IconSize['3xl']} />
+            <span className='text-sm font-semibold text-app-text-color text-center'>
+              {msgVerifyStatusDeposit(isStatus)}
+            </span>
+            {isStatus === 'PENDING' || isStatus === 'REJECTED' ? (
+              <Button
+                onClick={() => openContactUS()}
+                className='w-full bg-app-primary uppercase hover:bg-app-primary-hover mt-4 text-white py-4 text-base font-medium rounded-lg transition-colors'
+              >
+                {lang?.common?.contactUS}
+              </Button>
+            ) : (
+              isStatus === 'UNVERIFIED' && (
+                <div className='pt-4'>
+                  <Button
+                    onClick={() => setIsSheetOpen(true)}
+                    className='w-full bg-app-primary uppercase hover:bg-app-primary-hover text-white py-4 text-base font-medium rounded-lg transition-colors'
+                  >
+                    {lang?.common?.verify}
+                  </Button>
+                </div>
+              )
+            )}
+          </div>
+        ) : (
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(values => onSubmit(values, 'fiat'))} className='space-y-6'>
+              <FormField
+                control={form.control}
+                name='amount'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className='text-app-text-color text-sm block'>
+                      {lang?.common?.depositAmount}
+                      <span className='text-app-danger'>*</span>
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        ref={field.ref}
+                        onBlur={field.onBlur}
+                        type='text'
+                        inputMode='numeric'
+                        placeholder={lang?.common?.typeDepositAmount}
+                        value={thousandSeparatorComma(field.value || '')}
+                        onChange={e => {
+                          const raw = unformatCommaNumber(e.target.value)
+                          if (/^\d*$/.test(raw)) field.onChange(raw)
+                        }}
+                      />
+                    </FormControl>
+
+                    <PresetAmountSelector
+                      isLoading={isLoadingConfig}
+                      amounts={PRESET_AMOUNTS}
+                      onSelect={amount => {
+                        const currentAmount = Number(form.getValues('amount') || 0)
+                        const addedAmount = Number(amount)
+                        const newAmount = currentAmount + addedAmount
+                        form.setValue('amount', newAmount.toString(), { shouldDirty: true, shouldValidate: true })
                       }}
                     />
-                  </FormControl>
 
-                  <PresetAmountSelector
-                    isLoading={isLoadingConfig}
-                    amounts={PRESET_AMOUNTS}
-                    onSelect={amount => {
-                      const currentAmount = Number(form.getValues('amount') || 0)
-                      const addedAmount = Number(amount)
-                      const newAmount = currentAmount + addedAmount
-                      form.setValue('amount', newAmount.toString(), { shouldDirty: true, shouldValidate: true })
+                    <p className='text-app-neutral500 text-xs'>{descDeposit}</p>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <div className='pt-4'>
+                {features?.promotion && (
+                  <PromotionSelector
+                    selectedPromotion={promo}
+                    onSelect={p => {
+                      setPromo(p)
+                      form.setValue('promo_id', p?.id ?? '', { shouldValidate: true, shouldDirty: true })
                     }}
+                    lang={lang}
+                    initialData={respPromo}
+                    isLoading={promoLoading}
                   />
-
-                  <p className='text-app-neutral500 text-xs'>{descDeposit}</p>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <div className='pt-4'>
-              {features?.promotion && (
-                <PromotionSelector
-                  selectedPromotion={promo}
-                  onSelect={p => {
-                    setPromo(p)
-                    form.setValue('promo_id', p?.id ?? '', { shouldValidate: true, shouldDirty: true })
-                  }}
-                  lang={lang}
-                  initialData={respPromo}
-                  isLoading={promoLoading}
-                />
-              )}
-              <Button
-                type='submit'
-                disabled={isLoading}
-                className='w-full bg-app-primary uppercase hover:bg-app-primary-hover text-white py-4 text-lg font-medium rounded-lg transition-colors'
-              >
-                {isLoading ? <Loader2 className='animate-spin' /> : lang?.common?.deposit}
-              </Button>
-            </div>
-          </form>
-        </Form>
-      )}
+                )}
+                <Button
+                  type='submit'
+                  disabled={isLoading}
+                  className='w-full bg-app-primary uppercase hover:bg-app-primary-hover text-white py-4 text-lg font-medium rounded-lg transition-colors'
+                >
+                  {isLoading ? <Loader2 className='animate-spin' /> : lang?.common?.deposit}
+                </Button>
+              </div>
+            </form>
+          </Form>
+        ))}
 
       {activeTab === 'crypto' && (
         <Form {...formCrypto}>
@@ -236,8 +265,8 @@ export default function DepositForm({
                           <SelectItem value='loading' disabled className='text-app-text-color uppercase'>
                             Loading Data...
                           </SelectItem>
-                        ) : respCryptoSupported && respCryptoSupported.length > 0 ? (
-                          respCryptoSupported
+                        ) : cryptoData && cryptoData.length > 0 ? (
+                          cryptoData
                             .filter((item: any) => item?.is_active)
                             .map((item: any) => (
                               <SelectItem
@@ -347,6 +376,15 @@ export default function DepositForm({
           </form>
         </Form>
       )}
+
+      <KYC
+        open={isSheetOpen}
+        onClose={() => {
+          setIsSheetOpen(false), onClose()
+        }}
+        lang={lang}
+        isStatus={isStatus}
+      />
     </>
   )
 }

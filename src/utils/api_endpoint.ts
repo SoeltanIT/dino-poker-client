@@ -39,6 +39,7 @@ export const API_ENDPOINT = {
   deposit: '/v1/deposit',
   depositCrypto: '/v1/cryptos/deposit',
   withdraw: '/v1/withdraw',
+  withdraw_crypto: '/v1/cryptos/withdraw',
   history: '/v1/history',
   transaction_history: '/v1',
   transaction_crypto: '/v1/cryptos',
