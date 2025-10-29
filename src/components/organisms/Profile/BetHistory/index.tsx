@@ -111,12 +111,18 @@ export default function BetHistoryPage({
     if (!fetchDataDetail) setLoadingId(null)
   }, [dataDetail, fetchDataDetail])
 
-  // button handler
   const handleOpenDetail = (betId: string) => {
+    // 1. reset previous detail so UI goes skeleton immediately
+    setDetailBetData(null)
+
+    // 2. mark which id is being loaded (for row spinner)
     setSelectedBet(betId)
-    setLoadingId(betId) // <--- mark which row is loading
+    setLoadingId(betId)
+
+    // 3. open the sheet
     setOpenDetail(true)
   }
+
 
   const { claimRakeBack, isLoading: isClaiming } = useClaimRakeBack(lang)
 
@@ -406,11 +412,14 @@ export default function BetHistoryPage({
         open={openDetail}
         setOpen={(v: boolean) => {
           setOpenDetail(v)
-          if (!v) {
-            setSelectedBet(null)
-            setDetailBetData(null)
-            setLoadingId(null) // <--- clear on close
-          }
+           if (!v) {
+             // we’re closing:
+             // we DO want to stop row spinners, yes
+             setSelectedBet(null)
+             setLoadingId(null)
+             // BUT DO NOT clear detailBetData here
+             // setDetailBetData(null)  <-- remove this
+           }
         }}
       />
     </div>
