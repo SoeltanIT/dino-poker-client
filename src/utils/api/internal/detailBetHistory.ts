@@ -12,11 +12,11 @@ const mapDetailBetHistory = (item: any): DetailBetDTO => {
     provider: item?.provider ?? '-',
     status,
     createdAt: item?.created_at ?? '',
-    tournamentId: item?.tournament_id ?? '-', // fallback; adjust if BE changes
-    tournamentName: item?.tournament_name ?? '-', // fallback
-    betType: item?.bet_type ?? '-', // fallback if your BE adds these later
-    betName: item?.bet_name ?? '-',
-    betTeam: item?.bet_team ?? '-',
+    tournamentId: item?.details?.tournament_id ?? '-', // fallback; adjust if BE changes
+    tournamentName: item?.details?.tournament_name ?? '-', // fallback
+    betType: item?.details?.bet_type ?? '-', // fallback if your BE adds these later
+    betName: item?.details?.bet_name ?? '-',
+    betTeam: item?.details?.bet_team ?? '-',
     matchId: item?.match_id ?? undefined,
     matchName: item?.match_name ?? undefined,
     gameName: item?.game_name ?? undefined
@@ -59,7 +59,7 @@ export const getDetailBetHistory = async (id: string): Promise<any> => {
     if (!rawData) return null
 
     const isPoker =
-      (rawData?.provider ?? '').toLowerCase() === 'poker' || (rawData?.details?.game ?? '').toUpperCase() === 'TXH'
+      (rawData?.provider ?? '').toLowerCase() === 'idn_poker' || (rawData?.details?.game ?? '').toUpperCase() === 'TXH'
 
     const mappedData = isPoker ? mapDetailPokerHistory(rawData) : mapDetailBetHistory(rawData)
 

@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRef, useState } from 'react'
 
-import { IconDP, IconHome, IconKoreanWon, IconSize, IconWD } from '@/components/atoms/Icons'
+import { IconBetby, IconDP, IconHome, IconKoreanWon, IconSize, IconTicket, IconWD } from '@/components/atoms/Icons'
 import LocaleSwitcherDropdown from '@/components/molecules/LocaleSwitcher'
 import NotificationDropdown from '@/components/molecules/Notification'
 import ThemeSwitcher from '@/components/molecules/ThemeSwitcher'
@@ -22,12 +22,13 @@ import { cn } from '@/lib/utils'
 import { BalanceDTO } from '@/types/balanceDTO'
 import { UserFullDTO } from '@/types/userDTO'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
-import { Eye, EyeOff, Volleyball } from 'lucide-react'
+import { getLinkPromotion } from '@/utils/linkFactory/linkFactory'
+import { Eye, EyeOff } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import ProfilePopover from './views/menu/ProfilePopover'
 import RegisterForm from './views/register/RegisterForm'
 
-export const Header = ({ lang, locale, data, balance, theme, transferBalanceFee }: HeaderProps) => {
+export const Header = ({ lang, locale, data, balance, theme, transferBalanceFee, features }: HeaderProps) => {
   const pathname = usePathname()
   const logo = theme === 'dark' ? '/images/logo_light.png' : '/images/logo_dark.png'
 
@@ -169,58 +170,62 @@ export const Header = ({ lang, locale, data, balance, theme, transferBalanceFee 
               </span>
             </Link>
 
-            {/* <Link
-              className={cn(
-                'flex items-center justify-center cursor-pointer gap-2 p-3 group',
-                pathname === `/${locale}/sport` && 'border-b-[1px] border-b-app-text-color'
-              )}
-              href={{ pathname: `/${locale}/sport` }}
-            >
-              <Volleyball
+            {features?.sports && (
+              <Link
                 className={cn(
-                  pathname === `/${locale}/sport`
-                    ? 'text-app-text-color'
-                    : 'text-app-neutral500 group-hover:text-app-text-color'
+                  'flex items-center justify-center cursor-pointer gap-2 p-3 group',
+                  pathname === `/${locale}/sport` && 'border-b-[1px] border-b-app-text-color'
                 )}
-              />
-              <span
-                className={cn(
-                  'uppercase font-bold text-sm',
-                  pathname === `/${locale}/sport`
-                    ? 'text-app-text-color'
-                    : 'text-app-neutral500 group-hover:text-app-text-color'
-                )}
+                href={{ pathname: `/${locale}/sport` }}
               >
-                {lang?.common?.sport}
-              </span>
-            </Link> */}
+                <IconBetby
+                  className={cn(
+                    pathname === `/${locale}/sport`
+                      ? 'text-app-text-color'
+                      : 'text-app-neutral500 group-hover:text-app-text-color'
+                  )}
+                />
+                <span
+                  className={cn(
+                    'uppercase font-bold text-sm',
+                    pathname === `/${locale}/sport`
+                      ? 'text-app-text-color'
+                      : 'text-app-neutral500 group-hover:text-app-text-color'
+                  )}
+                >
+                  {lang?.common?.sport}
+                </span>
+              </Link>
+            )}
 
-            {/* <Link
-              className={cn(
-                'flex items-center justify-center cursor-pointer gap-2 p-3 group',
-                pathname === `/${locale}/promotion` && 'border-b-[1px] border-b-app-text-color'
-              )}
-              href={getLinkPromotion(locale)}
-            >
-              <IconTicket
+            {features?.promotion && (
+              <Link
                 className={cn(
-                  pathname === `/${locale}/promotion`
-                    ? 'text-app-text-color'
-                    : 'text-app-neutral500 group-hover:text-app-text-color'
+                  'flex items-center justify-center cursor-pointer gap-2 p-3 group',
+                  pathname === `/${locale}/promotion` && 'border-b-[1px] border-b-app-text-color'
                 )}
-              />
-
-              <span
-                className={cn(
-                  'uppercase font-bold text-sm',
-                  pathname === `/${locale}/promotion`
-                    ? 'text-app-text-color'
-                    : 'text-app-neutral500 group-hover:text-app-text-color'
-                )}
+                href={getLinkPromotion(locale)}
               >
-                {lang?.common?.promotion}
-              </span>
-            </Link> */}
+                <IconTicket
+                  className={cn(
+                    pathname === `/${locale}/promotion`
+                      ? 'text-app-text-color'
+                      : 'text-app-neutral500 group-hover:text-app-text-color'
+                  )}
+                />
+
+                <span
+                  className={cn(
+                    'uppercase font-bold text-sm',
+                    pathname === `/${locale}/promotion`
+                      ? 'text-app-text-color'
+                      : 'text-app-neutral500 group-hover:text-app-text-color'
+                  )}
+                >
+                  {lang?.common?.promotion}
+                </span>
+              </Link>
+            )}
           </div>
 
           <div className='w-full flex items-start justify-end md:gap-3 gap-1'>
@@ -289,7 +294,7 @@ export const Header = ({ lang, locale, data, balance, theme, transferBalanceFee 
               </span>
             </button>
 
-            <div className='hidden md:flex bg-app-divider-color h-4 w-1 mx-1' />
+            <div className='hidden md:flex bg-app-divider-color h-10 w-1 mx-1' />
             <div className='hidden md:flex'>
               <NotificationDropdown lang={lang} isLogin={!!data} />
             </div>
@@ -309,6 +314,7 @@ export const Header = ({ lang, locale, data, balance, theme, transferBalanceFee 
                     data={data?.data as UserFullDTO}
                     onClose={onClose}
                     buttonLogoutRef={buttonLogoutRef}
+                    features={features}
                   />
                 )}
               </ProfilePopover>
@@ -350,47 +356,52 @@ export const Header = ({ lang, locale, data, balance, theme, transferBalanceFee 
                     {lang?.common?.home}
                   </span>
                 </Link>
-
-                {/* <Link
-                  className={cn(
-                    'flex items-center justify-center cursor-pointer gap-2 p-3',
-                    pathname === `/${locale}/sport` && 'border-b-[1px] border-b-app-text-color'
-                  )}
-                  href={`/${locale}/sport`}
-                >
-                  <Volleyball
-                    className={cn(pathname === `/${locale}/sport` ? 'text-app-text-color' : 'text-app-neutral500')}
-                  />
-                  <span
+                {features?.sports && (
+                  <Link
                     className={cn(
-                      'uppercase font-bold text-sm',
-                      pathname === `/${locale}/sport` ? 'text-app-text-color' : 'text-app-neutral500'
+                      'flex items-center justify-center cursor-pointer gap-2 p-3',
+                      pathname === `/${locale}/sport` && 'border-b-[1px] border-b-app-text-color'
                     )}
+                    href={`/${locale}/sport`}
                   >
-                    {lang?.common?.sport}
-                  </span>
-                </Link> */}
+                    <IconBetby
+                      className={cn(pathname === `/${locale}/sport` ? 'text-app-text-color' : 'text-app-neutral500')}
+                    />
+                    <span
+                      className={cn(
+                        'uppercase font-bold text-sm',
+                        pathname === `/${locale}/sport` ? 'text-app-text-color' : 'text-app-neutral500'
+                      )}
+                    >
+                      {lang?.common?.sport}
+                    </span>
+                  </Link>
+                )}
 
-                {/* <Link
-                  className={cn(
-                    'flex items-center justify-center cursor-pointer gap-2 p-3',
-                    pathname === `/${locale}/promotion` && 'border-b-[1px] border-b-app-text-color'
-                  )}
-                  href={getLinkPromotion(locale)}
-                >
-                  <IconTicket
-                    className={cn(pathname === `/${locale}/promotion` ? 'text-app-text-color' : 'text-app-neutral500')}
-                  />
-
-                  <span
+                {features?.promotion && (
+                  <Link
                     className={cn(
-                      'uppercase font-bold text-sm',
-                      pathname === `/${locale}/promotion` ? 'text-app-text-color' : 'text-app-neutral500'
+                      'flex items-center justify-center cursor-pointer gap-2 p-3',
+                      pathname === `/${locale}/promotion` && 'border-b-[1px] border-b-app-text-color'
                     )}
+                    href={getLinkPromotion(locale)}
                   >
-                    {lang?.common?.promotion}
-                  </span>
-                </Link> */}
+                    <IconTicket
+                      className={cn(
+                        pathname === `/${locale}/promotion` ? 'text-app-text-color' : 'text-app-neutral500'
+                      )}
+                    />
+
+                    <span
+                      className={cn(
+                        'uppercase font-bold text-sm',
+                        pathname === `/${locale}/promotion` ? 'text-app-text-color' : 'text-app-neutral500'
+                      )}
+                    >
+                      {lang?.common?.promotion}
+                    </span>
+                  </Link>
+                )}
               </div>
 
               <div className='flex flex-col'>
@@ -453,6 +464,7 @@ export const Header = ({ lang, locale, data, balance, theme, transferBalanceFee 
           lang={lang}
           locale={locale}
           data={data}
+          features={features}
         />
       )}
 

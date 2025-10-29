@@ -3,11 +3,13 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
+import { GetData } from '@/@core/hooks/use-query'
 import { DepositCryptoFormData, DepositCryptoSchema } from '@/@core/utils/schema/Transaction/DepositCryptoSchema'
 import { DepositFormData, DepositSchema } from '@/@core/utils/schema/Transaction/DepositSchema'
 import { IconSize } from '@/components/atoms/Icons'
 import IconDepositCrypto from '@/components/atoms/Icons/DepositCrypto'
 import PresetAmountSelector from '@/components/molecules/PresetAmountSelector'
+import PromotionSelector from '@/components/organisms/Promotion/SelectPromotion'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
@@ -28,7 +30,8 @@ export default function DepositForm({
   activeTab,
   setActiveTab,
   configData,
-  isLoadingConfig
+  isLoadingConfig,
+  features
 }: DepositFormProps) {
   const { theme } = useThemeToggle()
   const [promo, setPromo] = useState<any>(selectedPromotion || null)
@@ -39,19 +42,19 @@ export default function DepositForm({
     { name: 'CRYPTO', value: 'crypto' }
   ]
 
-  // const { data: respPromo, isLoading: promoLoading } = GetData<any>(
-  //   '/promotion',
-  //   ['getPromotion'],
-  //   false,
-  //   undefined,
-  //   true,
-  //   undefined,
-  //   undefined,
-  //   undefined,
-  //   'GET',
-  //   undefined,
-  //   'promotion'
-  // )
+  const { data: respPromo, isLoading: promoLoading } = GetData<any>(
+    '/promotion',
+    ['getPromotion'],
+    false,
+    undefined,
+    true,
+    undefined,
+    undefined,
+    undefined,
+    'GET',
+    undefined,
+    'promotion'
+  )
 
   let valueMax = thousandSeparatorComma(configData ?? 9000000)
   let descDeposit = lang?.common?.minMaxAmount?.replace('MAX', valueMax)
@@ -147,16 +150,18 @@ export default function DepositForm({
             />
 
             <div className='pt-4'>
-              {/* <PromotionSelector
-                selectedPromotion={promo}
-                onSelect={p => {
-                  setPromo(p)
-                  form.setValue('promo_id', p?.id ?? '', { shouldValidate: true, shouldDirty: true })
-                }}
-                lang={lang}
-                initialData={respPromo}
-                isLoading={promoLoading}
-              /> */}
+              {features?.promotion && (
+                <PromotionSelector
+                  selectedPromotion={promo}
+                  onSelect={p => {
+                    setPromo(p)
+                    form.setValue('promo_id', p?.id ?? '', { shouldValidate: true, shouldDirty: true })
+                  }}
+                  lang={lang}
+                  initialData={respPromo}
+                  isLoading={promoLoading}
+                />
+              )}
               <Button
                 type='submit'
                 disabled={isLoading}
@@ -180,16 +185,18 @@ export default function DepositForm({
             </div>
 
             <div className='pt-4'>
-              {/* <PromotionSelector
-                selectedPromotion={promo}
-                onSelect={p => {
-                  setPromo(p)
-                  formCrypto.setValue('promo_id', p?.id ?? '', { shouldValidate: true, shouldDirty: true })
-                }}
-                lang={lang}
-                initialData={respPromo}
-                isLoading={promoLoading}
-              /> */}
+              {features?.promotion && (
+                <PromotionSelector
+                  selectedPromotion={promo}
+                  onSelect={p => {
+                    setPromo(p)
+                    formCrypto.setValue('promo_id', p?.id ?? '', { shouldValidate: true, shouldDirty: true })
+                  }}
+                  lang={lang}
+                  initialData={respPromo}
+                  isLoading={promoLoading}
+                />
+              )}
               <Button
                 type='submit'
                 disabled={isLoading}

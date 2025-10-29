@@ -3,7 +3,6 @@ import { ConfigType } from '@/types/config'
 import { LiveChatProvider } from '@/utils/context/LiveChatProvider'
 import { FC, ReactNode } from 'react'
 import AppWrapper from './AppWrapper'
-import { ToastContainer } from 'react-toastify'
 
 interface AppTemplateProps {
   children?: ReactNode | string
@@ -16,10 +15,16 @@ interface AppTemplateProps {
 const AppTemplate: FC<AppTemplateProps> = async ({ children, params, config, ...props }) => {
   const dict = await getDictionary(params?.lang)
   const locale = await getLocal()
+  // ✅ central feature registry
+
+  const features = {
+    sports: process.env.FEATURE_SHOW_SPORTS === 'true',
+    promotion: process.env.FEATURE_SHOW_PROMOTION === 'true'
+  }
 
   return (
     <LiveChatProvider licenseId={config['livechat_id']}>
-      <AppWrapper locale={locale} lang={dict} config={config}>
+      <AppWrapper locale={locale} lang={dict} config={config} features={features}>
         {children}
       </AppWrapper>
     </LiveChatProvider>

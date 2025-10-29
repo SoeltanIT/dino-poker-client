@@ -1,5 +1,6 @@
 'use client'
 
+import { SkeletonDetail } from '@/components/molecules/Skeleton/BetDetailSkeleton'
 import { Sheet, SheetContent } from '@/components/ui/sheet'
 import { cn } from '@/lib/utils'
 import { DetailBetDTO, DetailPokerDTO, isBet, isPoker } from '@/types/betHistoryDTO'
@@ -52,7 +53,7 @@ function PokerSection({ detail, lang }: { detail: DetailPokerDTO; lang?: LangPro
       {detail.card ? (
         <div>
           <p className='text-sm text-app-neutral500 mb-1'>Cards</p>
-          <code className='text-app-text-color font-medium rounded bg-app-bg-secondary/50 px-2 py-1'>
+          <code className='text-app-text-color font-medium rounded bg-app-neutral600  px-2 py-1'>
             {detail.card.trim()}
           </code>
         </div>
@@ -94,7 +95,7 @@ export default function DetailBetHistory({ lang, detail, open, setOpen, loading 
     }
   }
 
-  if (!detail) return null
+  const isSkeleton = loading || !detail
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -108,21 +109,16 @@ export default function DetailBetHistory({ lang, detail, open, setOpen, loading 
           </h1>
         </div>
 
-        {!detail ? (
+        {isSkeleton ? (
           // Skeleton while loading
-          <div className='space-y-4'>
-            <div className='h-4 w-40 bg-app-bg-secondary/50 rounded animate-pulse' />
-            <div className='h-4 w-28 bg-app-bg-secondary/50 rounded animate-pulse' />
-            <div className='h-4 w-24 bg-app-bg-secondary/50 rounded animate-pulse' />
-            <div className='h-24 w-full bg-app-bg-secondary/50 rounded animate-pulse' />
+          <div className='animate-pulse text-app-text-color'>
+            <SkeletonDetail />
           </div>
         ) : (
           <>
             <div className='mb-6 space-y-1'>
-              <p className='text-sm text-app-text-color'>ID: {detail.id}</p>
-              <p className='text-xs text-app-neutral500'>
-                {lang?.common?.createdAt || 'Created at'}: {format(new Date(detail?.createdAt), 'yyyy-MM-dd | HH:mm')}
-              </p>
+              <p className='text-sm text-app-text-color'>ID: {detail?.id}</p>
+              <p className='text-sm text-app-neutral500'>{format(new Date(detail?.createdAt), 'yyyy-MM-dd | HH:mm')}</p>
               <p className={cn('text-sm font-medium uppercase', getTextColor(detail.status))}>
                 {lang?.common?.status || 'Status'}: {getStatusLabel(detail.status)}
               </p>

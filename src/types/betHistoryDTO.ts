@@ -56,7 +56,7 @@ export interface DetailBetPokerHistoryDTO {
 // dto.ts
 export interface DetailBaseDTO {
   id: string
-  provider: string
+  provider: 'idn_poker' | 'betby'
   status: string
   createdAt: string
   type: 'poker' | 'bet'
@@ -94,5 +94,5 @@ export interface DetailBetDTO extends DetailBaseDTO {
 export type DetailUnionDTO = DetailPokerDTO | DetailBetDTO
 
 // Narrowing helpers
-export const isPoker = (d: DetailUnionDTO): d is DetailPokerDTO => d.type === 'poker'
-export const isBet = (d: DetailUnionDTO): d is DetailBetDTO => d.type === 'bet'
+export const isPoker = (d: DetailUnionDTO): d is DetailPokerDTO => d.provider === 'idn_poker'
+export const isBet = (d: DetailUnionDTO): d is DetailBetDTO => d.provider === 'betby'
