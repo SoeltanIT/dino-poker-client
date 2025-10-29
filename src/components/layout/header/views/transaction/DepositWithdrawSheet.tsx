@@ -90,7 +90,7 @@ export default function DepositWithdrawSheet({
     'json',
     true,
     lang?.common?.withdrawReqSuccess, // pesan sukses withdraw
-    [['user', 'me'], ['getTransactionHistory'], ['getBalance'], ['getListNotification'], ['getListNotifCount']], // ✅ tambahkan ini
+    [['user', 'me'], ['getTransactionCrypto'], ['getBalance'], ['getListNotification'], ['getListNotifCount']], // ✅ tambahkan ini
     'transaction'
   )
 

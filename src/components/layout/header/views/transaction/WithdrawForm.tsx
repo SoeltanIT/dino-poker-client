@@ -91,7 +91,7 @@ export default function WithdrawForm({
   }
 
   const formCrypto = useForm<WithdrawCryptoFormData>({
-    resolver: zodResolver(WithdrawCryptoSchema(lang)),
+    resolver: zodResolver(WithdrawCryptoSchema(lang, Number(configData))),
     shouldUnregister: true,
     mode: 'onSubmit', // 👈 add this
     reValidateMode: 'onChange', // optional but nice: live update after first submit
