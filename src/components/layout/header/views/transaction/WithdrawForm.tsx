@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOff, Loader2 } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { WithdrawCryptoFormData, WithdrawCryptoSchema } from '@/@core/utils/schema/Transaction/WithdrawCryptoSchema'
@@ -96,26 +96,45 @@ export default function WithdrawForm({
     mode: 'onSubmit', // 👈 add this
     reValidateMode: 'onChange', // optional but nice: live update after first submit
     defaultValues: {
+      crypto: 'USDT', // 👈 default to USDT
+      coin_network: '',
       withdraw_address: '',
-      withdrawalPassword: '',
-      crypto: '',
-      coin_network: ''
+      withdrawalPassword: ''
     }
   })
 
+  //=========== jika ingin pilih
   // current selected crypto symbol from form
-  const selectedCryptoSymbol = formCrypto.watch('crypto')
+  // const selectedCryptoSymbol = formCrypto.watch('crypto')
 
   // find the full crypto object for that symbol
-  const selectedCryptoData = cryptoData?.find((c: any) => c.symbol === selectedCryptoSymbol)
+  // const selectedCryptoData = cryptoData?.find((c: any) => c.symbol === selectedCryptoSymbol)
 
   // addresses for that crypto, fallback to []
-  const availableNetworks = selectedCryptoData?.addresses ?? []
+  // const availableNetworks = selectedCryptoData?.addresses ?? []
 
+  // useEffect(() => {
+  //   // whenever crypto changes, reset coin_network
+  //   formCrypto.setValue('coin_network', '', { shouldDirty: true })
+  // }, [selectedCryptoSymbol, formCrypto])
+  //=========== jika ingin pilih
+
+  const usdt = useMemo(() => cryptoData?.find((c: any) => c.symbol === 'USDT' && c.is_active), [cryptoData])
+
+  // force form value to USDT when available
   useEffect(() => {
-    // whenever crypto changes, reset coin_network
+    if (usdt && formCrypto.getValues('crypto') !== 'USDT') {
+      formCrypto.setValue('crypto', 'USDT', { shouldDirty: false })
+    }
+  }, [usdt]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // addresses for USDT only
+  const availableNetworks = usdt?.addresses ?? []
+
+  // reset network when USDT/addresses change
+  useEffect(() => {
     formCrypto.setValue('coin_network', '', { shouldDirty: true })
-  }, [selectedCryptoSymbol, formCrypto])
+  }, [usdt, formCrypto])
 
   return (
     <>
@@ -310,7 +329,7 @@ export default function WithdrawForm({
         <Form {...formCrypto}>
           <form onSubmit={formCrypto.handleSubmit(values => onSubmit(values, 'crypto'))} className='space-y-6'>
             {/* 1. Select crypto */}
-            <FormField
+            {/* <FormField
               control={formCrypto.control}
               name='crypto'
               render={({ field }) => (
@@ -358,10 +377,50 @@ export default function WithdrawForm({
                   <FormMessage />
                 </FormItem>
               )}
+            /> */}
+
+            <FormField
+              control={formCrypto.control}
+              name='crypto'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className='text-app-text-color'>
+                    {lang?.common?.selectCrypto}
+                    <span className='text-app-danger'>*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Select
+                      value={field.value}
+                      onValueChange={field.onChange}
+                      disabled // lock to USDT
+                    >
+                      <SelectTrigger className='bg-app-white100 text-app-text-color uppercase'>
+                        <SelectValue placeholder={lang?.common?.selectCrypto} />
+                      </SelectTrigger>
+                      <SelectContent className='bg-app-background-primary'>
+                        {cryptoLoading ? (
+                          <SelectItem value='loading' disabled className='text-app-text-color uppercase'>
+                            Loading Data...
+                          </SelectItem>
+                        ) : usdt ? (
+                          <SelectItem value='USDT' className='text-app-text-color uppercase'>
+                            USDT {usdt.name && usdt.name !== 'USDT' ? `(${usdt.name})` : ''}
+                          </SelectItem>
+                        ) : (
+                          <SelectItem value='noUSDT' disabled className='text-app-text-color uppercase'>
+                            {lang?.common?.noCryptoAvailable ?? 'USDT currently unavailable'}
+                          </SelectItem>
+                        )}
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
 
             {/* 2. Select network */}
-            <FormField
+            {/* <FormField
               control={formCrypto.control}
               name='coin_network'
               render={({ field }) => (
@@ -388,6 +447,48 @@ export default function WithdrawForm({
                           </SelectItem>
                         ) : availableNetworks.length === 0 ? (
                           <SelectItem value='noCoinNetworkAvailable' disabled className='text-app-text-color uppercase'>
+                            {lang?.common?.noCoinNetworkAvailable}
+                          </SelectItem>
+                        ) : (
+                          availableNetworks.map((net: any) => (
+                            <SelectItem
+                              key={net.blockchain_id}
+                              value={String(net.blockchain_id)}
+                              className='text-app-text-color uppercase'
+                            >
+                              {net.blockchain_name} {net.blockchain_id ? `(${net.blockchain_id})` : ''}
+                            </SelectItem>
+                          ))
+                        )}
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            /> */}
+
+            <FormField
+              control={formCrypto.control}
+              name='coin_network'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className='text-app-text-color'>
+                    {lang?.common?.selectCoinNetwork}
+                    <span className='text-app-danger'>*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Select value={field.value} onValueChange={field.onChange} disabled={!usdt || cryptoLoading}>
+                      <SelectTrigger className='bg-app-white100 text-app-text-color uppercase'>
+                        <SelectValue placeholder={lang?.common?.selectCoinNetwork} />
+                      </SelectTrigger>
+                      <SelectContent className='bg-app-background-primary'>
+                        {!usdt ? (
+                          <SelectItem value='noUSDT' disabled className='text-app-text-color uppercase'>
+                            {lang?.common?.noCoinNetworkAvailable ?? 'USDT is not available'}
+                          </SelectItem>
+                        ) : availableNetworks.length === 0 ? (
+                          <SelectItem value='noNet' disabled className='text-app-text-color uppercase'>
                             {lang?.common?.noCoinNetworkAvailable}
                           </SelectItem>
                         ) : (
