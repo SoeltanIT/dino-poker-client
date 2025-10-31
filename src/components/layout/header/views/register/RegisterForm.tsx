@@ -36,6 +36,9 @@ export default function RegisterForm({ lang, locale }: { lang: LangProps; locale
   const [showPassword, setShowPassword] = useState(false)
   const [showRetypePassword, setShowRetypePassword] = useState(false)
 
+  const [showWithdrawalPassword, setShowWithdrawalPassword] = useState(false)
+  const [showRetypeWithdrawalPassword, setShowRetypeWithdrawalPassword] = useState(false)
+
   type FormType = RegistrationFormData
   type ResolverType = Resolver<FormType>
   type RegistrationPayload = {
@@ -44,6 +47,8 @@ export default function RegisterForm({ lang, locale }: { lang: LangProps; locale
     password: string
     referral_code?: string
     consent: boolean
+    transaction_password: string
+    retype_transaction_password: string
   }
 
   const { mutateAsync: registerUser, isPending } = useMutationQuery<RegistrationPayload, any>(
@@ -62,7 +67,9 @@ export default function RegisterForm({ lang, locale }: { lang: LangProps; locale
       password: '',
       retypePassword: '',
       referral_code: referral ?? '',
-      consent: false
+      consent: false,
+      transaction_password: '',
+      retype_transaction_password: ''
     }
   })
 
@@ -79,7 +86,9 @@ export default function RegisterForm({ lang, locale }: { lang: LangProps; locale
       username: data.username,
       password: data.password,
       referral_code: data.referral_code || undefined,
-      consent: data.consent
+      consent: data.consent,
+      transaction_password: data?.transaction_password,
+      retype_transaction_password: data?.retype_transaction_password
     }
 
     try {
@@ -260,6 +269,81 @@ export default function RegisterForm({ lang, locale }: { lang: LangProps; locale
             {/* phone_number removed */}
 
             {/* transaction password fields removed */}
+            {/* Withdrawal Password */}
+            <div className='space-y-6'>
+              <p className='text-base font-semibold text-app-text-color mb-4'>
+                {/* {lang?.register?.bankInformation} */}
+                {lang?.common?.withdrawalSecurity}
+              </p>
+              <CardContent className='space-y-4'>
+                <div className='grid grid-cols-1 md:grid-cols-1 gap-4'>
+                  <FormField
+                    control={form.control}
+                    name='transaction_password'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className='text-app-text-color'>
+                          {lang?.register?.withdrawalPassword}
+                          <span className='text-app-danger'>*</span>
+                        </FormLabel>
+                        <FormControl>
+                          <div className='relative'>
+                            <Input
+                              {...field}
+                              type={showWithdrawalPassword ? 'text' : 'password'}
+                              placeholder={lang?.register?.placeholderWithdrawalPassword}
+                              className='pr-10'
+                            />
+                            <button
+                              type='button'
+                              className='absolute right-0 top-0 h-full px-3 text-app-text-color'
+                              onClick={() => setShowWithdrawalPassword(!showWithdrawalPassword)}
+                            >
+                              {showWithdrawalPassword ? <EyeOff className='h-4 w-4' /> : <Eye className='h-4 w-4' />}
+                            </button>
+                          </div>
+                        </FormControl>
+                        <FormMessage className='text-app-danger' />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='retype_transaction_password'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className='text-app-text-color'>
+                          {lang?.register?.retypeWithdrawalPassword}
+                          <span className='text-app-danger'>*</span>
+                        </FormLabel>
+                        <FormControl>
+                          <div className='relative'>
+                            <Input
+                              {...field}
+                              type={showRetypeWithdrawalPassword ? 'text' : 'password'}
+                              placeholder={lang?.register?.typeRetypeWithdrawPassword}
+                              className='pr-10'
+                            />
+                            <button
+                              type='button'
+                              className='absolute right-0 top-0 h-full px-3 text-app-text-color'
+                              onClick={() => setShowRetypeWithdrawalPassword(!showRetypeWithdrawalPassword)}
+                            >
+                              {showRetypeWithdrawalPassword ? (
+                                <EyeOff className='h-4 w-4' />
+                              ) : (
+                                <Eye className='h-4 w-4' />
+                              )}
+                            </button>
+                          </div>
+                        </FormControl>
+                        <FormMessage className='text-app-danger' />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </CardContent>
+            </div>
 
             <p className='text-xl font-semibold text-app-text-color'>{lang?.register?.referral}</p>
             <FormField

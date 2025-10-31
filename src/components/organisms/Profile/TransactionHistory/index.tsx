@@ -1,6 +1,8 @@
 'use client'
 
 import { GetData } from '@/@core/hooks/use-query'
+import TransactionRowSkeleton from '@/components/molecules/Skeleton/TransactionRowSkeleton'
+import { TabSwitcher } from '@/components/molecules/TabSwitcher'
 import { Button } from '@/components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -9,7 +11,7 @@ import { DepositCryptoHistory, DepositWithdrawHistory } from '@/types/transactio
 import { useLiveChatContext } from '@/utils/context/LiveChatProvider'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
 import { format } from 'date-fns'
-import { ChevronDown, Loader2 } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
@@ -41,7 +43,7 @@ const getStatusColor = (status: string) => {
   }
 }
 
-const getAmountColor = (type: string, status: string) => {
+const getAmountColor = (type: string) => {
   const normalizedType = type.toLowerCase()
 
   const green = 'font-medium text-app-success'
@@ -82,8 +84,14 @@ export default function TransactionHistoryPage({
   const [totalPage, setTotalPage] = useState(1)
   const [pageCrypto, setPageCrypto] = useState(1)
   const [totalPageCrypto, setTotalPageCrypto] = useState(1)
-  const [selectedTypeFilter, setSelectedTypeFilter] = useState<string>(initialType)
-  const [selectedStatusFilter, setSelectedStatusFilter] = useState(initialStatus === 'all' ? 'all' : initialStatus)
+
+  // Fiat filters
+  const [fiatType, setFiatType] = useState<string>(initialType)
+  const [fiatStatus, setFiatStatus] = useState(initialStatus === 'all' ? 'all' : initialStatus)
+
+  // Crypto filters
+  const [cryptoType, setCryptoType] = useState<string>('all')
+  const [cryptoStatus, setCryptoStatus] = useState<string>('all')
 
   const [isTypeOpen, setIsTypeOpen] = useState(false)
   const [isStatusOpen, setIsStatusOpen] = useState(false)
@@ -91,38 +99,34 @@ export default function TransactionHistoryPage({
   const [selectedTrans, setSelectedTrans] = useState<DepositCryptoHistory | null>(null)
   const [openDetail, setOpenDetail] = useState(false)
 
-  const type = selectedTypeFilter
-  const status = selectedStatusFilter === 'all' ? '' : selectedStatusFilter
-
-  const shouldFetch = page !== initialPage || type !== initialType || status !== initialStatus
-
-  const [isLoading, setIsLoading] = useState(isInitialLoading || false)
-
   const tabs = [
     { name: 'FIAT', value: 'fiat' },
     { name: 'CRYPTO', value: 'crypto' }
   ]
 
   const [activeTab, setActiveTab] = useState<string>('fiat')
+  const fiatEffectiveStatus = fiatStatus === 'all' ? '' : fiatStatus
+  // const cryptoEffectiveStatus = cryptoStatus === 'all' ? '' : cryptoStatus
+
   // Fetch data using GetData
   const { data, isFetching } = GetData<{
     data: DepositWithdrawHistory[]
     totalPage: number
   }>(
-    `/history_transaction/${type}`,
-    ['getTransactionHistory', page, type, status], // You can still use this as queryKey cache
+    `/history_transaction/${fiatType}`,
+    ['getTransactionHistory', page, fiatType, fiatEffectiveStatus],
     true,
     undefined,
     true,
     undefined,
     undefined,
     undefined,
-    'POST', // method
+    'POST',
     {
       page,
       pageSize: 10,
-      type,
-      status
+      type: fiatType,
+      status: fiatEffectiveStatus
     },
     'transaction'
   )
@@ -133,70 +137,85 @@ export default function TransactionHistoryPage({
     totalPage: number
   }>(
     `/history_transaction_crypto`,
-    ['getTransactionCrypto', pageCrypto], // You can still use this as queryKey cache
+    // ['getTransactionCrypto', pageCrypto, cryptoType, cryptoEffectiveStatus],
+    ['getTransactionCrypto', pageCrypto, cryptoType],
     true,
     undefined,
     true,
     undefined,
     undefined,
     undefined,
-    'POST', // method
+    'POST',
     {
       page: pageCrypto,
-      pageSize: 10
+      pageSize: 10,
+      type: cryptoType
+      // status: cryptoEffectiveStatus
     },
     'transaction'
   )
 
   useEffect(() => {
-    if (activeTab === 'fiat') {
-      if (data?.data) {
-        setTotalPage(data.totalPage)
-
-        setTransactions(prev => {
-          if (page === 1) {
-            return data.data
-          } else {
-            // Prevent duplicates (optional but good practice)
-            const existingIds = new Set(prev.map(item => item.id || `${item.created_at}-${item.amount}`))
-            const newData = data.data.filter(item => !existingIds.has(item.id || `${item.created_at}-${item.amount}`))
-
-            return [...prev, ...newData]
-          }
-        })
-
-        setIsLoading(false)
-      }
-    } else {
-      if (respDepoCrypto?.data) {
-        setTotalPageCrypto(respDepoCrypto.totalPage)
-
-        setTransactionsCrypto(prev => {
-          if (pageCrypto === 1) {
-            return respDepoCrypto.data
-          } else {
-            // Prevent duplicates (optional but good practice)
-            const existingIds = new Set(
-              prev.map(item => item.deposit_id || `${item.created_at}-${item.crypto_amount}-${item?.fiat_amount}`)
-            )
-            const newData = respDepoCrypto.data.filter(
-              item =>
-                !existingIds.has(item.deposit_id || `${item.created_at}-${item.crypto_amount}-${item?.fiat_amount}`)
-            )
-
-            return [...prev, ...newData]
-          }
-        })
-
-        setIsLoading(false)
-      }
+    if (data?.data) {
+      setTotalPage(data.totalPage)
+      setTransactions(prev => {
+        if (page === 1) return data.data
+        const existingIds = new Set(prev.map(item => item.id || `${item.created_at}-${item.amount}`))
+        const newData = data.data.filter(item => !existingIds.has(item.id || `${item.created_at}-${item.amount}`))
+        return [...prev, ...newData]
+      })
     }
-  }, [data, page, respDepoCrypto, pageCrypto, activeTab])
+  }, [data, page, activeTab])
 
-  // Reset page when filter changes
   useEffect(() => {
-    setPage(1)
-  }, [selectedTypeFilter, selectedStatusFilter])
+    if (respDepoCrypto?.data) {
+      setTotalPageCrypto(respDepoCrypto.totalPage)
+      setTransactionsCrypto(prev => {
+        if (pageCrypto === 1) return respDepoCrypto.data
+        const existingIds = new Set(
+          prev.map(item => item.deposit_id || `${item.created_at}-${item.crypto_amount}-${item?.fiat_amount}`)
+        )
+        const newData = respDepoCrypto.data.filter(
+          item => !existingIds.has(item.deposit_id || `${item.created_at}-${item.crypto_amount}-${item?.fiat_amount}`)
+        )
+        return [...prev, ...newData]
+      })
+    }
+  }, [respDepoCrypto, pageCrypto, activeTab])
+
+  useEffect(() => {
+    if (activeTab === 'fiat') {
+      setPage(1)
+    }
+  }, [fiatType, fiatStatus, activeTab])
+
+  useEffect(() => {
+    if (activeTab === 'crypto') {
+      setPageCrypto(1)
+    }
+  }, [cryptoType, cryptoStatus, activeTab])
+
+  const isListLoading = activeTab === 'fiat' ? page === 1 && isFetching : pageCrypto === 1 && isFetchDepoCrypto
+
+  const currentTypeFilter = activeTab === 'fiat' ? fiatType : cryptoType
+  const currentStatusFilter = activeTab === 'fiat' ? fiatStatus : cryptoStatus
+
+  // handlers
+  const handleChangeType = (val: string) => {
+    if (activeTab === 'fiat') {
+      setFiatType(val)
+    } else {
+      setCryptoType(val)
+    }
+  }
+
+  const handleChangeStatus = (val: string) => {
+    if (activeTab === 'fiat') {
+      setFiatStatus(val)
+    } else {
+      setCryptoStatus(val)
+    }
+  }
 
   const handleLoadMore = () => {
     if (activeTab === 'fiat') {
@@ -290,30 +309,29 @@ export default function TransactionHistoryPage({
         </div>
       </div>
 
-      {/* <TabSwitcher tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} /> */}
+      <TabSwitcher tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
 
       {/* Mobile View */}
-      {activeTab === 'fiat' && (
-        <div className='flex md:hidden gap-3 pb-4 w-full'>
-          {/* Type Filter */}
-          <div className='flex-1'>
-            <Select value={selectedTypeFilter} onValueChange={val => setSelectedTypeFilter(val)}>
-              <SelectTrigger className='w-full bg-app-neutral300 border-border uppercase text-app-color'>
-                <SelectValue placeholder={lang?.common?.selectTypes} />
-              </SelectTrigger>
-              <SelectContent className='bg-app-background-primary text-app-text-color border-app-neutral300'>
-                {typeOption.map(option => (
-                  <SelectItem key={option} value={option} className='uppercase'>
-                    {option === 'all' ? lang?.common?.all : getTypeLabel(option)}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
 
-          {/* Status Filter */}
+      <div className='flex md:hidden gap-3 pb-4 w-full'>
+        {/* Type Filter */}
+        <div className='flex-1'>
+          <Select value={currentTypeFilter} onValueChange={handleChangeType}>
+            <SelectTrigger className='w-full bg-app-neutral300 border-border uppercase text-app-color'>
+              <SelectValue placeholder={lang?.common?.selectTypes} />
+            </SelectTrigger>
+            <SelectContent className='bg-app-background-primary text-app-text-color border-app-neutral300'>
+              {typeOption.map(option => (
+                <SelectItem key={option} value={option} className='uppercase'>
+                  {option === 'all' ? lang?.common?.all : getTypeLabel(option)}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        {activeTab === 'fiat' && (
           <div className='flex-1'>
-            <Select value={selectedStatusFilter} onValueChange={val => setSelectedStatusFilter(val)}>
+            <Select value={currentStatusFilter} onValueChange={handleChangeStatus}>
               <SelectTrigger className='w-full bg-app-neutral300 border-border uppercase text-app-color'>
                 <SelectValue placeholder={lang?.common?.selectStatus} />
               </SelectTrigger>
@@ -326,14 +344,14 @@ export default function TransactionHistoryPage({
               </SelectContent>
             </Select>
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* Filter Headers */}
       <div
         className={cn(
           'hidden items-center md:grid gap-4 px-4 py-3 bg-app-table-bg-header rounded-[8px] mb-[10px] text-sm font-semibold text-app-table-text-header uppercase',
-          activeTab === 'fiat' ? 'md:grid-cols-6' : 'md:grid-cols-6'
+          activeTab === 'fiat' ? 'md:grid-cols-6' : 'md:grid-cols-7'
         )}
       >
         {activeTab === 'fiat' ? (
@@ -342,7 +360,7 @@ export default function TransactionHistoryPage({
             {/* TYPE FILTER */}
             <div className='flex items-center gap-2'>
               <span>
-                {lang?.common?.type} ({getTypeLabel(selectedTypeFilter)})
+                {lang?.common?.type} ({getTypeLabel(currentTypeFilter)})
               </span>
               <Popover open={isTypeOpen} onOpenChange={setIsTypeOpen}>
                 <PopoverTrigger asChild>
@@ -355,8 +373,8 @@ export default function TransactionHistoryPage({
                     <button
                       key={option}
                       onClick={() => {
-                        setSelectedTypeFilter(option)
-                        setIsTypeOpen(false) // ✅ Close on select
+                        handleChangeType(option)
+                        setIsTypeOpen(false)
                       }}
                       className='w-full text-left px-3 py-2 text-xs hover:bg-app-neutral300 uppercase'
                     >
@@ -371,7 +389,7 @@ export default function TransactionHistoryPage({
             {/* STATUS FILTER */}
             <div className='flex items-center gap-2'>
               <span>
-                {lang?.common?.status} ({getStatusLabel(selectedStatusFilter)})
+                {lang?.common?.status} ({getStatusLabel(currentStatusFilter)})
               </span>
               <Popover open={isStatusOpen} onOpenChange={setIsStatusOpen}>
                 <PopoverTrigger asChild>
@@ -384,8 +402,8 @@ export default function TransactionHistoryPage({
                     <button
                       key={option}
                       onClick={() => {
-                        setSelectedStatusFilter(option)
-                        setIsStatusOpen(false) // ✅ Close on select
+                        handleChangeStatus(option)
+                        setIsStatusOpen(false)
                       }}
                       className='w-full text-left px-3 py-2 text-xs hover:bg-app-neutral300 uppercase'
                     >
@@ -399,6 +417,32 @@ export default function TransactionHistoryPage({
         ) : (
           <>
             <div>{lang?.common?.time}</div>
+            <div className='flex items-center gap-2'>
+              <span>
+                {lang?.common?.type} ({getTypeLabel(currentTypeFilter)})
+              </span>
+              <Popover open={isTypeOpen} onOpenChange={setIsTypeOpen}>
+                <PopoverTrigger asChild>
+                  <button className='flex items-center justify-center hover:bg-app-white100 rounded-md p-1'>
+                    <ChevronDown className='h-4 w-4 text-app-neutral500' />
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent className='w-40 p-1 z-50 bg-app-background-primary text-app-text-color border border-app-neutral300'>
+                  {typeOption.map(option => (
+                    <button
+                      key={option}
+                      onClick={() => {
+                        handleChangeType(option)
+                        setIsTypeOpen(false)
+                      }}
+                      className='w-full text-left px-3 py-2 text-xs hover:bg-app-neutral300 uppercase'
+                    >
+                      {getTypeLabel(option)}
+                    </button>
+                  ))}
+                </PopoverContent>
+              </Popover>
+            </div>
             <div>{lang?.common?.blockchain}</div>
             <div>{lang?.common?.token}</div>
             <div>{lang?.common?.cryptoAmount}</div>
@@ -411,11 +455,14 @@ export default function TransactionHistoryPage({
       {/* List */}
       {activeTab === 'fiat' ? (
         <div className='space-y-1 bg-app-table-bg-body rounded-[8px] border border-app-table-border-body'>
-          {isLoading ? (
-            <div className='flex items-center justify-center py-24'>
-              <Loader2 className='h-8 w-8 animate-spin text-app-primary' />
-              <span className='ml-2 text-app-text-color'>{lang?.common?.loading}...</span>
-            </div>
+          {isListLoading ? (
+            <>
+              <TransactionRowSkeleton />
+              <TransactionRowSkeleton />
+              <TransactionRowSkeleton />
+              <TransactionRowSkeleton />
+              <TransactionRowSkeleton />
+            </>
           ) : transactions?.length > 0 ? (
             transactions.map((transaction, index) => (
               <div key={index} className='p-4 rounded-[8px] transition-colors'>
@@ -428,12 +475,7 @@ export default function TransactionHistoryPage({
 
                   <div className='text-sm text-app-neutral500'>KRW</div>
 
-                  <div
-                    className={`text-sm font-medium ${getAmountColor(
-                      transaction.type,
-                      transaction.review_status ?? ''
-                    )}`}
-                  >
+                  <div className={`text-sm font-medium ${getAmountColor(transaction.type)}`}>
                     {/* {transaction?.review_status === 'REJECTED' ? '' : transaction?.type === 'deposit' ? '+' : '-'} */}
                     {['deposit', 'adjustment_plus', 'DEPOSIT', 'ADJUSTMENT_PLUS'].includes(String(transaction?.type))
                       ? '+'
@@ -476,10 +518,7 @@ export default function TransactionHistoryPage({
                     <div className='w-[130px] text-sm font-semibold uppercase'>{getTypeLabel(transaction.type)}</div>
                     <div className='text-app-neutral500'>KRW</div>
                     <div
-                      className={`w-[80px] flex text-sm font-medium justify-end ${getAmountColor(
-                        transaction.type,
-                        transaction.review_status ?? ''
-                      )}`}
+                      className={`w-[80px] flex text-sm font-medium justify-end ${getAmountColor(transaction.type)}`}
                     >
                       {/* {transaction?.review_status === 'REJECTED' ? '' : transaction?.type === 'deposit' ? '+' : '-'} */}
                       {['deposit', 'adjustment_plus', 'DEPOSIT', 'ADJUSTMENT_PLUS'].includes(String(transaction?.type))
@@ -528,18 +567,22 @@ export default function TransactionHistoryPage({
         </div>
       ) : (
         <div className='space-y-1 bg-app-table-bg-body rounded-[8px] border border-app-table-border-body'>
-          {isLoading ? (
-            <div className='flex items-center justify-center py-24'>
-              <Loader2 className='h-8 w-8 animate-spin text-app-primary' />
-              <span className='ml-2 text-app-text-color'>{lang?.common?.loading}...</span>
-            </div>
+          {isListLoading ? (
+            <>
+              <TransactionRowSkeleton variant='crypto' />
+              <TransactionRowSkeleton variant='crypto' />
+              <TransactionRowSkeleton variant='crypto' />
+              <TransactionRowSkeleton variant='crypto' />
+              <TransactionRowSkeleton variant='crypto' />
+            </>
           ) : transactionsCrypto?.length > 0 ? (
             transactionsCrypto.map((transaction, index) => (
               <div key={index} className='p-4 rounded-[8px] transition-colors'>
-                <div className='hidden md:grid md:grid-cols-6 gap-4 items-center'>
+                <div className='hidden md:grid md:grid-cols-7 gap-4 items-center'>
                   <div className='text-sm text-app-text-color'>
                     {format(new Date(transaction?.created_at), 'yyyy-MM-dd | HH:mm')}
                   </div>
+                  <div className='text-sm text-app-text-color uppercase'>{transaction?.type ?? '-'}</div>
                   <div className='text-sm text-app-text-color uppercase'>{transaction?.blockchains ?? '-'}</div>
                   <div className='text-sm text-app-text-color uppercase'>{transaction?.token ?? '-'}</div>
                   <div className={`text-sm font-medium ${getStatusColor(transaction.status?.toUpperCase() ?? '')}`}>
@@ -561,7 +604,7 @@ export default function TransactionHistoryPage({
                           setSelectedTrans(transaction)
                           setOpenDetail(true)
                         }}
-                        className='bg-app-bg-primary-button border-app-primary border-[1px] hover:bg-app-primary-hover text-white px-3 py-1 text-xs uppercase'
+                        className='bg-app-primary border-app-primary border-[1px] hover:bg-app-primary-hover text-white px-3 py-1 text-xs uppercase'
                       >
                         {lang?.common?.detail}
                       </Button>
@@ -600,7 +643,7 @@ export default function TransactionHistoryPage({
                         setSelectedTrans(transaction)
                         setOpenDetail(true)
                       }}
-                      className='w-full bg-app-bg-primary-button border-app-primary border-[1px] hover:bg-app-primary-hover text-white px-2 py-1 !mt-2 text-xs uppercase'
+                      className='w-full bg-app-primary hover:bg-app-primary-hover border-app-primary border-[1px] text-white px-2 py-1 !mt-2 text-xs uppercase'
                     >
                       {lang?.common?.detail}
                     </Button>

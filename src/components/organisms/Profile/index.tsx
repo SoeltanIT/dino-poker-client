@@ -6,7 +6,6 @@ import KYC from '@/components/layout/header/views/menu/kyc/KYC'
 import ThemeSwitcher from '@/components/molecules/ThemeSwitcher'
 import { useTelegramMiniApp } from '@/components/providers/TelegramMiniApp'
 import { resetLiveChatSession } from '@/lib/livechat-reset'
-import { useLiveChatContext } from '@/utils/context/LiveChatProvider'
 import { getInitials } from '@/utils/helper/getInitials'
 import {
   getLinkBankAccount,
@@ -126,7 +125,7 @@ export default function MenuProfile({
           <div className='px-6 md:px-4 pt-4 pb-2 md:pb-0'>
             <div className='flex flex-row items-center gap-2'>
               <div className='flex font-semibold w-10 h-10 bg-app-primary rounded-[8px] justify-center items-center text-white'>
-                {data?.name ? getInitials(data?.username) : ''}
+                {data?.username ? getInitials(data?.username) : ''}
               </div>
               <div className='flex flex-col max-w-[165px]'>
                 {/* batasi lebar teks */}

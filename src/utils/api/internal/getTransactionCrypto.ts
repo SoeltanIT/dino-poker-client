@@ -5,7 +5,8 @@ import { getApiEndpoint } from '@/utils/api_endpoint'
 export interface GetListTransactionParams {
   page?: number
   pageSize?: number
-  status?: 'PENDING' | 'APPROVED' | 'EXPIRED' | ''
+  type?: 'deposit' | 'withdraw' | 'all'
+  status?: 'PENDING' | 'APPROVED' | 'REJECTED' | ''
 }
 
 export interface TransactionListResponse {
@@ -15,15 +16,17 @@ export interface TransactionListResponse {
   data: DepositCryptoHistory[]
 }
 
-export const getTransactionCrypto = async ({ page = 1, pageSize = 10 }) => {
+export const getTransactionCrypto = async ({ page = 1, pageSize = 10, type = 'all', status = '' }) => {
   const bodyRequest = {
     page: page,
-    pageSize: pageSize
+    pageSize: pageSize,
+    type: type
+    // status: status
   }
 
   try {
     const res = await serverApiClient.get(
-      getApiEndpoint('transaction_crypto'),
+      `${getApiEndpoint('transaction_crypto')}`,
       {
         params: bodyRequest
       },
@@ -42,6 +45,7 @@ export const getTransactionCrypto = async ({ page = 1, pageSize = 10 }) => {
       data: rawData
     }
   } catch (err) {
+    console.log('error >', err)
     return {
       status: '',
       page: 1,

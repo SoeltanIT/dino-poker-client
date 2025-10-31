@@ -2,7 +2,7 @@
 
 import { getSession } from 'next-auth/react'
 import { usePathname } from 'next/navigation'
-import { createContext, useContext, useEffect, useRef, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 interface LiveChatContextProps {
   ready: boolean
@@ -26,7 +26,7 @@ export const LiveChatProvider = ({ children, licenseId }: { children: React.Reac
 
     // Setup config
     window.__lc = {
-      license: '19314593',
+      license: licenseId,
       integration_name: 'manual_channels',
       product_name: 'livechat'
     }
