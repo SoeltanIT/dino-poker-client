@@ -24,8 +24,8 @@ export function KYCFormStep2({ lang, locale, isPending, onSubmit: _onSubmit }: K
   const form = useForm<KYCStep2FormData>({
     resolver: zodResolver(KYCSchemaStep2(lang)) as Resolver<KYCStep2FormData>,
     defaultValues: {
-      transaction_password: '',
-      retype_transaction_password: '',
+      // transaction_password: '',
+      // retype_transaction_password: '',
       bank_account_number: '',
       bank_name: '',
       consent: false
@@ -107,11 +107,8 @@ export function KYCFormStep2({ lang, locale, isPending, onSubmit: _onSubmit }: K
           </CardContent>
         </div>
         {/* Withdrawal Password */}
-        <div className='space-y-6'>
-          <p className='text-base font-semibold text-app-text-color mb-4'>
-            {/* {lang?.register?.bankInformation} */}
-            {lang?.common?.withdrawalSecurity}
-          </p>
+        {/* <div className='space-y-6'>
+          <p className='text-base font-semibold text-app-text-color mb-4'>{lang?.common?.withdrawalSecurity}</p>
           <CardContent className='space-y-4'>
             <div className='grid grid-cols-1 md:grid-cols-1 gap-4'>
               <FormField
@@ -176,7 +173,7 @@ export function KYCFormStep2({ lang, locale, isPending, onSubmit: _onSubmit }: K
               />
             </div>
           </CardContent>
-        </div>
+        </div> */}
 
         <FormField
           control={form.control}

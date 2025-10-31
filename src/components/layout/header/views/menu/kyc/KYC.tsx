@@ -15,7 +15,7 @@ export default function KYC({
   onClose
 }: {
   open: boolean
-  lang: LangProps
+  lang?: LangProps
   isStatus?: string
   onClose: () => void
 }) {

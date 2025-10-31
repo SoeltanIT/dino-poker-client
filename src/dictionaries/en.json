@@ -91,6 +91,7 @@
     "descWithdraw": "23:30 - 00:30, the First Business Day after holiday, Bank check may delay the transfer of funds due to bank check. In addition to above hours, some banks have additional check-in times.",
     "withdrawAmount": "Withdraw Amount",
     "nameOfWithdrawal": "Name of Withdrawal",
+    "withdrawalAddress": "Withdrawal Address",
     "withdrawalPassword": "Withdrawal Password",
     "depositPassword": "Deposit Password",
     "notificationDetail": "Notification Detail",
@@ -115,6 +116,7 @@
     "typeWithdrawAmount": "Type Withdraw Amount",
     "typeNameOfWithdrawal": "Type Name of Withdrawal",
     "typeWithdrawalPassword": "Type Withdrawal Password",
+    "typeWithdrawalAddress": "Type Withdrawal Address",
     "selectLanguage": "Select Language",
     "selectTypePassword": "Select Type Password",
     "withdrawMsg": "You have successfully withdraw!",
@@ -394,6 +396,8 @@
     "deposit_amount_max": "Maximum amount is MAX KRW",
     "deposit_password_required": "Password is required",
     "withdraw_amount_required": "Amount is required",
+    "withdraw_address_required": "Withdraw address is required",
+    "withdraw_address_no_space": "No spaces allowed in withdraw address",
     "withdraw_amount_number": "Only numbers are allowed",
     "withdraw_amount_min": "Minimum amount is 10,000 KRW",
     "withdraw_amount_max": "Maximum amount is MAX KRW",
@@ -543,5 +547,8 @@
     "tournamentName": "Tournament Name",
     "betType": "Bet Type",
     "betName": "Bet Name"
+  },
+  "withdraw": {
+    "withdrawCryptoInfo": "A withdrawal fee of {value} {base_coin} will be deducted from your withdrawal amount"
   }
 }

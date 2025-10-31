@@ -46,7 +46,6 @@ export default function CreateAffiliateSheet({ lang, trigger, onSuccess, parentC
       parent_code: parentCode
     }
   })
-  console.log(form.formState.errors)
   const { mutateAsync: createAffiliate, isPending } = useMutationQuery<any, any>(
     ['getAffiliateList'],
     'post',

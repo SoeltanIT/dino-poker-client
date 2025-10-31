@@ -29,4 +29,5 @@ export interface DepositCryptoHistory {
   token: string
   id?: string
   external_deposit_id?: string
+  type: string
 }

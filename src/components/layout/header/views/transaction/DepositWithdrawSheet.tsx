@@ -1,9 +1,7 @@
 'use client'
 
 import { GetData, useMutationQuery } from '@/@core/hooks/use-query'
-import { IconSize, IconVerifyCheck, IconWithdrawConfirm } from '@/components/atoms/Icons'
-import KYC from '@/components/layout/header/views/menu/kyc/KYC'
-import { Button } from '@/components/ui/button'
+import { IconSize, IconWithdrawConfirm } from '@/components/atoms/Icons'
 import { Sheet, SheetContent } from '@/components/ui/sheet'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ConfigItem } from '@/types/config'
@@ -31,7 +29,7 @@ export default function DepositWithdrawSheet({
 
   const [tabValue, setTabValue] = useState(defaultValue)
   const [activeTab, setActiveTab] = useState<string>('fiat')
-  const [isSheetOpen, setIsSheetOpen] = useState(false)
+  const [activeTabWD, setActiveTabWD] = useState<string>('fiat')
 
   const [isLoadingDeposit, setIsLoadingDeposit] = useState<boolean>(false)
   const [isLoadingWithdraw, setIsLoadingWithdraw] = useState<boolean>(false)
@@ -46,34 +44,6 @@ export default function DepositWithdrawSheet({
   const [withdrawAmount, setWithdrawAmount] = useState(0)
 
   const isStatus = data?.data?.status
-
-  const msgVerifyStatus = (status: string) => {
-    const stat = status.toLowerCase()
-    switch (stat) {
-      case 'unverified':
-        return lang?.common.verifyCheckMsg
-      case 'pending':
-        return lang?.common.verifyPendingMsg
-      case 'rejected':
-        return lang?.common.verifyRejectedMsg
-      default:
-        return lang?.common.verifyCheckMsg
-    }
-  }
-
-  const msgVerifyStatusDeposit = (status: string) => {
-    const stat = status.toLowerCase()
-    switch (stat) {
-      case 'unverified':
-        return lang?.common.verifyCheckMsgDeposit
-      case 'pending':
-        return lang?.common.verifyPendingMsgDeposit
-      case 'rejected':
-        return lang?.common.verifyRejectedMsgDeposit
-      default:
-        return lang?.common.verifyCheckMsgDeposit
-    }
-  }
 
   // Sync tab when open changes
   useEffect(() => {
@@ -111,6 +81,17 @@ export default function DepositWithdrawSheet({
     [['user', 'me'], ['getTransactionHistory'], ['getBalance'], ['getListNotification'], ['getListNotifCount']], // ✅ tambahkan ini
     'transaction'
   )
+
+  const { mutateAsync: withdrawCryptoRequest, isPending: withdrawCryptoPending } = useMutationQuery<any, any>(
+    ['withdrawCrypto'],
+    'post',
+    'json',
+    true,
+    lang?.common?.withdrawReqSuccess, // pesan sukses withdraw
+    [['user', 'me'], ['getTransactionCrypto'], ['getBalance'], ['getListNotification'], ['getListNotifCount']], // ✅ tambahkan ini
+    'transaction'
+  )
+
   const {
     data: respListConfig,
     isLoading: isLoadingConfig,
@@ -120,9 +101,22 @@ export default function DepositWithdrawSheet({
     ['getConfig']
   )
 
+  const { data: respCryptoSupported, isFetching: cryptoLoading } = GetData<any>(
+    '/crypto_supported',
+    ['getCryptoSupported'],
+    false,
+    undefined,
+    true,
+    undefined,
+    undefined,
+    undefined,
+    'GET',
+    undefined,
+    'transaction'
+  )
+
   useEffect(() => {
     if (open) {
-      console.log('refetching config')
       refetch()
     }
   }, [open, refetch])
@@ -134,6 +128,15 @@ export default function DepositWithdrawSheet({
   const valueMaxDeposit = getValueByKey(respListConfig ?? [], 'max_deposit_amount')
   const valueMaxWithdraw = getValueByKey(respListConfig ?? [], 'max_withdraw_amount')
   const depoInstruction = getValueByKey(respListConfig ?? [], 'deposit_instruction')
+  const cryptoWithdrawFeeInfo = getValueByKey(respListConfig ?? [], 'crypto_withdraw_fee')
+  // Safely parse if it's a JSON string
+  let parsedCryptoWithdrawFeeInfo: any = null
+  try {
+    parsedCryptoWithdrawFeeInfo =
+      typeof cryptoWithdrawFeeInfo === 'string' ? JSON.parse(cryptoWithdrawFeeInfo) : cryptoWithdrawFeeInfo
+  } catch {
+    parsedCryptoWithdrawFeeInfo = null
+  }
 
   const handleDepositSubmit = async (data: any, activeTab: string) => {
     setIsLoadingDeposit(true)
@@ -142,6 +145,8 @@ export default function DepositWithdrawSheet({
         const resp = await depositCryptoRequest({
           url: '/deposit_crypto',
           body: {
+            blockchain_id: parseInt(data?.coin_network),
+            token_symbol: data?.crypto,
             promotion_id: data?.promo_id ?? ''
           }
         })
@@ -187,22 +192,41 @@ export default function DepositWithdrawSheet({
     }
   }
 
-  const handleWithdrawSubmit = async (data: any) => {
+  const handleWithdrawSubmit = async (data: any, activeTab: string) => {
     setIsLoadingWithdraw(true)
     setWithdrawAmount(data?.amount)
     try {
-      const resp = await withdrawRequest({
-        url: '/withdraw',
-        body: {
-          amount: parseInt(data?.amount),
-          transaction_password: data?.withdrawalPassword
-        }
-      })
+      if (activeTab === 'crypto') {
+        const resp = await withdrawCryptoRequest({
+          url: '/withdraw_crypto',
+          body: {
+            blockchain_id: parseInt(data?.coin_network),
+            token_symbol: data?.crypto,
+            amount: parseInt(data?.amount_crypto),
+            transaction_password: data?.withdrawalPassword,
+            withdrawal_address: data?.withdraw_address
+          }
+        })
 
-      if (resp?.status === 'success') {
-        setIsSubmittedWithdraw(true)
-        setIsLoadingWithdraw(false)
-        // onClose()
+        if (resp?.status === 'success') {
+          setIsSubmittedWithdraw(true)
+          setIsLoadingWithdraw(false)
+          // onClose()
+        }
+      } else {
+        const resp = await withdrawRequest({
+          url: '/withdraw',
+          body: {
+            amount: parseInt(data?.amount),
+            transaction_password: data?.withdrawalPassword
+          }
+        })
+
+        if (resp?.status === 'success') {
+          setIsSubmittedWithdraw(true)
+          setIsLoadingWithdraw(false)
+          // onClose()
+        }
       }
 
       setIsLoadingWithdraw(false)
@@ -281,33 +305,7 @@ export default function DepositWithdrawSheet({
             </TabsList>
 
             <TabsContent value='DEPOSIT'>
-              {isStatus && isStatus !== 'APPROVED' ? (
-                <div className='h-[70vh] flex flex-col justify-center items-center mt-10'>
-                  <IconVerifyCheck size={IconSize['3xl']} />
-                  <span className='text-sm font-semibold text-app-text-color text-center'>
-                    {msgVerifyStatusDeposit(isStatus)}
-                  </span>
-                  {isStatus === 'PENDING' || isStatus === 'REJECTED' ? (
-                    <Button
-                      onClick={() => openContactUS()}
-                      className='w-full bg-app-primary uppercase hover:bg-app-primary-hover mt-4 text-white py-4 text-base font-medium rounded-lg transition-colors'
-                    >
-                      {lang?.common?.contactUS}
-                    </Button>
-                  ) : (
-                    isStatus === 'UNVERIFIED' && (
-                      <div className='pt-4'>
-                        <Button
-                          onClick={() => setIsSheetOpen(true)}
-                          className='w-full bg-app-primary uppercase hover:bg-app-primary-hover text-white py-4 text-base font-medium rounded-lg transition-colors'
-                        >
-                          {lang?.common?.verify}
-                        </Button>
-                      </div>
-                    )
-                  )}
-                </div>
-              ) : !isSubmittedDeposit ? (
+              {!isSubmittedDeposit ? (
                 <DepositForm
                   onSubmit={handleDepositSubmit}
                   lang={lang}
@@ -318,6 +316,11 @@ export default function DepositWithdrawSheet({
                   configData={valueMaxDeposit}
                   isLoadingConfig={isLoadingConfig}
                   features={features}
+                  isStatus={isStatus}
+                  onClose={onClose}
+                  openContactUS={openContactUS}
+                  cryptoData={respCryptoSupported}
+                  cryptoLoading={cryptoLoading}
                 />
               ) : (
                 <DepositConfirmForm
@@ -332,39 +335,20 @@ export default function DepositWithdrawSheet({
             </TabsContent>
 
             <TabsContent value='WITHDRAW'>
-              {isStatus && isStatus !== 'APPROVED' ? (
-                <div className='h-[70vh] flex flex-col justify-center items-center mt-10'>
-                  <IconVerifyCheck size={IconSize['3xl']} />
-                  <span className='text-sm font-semibold text-app-text-color text-center'>
-                    {msgVerifyStatus(isStatus)}
-                  </span>
-                  {isStatus === 'PENDING' || isStatus === 'REJECTED' ? (
-                    <Button
-                      onClick={() => openContactUS()}
-                      className='w-full bg-app-primary uppercase hover:bg-app-primary-hover mt-4 text-white py-4 text-base font-medium rounded-lg transition-colors'
-                    >
-                      {lang?.common?.contactUS}
-                    </Button>
-                  ) : (
-                    isStatus === 'UNVERIFIED' && (
-                      <div className='pt-4'>
-                        <Button
-                          onClick={() => setIsSheetOpen(true)}
-                          className='w-full bg-app-primary uppercase hover:bg-app-primary-hover text-white py-4 text-base font-medium rounded-lg transition-colors'
-                        >
-                          {lang?.common?.verify}
-                        </Button>
-                      </div>
-                    )
-                  )}
-                </div>
-              ) : !isSubmittedWithdraw ? (
+              {!isSubmittedWithdraw ? (
                 <WithdrawForm
+                  activeTab={activeTabWD}
+                  setActiveTab={setActiveTabWD}
                   onSubmit={handleWithdrawSubmit}
                   lang={lang}
                   isLoading={isLoadingWithdraw}
                   isStatus={isStatus}
                   configData={valueMaxWithdraw}
+                  onClose={onClose}
+                  openContactUS={openContactUS}
+                  cryptoData={respCryptoSupported}
+                  cryptoLoading={cryptoLoading}
+                  cryptoWithdrawFeeInfo={parsedCryptoWithdrawFeeInfo}
                 />
               ) : (
                 <div className='h-[70vh] flex flex-col justify-center items-center mt-10'>
@@ -376,15 +360,6 @@ export default function DepositWithdrawSheet({
           </Tabs>
         </SheetContent>
       </Sheet>
-
-      <KYC
-        open={isSheetOpen}
-        onClose={() => {
-          setIsSheetOpen(false), onClose()
-        }}
-        lang={lang}
-        isStatus={isStatus}
-      />
     </>
   )
 }

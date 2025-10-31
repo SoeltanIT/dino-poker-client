@@ -95,6 +95,7 @@
     "descWithdraw": "23:30~00:30, 휴일 이후 첫 영업일에 은행 점검으로 인해 자금 이체가 지연될 수 있습니다. 이 외에도 일부 은행은 추가 점검 시간이 있을 수 있습니다.",
     "withdrawAmount": "출금 금액",
     "nameOfWithdrawal": "출금자 이름",
+    "withdrawalAddress": "출금 주소",
     "withdrawalPassword": "출금 비밀번호",
     "depositPassword": "입금 비밀번호",
     "notificationDetail": "알림 상세",
@@ -119,6 +120,7 @@
     "typeWithdrawAmount": "출금 금액 입력",
     "typeNameOfWithdrawal": "출금자 이름 입력",
     "typeWithdrawalPassword": "출금 비밀번호 입력",
+    "typeWithdrawalAddress": "출금 주소를 입력하세요",
     "selectLanguage": "언어 선택",
     "selectTypePassword": "비밀번호 유형 선택",
     "withdrawMsg": "출금이 완료되었습니다!",
@@ -394,6 +396,8 @@
     "deposit_amount_max": "최대 입금 금액은 9,000,000원입니다.",
     "deposit_password_required": "비밀번호를 입력해주세요.",
     "withdraw_amount_required": "출금 금액을 입력해주세요.",
+    "withdraw_address_required": "출금 주소는 필수입니다",
+    "withdraw_address_no_space": "출금 주소에는 공백을 사용할 수 없습니다",
     "withdraw_amount_number": "숫자만 입력할 수 있습니다.",
     "withdraw_amount_min": "최소 출금 금액은 10,000원입니다.",
     "withdraw_amount_max": "최대 출금 금액은 9,000,000원입니다.",
@@ -543,5 +547,6 @@
     "tournamentName": "토너먼트 이름",
     "betType": "베팅 유형",
     "betName": "베팅 이름"
-  }
+  },
+  "withdraw": { "withdrawCryptoInfo": "출금 금액에서 {value} {base_coin}의 출금 수수료가 차감됩니다" }
 }

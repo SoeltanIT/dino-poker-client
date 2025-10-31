@@ -11,6 +11,8 @@ export async function POST(request: Request) {
 
     const page = Number(body.page ?? 1)
     const pageSize = Number(body.pageSize ?? 10)
-    return await getTransactionCrypto({ page, pageSize })
+    const type = (body.type ?? 'all') as any
+    const status = (body.status ?? '') as any
+    return await getTransactionCrypto({ page, pageSize, type, status })
   })
 }
