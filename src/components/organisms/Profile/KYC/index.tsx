@@ -89,7 +89,7 @@ export default function KYCForm({ lang, locale, onClose, isStatus }: KYCFormProp
           name: step1Data?.name,
           date_of_birth: step1Data?.date_of_birth ? format(step1Data.date_of_birth, 'yyyy-MM-dd') : '',
           phone_number: step1Data?.phone_number,
-          transaction_password: data?.transaction_password,
+          // transaction_password: data?.transaction_password, //comment karena pindahin ke register
           bank_account_number: data?.bank_account_number,
           bank_name: data?.bank_name,
           id_card: step1Data?.id_card || '',
