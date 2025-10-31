@@ -101,8 +101,6 @@ export default function DepositWithdrawSheet({
     ['getConfig']
   )
 
-  console.log('respconfig,', respListConfig)
-
   const { data: respCryptoSupported, isFetching: cryptoLoading } = GetData<any>(
     '/crypto_supported',
     ['getCryptoSupported'],

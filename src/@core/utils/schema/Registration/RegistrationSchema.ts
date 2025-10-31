@@ -13,6 +13,16 @@ export const registrationSchema = (lang: LangProps) =>
         )
         .max(50, lang?.form?.email_max),
 
+      transaction_password: z
+        .string()
+        .min(4, { message: lang?.form?.transaction_password_min || 'Password min 4 characters' })
+        .max(15, { message: lang?.form?.transaction_password_max || 'Password max 15 characters' }),
+
+      retype_transaction_password: z
+        .string({ required_error: lang?.form?.retype_transaction_required || 'Please retype password' })
+        .min(4, { message: lang?.form?.transaction_password_min || 'Password min 4 characters' })
+        .max(15, { message: lang?.form?.transaction_password_max || 'Password max 15 characters' }),
+
       username: z.string().min(2, lang?.form?.username_min).max(30, lang?.form?.username_max),
 
       password: z.string().min(4, lang?.form?.password_min).max(15, lang?.form?.password_max),
@@ -37,6 +47,10 @@ export const registrationSchema = (lang: LangProps) =>
     .refine(data => data.password === data.retypePassword, {
       message: lang?.form?.password_match,
       path: ['retypePassword']
+    })
+    .refine(data => data.transaction_password === data.retype_transaction_password, {
+      message: lang?.form?.transaction_password_match || 'Withdrawal passwords do not match',
+      path: ['retype_transaction_password']
     })
 
 export type RegistrationFormData = z.infer<ReturnType<typeof registrationSchema>>
