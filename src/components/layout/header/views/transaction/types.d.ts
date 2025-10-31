@@ -36,6 +36,12 @@ export interface DepositWithdrawSheetProps {
   features?: FeatureFlags
 }
 
+export interface CryptoWithdrawFeeInfo {
+ base_coin: string
+ is_active: boolean
+ value: number
+}
+
 export interface WithdrawFormProps {
   onSubmit: (data: any, activeTab: string) => void
   lang?: LangProps
@@ -50,6 +56,7 @@ export interface WithdrawFormProps {
   setActiveTab: (tab: string) => void // ✅ Add this
   cryptoData: any
   cryptoLoading: boolean
+  cryptoWithdrawFeeInfo?: any
 }
 
 export interface DepositDataProps {

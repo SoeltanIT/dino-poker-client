@@ -32,7 +32,8 @@ export const WithdrawCryptoSchema = (lang?: LangProps, maxValue: number = 900000
 
     withdraw_address: z
       .string()
-      .min(1, { message: lang?.form?.withdraw_password_required || 'Withdrawal password is required' }),
+      .min(1, { message: lang?.form?.withdraw_address_required || 'Withdrawal address is required' })
+      .regex(/^\S+$/, { message: lang?.form?.withdraw_address_no_space || 'No spaces allowed in withdraw address' }),
 
     withdrawalPassword: z
       .string()

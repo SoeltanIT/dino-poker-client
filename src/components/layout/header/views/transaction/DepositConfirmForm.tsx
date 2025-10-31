@@ -42,7 +42,7 @@ export default function DepositConfirmForm({
     ['detail_trans_crypto', data?.deposit_id], // <-- important
     false, // skipAuth
     undefined, // initialData
-    Boolean(data && data?.deposit_id), // <-- enabled
+    Boolean(activeTab === 'crypto' && data && data?.deposit_id), // <-- enabled
     undefined,
     undefined,
     undefined,

@@ -1,9 +1,7 @@
 'use client'
 
 import { GetData, useMutationQuery } from '@/@core/hooks/use-query'
-import { IconSize, IconVerifyCheck, IconWithdrawConfirm } from '@/components/atoms/Icons'
-import KYC from '@/components/layout/header/views/menu/kyc/KYC'
-import { Button } from '@/components/ui/button'
+import { IconSize, IconWithdrawConfirm } from '@/components/atoms/Icons'
 import { Sheet, SheetContent } from '@/components/ui/sheet'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ConfigItem } from '@/types/config'
@@ -103,6 +101,8 @@ export default function DepositWithdrawSheet({
     ['getConfig']
   )
 
+  console.log('respconfig,', respListConfig)
+
   const { data: respCryptoSupported, isFetching: cryptoLoading } = GetData<any>(
     '/crypto_supported',
     ['getCryptoSupported'],
@@ -130,6 +130,15 @@ export default function DepositWithdrawSheet({
   const valueMaxDeposit = getValueByKey(respListConfig ?? [], 'max_deposit_amount')
   const valueMaxWithdraw = getValueByKey(respListConfig ?? [], 'max_withdraw_amount')
   const depoInstruction = getValueByKey(respListConfig ?? [], 'deposit_instruction')
+  const cryptoWithdrawFeeInfo = getValueByKey(respListConfig ?? [], 'crypto_withdraw_fee')
+  // Safely parse if it's a JSON string
+  let parsedCryptoWithdrawFeeInfo: any = null
+  try {
+    parsedCryptoWithdrawFeeInfo =
+      typeof cryptoWithdrawFeeInfo === 'string' ? JSON.parse(cryptoWithdrawFeeInfo) : cryptoWithdrawFeeInfo
+  } catch {
+    parsedCryptoWithdrawFeeInfo = null
+  }
 
   const handleDepositSubmit = async (data: any, activeTab: string) => {
     setIsLoadingDeposit(true)
@@ -341,6 +350,7 @@ export default function DepositWithdrawSheet({
                   openContactUS={openContactUS}
                   cryptoData={respCryptoSupported}
                   cryptoLoading={cryptoLoading}
+                  cryptoWithdrawFeeInfo={parsedCryptoWithdrawFeeInfo}
                 />
               ) : (
                 <div className='h-[70vh] flex flex-col justify-center items-center mt-10'>

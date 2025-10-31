@@ -33,7 +33,8 @@ export default function WithdrawForm({
   activeTab,
   setActiveTab,
   cryptoData,
-  cryptoLoading
+  cryptoLoading,
+  cryptoWithdrawFeeInfo
 }: WithdrawFormProps) {
   const [showAccountNumber, setShowAccountNumber] = useState(false)
   const [showWithdrawalPassword, setShowWithdrawalPassword] = useState(false)
@@ -566,7 +567,24 @@ export default function WithdrawForm({
                     <span className='text-app-danger'>*</span>
                   </FormLabel>
                   <FormControl>
-                    <Input type='text' placeholder={lang?.common?.typeWithdrawalAddress} {...field} />
+                    <Input
+                      type='text'
+                      placeholder={lang?.common?.typeWithdrawalAddress}
+                      {...field}
+                      onChange={e => {
+                        // Remove spaces
+                        const value = e.target.value.replace(/\s/g, '')
+                        field.onChange(value)
+                      }}
+                      onPaste={e => {
+                        // Block pasting spaces
+                        const pasted = e.clipboardData.getData('text')
+                        if (/\s/.test(pasted)) {
+                          e.preventDefault()
+                          field.onChange(pasted.replace(/\s/g, ''))
+                        }
+                      }}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -610,12 +628,18 @@ export default function WithdrawForm({
               )}
             />
 
-            {/* <div className='flex items-center justify-center w-full flex-col gap-2 pt-4'>
-                    <IconDepositCrypto size={IconSize['3xl']} theme={theme} />
-                    <span className='text-app-text-color text-sm w-[60%] text-center'>{lang?.common?.depositCryptoNote}</span>
-                  </div> */}
+            {cryptoWithdrawFeeInfo && (
+              <div className='flex items-center justify-center w-full flex-col gap-2'>
+                <span className='text-app-text-color text-sm w-full text-left'>
+                  **
+                  {lang?.withdraw?.withdrawCryptoInfo
+                    ?.replace('{value}', cryptoWithdrawFeeInfo?.value)
+                    .replace('{base_coin}', cryptoWithdrawFeeInfo?.base_coin)}
+                </span>
+              </div>
+            )}
 
-            <div className='pt-4'>
+            <div className=''>
               <Button
                 type='submit'
                 disabled={isLoading}
