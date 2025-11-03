@@ -346,6 +346,7 @@ export default function DepositWithdrawSheet({
                   configData={valueMaxWithdraw}
                   onClose={onClose}
                   openContactUS={openContactUS}
+                  features={features}
                   cryptoData={respCryptoSupported}
                   cryptoLoading={cryptoLoading}
                   cryptoWithdrawFeeInfo={parsedCryptoWithdrawFeeInfo}

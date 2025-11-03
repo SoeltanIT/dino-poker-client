@@ -9,7 +9,7 @@ import { getListTransaction } from '@/utils/api/internal/transactionHistory'
 export default async function Page({ params, ...props }: any) {
   const dict = await getDictionary(params?.lang)
   const locale = await getLocale()
-
+  const cryptoFeature = process.env.FEATURE_SHOW_CRYPTO === 'true'
   let isLoading = true // Set to true if you want to show loading state initially
 
   let initialData = null
@@ -58,6 +58,7 @@ export default async function Page({ params, ...props }: any) {
 
   return (
     <TransactionHistoryPage
+      cryptoFeature={cryptoFeature}
       lang={dict}
       locale={locale}
       initialData={initialData?.data}

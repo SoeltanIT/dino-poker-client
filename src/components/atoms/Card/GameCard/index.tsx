@@ -124,16 +124,14 @@ export function GameCard({
     else onClickOpenGames?.(id)
   }
 
-  const SIZES = '(max-width: 768px) 50vw, (min-width: 768px) 25vw, 33vw' // grid: 2 cols mobile, 4 cols desktop
-
-  const proxied = `/api/images?src=${encodeURIComponent(image)}`
+  const SIZES = '(max-width: 768px) 33vw, 16vw' // grid: 3 cols mobile, 6 cols desktop
 
   return (
     <div className={cn(variantClass, 'relative group', className)}>
       {/* IMAGE FRAME (keeps aspect 3/4 and rounded border) */}
       <div className={cn('relative aspect-[3/4] overflow-hidden border border-app-grey12op rounded-xl md:rounded-2xl')}>
         <Image
-          src={proxied}
+          src={image}
           alt={title}
           fill
           sizes={SIZES}
@@ -151,7 +149,7 @@ export function GameCard({
       </div>
 
       {/* Content */}
-      <div className={cn(variantClass, 'absolute inset-0 z-10 flex flex-col justify-end overflow-hidden')}>
+      {/* <div className={cn(variantClass, 'absolute inset-0 z-10 flex flex-col justify-end overflow-hidden')}>
         <div
           style={accent ? ({ '--game-card-accent': accent } as CSSProperties) : {}}
           className={cn(
@@ -164,7 +162,7 @@ export function GameCard({
           </div>
           <div className={gameProviderVariants({ variant })}>{provider}</div>
         </div>
-      </div>
+      </div> */}
 
       {/* Badges */}
       {tag && (

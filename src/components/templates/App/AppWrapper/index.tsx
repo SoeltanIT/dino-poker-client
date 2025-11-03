@@ -25,6 +25,7 @@ import { FC, ReactNode, useEffect } from 'react'
 export type FeatureFlags = {
   sports: boolean
   promotion: boolean
+  crypto: boolean
   // add more toggles here in the future
 }
 interface AppTemplateProps {

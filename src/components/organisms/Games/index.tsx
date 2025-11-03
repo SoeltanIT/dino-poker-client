@@ -140,7 +140,7 @@ export default function ListGamePage({
     // const left = window.screenX + (window.outerWidth - w) / 2
     // const top = window.screenY + (window.outerHeight - h) / 2
 
-    const features = [
+    const features_window = [
       `width=${w}`,
       `height=${h}`,
       `left=${left}`,
@@ -153,7 +153,7 @@ export default function ListGamePage({
       'scrollbars=1'
     ].join(',')
 
-    window.open(url, 'gamewin', features)
+    window.open(url, 'gamewin', features_window)
   }
 
   // When URL arrives → open new tab via /redirect → clear state
@@ -279,7 +279,7 @@ export default function ListGamePage({
                   lang={lang}
                   locale={locale}
                   id={items?.id}
-                  image={items.image}
+                  image={locale === 'ko' ? items?.image_ko : items?.image}
                   provider={items.provider}
                   title={items.title}
                   // playersCount={stableCount(items?.id || `${items.title}-${items.provider}`)}
