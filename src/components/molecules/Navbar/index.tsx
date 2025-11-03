@@ -150,7 +150,7 @@ export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) =
                 )
               }
 
-              if (item.name === lang?.common?.profile && status !== 'unauthenticated' && status !== 'loading') {
+              if (item.name === lang?.common?.profile && status !== 'authenticated' && status !== 'loading') {
                 return (
                   <div key={item.name}>
                     <button
