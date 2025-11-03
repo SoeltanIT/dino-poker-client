@@ -66,6 +66,7 @@ const getAmountColor = (type: string) => {
 }
 
 export default function TransactionHistoryPage({
+  cryptoFeature,
   lang,
   locale,
   initialData,
@@ -308,8 +309,7 @@ export default function TransactionHistoryPage({
           {/* <span className='text-app-neutral500 text-sm'>{lang?.common?.descTransactionHistory}</span> */}
         </div>
       </div>
-
-      <TabSwitcher tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
+      {cryptoFeature && <TabSwitcher tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />}
 
       {/* Mobile View */}
 
@@ -416,38 +416,44 @@ export default function TransactionHistoryPage({
           </>
         ) : (
           <>
-            <div>{lang?.common?.time}</div>
-            <div className='flex items-center gap-2'>
-              <span>
-                {lang?.common?.type} ({getTypeLabel(currentTypeFilter)})
-              </span>
-              <Popover open={isTypeOpen} onOpenChange={setIsTypeOpen}>
-                <PopoverTrigger asChild>
-                  <button className='flex items-center justify-center hover:bg-app-white100 rounded-md p-1'>
-                    <ChevronDown className='h-4 w-4 text-app-neutral500' />
-                  </button>
-                </PopoverTrigger>
-                <PopoverContent className='w-40 p-1 z-50 bg-app-background-primary text-app-text-color border border-app-neutral300'>
-                  {typeOption.map(option => (
-                    <button
-                      key={option}
-                      onClick={() => {
-                        handleChangeType(option)
-                        setIsTypeOpen(false)
-                      }}
-                      className='w-full text-left px-3 py-2 text-xs hover:bg-app-neutral300 uppercase'
-                    >
-                      {getTypeLabel(option)}
-                    </button>
-                  ))}
-                </PopoverContent>
-              </Popover>
-            </div>
-            <div>{lang?.common?.blockchain}</div>
-            <div>{lang?.common?.token}</div>
-            <div>{lang?.common?.cryptoAmount}</div>
-            <div>{lang?.common?.fiatAmount}</div>
-            <div>{lang?.common?.status}</div>
+            {cryptoFeature ? (
+              <>
+                <div>{lang?.common?.time}</div>
+                <div className='flex items-center gap-2'>
+                  <span>
+                    {lang?.common?.type} ({getTypeLabel(currentTypeFilter)})
+                  </span>
+                  <Popover open={isTypeOpen} onOpenChange={setIsTypeOpen}>
+                    <PopoverTrigger asChild>
+                      <button className='flex items-center justify-center hover:bg-app-white100 rounded-md p-1'>
+                        <ChevronDown className='h-4 w-4 text-app-neutral500' />
+                      </button>
+                    </PopoverTrigger>
+                    <PopoverContent className='w-40 p-1 z-50 bg-app-background-primary text-app-text-color border border-app-neutral300'>
+                      {typeOption.map(option => (
+                        <button
+                          key={option}
+                          onClick={() => {
+                            handleChangeType(option)
+                            setIsTypeOpen(false)
+                          }}
+                          className='w-full text-left px-3 py-2 text-xs hover:bg-app-neutral300 uppercase'
+                        >
+                          {getTypeLabel(option)}
+                        </button>
+                      ))}
+                    </PopoverContent>
+                  </Popover>
+                </div>
+                <div>{lang?.common?.blockchain}</div>
+                <div>{lang?.common?.token}</div>
+                <div>{lang?.common?.cryptoAmount}</div>
+                <div>{lang?.common?.fiatAmount}</div>
+                <div>{lang?.common?.status}</div>
+              </>
+            ) : (
+              <></>
+            )}
           </>
         )}
       </div>
