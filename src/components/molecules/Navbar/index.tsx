@@ -13,7 +13,7 @@ import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { resetLiveChatSession } from '@/lib/livechat-reset'
 import { UserFullDTO } from '@/types/userDTO'
 import { useLiveChatContext } from '@/utils/context/LiveChatProvider'
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import { useCookies } from 'react-cookie'
 import GlobalSheet from '../GlobalSheet'
 import { NavbarProps } from './types'
@@ -29,6 +29,7 @@ export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) =
   const [isOpenLogout, setIsOpenLogout] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const buttonLogoutRef = useRef<HTMLButtonElement>(null)
+  const { status } = useSession()
 
   const navItems: NavItem[] = [
     {
@@ -109,7 +110,6 @@ export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) =
       await signOut({ callbackUrl: `/${locale ?? 'en'}` })
     } catch (error) {}
   }
-
   return (
     <>
       <nav className='fixed md:hidden bottom-0 left-0 right-0 bg-app-background-secondary text-app-text-color h-[80px] flex justify-center items-center border-t border-app-background-primary z-20'>
@@ -124,7 +124,7 @@ export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) =
               const isActive = pathname === item.href
               const Icon = item.icon
 
-              if (item.name === lang?.common?.profile && data) {
+              if (item.name === lang?.common?.profile && data && status !== 'loading') {
                 return (
                   <GlobalSheet
                     key={item.name}
@@ -150,7 +150,7 @@ export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) =
                 )
               }
 
-              if (item.name === lang?.common?.profile && !data) {
+              if (item.name === lang?.common?.profile && status !== 'authenticated' && status !== 'loading') {
                 return (
                   <div key={item.name}>
                     <button
