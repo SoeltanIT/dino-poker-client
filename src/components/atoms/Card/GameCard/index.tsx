@@ -149,7 +149,7 @@ export function GameCard({
       </div>
 
       {/* Content */}
-      <div className={cn(variantClass, 'absolute inset-0 z-10 flex flex-col justify-end overflow-hidden')}>
+      {/* <div className={cn(variantClass, 'absolute inset-0 z-10 flex flex-col justify-end overflow-hidden')}>
         <div
           style={accent ? ({ '--game-card-accent': accent } as CSSProperties) : {}}
           className={cn(
@@ -162,7 +162,7 @@ export function GameCard({
           </div>
           <div className={gameProviderVariants({ variant })}>{provider}</div>
         </div>
-      </div>
+      </div> */}
 
       {/* Badges */}
       {tag && (
