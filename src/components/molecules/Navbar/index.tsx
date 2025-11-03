@@ -150,7 +150,7 @@ export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) =
                 )
               }
 
-              if (item.name === lang?.common?.profile && !data && status !== 'loading') {
+              if (item.name === lang?.common?.profile && status !== 'unauthenticated' && status !== 'loading') {
                 return (
                   <div key={item.name}>
                     <button
@@ -159,7 +159,6 @@ export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) =
                     >
                       <Icon className='text-app-neutral500 h-7 w-7' />
                       <span className='text-[12px] uppercase text-app-neutral500'>{item.name}</span>
-                      {status}
                     </button>
                   </div>
                 )
