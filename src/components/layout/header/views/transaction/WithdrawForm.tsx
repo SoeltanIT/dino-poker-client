@@ -10,13 +10,13 @@ import { WithdrawFormData, WithdrawSchema } from '@/@core/utils/schema/Transacti
 import { IconSize, IconVerifyCheck } from '@/components/atoms/Icons'
 import KYC from '@/components/layout/header/views/menu/kyc/KYC'
 import PresetAmountSelector from '@/components/molecules/PresetAmountSelector'
-import { TabSwitcher } from '@/components/molecules/TabSwitcher'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { thousandSeparatorComma, unformatCommaNumber } from '@/utils/helper/formatNumber'
 import { WithdrawFormProps } from './types'
+import { TabSwitcher } from '@/components/molecules/TabSwitcher'
 
 const PRESET_AMOUNTS = ['10000', '20000', '50000', '100000']
 // const PRESET_AMOUNTS = ['10000', '20000', '50000', '100000', '500000', '1000000']
@@ -30,6 +30,7 @@ export default function WithdrawForm({
   isLoadingConfig,
   onClose,
   openContactUS,
+  features,
   activeTab,
   setActiveTab,
   cryptoData,
@@ -139,7 +140,7 @@ export default function WithdrawForm({
 
   return (
     <>
-      <TabSwitcher tabs={tabs} activeTab={activeTab} onTabChange={handleTabChange} />
+      {features?.crypto && <TabSwitcher tabs={tabs} activeTab={activeTab} onTabChange={handleTabChange} />}
       {activeTab === 'fiat' &&
         (isStatus && isStatus !== 'APPROVED' ? (
           <div className='h-[70vh] flex flex-col justify-center items-center mt-10'>
