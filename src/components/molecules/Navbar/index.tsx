@@ -124,7 +124,7 @@ export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) =
               const isActive = pathname === item.href
               const Icon = item.icon
 
-              if (item.name === lang?.common?.profile && data) {
+              if (item.name === lang?.common?.profile && data && status !== 'loading') {
                 return (
                   <GlobalSheet
                     key={item.name}
@@ -150,7 +150,7 @@ export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) =
                 )
               }
 
-              if ((item.name === lang?.common?.profile && status === 'loading') || !data) {
+              if (item.name === lang?.common?.profile && !data && status !== 'loading') {
                 return (
                   <div key={item.name}>
                     <button
