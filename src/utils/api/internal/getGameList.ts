@@ -4,6 +4,7 @@ import { getApiEndpoint } from '@/utils/api_endpoint'
 
 const mapData = (item: any) => ({
   image: item?.image,
+  image_ko: item?.image_ko,
   id: item?.id,
   title: item?.game_name,
   provider: item?.provider_name
@@ -18,7 +19,8 @@ export interface GameListResponse {
 export const getGameList = async ({ page, pageSize }: any): Promise<GameListResponse> => {
   const bodyRequest = {
     page: page,
-    pageSize: pageSize
+    pageSize: pageSize,
+    provider_name: 'IDN Poker'
   }
 
   try {
@@ -30,10 +32,14 @@ export const getGameList = async ({ page, pageSize }: any): Promise<GameListResp
       'transaction'
     )
 
+    console.log('res >>>>>', res)
+
     const rawData = res?.data?.data ?? []
     const total = res?.data?.pagination?.total ?? 0
     const totalPage = Math.ceil(total / pageSize)
     const mappedData = rawData.map((item: any) => mapData(item))
+
+    console.log('mappedData >???', mappedData)
 
     return {
       page,

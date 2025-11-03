@@ -279,7 +279,7 @@ export default function ListGamePage({
                   lang={lang}
                   locale={locale}
                   id={items?.id}
-                  image={items.image}
+                  image={locale === 'ko' ? items?.image_ko : items?.image}
                   provider={items.provider}
                   title={items.title}
                   // playersCount={stableCount(items?.id || `${items.title}-${items.provider}`)}
