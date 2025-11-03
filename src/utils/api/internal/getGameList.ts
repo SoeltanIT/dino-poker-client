@@ -32,14 +32,10 @@ export const getGameList = async ({ page, pageSize }: any): Promise<GameListResp
       'transaction'
     )
 
-    console.log('res >>>>>', res)
-
     const rawData = res?.data?.data ?? []
     const total = res?.data?.pagination?.total ?? 0
     const totalPage = Math.ceil(total / pageSize)
     const mappedData = rawData.map((item: any) => mapData(item))
-
-    console.log('mappedData >???', mappedData)
 
     return {
       page,
