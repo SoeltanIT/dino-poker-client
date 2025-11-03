@@ -159,6 +159,7 @@ export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) =
                     >
                       <Icon className='text-app-neutral500 h-7 w-7' />
                       <span className='text-[12px] uppercase text-app-neutral500'>{item.name}</span>
+                      {status}
                     </button>
                   </div>
                 )
