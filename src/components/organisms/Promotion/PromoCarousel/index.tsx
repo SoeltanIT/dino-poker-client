@@ -168,7 +168,7 @@ export default function PromoCarousel({
                   onClick={() => emblaApi?.scrollTo(i)}
                   className={clsx(
                     'h-1.5 w-5 rounded-full transition-all',
-                    i === selectedIndex ? 'bg-primary' : 'bg-white/40 hover:bg-white/70'
+                    i === selectedIndex ? 'bg-app-primary' : 'bg-white/40 hover:bg-white/70'
                   )}
                 />
               ))}
