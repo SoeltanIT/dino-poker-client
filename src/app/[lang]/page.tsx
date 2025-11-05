@@ -1,7 +1,9 @@
+import Announcement from '@/components/organisms/Banner/Announcement'
 import ListGamePage from '@/components/organisms/Games'
+import PromoCarousel, { type Promotion } from '@/components/organisms/Promotion/PromoCarousel'
 import { getDictionary, getLocal } from '@/dictionaries/dictionaries'
-import { getGameList } from '@/utils/api/internal/getGameList'
-
+import { getListPromotion } from '@/utils/api/internal/listPromotion'
+import { mapPromotionList } from '@/utils/mappers/promotion'
 import { headers } from 'next/headers'
 
 function absoluteUrl(path: string) {
@@ -11,36 +13,52 @@ function absoluteUrl(path: string) {
   return `${proto}://${host}${path}`
 }
 
-export default async function Home({ params, ...props }: any) {
+export default async function Home({ params }: any) {
   const locale = await getLocal()
   const dict = await getDictionary(params?.lang)
 
   let initialData = null
-
+  let promoRaw: any = null
   let isLoading = true
+  let isLoadingPromo = true
 
   try {
-    // Fetch user data
-    // initialData = await getGameList({ page: 1, pageSize: 12 })
     const url = absoluteUrl(`/api/transactions/game_list?page=1&pageSize=12`)
-    const res = await fetch(url, { next: { revalidate: 2 * 60 } })
+    const res = await fetch(url, { next: { revalidate: 120 } })
     initialData = await res.json()
 
-    if (initialData) {
-      isLoading = false
-    }
-  } catch (err: any) {
+    promoRaw = await getListPromotion()
+
+    isLoading = !initialData
+    isLoadingPromo = !promoRaw
+  } catch (err) {
     console.log('err', err)
   }
 
+  // map API → UI (pakai shape data kamu)
+  const promos: Promotion[] = mapPromotionList(promoRaw?.data ?? promoRaw ?? []) as Promotion[]
+
   return (
-    <ListGamePage
-      lang={dict}
-      locale={locale}
-      initialData={initialData?.data}
-      initialPage={1}
-      isInitialLoading={isLoading}
-      initialTotalPage={initialData?.totalPage || 1}
-    />
+    <div className='mx-auto w-full max-w-screen-2xl space-y-4 md:px-20 px-6 mt-4'>
+      <Announcement />
+
+      <PromoCarousel
+        items={promos}
+        isLoading={isLoadingPromo}
+        options={{ loop: true, align: 'start', duration: 20 }}
+        autoplay
+        intervalMs={4800}
+        lang={dict}
+      />
+
+      <ListGamePage
+        lang={dict}
+        locale={locale}
+        initialData={initialData?.data}
+        initialPage={1}
+        isInitialLoading={isLoading}
+        initialTotalPage={initialData?.totalPage || 1}
+      />
+    </div>
   )
 }

@@ -7,7 +7,7 @@ export const Footer = ({ children, lang, locale, theme, content, version, ...pro
   const logo = theme === 'dark' ? '/images/logo_footer_light.webp' : '/images/logo_footer_dark.webp'
 
   return (
-    <footer className='bg-app-background-secondary px-8 py-8 pb-[75px]'>
+    <footer className='bg-app-background-secondary px-8 py-8 pb-[100px]'>
       {/* Logo and Copyright */}
       <div className='flex items-center justify-center mb-8'>
         <div className='flex flex-col items-center gap-4'>
