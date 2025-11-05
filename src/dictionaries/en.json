@@ -529,6 +529,10 @@
     "infoDate": "End date cleared because it was earlier than start date."
   },
   "header": {
+    "poker": "Poker",
+    "casino": "Casino",
+    "promotion": "Promotion",
+    "sport": "Sport",
     "totalBalance": "Total Balance",
     "mainBalance": "Main Balance",
     "mainShort": "Main...",
