@@ -36,7 +36,7 @@ export default async function Home({ params }: any) {
 
     promoRaw = await getListPromotion()
     bannerRaw = await getListBanner()
-    // announcementText = await getAnnouncementText()
+    announcementText = await getAnnouncementText()
 
     isLoading = !initialData
     isLoadingPromo = !promoRaw
@@ -75,6 +75,7 @@ export default async function Home({ params }: any) {
         promos={promos}
         eventItems={bannerRaw ?? DUMMY_EVENTS}
         isLoadingPromo={isLoadingPromo}
+        announcement={announcementText}
       />
 
       <ListGamePage
