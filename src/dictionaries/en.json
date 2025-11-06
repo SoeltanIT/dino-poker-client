@@ -283,7 +283,11 @@
     "chipAmount": "Chip Amount",
     "transferHistory": "Transfer History",
     "createdAt": "Created At",
-    "moreInfo": "More Info"
+    "moreInfo": "More Info",
+    "banners": "Banners",
+    "noBannerFound": "No Banner Found",
+    "announcements": "Announcements",
+    "noAnnouncementFound": "No Announcement Found"
   },
   "game": {
     "texaspoker": "Texas Poker",
@@ -448,7 +452,11 @@
     "sportTitle": "Sports Betting | GOWIN.GG",
     "sportDescription": "Bet on football, basketball, tennis, and top esports like Dota 2, LoL, and Valorant. Enjoy live odds, in-play betting, and the best sportsbook experience at GOWIN.GG.",
     "promotionTitle": "Latest Promotions | GOWIN.GG",
-    "promotionDescription": "Claim top bonuses and promotions for Dota 2, LoL, Valorant, and more at GOWIN.GG."
+    "promotionDescription": "Claim top bonuses and promotions for Dota 2, LoL, Valorant, and more at GOWIN.GG.",
+    "bannersTitle": "Latest Banners | GOWIN.GG",
+    "bannersDescription": "Get the latest banners and promotions for Dota 2, LoL, Valorant, and more at GOWIN.GG.",
+    "announcementsTitle": "Latest Announcements | GOWIN.GG",
+    "announcementsDescription": "Get the latest announcements and promotions for Dota 2, LoL, Valorant, and more at GOWIN.GG."
   },
   "logout": {
     "logoutQ": "Are You Sure Want to Logout?",

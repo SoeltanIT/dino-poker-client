@@ -1,8 +1,8 @@
-import { EventItemUI } from '@/components/organisms/Banner/Event'
 import ListGamePage from '@/components/organisms/Games'
 import BannerSection from '@/components/organisms/Promotion/BannerSection'
 import { type Promotion } from '@/components/organisms/Promotion/PromoCarousel'
 import { getDictionary, getLocal } from '@/dictionaries/dictionaries'
+import { BannerDTO } from '@/types/bannerDTO'
 import { getAnnouncementText } from '@/utils/api/internal/getAnnouncementText'
 import { getListBanner } from '@/utils/api/internal/listBanner'
 import { getListPromotion } from '@/utils/api/internal/listPromotion'
@@ -49,22 +49,20 @@ export default async function Home({ params }: any) {
   // map API → UI (pakai shape data kamu)
   const promos: Promotion[] = mapPromotionList(promoRaw?.data ?? promoRaw ?? []) as Promotion[]
 
-  const DUMMY_EVENTS: EventItemUI[] = [
+  const DUMMY_EVENTS: BannerDTO[] = [
     {
       id: 'ev-1',
-      imageUrl: '/images/dummy/dummy_event.png',
+      image: '/images/dummy/dummy_event.png',
       title: 'YEAR END EVENT',
-      subtitle: 'follow and get the benefits',
-      href: '/events/ev-1',
-      ctaText: 'MORE INFO'
+      sub_title: 'follow and get the benefits',
+      is_active: true
     },
     {
       id: 'ev-2',
-      imageUrl: '/images/dummy/dummy_promotion.png',
+      image: '/images/dummy/dummy_promotion.png',
       title: 'BLACK FRIDAY BONUS',
-      subtitle: 'limited time — don’t miss it',
-      href: '/events/ev-2',
-      ctaText: 'MORE INFO'
+      sub_title: 'limited time — don’t miss it',
+      is_active: true
     }
   ]
 
@@ -76,6 +74,7 @@ export default async function Home({ params }: any) {
         eventItems={bannerRaw ?? DUMMY_EVENTS}
         isLoadingPromo={isLoadingPromo}
         announcement={announcementText}
+        locale={locale}
       />
 
       <ListGamePage

@@ -1,21 +1,18 @@
 import { handleServerAuthError } from '@/@core/lib/server-auth-utils'
-import PromotionPage from '@/components/organisms/Promotion'
-import { getDictionary, getLocale } from '@/dictionaries/dictionaries'
-import { getListPromotion } from '@/utils/api/internal/listPromotion'
-
-// export const runtime = 'edge'
+import { BannerListing } from '@/components/organisms/Banner'
+import { getDictionary, getLocal } from '@/dictionaries/dictionaries'
+import { getListBanner } from '@/utils/api/internal/listBanner'
 
 export default async function Page({ params, ...props }: any) {
+  const locale = await getLocal()
   const dict = await getDictionary(params?.lang)
-  const locale = await getLocale()
 
   let initialData = null
-
   let isLoading = true
 
   try {
     // Fetch user data
-    initialData = await getListPromotion()
+    initialData = await getListBanner()
 
     if (initialData) {
       isLoading = false
@@ -36,5 +33,5 @@ export default async function Page({ params, ...props }: any) {
     err = err.message || 'Failed to load data'
   }
 
-  return <PromotionPage initialData={initialData} lang={dict} locale={locale} />
+  return <BannerListing lang={dict} locale={locale} initialData={initialData} />
 }

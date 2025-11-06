@@ -1,23 +1,26 @@
 'use client'
 
+import { Locale } from '@/i18n-config'
 import clsx from 'clsx'
 import { Volume2 } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
+import { Fragment, useEffect, useRef, useState } from 'react'
 
 type Props = {
   /** Durasi 1 siklus marquee dalam detik (semakin besar semakin lambat) */
   durationSec?: number
   className?: string
   announcement?: { title?: string }[]
+  locale?: Locale
 }
 
 /**
- * Announcement bar with marquee + dynamic winner name per cycle.
+ * AnnouncementMarque bar with marquee + dynamic winner name per cycle.
  * - Slower by default (28s)
  * - Winner name changes every cycle
  * - Only animates if content overflows container
  */
-export default function Announcement({ durationSec = 28, announcement, className }: Props) {
+export default function AnnouncementMarque({ durationSec = 28, announcement, className, locale }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   const [shouldAnimate, setShouldAnimate] = useState(false)
@@ -36,7 +39,8 @@ export default function Announcement({ durationSec = 28, announcement, className
     return () => window.removeEventListener('resize', checkOverflow)
   }, [announcement])
   return (
-    <div
+    <Link
+      href={`/${locale}/announcements`}
       className={clsx(
         'relative w-full overflow-hidden rounded-xl bg-app-primary400',
         'px-4 py-2 md:py-0', // md tanpa padding vertikal agar pas 60px
@@ -60,9 +64,10 @@ export default function Announcement({ durationSec = 28, announcement, className
       <div ref={containerRef} className='relative ml-3 flex-1 overflow-hidden'>
         <div ref={contentRef} className={clsx('whitespace-nowrap', shouldAnimate && 'marquee')}>
           {announcement?.map((item, index) => (
-            <span className='mr-10' key={index}>
-              {item.title}
-            </span>
+            <Fragment key={index}>
+              <span>{item.title}</span>
+              {index !== announcement?.length - 1 && <span className='mx-4'>|</span>}
+            </Fragment>
           ))}
         </div>
       </div>
@@ -94,6 +99,6 @@ export default function Announcement({ durationSec = 28, announcement, className
           }
         }
       `}</style>
-    </div>
+    </Link>
   )
 }

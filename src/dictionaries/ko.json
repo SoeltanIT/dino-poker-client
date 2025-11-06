@@ -283,7 +283,11 @@
     "chipAmount": "칩 금액",
     "transferHistory": "이체 내역",
     "createdAt": "생성일",
-    "moreInfo": "자세히 보기"
+    "moreInfo": "자세히 보기",
+    "banners": "배너",
+    "noBannerFound": "배너를 찾을 수 없습니다",
+    "announcements": "공지사항",
+    "noAnnouncementFound": "공지사항을 찾을 수 없습니다"
   },
   "game": {
     "texaspoker": "텍사스 홀덤",
@@ -448,7 +452,11 @@
     "sportTitle": "스포츠 베팅 | GOWIN.GG",
     "sportDescription": "축구, 농구, 테니스와 Dota 2, 롤, 발로란트 같은 인기 e스포츠에 베팅하세요. 라이브 배당률, 인플레이 베팅, 최고의 스포츠북 경험을 GOWIN.GG에서 즐겨보세요.",
     "promotionTitle": "최신 프로모션 | GOWIN.GG",
-    "promotionDescription": "GOWIN.GG에서 Dota 2, LoL, 발로란트 등 최고의 보너스와 프로모션을 만나보세요."
+    "promotionDescription": "GOWIN.GG에서 Dota 2, LoL, 발로란트 등 최고의 보너스와 프로모션을 만나보세요.",
+    "bannersTitle": "최신 배너 | GOWIN.GG",
+    "bannersDescription": "GOWIN.GG에서 Dota 2, LoL, 발로란트 등 최고의 보너스와 프로모션을 만나보세요.",
+    "announcementsTitle": "최신 공지사항 | GOWIN.GG",
+    "announcementsDescription": "GOWIN.GG에서 Dota 2, LoL, 발로란트 등 최고의 보너스와 프로모션을 만나보세요."
   },
   "logout": {
     "logoutQ": "정말 로그아웃하시겠습니까?",
@@ -553,5 +561,7 @@
     "betType": "베팅 유형",
     "betName": "베팅 이름"
   },
-  "withdraw": { "withdrawCryptoInfo": "출금 금액에서 {value} {base_coin}의 출금 수수료가 차감됩니다" }
+  "withdraw": {
+    "withdrawCryptoInfo": "출금 금액에서 {value} {base_coin}의 출금 수수료가 차감됩니다"
+  }
 }

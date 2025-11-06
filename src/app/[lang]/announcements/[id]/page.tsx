@@ -1,13 +1,11 @@
 import { handleServerAuthError } from '@/@core/lib/server-auth-utils'
-import PromotionPage from '@/components/organisms/Promotion'
-import { getDictionary, getLocale } from '@/dictionaries/dictionaries'
-import { getListPromotion } from '@/utils/api/internal/listPromotion'
-
-// export const runtime = 'edge'
+import DetailAnnouncement from '@/components/organisms/Announcement/DetailAnnouncement'
+import { getDictionary, getLocal } from '@/dictionaries/dictionaries'
+import { getDetailAnnouncement } from '@/utils/api/internal/detailAnnouncement'
 
 export default async function Page({ params, ...props }: any) {
+  const locale = await getLocal()
   const dict = await getDictionary(params?.lang)
-  const locale = await getLocale()
 
   let initialData = null
 
@@ -15,7 +13,7 @@ export default async function Page({ params, ...props }: any) {
 
   try {
     // Fetch user data
-    initialData = await getListPromotion()
+    initialData = await getDetailAnnouncement(params?.id)
 
     if (initialData) {
       isLoading = false
@@ -36,5 +34,5 @@ export default async function Page({ params, ...props }: any) {
     err = err.message || 'Failed to load data'
   }
 
-  return <PromotionPage initialData={initialData} lang={dict} locale={locale} />
+  return <DetailAnnouncement initialData={initialData} lang={dict} locale={locale} />
 }
