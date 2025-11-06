@@ -1,6 +1,7 @@
 // app/providers.tsx
 'use client'
 
+import { AppFeatures, AppFeaturesProvider } from '@/@core/context/AppFeaturesContext'
 import { ReactQueryProvider } from '@/@core/hooks/ReactQueryProvider'
 import SessionWrapper from '@/components/providers/SessionWrapper'
 import dynamic from 'next/dynamic'
@@ -10,12 +11,19 @@ const TelegramMiniAppProvider = dynamic(() => import('./TelegramMiniApp').then(m
   ssr: false
 })
 
-export function Providers({ children }: { children: React.ReactNode }) {
+interface ProvidersProps {
+  children: React.ReactNode
+  initialFeatures?: AppFeatures
+}
+
+export function Providers({ children, initialFeatures }: ProvidersProps) {
   return (
     <CookiesProvider>
       <SessionWrapper>
         <ReactQueryProvider>
-          <TelegramMiniAppProvider>{children}</TelegramMiniAppProvider>
+          <AppFeaturesProvider initialFeatures={initialFeatures}>
+            <TelegramMiniAppProvider>{children}</TelegramMiniAppProvider>
+          </AppFeaturesProvider>
         </ReactQueryProvider>
       </SessionWrapper>
     </CookiesProvider>

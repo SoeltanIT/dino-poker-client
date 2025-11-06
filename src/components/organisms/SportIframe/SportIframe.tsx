@@ -1,5 +1,6 @@
 'use client'
 
+import { useAppFeatures } from '@/@core/context/AppFeaturesContext'
 import { GetData, useMutationQuery } from '@/@core/hooks/use-query'
 import { UseServerSendEvent } from '@/@core/hooks/UseServerSendEvent'
 import { BalanceResponse } from '@/@core/interface/balance/Balance'
@@ -13,7 +14,6 @@ import { Locale } from '@/i18n-config'
 import { cn } from '@/lib/utils'
 import { LangProps } from '@/types/langProps'
 import { TransferBalanceFeeResponseMapped } from '@/types/transferBalanceFeeDTO'
-import { APP_FEATURES } from '@/utils/app-config'
 import { useLiveChatContext } from '@/utils/context/LiveChatProvider'
 import { useThemeToggle } from '@/utils/hooks/useTheme'
 import { useSession } from 'next-auth/react'
@@ -53,6 +53,8 @@ export const BetByIframe = ({
     'json',
     false
   )
+
+  const { features } = useAppFeatures()
 
   // Keep the most recent token and prevent duplicate requests
   const tokenRef = useRef<string | null>(null)
@@ -344,7 +346,7 @@ export const BetByIframe = ({
         lang={lang}
         locale={locale}
         data={userData}
-        features={APP_FEATURES}
+        features={features}
         balance={respBalance?.data}
         dataFee={respTransferBalanceFee?.data}
       />

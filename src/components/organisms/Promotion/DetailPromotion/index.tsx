@@ -1,5 +1,6 @@
 'use client'
 
+import { useAppFeatures } from '@/@core/context/AppFeaturesContext'
 import { GetData } from '@/@core/hooks/use-query'
 import { UseServerSendEvent } from '@/@core/hooks/UseServerSendEvent'
 import { BalanceResponse } from '@/@core/interface/balance/Balance'
@@ -9,7 +10,6 @@ import CountdownTimerPromotion from '@/components/molecules/CountdownTimer/Count
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { TransferBalanceFeeResponseMapped } from '@/types/transferBalanceFeeDTO'
-import { APP_FEATURES } from '@/utils/app-config'
 import { ArrowLeft, Clock, ImageIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -20,6 +20,7 @@ export default function PromotionDetail({ initialData, lang, locale, isLogin }: 
   const [activeTab, setActiveTab] = useState<'DEPOSIT' | 'WITHDRAW'>('DEPOSIT')
   const [isSheetOpen, setIsSheetOpen] = useState(false)
   const [selectedPromotion, setSelectedPromotion] = useState<any>(null)
+  const { features } = useAppFeatures()
 
   const { data: userData, isLoading: userDataLoading } = GetData<UserMeResponse>(
     '/me', // hits your Next.js API route, not the real backend
@@ -176,7 +177,7 @@ export default function PromotionDetail({ initialData, lang, locale, isLogin }: 
           locale={locale}
           data={userData}
           balance={respBalance?.data}
-          features={APP_FEATURES}
+          features={features}
           dataFee={respTransferBalanceFee?.data}
         />
       )}
