@@ -22,7 +22,7 @@ type Props = {
   eventItems?: EventItemUI[] // ⬅️ data event utk carousel kiri
   isLoadingEvent?: boolean
   guideCard?: Card
-  announcement?: { winners?: string[]; durationSec?: number; tailMessage?: string }
+  announcement?: { title?: string }[]
   className?: string
   lang: LangProps
 }
@@ -59,16 +59,13 @@ export default function BannerSection({
       </div>
 
       {/* TOP RIGHT: Announcement (60px) */}
-      <div className='md:col-span-9'>
-        <div className='h-[44px] md:h-[60px]'>
-          <Announcement
-            winners={announcement?.winners}
-            durationSec={announcement?.durationSec ?? 28}
-            tailMessage={announcement?.tailMessage}
-            className='h-full'
-          />
+      {announcement && announcement?.length > 0 && (
+        <div className='md:col-span-9'>
+          <div className='h-[44px] md:h-[60px]'>
+            <Announcement announcement={announcement} durationSec={28} className='h-full' />
+          </div>
         </div>
-      </div>
+      )}
 
       {/* BOTTOM MIDDLE: Promo (245px) */}
       <div className='md:col-span-6'>

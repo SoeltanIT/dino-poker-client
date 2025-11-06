@@ -7,13 +7,13 @@ import { GameGridSkeleton } from '@/components/atoms/Skeleton/GameGridSkeleton'
 import { useTelegramMiniApp } from '@/components/providers/TelegramMiniApp'
 import { Button } from '@/components/ui/button'
 import { gameDTO } from '@/types/gameDTO'
+import { getGameImage } from '@/utils/helper/getGameImage'
 import { useThemeToggle } from '@/utils/hooks/useTheme'
 import { keepPreviousData } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import LoginModal from '../Login'
 import { GameListProps } from './types'
-import { getGameImage } from '@/utils/helper/getGameImage'
 
 export default function ListGamePage({
   lang,
@@ -276,14 +276,15 @@ export default function ListGamePage({
           <GameGridSkeleton count={12} />
         ) : (
           <div key={`${theme}-${locale}`} className='flex flex-wrap gap-2'>
-            {listGame?.map((items, i) => {
-              const showImage = getGameImage(items, theme, locale)
-              const stableId = items?.id || `${items.title}-${items.provider}`
+            {listGame?.map((item, i) => {
+              const showImage = getGameImage(item, theme, locale)
+
+              const stableId = item?.id || `${item.title}-${item.provider}`
               return (
                 <div
                   // 👉 key stabil + ikut theme/locale supaya tiap card remount saat theme/locale berubah
                   key={`${stableId}-${theme}-${locale}`}
-                  onClick={() => setGameId(items.id)}
+                  onClick={() => setGameId(item.id)}
                   className='
                     basis-[calc((100%-0.5rem*2)/3)]
                     md:basis-[calc((100%-0.5rem*5)/6)]
@@ -294,15 +295,15 @@ export default function ListGamePage({
                     seedIndex={i}
                     lang={lang}
                     locale={locale}
-                    id={items?.id}
+                    id={item?.id}
                     image={showImage}
-                    provider={items.provider}
-                    title={items.title}
+                    provider={item.provider}
+                    title={item.title}
                     isLogin={isLogin}
                     onRequireLogin={() => setLoginOpen(true)}
                     onClickOpenGames={onClickOpenGames}
                     className='w-full h-full min-w-0'
-                    isOpening={openingGameId === items.id && isFetchingGameDetail}
+                    isOpening={openingGameId === item.id && isFetchingGameDetail}
                     priority={page === 1 && i < PRIORITY_COUNT}
                   />
                 </div>

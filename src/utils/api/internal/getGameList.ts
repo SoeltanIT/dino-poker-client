@@ -7,7 +7,9 @@ const mapData = (item: any) => ({
   image_ko: item?.image_ko,
   id: item?.id,
   title: item?.game_name,
-  provider: item?.provider_name
+  provider: item?.provider_name,
+  image_light: item?.image_light,
+  image_light_ko: item?.image_light_ko
 })
 
 export interface GameListResponse {
@@ -36,7 +38,6 @@ export const getGameList = async ({ page, pageSize }: any): Promise<GameListResp
     const total = res?.data?.pagination?.total ?? 0
     const totalPage = Math.ceil(total / pageSize)
     const mappedData = rawData.map((item: any) => mapData(item))
-
     return {
       page,
       totalPage,
