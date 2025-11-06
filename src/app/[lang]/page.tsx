@@ -1,6 +1,7 @@
 import Announcement from '@/components/organisms/Banner/Announcement'
 import ListGamePage from '@/components/organisms/Games'
 import PromoCarousel, { type Promotion } from '@/components/organisms/Promotion/PromoCarousel'
+import PromoHeaderSection from '@/components/organisms/Promotion/PromoHeaderSection'
 import { getDictionary, getLocal } from '@/dictionaries/dictionaries'
 import { getListPromotion } from '@/utils/api/internal/listPromotion'
 import { mapPromotionList } from '@/utils/mappers/promotion'
@@ -40,16 +41,7 @@ export default async function Home({ params }: any) {
 
   return (
     <div className='mx-auto w-full max-w-screen-2xl space-y-4 md:px-20 px-6 mt-4'>
-      <Announcement />
-
-      <PromoCarousel
-        items={promos}
-        isLoading={isLoadingPromo}
-        options={{ loop: true, align: 'start', duration: 20 }}
-        autoplay
-        intervalMs={4800}
-        lang={dict}
-      />
+      <PromoHeaderSection lang={dict} promos={promos} isLoadingPromo={isLoadingPromo} />
 
       <ListGamePage
         lang={dict}
