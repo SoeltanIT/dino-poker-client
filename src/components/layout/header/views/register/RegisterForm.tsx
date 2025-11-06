@@ -152,7 +152,7 @@ export default function RegisterForm({ lang, locale }: { lang: LangProps; locale
         <Button
           className='text-white h-10 px-6 uppercase hover:opacity-90'
           style={{
-            background: 'linear-gradient(96.67deg, #5F32E7 0%, #9747FF 100%)'
+            background: 'linear-gradient(96.67deg, var(--c-gradientPrimary) 0%, var(--c-gradientSecondary) 100%)'
           }}
         >
           {lang?.common?.register}

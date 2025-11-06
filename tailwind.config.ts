@@ -102,6 +102,13 @@ const config: Config = {
           neutral800: 'var(--neutral800)',
           neutral900: 'var(--neutral900)',
 
+          primary100: 'var(--c-primary100)',
+          primary200: 'var(--c-primary200)',
+          primary300: 'var(--c-primary300)',
+          primary400: 'var(--c-primary400)',
+
+          borderPrimary: 'var(--c-borderPrimary)',
+
           grey150: 'var(--c-grey150)',
           skeleton: 'var(--c-skeleton)',
           tertiary: 'var(--c-tertiary)',

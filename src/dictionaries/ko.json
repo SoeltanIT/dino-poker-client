@@ -529,6 +529,10 @@
     "infoDate": "종료일이 시작일보다 이전이어서 초기화되었습니다."
   },
   "header": {
+    "poker": "포커",
+    "casino": "카지노",
+    "promotion": "프로모션",
+    "sport": "스포츠",
     "totalBalance": "총 잔액",
     "mainBalance": "주요 잔액",
     "mainShort": "주요..",

@@ -1,17 +1,16 @@
 'use client'
 
 import { GetData } from '@/@core/hooks/use-query'
-import { GameCard } from '@/components/atoms/Card/GameCard'
+import GameCardLive from '@/components/atoms/Card/GameCardLive'
+import { GameCardSkeleton } from '@/components/atoms/Skeleton/GameCardSkeleton'
+import { GameGridSkeleton } from '@/components/atoms/Skeleton/GameGridSkeleton'
 import { Button } from '@/components/ui/button'
 import { gameDTO } from '@/types/gameDTO'
+import { keepPreviousData } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import LoginModal from '../Login'
 import { GameListProps } from './types'
-import { GameGridSkeleton } from '@/components/atoms/Skeleton/GameGridSkeleton'
-import { GameCardSkeleton } from '@/components/atoms/Skeleton/GameCardSkeleton'
-import GameCardLive from '@/components/atoms/Card/GameCardLive'
-import { keepPreviousData } from '@tanstack/react-query'
 
 export default function ListGamePage({
   lang,
@@ -190,7 +189,7 @@ export default function ListGamePage({
   const PRIORITY_COUNT = 12
 
   return (
-    <main className='w-full min-h-screen px-4 py-4'>
+    <main className='w-full min-h-screen py-4'>
       {/* Flex container using basis for columns */}
       {/* {roles === 3 ? (
         <div className='flex min-h-screen items-center justify-center py-24 text-center gap-4'>

@@ -1,9 +1,11 @@
 import { UserMeResponse } from '@/@core/interface/User'
 import { DepositFormData } from '@/@core/utils/schema/Transaction/DepositCryptoSchema'
-import { WithdrawFormData } from '@/@core/utils/schema/Transaction/WithdrawSchema'
 import { FeatureFlags } from '@/components/templates/App/AppWrapper'
 import { Locale } from '@/i18n-config'
+import { BalanceDTO } from '@/types/balanceDTO'
 import { LangProps } from '@/types/langProps'
+import { TransferFeePayload } from '@/types/transferBalanceFeeDTO'
+import { ReactNode } from 'react'
 
 export interface DepositFormProps {
   onSubmit: (data: DepositFormData, activeTab: string) => void
@@ -34,6 +36,18 @@ export interface DepositWithdrawSheetProps {
   data?: UserMeResponse
   selectedPromotion?: any
   features?: FeatureFlags
+}
+
+export interface HeaderSheetProps {
+  // children: React.ReactNode
+  defaultValue: string
+  lang: LangProps
+  locale?: Locale
+  data?: UserMeResponse
+  selectedPromotion?: any
+  features?: FeatureFlags
+  balance?: BalanceDTO
+  dataFee?: TransferFeePayload
 }
 
 export interface CryptoWithdrawFeeInfo {
@@ -81,4 +95,21 @@ export interface DepositConfirmFormProps {
   onClose: () => void
   activeTab?: string
   configData?: string
+}
+
+export interface MyBalanceSheetProps {
+  children?: ReactNode
+  lang?: LangProps
+  locale?: Locale
+  data?: BalanceDTO
+  onShow?: boolean
+  dataFee?: TransferFeePayload
+}
+
+export interface MyBalanceProps {
+  lang?: LangProps
+  locale?: Locale
+  onClose?: () => void
+  data?: BalanceDTO
+  dataFee?: TransferFeePayload
 }

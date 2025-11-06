@@ -9,15 +9,20 @@
 }
 
 :root {
+  --c-primary100: #bed7ff;
+  --c-primary200: #0863e9;
+  --c-primary300: #0851c5;
+  --c-primary400: #132452;
+  --c-gradientPrimary: var(--c-primary400);
+  --c-gradientSecondary: var(--c-primary300);
   --c-background-primary: var(--neutral800);
   --c-background-secondary: var(--neutral900);
   --c-body: #2a2d3e;
-  --c-primary: #5f32e7;
-  --c-primary-button: #2e1772;
-  /* --c-primary100:  */
+  --c-primary: var(--c-primary200);
+  --c-primary-button: var(--c-primary400);
   --c-primary2: #2a2d3e;
   --c-primary-surface: #e1defb;
-  --c-primary-hover: #4f2bbc;
+  --c-primary-hover: var(--c-primary300);
   --c-primary-hover2: #312006;
   --c-secondary: #734915;
   --c-secondary-hover: #cdc8e8;
@@ -38,10 +43,10 @@
 
   --c-divider-color: var(--neutral500);
 
-  --c-gradientSecondary: #5c3a00;
-
   --c-secondaryMain: #a4671e;
   --c-tertiary: var(--c-warning);
+
+  --c-borderPrimary: var(--c-primary100);
 
   --c-primaryLightAccent: #f8a21f52;
   --c-primaryDarkAccent: #73491500;
@@ -64,7 +69,7 @@
   --c-accentGreen: #91ecc9;
   --c-pending: #f1800f;
 
-  --c-progress-bar: #4f2bbc;
+  --c-progress-bar: var(--c-primary300);
   --c-container-progress: var(--neutral800);
   --c-progress-disabled: var(--neutral600);
 
@@ -87,12 +92,12 @@
   --neutral800: #1a1c21;
   --neutral900: #020202;
 
-  --ds-gradient-play-button: radial-gradient(50% 50% at 50% 50%, #8ac9ff 1.47%, #636bfc 77.54%);
+  --ds-gradient-play-button: radial-gradient(50% 50% at 50% 50%, #8ac9ff 1.47%, var(--c-primary) 77.54%);
   --ds-gradient-game-card-overlay: linear-gradient(180deg, rgba(15, 15, 20, 0) 0%, rgba(15, 15, 20, 0.8) 100%);
 
   --ds-grey-12op: #ffffff1f;
 
-  --c-bg-chips: #2e1772;
+  --c-bg-chips: var(--c-primary400);
   --c-border-chips: var(--neutral600);
   --c-text-main: var(--neutral400);
   --c-text-chips: var(--neutral400);
@@ -107,18 +112,26 @@
 
 /* Light Theme Overrides */
 .light-theme {
+  --c-primary100: #bed7ff;
+  --c-primary200: #0863e9;
+  --c-primary300: #0851c5;
+  --c-primary400: #132452;
+  --c-gradientPrimary: var(--c-primary400);
+  --c-gradientSecondary: var(--c-primary300);
   --c-background-primary: #fff;
   --c-background-secondary: #f5f5f5;
   --c-body: #f5f5f5;
-  --c-primary: #5f32e7; /* brighter primary */
-  --c-primary-button: #2e1772;
+  --c-primary: var(--c-primary200); /* brighter primary */
+  --c-primary-button: var(--c-primary400);
   --c-primary2: #e0e7ff;
   --c-primary-surface: #e1defb;
-  --c-primary-hover: #4f2bbc;
+  --c-primary-hover: var(--c-primary300);
   --c-primary-hover2: #c7d2fe;
 
   --c-secondary: #facc15;
   --c-secondary-hover: #fef08a;
+
+  --c-borderPrimary: transparent;
 
   --c-danger: #f05b6f;
   --c-danger-medium: #fca5a5;
@@ -138,8 +151,6 @@
   --c-text-header-table: var(--neutral600);
 
   --c-divider-color: var(--neutral300);
-
-  --c-gradientSecondary: #f3e8ff;
 
   --c-secondaryMain: #d97706;
   --c-tertiary: #facc15;
@@ -165,7 +176,7 @@
   --c-accentGreen: #4ade80;
   --c-pending: #fbbf24;
 
-  --c-progress-bar: #4f2bbc;
+  --c-progress-bar: var(--c-primary300);
   --c-container-progress: #fff;
   --c-progress-disabled: #f5f5f5;
 
