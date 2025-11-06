@@ -1,12 +1,15 @@
 // app/providers.tsx
 'use client'
 
-import { AppFeaturesProvider } from '@/@core/context/AppFeaturesContext'
+import { AppFeatures, AppFeaturesProvider } from '@/@core/context/AppFeaturesContext'
 import { ReactQueryProvider } from '@/@core/hooks/ReactQueryProvider'
 import SessionWrapper from '@/components/providers/SessionWrapper'
-import { TelegramMiniAppProvider } from '@/components/providers/TelegramMiniApp'
+import dynamic from 'next/dynamic'
 import { CookiesProvider } from 'react-cookie'
-import { AppFeatures } from '@/@core/context/AppFeaturesContext'
+
+const TelegramMiniAppProvider = dynamic(() => import('./TelegramMiniApp').then(mod => mod.TelegramMiniAppProvider), {
+  ssr: false
+})
 
 interface ProvidersProps {
   children: React.ReactNode

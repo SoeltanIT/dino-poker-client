@@ -176,11 +176,6 @@ export default async function RootLayout({
           }}
           async
         />
-
-        {/*
-        MARK: Telegram MiniApp
-        */}
-        <script defer src='https://telegram.org/js/telegram-web-app.js?59' />
       </head>
       <body className={`${baiJamjuree.className}`}>
         <Providers initialFeatures={initialFeatures}>

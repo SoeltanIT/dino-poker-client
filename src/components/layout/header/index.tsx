@@ -1,6 +1,5 @@
 'use client'
 
-import { useTelegramMiniApp } from '@/components/providers/TelegramMiniApp'
 import { useAuth } from '@/utils/hooks/useAuth'
 import { Eye, EyeOff, PlusIcon } from 'lucide-react'
 import Image from 'next/image'
@@ -27,13 +26,20 @@ import { UserFullDTO } from '@/types/userDTO'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
 import { HeaderSheet } from './views/transaction'
 
-export const Header = ({ lang, locale, data, balance, theme, transferBalanceFee, features }: HeaderProps) => {
+export const Header = ({
+  lang,
+  locale,
+  data,
+  balance,
+  theme,
+  transferBalanceFee,
+  features,
+  isLoading
+}: HeaderProps) => {
   const pathname = usePathname()
   const logo = theme === 'dark' ? '/images/logo_light.webp' : '/images/logo_dark.webp'
-  const { isAuthenticated, isLoading, likelyLoggedIn } = useAuth()
-  const { isMiniAppLoaded } = useTelegramMiniApp()
+  const { isAuthenticated, likelyLoggedIn } = useAuth()
 
-  const isAppLoading = !isMiniAppLoaded || isLoading
   const isLogin = isAuthenticated
   const buttonLogoutRef = useRef<HTMLButtonElement>(null)
 
@@ -47,7 +53,7 @@ export const Header = ({ lang, locale, data, balance, theme, transferBalanceFee,
 
   return (
     <header className='md:bg-app-background-primary flex lg:px-8 px-4 py-4 md:justify-end items-center lg:space-x-4 bg-app-background-secondary'>
-      {isAppLoading ? (
+      {isLoading ? (
         <HeaderSkeleton variant={likelyLoggedIn ? 'loggedIn' : 'guest'} />
       ) : isLogin ? (
         // ✅ Logged in
