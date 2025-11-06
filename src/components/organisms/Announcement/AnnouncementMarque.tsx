@@ -1,7 +1,9 @@
 'use client'
 
+import { Locale } from '@/i18n-config'
 import clsx from 'clsx'
 import { Volume2 } from 'lucide-react'
+import Link from 'next/link'
 import { Fragment, useEffect, useRef, useState } from 'react'
 
 type Props = {
@@ -9,6 +11,7 @@ type Props = {
   durationSec?: number
   className?: string
   announcement?: { title?: string }[]
+  locale?: Locale
 }
 
 /**
@@ -17,7 +20,7 @@ type Props = {
  * - Winner name changes every cycle
  * - Only animates if content overflows container
  */
-export default function AnnouncementMarque({ durationSec = 28, announcement, className }: Props) {
+export default function AnnouncementMarque({ durationSec = 28, announcement, className, locale }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   const [shouldAnimate, setShouldAnimate] = useState(false)
@@ -36,7 +39,8 @@ export default function AnnouncementMarque({ durationSec = 28, announcement, cla
     return () => window.removeEventListener('resize', checkOverflow)
   }, [announcement])
   return (
-    <div
+    <Link
+      href={`/${locale}/announcements`}
       className={clsx(
         'relative w-full overflow-hidden rounded-xl bg-app-primary400',
         'px-4 py-2 md:py-0', // md tanpa padding vertikal agar pas 60px
@@ -95,6 +99,6 @@ export default function AnnouncementMarque({ durationSec = 28, announcement, cla
           }
         }
       `}</style>
-    </div>
+    </Link>
   )
 }

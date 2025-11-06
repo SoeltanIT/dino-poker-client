@@ -4,6 +4,7 @@ import BannerCard from '@/components/atoms/Card/BannerCard/BannerCard'
 import AnnouncementMarque from '@/components/organisms/Announcement/AnnouncementMarque'
 import BannerCarousel from '@/components/organisms/Banner/BannerCarousel'
 import PromoCarousel, { type Promotion } from '@/components/organisms/Promotion/PromoCarousel'
+import { Locale } from '@/i18n-config'
 import { BannerDTO } from '@/types/bannerDTO'
 import { LangProps } from '@/types/langProps'
 import clsx from 'clsx'
@@ -26,6 +27,7 @@ type Props = {
   announcement?: { title?: string }[]
   className?: string
   lang: LangProps
+  locale?: Locale
 }
 
 export default function BannerSection({
@@ -41,7 +43,8 @@ export default function BannerSection({
   },
   announcement,
   className,
-  lang
+  lang,
+  locale
 }: Props) {
   // desktop height for the bottom row (px)
 
@@ -63,7 +66,7 @@ export default function BannerSection({
       {announcement && announcement?.length > 0 && (
         <div className='md:col-span-9'>
           <div className='h-[44px] md:h-[60px]'>
-            <AnnouncementMarque announcement={announcement} durationSec={28} className='h-full' />
+            <AnnouncementMarque announcement={announcement} durationSec={28} className='h-full' locale={locale} />
           </div>
         </div>
       )}

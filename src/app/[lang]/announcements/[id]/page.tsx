@@ -1,13 +1,7 @@
 import { handleServerAuthError } from '@/@core/lib/server-auth-utils'
-import DetailBanner from '@/components/organisms/Banner/DetailBanner'
+import DetailAnnouncement from '@/components/organisms/Announcement/DetailAnnouncement'
 import { getDictionary, getLocal } from '@/dictionaries/dictionaries'
-import { getDetailBanner } from '@/utils/api/internal/detailBanner'
-import { Metadata } from 'next'
-
-export const metadata: Metadata = {
-  title: 'Detail Events Page',
-  description: 'Detail Events Page'
-}
+import { getDetailAnnouncement } from '@/utils/api/internal/detailAnnouncement'
 
 export default async function Page({ params, ...props }: any) {
   const locale = await getLocal()
@@ -19,7 +13,7 @@ export default async function Page({ params, ...props }: any) {
 
   try {
     // Fetch user data
-    initialData = await getDetailBanner(params?.id)
+    initialData = await getDetailAnnouncement(params?.id)
 
     if (initialData) {
       isLoading = false
@@ -40,5 +34,5 @@ export default async function Page({ params, ...props }: any) {
     err = err.message || 'Failed to load data'
   }
 
-  return <DetailBanner initialData={initialData} lang={dict} locale={locale} />
+  return <DetailAnnouncement initialData={initialData} lang={dict} locale={locale} />
 }

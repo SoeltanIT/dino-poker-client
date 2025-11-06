@@ -74,6 +74,7 @@ export default async function Home({ params }: any) {
         eventItems={bannerRaw ?? DUMMY_EVENTS}
         isLoadingPromo={isLoadingPromo}
         announcement={announcementText}
+        locale={locale}
       />
 
       <ListGamePage
