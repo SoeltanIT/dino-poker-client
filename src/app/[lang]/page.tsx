@@ -3,6 +3,7 @@ import ListGamePage from '@/components/organisms/Games'
 import BannerSection from '@/components/organisms/Promotion/BannerSection'
 import { type Promotion } from '@/components/organisms/Promotion/PromoCarousel'
 import { getDictionary, getLocal } from '@/dictionaries/dictionaries'
+import { getAnnouncementText } from '@/utils/api/internal/getAnnouncementText'
 import { getListBanner } from '@/utils/api/internal/listBanner'
 import { getListPromotion } from '@/utils/api/internal/listPromotion'
 import { mapPromotionList } from '@/utils/mappers/promotion'
@@ -34,7 +35,7 @@ export default async function Home({ params }: any) {
     initialData = await res.json()
 
     promoRaw = await getListPromotion()
-    // bannerRaw = await getListBanner()
+    bannerRaw = await getListBanner()
     // announcementText = await getAnnouncementText()
 
     isLoading = !initialData
@@ -69,7 +70,12 @@ export default async function Home({ params }: any) {
 
   return (
     <div className='mx-auto w-full max-w-screen-2xl space-y-4 md:px-20 px-6 mt-4'>
-      <BannerSection lang={dict} promos={promos} eventItems={DUMMY_EVENTS} isLoadingPromo={isLoadingPromo} />
+      <BannerSection
+        lang={dict}
+        promos={promos}
+        eventItems={bannerRaw ?? DUMMY_EVENTS}
+        isLoadingPromo={isLoadingPromo}
+      />
 
       <ListGamePage
         lang={dict}
