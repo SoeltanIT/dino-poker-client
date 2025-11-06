@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
+import { BannerDTO } from '@/types/bannerDTO'
 import { LangProps } from '@/types/langProps'
 import clsx from 'clsx'
 import type { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel'
@@ -10,43 +11,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import * as React from 'react'
 
-export type EventItemApi = {
-  id: string
-  image: string
-  title?: string
-  sub_title?: string
-  description?: string
-  is_active?: boolean
-  position?: number
-}
-export type EventItemUI = {
-  id: string
-  imageUrl: string
-  title?: string
-  subtitle?: string
-  description?: string
-  href?: string
-  ctaText?: string
-}
-
-export function mapEventItems(api?: EventItemApi[]): EventItemUI[] {
-  if (!api?.length) return []
-  return api
-    .filter(x => x.is_active !== false)
-    .sort((a, b) => (a.position ?? 0) - (b.position ?? 0))
-    .map(x => ({
-      id: x.id,
-      imageUrl: x.image,
-      title: x.title,
-      subtitle: x.sub_title,
-      description: x.description,
-      href: x.id ? `/events/${x.id}` : '/events',
-      ctaText: 'MORE INFO'
-    }))
-}
-
 type Props = {
-  items?: EventItemUI[]
+  items?: BannerDTO[]
   className?: string
   isLoading?: boolean
   autoplay?: boolean
@@ -56,7 +22,7 @@ type Props = {
   lang: LangProps
 }
 
-export default function EventCarousel({
+export default function BannerCarousel({
   items = [],
   className,
   isLoading,
@@ -125,9 +91,9 @@ export default function EventCarousel({
               {items.map(ev => (
                 <div className='embla__slide h-full' key={ev.id}>
                   <div className='relative h-full w-full overflow-hidden rounded-2xl'>
-                    {ev.imageUrl ? (
+                    {ev.image ? (
                       <Image
-                        src={ev.imageUrl}
+                        src={ev.image}
                         alt={ev.title ?? 'Event'}
                         fill
                         priority
@@ -153,11 +119,11 @@ export default function EventCarousel({
                           </h3>
                         )}
 
-                        {ev.subtitle && (
-                          <p className={clsx('mt-1 text-sm text-white/85 drop-shadow md:text-sm')}>{ev.subtitle}</p>
+                        {ev.sub_title && (
+                          <p className={clsx('mt-1 text-sm text-white/85 drop-shadow md:text-sm')}>{ev.sub_title}</p>
                         )}
 
-                        {ev.ctaText && (
+                        {ev.title && (
                           <div className={'pt-3 flex justify-center'}>
                             <Button
                               asChild
@@ -165,7 +131,7 @@ export default function EventCarousel({
                               variant='secondary'
                               className='bg-app-primary text-white hover:bg-app-primary-hover uppercase'
                             >
-                              <Link href={ev.href ?? '/events'}>{lang?.common?.moreInfo}</Link>
+                              <Link href={`/banners/${ev.id}`}>{lang?.common?.moreInfo}</Link>
                             </Button>
                           </div>
                         )}

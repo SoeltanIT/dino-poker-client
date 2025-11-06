@@ -2,7 +2,7 @@
 
 import clsx from 'clsx'
 import { Volume2 } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 
 type Props = {
   /** Durasi 1 siklus marquee dalam detik (semakin besar semakin lambat) */
@@ -12,12 +12,12 @@ type Props = {
 }
 
 /**
- * Announcement bar with marquee + dynamic winner name per cycle.
+ * AnnouncementMarque bar with marquee + dynamic winner name per cycle.
  * - Slower by default (28s)
  * - Winner name changes every cycle
  * - Only animates if content overflows container
  */
-export default function Announcement({ durationSec = 28, announcement, className }: Props) {
+export default function AnnouncementMarque({ durationSec = 28, announcement, className }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   const [shouldAnimate, setShouldAnimate] = useState(false)
@@ -60,9 +60,10 @@ export default function Announcement({ durationSec = 28, announcement, className
       <div ref={containerRef} className='relative ml-3 flex-1 overflow-hidden'>
         <div ref={contentRef} className={clsx('whitespace-nowrap', shouldAnimate && 'marquee')}>
           {announcement?.map((item, index) => (
-            <span className='mr-10' key={index}>
-              {item.title}
-            </span>
+            <Fragment key={index}>
+              <span>{item.title}</span>
+              {index !== announcement?.length - 1 && <span className='mx-4'>|</span>}
+            </Fragment>
           ))}
         </div>
       </div>

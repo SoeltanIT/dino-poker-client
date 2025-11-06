@@ -1,9 +1,8 @@
-import { ReactNode } from 'react'
 import { getDictionary } from '@/dictionaries/dictionaries'
-import type { Metadata } from 'next'
 import { Locale } from '@/i18n-config'
 import { getSEOPage } from '@/utils/api/internal/getSEOPage'
-import { handleServerAuthError } from '@/@core/lib/server-auth-utils'
+import type { Metadata } from 'next'
+import { ReactNode } from 'react'
 
 const commonKeyword = [
   'esports betting',
