@@ -1,0 +1,46 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPOKER under Maintenance</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Bai Jamjuree', sans-serif;
+        }
+    </style>
+    <script>
+        function uVph() {
+            console.log('uVph called');
+
+            if (window.innerWidth < 768) {
+                document.documentElement.style.setProperty("--vp-height", window.innerHeight + "px");
+            } else {
+                document.documentElement.style.setProperty("--vp-height", "100dvh");
+            }
+        }
+        window.addEventListener("resize", uVph);
+        uVph();
+    </script>
+</head>
+
+<body class="bg-[#1a1c21] text-[#fff]">
+    <div class="flex flex-col items-center justify-center h-(--vp-height) p-4">
+        <div class="flex flex-col items-center justify-center gap-4 flex-1 rounded-lg border border-[#fff] p-4 w-full">
+            <img src="/images/logo_footer_light.webp" alt="KPOKER" class="w-auto h-10" />
+            <div class="text-white font-bold text-center text-base md:text-xl">
+                <p>Our system is currently under maintenance. Please try again later</p>
+                <p>현재 시스템 점검 중입니다. 잠시 후 다시 이용해 주세요.</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

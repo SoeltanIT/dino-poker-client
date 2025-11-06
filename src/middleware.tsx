@@ -1,11 +1,16 @@
 import { match as matchLocale } from '@formatjs/intl-localematcher'
-import Negotiator from 'negotiator'
+import { get } from '@vercel/edge-config'
 import { jwtDecode } from 'jwt-decode'
+import Negotiator from 'negotiator'
 import { getToken } from 'next-auth/jwt'
 import { type NextRequest, NextResponse } from 'next/server'
 import { i18n } from './i18n-config'
 
 const secret = process.env.NEXTAUTH_SECRET || ''
+
+const isDev = process.env.NODE_ENV === 'development'
+
+const maintenancePath = '/maintenance.html'
 
 const getLocale = (request: NextRequest): string => {
   const headers: Record<string, string> = {}
@@ -30,6 +35,19 @@ const guestOnlyRoutes = ['/forgot-password']
 
 export async function middleware(req: NextRequest) {
   const { pathname, searchParams } = req.nextUrl
+
+  if (!isDev) {
+    const isInMaintenanceMode = await get<boolean>('isInMaintenanceMode')
+
+    if (isInMaintenanceMode) {
+      req.nextUrl.pathname = maintenancePath
+      return NextResponse.rewrite(req.nextUrl)
+    } else if (pathname.startsWith(maintenancePath)) {
+      req.nextUrl.pathname = '/'
+      return NextResponse.rewrite(req.nextUrl)
+    }
+  }
+
   const currentLocale = pathname.split('/')[1]
 
   if (isBypassedPath(pathname)) return NextResponse.next()
