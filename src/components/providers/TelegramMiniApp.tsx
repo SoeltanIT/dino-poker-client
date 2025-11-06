@@ -118,7 +118,7 @@ export function TelegramMiniAppProvider({ children }: PropsWithChildren) {
           >
             <div className='size-full flex items-center justify-center'>
               <Image
-                src={theme === 'dark' ? '/images/logo_light.png' : '/images/logo_dark.png'}
+                src={theme === 'dark' ? '/images/logo_light.webp' : '/images/logo_dark.webp'}
                 alt={'Logo'}
                 priority
                 width={150}
