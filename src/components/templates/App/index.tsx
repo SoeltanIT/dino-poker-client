@@ -1,7 +1,7 @@
 import { getDictionary, getLocal } from '@/dictionaries/dictionaries'
 import { ConfigType } from '@/types/config'
-import { APP_FEATURES } from '@/utils/app-config'
 import { LiveChatProvider } from '@/utils/context/LiveChatProvider'
+import { getAppFeaturesServer } from '@/utils/server/app-features'
 import { FC, ReactNode } from 'react'
 import AppWrapper from './AppWrapper'
 
@@ -18,9 +18,11 @@ const AppTemplate: FC<AppTemplateProps> = async ({ children, params, config, ...
   const locale = await getLocal()
   // ✅ central feature registry
 
+  const features = await getAppFeaturesServer()
+
   return (
     <LiveChatProvider licenseId={config['livechat_id']}>
-      <AppWrapper locale={locale} lang={dict} config={config} features={APP_FEATURES}>
+      <AppWrapper locale={locale} lang={dict} config={config} features={features}>
         {children}
       </AppWrapper>
     </LiveChatProvider>

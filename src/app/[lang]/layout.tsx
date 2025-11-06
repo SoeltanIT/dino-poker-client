@@ -5,6 +5,7 @@ import { Locale } from '@/i18n-config'
 import { ConfigType } from '@/types/config'
 import { getSEOPage } from '@/utils/api/internal/getSEOPage'
 import { getWebConfig } from '@/utils/api/internal/webConfig'
+import { getAppFeaturesServer } from '@/utils/server/app-features'
 import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
 import { ToastContainer } from 'react-toastify'
@@ -118,6 +119,7 @@ export default async function RootLayout({
   const lang = await getDictionary(params.lang)
 
   const webConfig = await getWebConfig()
+  const initialFeatures = await getAppFeaturesServer()
 
   const configMap = Object.fromEntries(webConfig.map(item => [item.key, item.value])) as ConfigType
 
@@ -181,7 +183,7 @@ export default async function RootLayout({
         <script defer src='https://telegram.org/js/telegram-web-app.js?59' />
       </head>
       <body className={`${baiJamjuree.className}`}>
-        <Providers>
+        <Providers initialFeatures={initialFeatures}>
           <AppTemplate config={configMap} {...props}>
             {children}
           </AppTemplate>
