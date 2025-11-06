@@ -3,8 +3,12 @@
 
 import { ReactQueryProvider } from '@/@core/hooks/ReactQueryProvider'
 import SessionWrapper from '@/components/providers/SessionWrapper'
-import { TelegramMiniAppProvider } from '@/components/providers/TelegramMiniApp'
+import dynamic from 'next/dynamic'
 import { CookiesProvider } from 'react-cookie'
+
+const TelegramMiniAppProvider = dynamic(() => import('./TelegramMiniApp').then(mod => mod.TelegramMiniAppProvider), {
+  ssr: false
+})
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (

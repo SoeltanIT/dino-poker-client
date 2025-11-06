@@ -1,6 +1,11 @@
-import { useQueryClient } from '@tanstack/react-query'
-import { getSession, signIn, useSession } from 'next-auth/react'
-import { createContext, type PropsWithChildren, useContext, useEffect, useState } from 'react'
+'use client'
+import { cn } from '@/lib/utils'
+import { useThemeToggle } from '@/utils/hooks/useTheme'
+import { isTMA as _isTMA } from '@tma.js/sdk'
+import { getSession, signIn } from 'next-auth/react'
+import Image from 'next/image'
+import Script from 'next/script'
+import { createContext, type PropsWithChildren, useContext, useState } from 'react'
 import { useCookies } from 'react-cookie'
 
 async function initTelegramMiniApp() {
@@ -36,11 +41,15 @@ async function initTelegramMiniApp() {
 }
 
 const TelegramMiniAppContext = createContext<{
+  isTMA: boolean
   isMiniAppLoaded: boolean
+  hideLoader: () => void
   showAlert: (message: string) => Promise<void>
   closeApp: () => void
 }>({
+  isTMA: false,
   isMiniAppLoaded: false,
+  hideLoader: () => null,
   showAlert: async () => {},
   closeApp: () => null
 })
@@ -55,11 +64,11 @@ export function useTelegramMiniApp() {
 }
 
 export function TelegramMiniAppProvider({ children }: PropsWithChildren) {
+  const { theme } = useThemeToggle()
   const [isMiniAppLoaded, setIsMiniAppLoaded] = useState(false)
-  const { status } = useSession()
-  const queryClient = useQueryClient()
-  const isAuthenticated = status === 'authenticated'
+  const [showLoader, setIsShowLoader] = useState(true)
   const [, setCookie] = useCookies(['_authorization'])
+  const isTMA = _isTMA()
 
   const showAlert = (message: string) =>
     new Promise<void>(resolve => {
@@ -70,42 +79,57 @@ export function TelegramMiniAppProvider({ children }: PropsWithChildren) {
 
   const closeApp = () => window?.Telegram?.WebApp?.close?.()
 
-  useEffect(() => {
-    if (isAuthenticated) return
+  const hideLoader = () => setIsShowLoader(false)
 
-    if (!window.Telegram) {
+  const handleLoadScript = () => {
+    if (!_isTMA()) {
       setIsMiniAppLoaded(true)
       return
     }
 
-    initTelegramMiniApp()
-      .then(async () => {
-        const session = await getSession()
-        const token = session?.accessToken
+    initTelegramMiniApp().then(async () => {
+      const session = await getSession()
+      const token = session?.accessToken
 
-        setIsMiniAppLoaded(true)
+      if (token) {
+        setCookie('_authorization', token, {
+          path: '/',
+          secure: true,
+          sameSite: 'lax',
+          maxAge: 60 * 60 * 24
+        })
+      }
 
-        if (token) {
-          setCookie('_authorization', token, {
-            path: '/',
-            secure: true,
-            sameSite: 'lax',
-            maxAge: 60 * 60 * 24
-          })
-
-          await queryClient.invalidateQueries({ queryKey: ['user', 'me'] })
-
-          await queryClient.invalidateQueries({ queryKey: ['getBalance'] })
-        }
-      })
-      .catch(err => {
-        console.log(`[Telegram.MiniApp]:`, err)
-      })
-  }, [isAuthenticated, queryClient])
+      setIsMiniAppLoaded(true)
+    })
+  }
 
   return (
-    <TelegramMiniAppContext.Provider value={{ isMiniAppLoaded, showAlert, closeApp }}>
-      {children}
-    </TelegramMiniAppContext.Provider>
+    <>
+      <Script src='https://telegram.org/js/telegram-web-app.js?59' onLoad={handleLoadScript} />
+
+      <TelegramMiniAppContext.Provider value={{ isTMA, isMiniAppLoaded, showAlert, closeApp, hideLoader }}>
+        {_isTMA() && (
+          <div
+            className={cn(
+              'fixed top-0 left-0 size-full z-[9999] bg-black/70 transition-opacity',
+              !showLoader && 'opacity-0 pointer-events-none size-0'
+            )}
+          >
+            <div className='size-full flex items-center justify-center'>
+              <Image
+                src={theme === 'dark' ? '/images/logo_light.webp' : '/images/logo_dark.webp'}
+                alt={'Logo'}
+                priority
+                width={150}
+                height={150}
+                className='w-1/3 animate-pulse'
+              />
+            </div>
+          </div>
+        )}
+        {children}
+      </TelegramMiniAppContext.Provider>
+    </>
   )
 }

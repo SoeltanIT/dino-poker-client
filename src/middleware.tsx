@@ -1,11 +1,16 @@
 import { match as matchLocale } from '@formatjs/intl-localematcher'
-import Negotiator from 'negotiator'
+import { get } from '@vercel/edge-config'
 import { jwtDecode } from 'jwt-decode'
+import Negotiator from 'negotiator'
 import { getToken } from 'next-auth/jwt'
 import { type NextRequest, NextResponse } from 'next/server'
 import { i18n } from './i18n-config'
 
 const secret = process.env.NEXTAUTH_SECRET || ''
+
+const isDev = process.env.NODE_ENV === 'development'
+
+const maintenancePath = '/maintenance.html'
 
 const getLocale = (request: NextRequest): string => {
   const headers: Record<string, string> = {}
@@ -30,6 +35,30 @@ const guestOnlyRoutes = ['/forgot-password']
 
 export async function middleware(req: NextRequest) {
   const { pathname, searchParams } = req.nextUrl
+
+  if (!isDev) {
+    const isInMaintenanceMode = await get<boolean>('isInMaintenanceMode')
+
+    if (isInMaintenanceMode) {
+      if (pathname.startsWith(maintenancePath)) {
+        return NextResponse.next()
+      }
+      const url = new URL('/maintenance.html', req.url)
+      const response = await fetch(url)
+      const html = await response.text()
+      return new Response(html, {
+        status: 503,
+        headers: {
+          'Content-Type': 'text/html',
+          'Retry-After': '3600'
+        }
+      })
+    } else if (pathname.startsWith(maintenancePath)) {
+      req.nextUrl.pathname = '/'
+      return NextResponse.rewrite(req.nextUrl)
+    }
+  }
+
   const currentLocale = pathname.split('/')[1]
 
   if (isBypassedPath(pathname)) return NextResponse.next()
