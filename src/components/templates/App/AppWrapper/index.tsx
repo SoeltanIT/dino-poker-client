@@ -9,6 +9,7 @@ import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/molecules/Footer/footer'
 import LocaleSwitcherDropdown from '@/components/molecules/LocaleSwitcher'
 import { Navbar } from '@/components/molecules/Navbar'
+import { useTelegramMiniApp } from '@/components/providers/TelegramMiniApp'
 import { Locale } from '@/i18n-config'
 import { cn } from '@/lib/utils'
 import { ConfigType } from '@/types/config'
@@ -46,15 +47,23 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config, feat
   const { theme } = useThemeToggle()
 
   const { isLoading: isSessionLoading } = useAuth()
+  const { isTMA, isMiniAppLoaded, hideLoader } = useTelegramMiniApp()
+  const isAllowRequest = isTMA ? isMiniAppLoaded : true
 
   const { data: userData, isLoading: userDataLoading } = GetData<UserMeResponse>(
     '/me', // hits your Next.js API route, not the real backend
-    ['user', 'me']
+    ['user', 'me'],
+    false,
+    undefined,
+    isAllowRequest
   )
   const { balanceTrigger, balanceMessages } = UseServerSendEvent()
   const { data: respBalance, isLoading: balanceLoading } = GetData<BalanceResponse>(
     '/balance', // hits your Next.js API route, not the real backend
-    ['getBalance', balanceTrigger] //trigger put here if need to refresh on SSE event
+    ['getBalance', balanceTrigger], //trigger put here if need to refresh on SSE event,
+    false,
+    undefined,
+    isAllowRequest
   )
 
   const { data: respTransferBalanceFee, isLoading: transferFeeLoading } = GetData<TransferBalanceFeeResponseMapped>(
@@ -62,7 +71,7 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config, feat
     ['getTransferBalanceFee'],
     false,
     undefined,
-    true,
+    isAllowRequest,
     undefined,
     undefined,
     undefined,
@@ -71,6 +80,10 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config, feat
     'transaction'
   )
 
+  // // const isMiniAppLoading = !isMiniAppLoaded || isLoading
+  // const isAppLoading = isTMA ? !isMiniAppLoaded : isLoading
+
+  const isLoading = !isMiniAppLoaded || userDataLoading || balanceLoading || transferFeeLoading
   const hasMounted = useHasMounted()
 
   useEffect(() => {
@@ -80,6 +93,10 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config, feat
       document.cookie = `user_roles=${session?.data?.user?.roles}; path=/; max-age=${maxAge}; samesite=lax`
     }
   }, [session])
+
+  useEffect(() => {
+    if (!isLoading) hideLoader()
+  }, [isLoading])
 
   return (
     <div className='min-h-screen bg-app-background-secondary text-app-text-color'>
@@ -91,6 +108,7 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config, feat
         {/* Top Header */}
         <div className='sticky top-0 z-30 bg-app-background-secondary'>
           <Header
+            isLoading={isLoading}
             lang={lang}
             locale={locale}
             data={userData}
