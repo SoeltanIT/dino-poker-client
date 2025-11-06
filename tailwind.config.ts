@@ -222,7 +222,8 @@ const config: Config = {
         ['responsive']
       )
     }),
-    require('tailwindcss-animate')
+    require('tailwindcss-animate'),
+    require('@tailwindcss/typography')
   ]
 }
 export default config
