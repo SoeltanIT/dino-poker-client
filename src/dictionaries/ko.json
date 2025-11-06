@@ -282,7 +282,8 @@
     "withdrawalSecurity": "출금 보안",
     "chipAmount": "칩 금액",
     "transferHistory": "이체 내역",
-    "createdAt": "생성일"
+    "createdAt": "생성일",
+    "moreInfo": "자세히 보기"
   },
   "game": {
     "texaspoker": "텍사스 홀덤",

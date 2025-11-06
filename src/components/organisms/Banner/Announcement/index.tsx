@@ -1,8 +1,8 @@
 'use client'
 
 import clsx from 'clsx'
-import { useEffect, useMemo, useState } from 'react'
 import { Volume2 } from 'lucide-react'
+import { useEffect, useMemo, useState } from 'react'
 
 type Props = {
   /** Pesan tambahan setelah bagian “congratz …” */
@@ -52,8 +52,8 @@ export default function Announcement({
     <div
       className={clsx(
         'relative w-full overflow-hidden rounded-xl bg-app-primary400',
-        'px-4 py-2',
-        'flex items-center text-white',
+        'px-4 py-2 md:py-0', // md tanpa padding vertikal agar pas 60px
+        'flex items-center h-full text-white',
         className
       )}
       aria-live='polite'
