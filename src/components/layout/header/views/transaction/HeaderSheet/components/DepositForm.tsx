@@ -134,6 +134,7 @@ export default function DepositForm({
         return lang?.common.verifyCheckMsgDeposit
     }
   }
+  console.log(features)
 
   return (
     <>
