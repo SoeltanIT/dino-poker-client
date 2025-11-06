@@ -6,11 +6,13 @@ import { GameCardSkeleton } from '@/components/atoms/Skeleton/GameCardSkeleton'
 import { GameGridSkeleton } from '@/components/atoms/Skeleton/GameGridSkeleton'
 import { Button } from '@/components/ui/button'
 import { gameDTO } from '@/types/gameDTO'
+import { useThemeToggle } from '@/utils/hooks/useTheme'
 import { keepPreviousData } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import LoginModal from '../Login'
 import { GameListProps } from './types'
+import { getGameImage } from '@/utils/helper/getGameImage'
 
 export default function ListGamePage({
   lang,
@@ -32,6 +34,10 @@ export default function ListGamePage({
   const popupRef = useRef<Window | null>(null)
   /** which card is opening */
   const [openingGameId, setOpeningGameId] = useState<string | null>(null)
+
+  const { theme } = useThemeToggle()
+
+  console.log('theme >', theme)
 
   const {
     data: dataList,
@@ -263,34 +269,37 @@ export default function ListGamePage({
           <GameGridSkeleton count={12} />
         ) : (
           <div className='flex flex-wrap gap-2'>
-            {listGame?.map((items, i) => (
-              <div
-                key={i}
-                onClick={() => setGameId(items.id)}
-                className='
+            {listGame?.map((items, i) => {
+              const showImage = getGameImage(items, theme, locale)
+              return (
+                <div
+                  key={i}
+                  onClick={() => setGameId(items.id)}
+                  className='
                     basis-[calc((100%-0.5rem*2)/3)]
                     md:basis-[calc((100%-0.5rem*5)/6)]
                     shrink-0 min-w-0
                   '
-              >
-                <GameCardLive
-                  seedIndex={i}
-                  lang={lang}
-                  locale={locale}
-                  id={items?.id}
-                  image={locale === 'ko' ? items?.image_ko : items?.image}
-                  provider={items.provider}
-                  title={items.title}
-                  // playersCount={stableCount(items?.id || `${items.title}-${items.provider}`)}
-                  isLogin={isLogin}
-                  onRequireLogin={() => setLoginOpen(true)}
-                  onClickOpenGames={(id: any) => onClickOpenGames(id)}
-                  className='w-full h-full min-w-0'
-                  isOpening={openingGameId === items.id && isFetchingGameDetail}
-                  priority={page === 1 && i < PRIORITY_COUNT}
-                />
-              </div>
-            ))}
+                >
+                  <GameCardLive
+                    seedIndex={i}
+                    lang={lang}
+                    locale={locale}
+                    id={items?.id}
+                    image={showImage}
+                    provider={items.provider}
+                    title={items.title}
+                    // playersCount={stableCount(items?.id || `${items.title}-${items.provider}`)}
+                    isLogin={isLogin}
+                    onRequireLogin={() => setLoginOpen(true)}
+                    onClickOpenGames={(id: any) => onClickOpenGames(id)}
+                    className='w-full h-full min-w-0'
+                    isOpening={openingGameId === items.id && isFetchingGameDetail}
+                    priority={page === 1 && i < PRIORITY_COUNT}
+                  />
+                </div>
+              )
+            })}
 
             {/* Append skeletons while fetching the next page */}
             {showAppendSkeleton &&
