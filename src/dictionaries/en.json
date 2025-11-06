@@ -287,7 +287,8 @@
     "banners": "Banners",
     "noBannerFound": "No Banner Found",
     "announcements": "Announcements",
-    "noAnnouncementFound": "No Announcement Found"
+    "noAnnouncementFound": "No Announcement Found",
+    "userGuide": "User Guide"
   },
   "game": {
     "texaspoker": "Texas Poker",
