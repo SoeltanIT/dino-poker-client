@@ -40,8 +40,19 @@ export async function middleware(req: NextRequest) {
     const isInMaintenanceMode = await get<boolean>('isInMaintenanceMode')
 
     if (isInMaintenanceMode) {
-      req.nextUrl.pathname = maintenancePath
-      return NextResponse.rewrite(req.nextUrl)
+      if (pathname.startsWith(maintenancePath)) {
+        return NextResponse.next()
+      }
+      const url = new URL('/maintenance.html', req.url)
+      const response = await fetch(url)
+      const html = await response.text()
+      return new Response(html, {
+        status: 503,
+        headers: {
+          'Content-Type': 'text/html',
+          'Retry-After': '3600'
+        }
+      })
     } else if (pathname.startsWith(maintenancePath)) {
       req.nextUrl.pathname = '/'
       return NextResponse.rewrite(req.nextUrl)
