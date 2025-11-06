@@ -17,7 +17,7 @@ export default async function Page({ params, ...props }: any) {
         <h1 className='text-3xl font-bold text-app-text-color uppercase'>{dict?.common?.userGuide}</h1>
       </div>
       <div
-        className=' prose mx-auto'
+        className='prose mx-auto'
         dangerouslySetInnerHTML={{
           __html: userGuide
         }}
