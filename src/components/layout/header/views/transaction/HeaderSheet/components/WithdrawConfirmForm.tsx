@@ -1,6 +1,6 @@
 import { CountdownTimer } from '@/components/molecules/CountdownTimer/CountdownTimer'
-import { DepositConfirmFormProps } from './types'
 import { Button } from '@/components/ui/button'
+import { DepositConfirmFormProps } from '../types'
 
 export default function DepositConfirmForm({ lang }: DepositConfirmFormProps) {
   return (

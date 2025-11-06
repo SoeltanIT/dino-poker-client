@@ -2,13 +2,13 @@
 
 import { useTelegramMiniApp } from '@/components/providers/TelegramMiniApp'
 import { useAuth } from '@/utils/hooks/useAuth'
-import { Eye, EyeOff } from 'lucide-react'
+import { Eye, EyeOff, PlusIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useRef, useState } from 'react'
 
-import { IconDP, IconKoreanWon, IconSize, IconWD } from '@/components/atoms/Icons'
+import { IconKoreanWon, IconSize } from '@/components/atoms/Icons'
 import LocaleSwitcherDropdown from '@/components/molecules/LocaleSwitcher'
 import NotificationDropdown from '@/components/molecules/Notification'
 import ThemeSwitcher from '@/components/molecules/ThemeSwitcher'
@@ -17,9 +17,7 @@ import MenuProfile from '@/components/organisms/Profile'
 import { Button } from '@/components/ui/button'
 import ProfilePopover from './views/menu/ProfilePopover'
 import HeaderBalance from './views/myBalance/HeaderBalance'
-import BalanceSheet from './views/myBalance/MyBalanceSheet'
 import RegisterForm from './views/register/RegisterForm'
-import DepositWithdrawSheet from './views/transaction/DepositWithdrawSheet'
 
 import type { HeaderProps } from '@/@core/interface/home/HeaderProps'
 import { MainNavTabs } from '@/components/molecules/MainNavTabs'
@@ -27,6 +25,7 @@ import { HeaderSkeleton } from '@/components/molecules/Skeleton/HeaderSkeleton'
 import { BalanceDTO } from '@/types/balanceDTO'
 import { UserFullDTO } from '@/types/userDTO'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
+import { HeaderSheet } from './views/transaction'
 
 export const Header = ({ lang, locale, data, balance, theme, transferBalanceFee, features }: HeaderProps) => {
   const pathname = usePathname()
@@ -38,7 +37,7 @@ export const Header = ({ lang, locale, data, balance, theme, transferBalanceFee,
   const isLogin = isAuthenticated
   const buttonLogoutRef = useRef<HTMLButtonElement>(null)
 
-  const [activeTab, setActiveTab] = useState<'DEPOSIT' | 'WITHDRAW'>('DEPOSIT')
+  const [activeTab, setActiveTab] = useState<'DEPOSIT' | 'WITHDRAW' | 'CONVERT_BALANCE'>('CONVERT_BALANCE')
   const [isSheetOpen, setIsSheetOpen] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [showBalance, setShowBalance] = useState(true)
@@ -99,36 +98,15 @@ export const Header = ({ lang, locale, data, balance, theme, transferBalanceFee,
               </div>
             </div>
 
-            <BalanceSheet
-              data={balance}
-              lang={lang}
-              locale={locale}
-              onShow={showBalance}
-              dataFee={transferBalanceFee}
-            />
-
             <Button
               onClick={() => {
-                setActiveTab('DEPOSIT')
+                setActiveTab('CONVERT_BALANCE')
                 setIsSheetOpen(true)
               }}
               className='bg-app-primary hover:bg-app-primary-hover h-10 min-w-10 px-2 lg:px-4 text-white uppercase rounded-[10px]'
             >
-              <IconDP className='text-white' />
+              <PlusIcon className='text-white' />
               <span className='hidden lg:flex text-white text-sm font-medium uppercase'>{lang?.common?.deposit}</span>
-            </Button>
-
-            <Button
-              onClick={() => {
-                setActiveTab('WITHDRAW')
-                setIsSheetOpen(true)
-              }}
-              className='bg-app-bg-button hover:bg-app-bg-button-hover h-10 min-w-10 px-2 lg:px-4 text-app-text-color uppercase rounded-[10px]'
-            >
-              <IconWD />
-              <span className='hidden lg:flex text-app-text-color text-sm font-medium uppercase'>
-                {lang?.common?.withdraw}
-              </span>
             </Button>
 
             <div className='hidden md:flex bg-app-divider-color h-10 w-0.5 mx-1' />
@@ -224,7 +202,7 @@ export const Header = ({ lang, locale, data, balance, theme, transferBalanceFee,
 
       {/* Sheet & Login Modal */}
       {activeTab && (
-        <DepositWithdrawSheet
+        <HeaderSheet
           open={isSheetOpen}
           onClose={() => setIsSheetOpen(false)}
           defaultValue={activeTab}
@@ -232,6 +210,8 @@ export const Header = ({ lang, locale, data, balance, theme, transferBalanceFee,
           locale={locale}
           data={data}
           features={features}
+          balance={balance}
+          dataFee={transferBalanceFee}
         />
       )}
       <LoginModal open={isModalOpen} onClose={() => setIsModalOpen(false)} lang={lang} locale={locale} />

@@ -19,7 +19,7 @@ import { thousandSeparatorComma, unformatCommaNumber } from '@/utils/helper/form
 import { useThemeToggle } from '@/utils/hooks/useTheme'
 import { Loader2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { DepositFormProps } from './types'
+import { DepositFormProps } from '../types'
 
 const PRESET_AMOUNTS = ['10000', '20000', '50000', '100000']
 
