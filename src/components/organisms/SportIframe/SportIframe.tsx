@@ -1,15 +1,19 @@
 'use client'
 
 import { GetData, useMutationQuery } from '@/@core/hooks/use-query'
+import { UseServerSendEvent } from '@/@core/hooks/UseServerSendEvent'
+import { BalanceResponse } from '@/@core/interface/balance/Balance'
 import { UserMeResponse } from '@/@core/interface/User'
 import { LiveChatButton } from '@/components/atoms/Button/LiveChatButton'
 import RegisterFormState from '@/components/layout/header/views/register/RegisterFormState'
-import DepositWithdrawSheet from '@/components/layout/header/views/transaction/DepositWithdrawSheet'
+import { HeaderSheet } from '@/components/layout/header/views/transaction'
 import LocaleSwitcherDropdown from '@/components/molecules/LocaleSwitcher'
 import BetbySkeleton from '@/components/molecules/Skeleton/BetbySkeleton'
 import { Locale } from '@/i18n-config'
 import { cn } from '@/lib/utils'
 import { LangProps } from '@/types/langProps'
+import { TransferBalanceFeeResponseMapped } from '@/types/transferBalanceFeeDTO'
+import { APP_FEATURES } from '@/utils/app-config'
 import { useLiveChatContext } from '@/utils/context/LiveChatProvider'
 import { useThemeToggle } from '@/utils/hooks/useTheme'
 import { useSession } from 'next-auth/react'
@@ -279,6 +283,26 @@ export const BetByIframe = ({
     prevBtPathRef.current = now
   }, [theme, iframeHeight, btPath])
 
+  const { balanceTrigger } = UseServerSendEvent()
+  const { data: respBalance } = GetData<BalanceResponse>(
+    '/balance', // hits your Next.js API route, not the real backend
+    ['getBalance', balanceTrigger] //trigger put here if need to refresh on SSE event
+  )
+
+  const { data: respTransferBalanceFee } = GetData<TransferBalanceFeeResponseMapped>(
+    '/transfer_balance_fee', // hits your Next.js API route, not the real backend
+    ['getTransferBalanceFee'],
+    false,
+    undefined,
+    true,
+    undefined,
+    undefined,
+    undefined,
+    'GET', // method
+    {},
+    'transaction'
+  )
+
   return (
     <>
       <div ref={containerRef} className='relative w-full z-10' style={{ minHeight: iframeHeight }}>
@@ -313,13 +337,16 @@ export const BetByIframe = ({
         </div>
       )}
 
-      <DepositWithdrawSheet
+      <HeaderSheet
         open={isOpenDeposit}
         onClose={() => setIsOpenDeposit(false)}
         defaultValue={'DEPOSIT'}
         lang={lang}
         locale={locale}
         data={userData}
+        features={APP_FEATURES}
+        balance={respBalance?.data}
+        dataFee={respTransferBalanceFee?.data}
       />
       <LoginModal open={isModalOpen} onClose={() => setIsModalOpen(false)} lang={lang} locale={locale} />
       <RegisterFormState lang={lang} locale={locale} open={isRegisterOpen} setOpen={setIsRegisterOpen} />
