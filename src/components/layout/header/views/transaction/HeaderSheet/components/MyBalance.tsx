@@ -14,9 +14,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOff, Loader2 } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { Resolver, SubmitHandler, useForm } from 'react-hook-form'
-import { MyBalanceProps } from './types'
-
-const tabs = ['ALL', 'FIAT', 'CRYPTO'] as const
+import { MyBalanceProps } from '../types'
 
 interface Currency {
   id: string
@@ -182,13 +180,6 @@ export default function MyBalance({ lang, locale, onClose, data, dataFee }: MyBa
 
   return (
     <div className='mt-6'>
-      {/* Header */}
-
-      {/* Title */}
-      <div className='flex items-center pb-6'>
-        <div className='text-xl font-bold uppercase text-app-text-color'>{lang?.common?.myBalance ?? 'My Balance'}</div>
-      </div>
-
       {/* Balance Card */}
       <Card className='bg-app-background-secondary rounded-xl p-3 mb-4'>
         <div className='flex flex-col space-y-2'>
