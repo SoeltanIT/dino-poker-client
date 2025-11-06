@@ -1,7 +1,7 @@
 'use client'
 import { cn } from '@/lib/utils'
 import { useThemeToggle } from '@/utils/hooks/useTheme'
-import { isTMA as _isTMA } from '@tma.js/sdk'
+import { isTMA as _isTMA, openLink as _openLink, OpenLinkBrowser } from '@tma.js/sdk'
 import { getSession, signIn } from 'next-auth/react'
 import Image from 'next/image'
 import Script from 'next/script'
@@ -43,12 +43,14 @@ async function initTelegramMiniApp() {
 const TelegramMiniAppContext = createContext<{
   isTMA: boolean
   isMiniAppLoaded: boolean
+  openLink: (url: string, browser?: OpenLinkBrowser) => void
   hideLoader: () => void
   showAlert: (message: string) => Promise<void>
   closeApp: () => void
 }>({
   isTMA: false,
   isMiniAppLoaded: false,
+  openLink: () => null,
   hideLoader: () => null,
   showAlert: async () => {},
   closeApp: () => null
@@ -81,6 +83,11 @@ export function TelegramMiniAppProvider({ children }: PropsWithChildren) {
 
   const hideLoader = () => setIsShowLoader(false)
 
+  const openLink = (url: string, browser?: OpenLinkBrowser) =>
+    _openLink(url, {
+      tryBrowser: browser
+    })
+
   const handleLoadScript = () => {
     if (!_isTMA()) {
       setIsMiniAppLoaded(true)
@@ -108,7 +115,7 @@ export function TelegramMiniAppProvider({ children }: PropsWithChildren) {
     <>
       <Script src='https://telegram.org/js/telegram-web-app.js?59' onLoad={handleLoadScript} />
 
-      <TelegramMiniAppContext.Provider value={{ isTMA, isMiniAppLoaded, showAlert, closeApp, hideLoader }}>
+      <TelegramMiniAppContext.Provider value={{ isTMA, isMiniAppLoaded, showAlert, closeApp, hideLoader, openLink }}>
         {_isTMA() && (
           <div
             className={cn(

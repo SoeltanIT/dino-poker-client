@@ -36,7 +36,7 @@ export default async function Home({ params }: any) {
 
     promoRaw = await getListPromotion()
     bannerRaw = await getListBanner()
-    announcementText = await getAnnouncementText()
+    // announcementText = await getAnnouncementText()
 
     isLoading = !initialData
     isLoadingPromo = !promoRaw

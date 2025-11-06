@@ -4,6 +4,7 @@ import { GetData } from '@/@core/hooks/use-query'
 import GameCardLive from '@/components/atoms/Card/GameCardLive'
 import { GameCardSkeleton } from '@/components/atoms/Skeleton/GameCardSkeleton'
 import { GameGridSkeleton } from '@/components/atoms/Skeleton/GameGridSkeleton'
+import { useTelegramMiniApp } from '@/components/providers/TelegramMiniApp'
 import { Button } from '@/components/ui/button'
 import { gameDTO } from '@/types/gameDTO'
 import { useThemeToggle } from '@/utils/hooks/useTheme'
@@ -132,7 +133,15 @@ export default function ListGamePage({
     'transaction'
   )
 
+  const { isTMA, openLink } = useTelegramMiniApp()
+
   const openGamePopup = (url: string) => {
+    if (isTMA) {
+      const gameUrl = new URL(url, window.location.origin)
+      openLink(gameUrl.toString())
+      return
+    }
+
     const w = window.screen.availWidth
     const h = window.screen.availHeight
     const left = 0
