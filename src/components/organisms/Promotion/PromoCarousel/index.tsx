@@ -36,7 +36,8 @@ export default function PromoCarousel({
   autoplay = true,
   intervalMs = 4800,
   options = { loop: true, align: 'start' },
-  isLoading
+  isLoading,
+  lang
 }: Props) {
   const [emblaRef, emblaApi] = useEmblaCarousel(options)
   const [selectedIndex, setSelectedIndex] = React.useState(0)
@@ -98,57 +99,56 @@ export default function PromoCarousel({
       aria-roledescription='carousel'
     >
       {isLoading ? (
-        <Skeleton className='h-[220px] w-full rounded-2xl md:h-[260px]' />
+        <Skeleton className='h-[220px] w-full rounded-2xl md:h-full' />
       ) : isEmpty ? (
-        <div className='flex h-[180px] items-center justify-center text-sm text-muted-foreground'>
+        <div className='flex h-[180px] md:h-full items-center justify-center text-sm text-muted-foreground'>
           No promotions available.
         </div>
       ) : (
         <>
-          {/* viewport */}
-          <div className='embla' ref={emblaRef}>
-            <div className='embla__container'>
+          <div className='embla h-full' ref={emblaRef}>
+            <div className='embla__container h-full'>
               {items.map(p => (
-                <div className='embla__slide' key={p.id}>
-                  <div className='relative w-full'>
-                    <AspectRatio ratio={16 / 6} className='md:aspect-[16/5] overflow-hidden rounded-2xl h-full'>
-                      {p.imageUrl ? (
-                        <Image
-                          src={p.imageUrl}
-                          alt={p.title ?? 'Promotion'}
-                          fill
-                          priority
-                          className='object-cover object-center w-full h-full'
-                          sizes='(min-width:1024px) 1024px, 100vw'
-                        />
-                      ) : (
-                        <div className='h-full w-full bg-muted' />
-                      )}
-                      <div className='absolute inset-0 bg-gradient-to-r from-black/70 via-black/35 to-black/10' />
-                    </AspectRatio>
+                <div className='embla__slide h-full' key={p.id}>
+                  <div className='relative h-full w-full overflow-hidden rounded-2xl'>
+                    {p.imageUrl ? (
+                      <Image
+                        src={p.imageUrl}
+                        alt={p.title ?? 'Promotion'}
+                        fill
+                        priority
+                        className='object-cover object-center'
+                        sizes='(min-width:1024px) 1024px, 100vw'
+                      />
+                    ) : (
+                      <div className='h-full w-full bg-muted' />
+                    )}
+                    <div className='absolute inset-0 bg-gradient-to-r from-black/70 via-black/35 to-black/10' />
 
-                    {/* overlay text */}
-                    <div className='absolute inset-0 flex items-center'>
+                    {/* overlay */}
+                    <div className='absolute inset-0 flex items-end mb-6 justify-center p-4 text-center'>
                       <div className='mx-auto w-full max-w-screen-2xl px-4 md:px-6'>
                         <div className='max-w-xl'>
-                          {p.title ? (
-                            <h2 className='text-2xl font-bold leading-tight tracking-tight text-white drop-shadow md:text-3xl'>
+                          {p.title && (
+                            <h2 className='text-2xl font-bold tracking-tight text-white drop-shadow md:text-3xl uppercase'>
                               {p.title}
                             </h2>
-                          ) : null}
-                          {p.subtitle ? <p className='mt-1 text-sm text-white/85 md:text-base'>{p.subtitle}</p> : null}
-                          {p.ctaHref && p.ctaText ? (
-                            <div className='pt-3'>
+                          )}
+                          {p.subtitle && (
+                            <p className='mt-1 text-sm text-white/85 md:text-base uppercase'>{p.subtitle}</p>
+                          )}
+                          {p.ctaHref && p.ctaText && (
+                            <div className='pt-3 flex justify-center'>
                               <Button
                                 asChild
                                 size='sm'
                                 variant='secondary'
-                                className='bg-white/20 text-white hover:bg-white/30'
+                                className='bg-app-primary text-white hover:bg-app-primary-hover uppercase'
                               >
-                                <Link href={p.ctaHref}>{p.ctaText}</Link>
+                                <Link href={p.ctaHref}>{lang?.common?.moreInfo}</Link>
                               </Button>
                             </div>
-                          ) : null}
+                          )}
                         </div>
                       </div>
                     </div>
@@ -158,7 +158,6 @@ export default function PromoCarousel({
             </div>
           </div>
 
-          {/* dots only */}
           {items.length > 1 && (
             <div className='absolute bottom-3 left-0 right-0 flex items-center justify-center gap-2'>
               {scrollSnaps.map((_, i) => (
@@ -183,6 +182,7 @@ export default function PromoCarousel({
         }
         .embla__container {
           display: flex;
+          height: 100%;
         }
         .embla__slide {
           flex: 0 0 100%;

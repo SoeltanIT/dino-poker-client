@@ -101,7 +101,7 @@ export function GameCard({
   image,
   title,
   provider,
-  playersCount = 0,
+  // playersCount = 0,
   tag,
   accent = '#4f2bbc',
   className = '',
@@ -173,7 +173,7 @@ export function GameCard({
         </div>
       )}
 
-      <div className='absolute top-[6px] right-[10px] z-10'>
+      {/* <div className='absolute top-[6px] right-[10px] z-10'>
         {variant !== 'provider' && (
           <div
             className={cn(
@@ -193,7 +193,7 @@ export function GameCard({
             )}
           </div>
         )}
-      </div>
+      </div> */}
 
       <div
         onClick={isOpening ? undefined : handleClick}

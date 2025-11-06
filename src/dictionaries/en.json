@@ -282,7 +282,8 @@
     "withdrawalSecurity": "Withdrawal Security",
     "chipAmount": "Chip Amount",
     "transferHistory": "Transfer History",
-    "createdAt": "Created At"
+    "createdAt": "Created At",
+    "moreInfo": "More Info"
   },
   "game": {
     "texaspoker": "Texas Poker",

@@ -37,8 +37,6 @@ export default function ListGamePage({
 
   const { theme } = useThemeToggle()
 
-  console.log('theme >', theme)
-
   const {
     data: dataList,
     isFetching,
@@ -268,12 +266,14 @@ export default function ListGamePage({
         {showInitialSkeleton ? (
           <GameGridSkeleton count={12} />
         ) : (
-          <div className='flex flex-wrap gap-2'>
+          <div key={`${theme}-${locale}`} className='flex flex-wrap gap-2'>
             {listGame?.map((items, i) => {
               const showImage = getGameImage(items, theme, locale)
+              const stableId = items?.id || `${items.title}-${items.provider}`
               return (
                 <div
-                  key={i}
+                  // 👉 key stabil + ikut theme/locale supaya tiap card remount saat theme/locale berubah
+                  key={`${stableId}-${theme}-${locale}`}
                   onClick={() => setGameId(items.id)}
                   className='
                     basis-[calc((100%-0.5rem*2)/3)]
@@ -289,10 +289,9 @@ export default function ListGamePage({
                     image={showImage}
                     provider={items.provider}
                     title={items.title}
-                    // playersCount={stableCount(items?.id || `${items.title}-${items.provider}`)}
                     isLogin={isLogin}
                     onRequireLogin={() => setLoginOpen(true)}
-                    onClickOpenGames={(id: any) => onClickOpenGames(id)}
+                    onClickOpenGames={onClickOpenGames}
                     className='w-full h-full min-w-0'
                     isOpening={openingGameId === items.id && isFetchingGameDetail}
                     priority={page === 1 && i < PRIORITY_COUNT}
@@ -305,12 +304,12 @@ export default function ListGamePage({
             {showAppendSkeleton &&
               Array.from({ length: 6 }).map((_, i) => (
                 <div
-                  key={`sk-${i}`}
+                  key={`sk-${i}-${theme}-${locale}`}
                   className='
-                      basis-[calc((100%-0.5rem*2)/3)]
-                      md:basis-[calc((100%-0.5rem*5)/6)]
-                      shrink-0 min-w-0
-                    '
+                    basis-[calc((100%-0.5rem*2)/3)]
+                    md:basis-[calc((100%-0.5rem*5)/6)]
+                    shrink-0 min-w-0
+                  '
                 >
                   <GameCardSkeleton className='w-full h-full min-w-0' />
                 </div>

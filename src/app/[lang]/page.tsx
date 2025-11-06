@@ -1,8 +1,9 @@
-import Announcement from '@/components/organisms/Banner/Announcement'
+import { EventItemUI } from '@/components/organisms/Banner/Event'
 import ListGamePage from '@/components/organisms/Games'
-import PromoCarousel, { type Promotion } from '@/components/organisms/Promotion/PromoCarousel'
-import PromoHeaderSection from '@/components/organisms/Promotion/PromoHeaderSection'
+import BannerSection from '@/components/organisms/Promotion/BannerSection'
+import { type Promotion } from '@/components/organisms/Promotion/PromoCarousel'
 import { getDictionary, getLocal } from '@/dictionaries/dictionaries'
+import { getListBanner } from '@/utils/api/internal/listBanner'
 import { getListPromotion } from '@/utils/api/internal/listPromotion'
 import { mapPromotionList } from '@/utils/mappers/promotion'
 import { headers } from 'next/headers'
@@ -20,8 +21,12 @@ export default async function Home({ params }: any) {
 
   let initialData = null
   let promoRaw: any = null
+  let bannerRaw: any = null
+  let announcementText: any = null
   let isLoading = true
   let isLoadingPromo = true
+  let isLoadingBanner = true
+  let isLoadingAnnouncement = true
 
   try {
     const url = absoluteUrl(`/api/transactions/game_list?page=1&pageSize=12`)
@@ -29,9 +34,13 @@ export default async function Home({ params }: any) {
     initialData = await res.json()
 
     promoRaw = await getListPromotion()
+    // bannerRaw = await getListBanner()
+    // announcementText = await getAnnouncementText()
 
     isLoading = !initialData
     isLoadingPromo = !promoRaw
+    isLoadingBanner = !bannerRaw
+    isLoadingAnnouncement = !announcementText
   } catch (err) {
     console.log('err', err)
   }
@@ -39,9 +48,28 @@ export default async function Home({ params }: any) {
   // map API → UI (pakai shape data kamu)
   const promos: Promotion[] = mapPromotionList(promoRaw?.data ?? promoRaw ?? []) as Promotion[]
 
+  const DUMMY_EVENTS: EventItemUI[] = [
+    {
+      id: 'ev-1',
+      imageUrl: '/images/dummy/dummy_event.png',
+      title: 'YEAR END EVENT',
+      subtitle: 'follow and get the benefits',
+      href: '/events/ev-1',
+      ctaText: 'MORE INFO'
+    },
+    {
+      id: 'ev-2',
+      imageUrl: '/images/dummy/dummy_promotion.png',
+      title: 'BLACK FRIDAY BONUS',
+      subtitle: 'limited time — don’t miss it',
+      href: '/events/ev-2',
+      ctaText: 'MORE INFO'
+    }
+  ]
+
   return (
     <div className='mx-auto w-full max-w-screen-2xl space-y-4 md:px-20 px-6 mt-4'>
-      <PromoHeaderSection lang={dict} promos={promos} isLoadingPromo={isLoadingPromo} />
+      <BannerSection lang={dict} promos={promos} eventItems={DUMMY_EVENTS} isLoadingPromo={isLoadingPromo} />
 
       <ListGamePage
         lang={dict}
