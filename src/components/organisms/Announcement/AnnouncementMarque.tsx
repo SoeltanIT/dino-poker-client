@@ -1,55 +1,46 @@
 'use client'
 
+import { Locale } from '@/i18n-config'
 import clsx from 'clsx'
 import { Volume2 } from 'lucide-react'
-import { useEffect, useMemo, useState } from 'react'
+import Link from 'next/link'
+import { Fragment, useEffect, useRef, useState } from 'react'
 
 type Props = {
-  /** Pesan tambahan setelah bagian “congratz …” */
-  tailMessage?: string
-  /** Daftar kandidat nama pemenang. Jika tidak diisi, akan generate random: USD1234 */
-  winners?: string[]
   /** Durasi 1 siklus marquee dalam detik (semakin besar semakin lambat) */
   durationSec?: number
   className?: string
-}
-
-function pickRandom<T>(arr: T[]): T {
-  return arr[Math.floor(Math.random() * arr.length)]
-}
-
-function randomUSD(): string {
-  // USD + 3–4 digit
-  const n = Math.floor(100 + Math.random() * 9000) // 100..9999
-  return `USD${n}`
+  announcement?: { title?: string }[]
+  locale?: Locale
 }
 
 /**
- * Announcement bar with marquee + dynamic winner name per cycle.
+ * AnnouncementMarque bar with marquee + dynamic winner name per cycle.
  * - Slower by default (28s)
  * - Winner name changes every cycle
+ * - Only animates if content overflows container
  */
-export default function Announcement({
-  tailMessage = 'Remember to claim your daily point | Win more rewards every day!',
-  winners,
-  durationSec = 28,
-  className
-}: Props) {
-  const initial = useMemo(() => (winners?.length ? pickRandom(winners) : randomUSD()), [winners])
-  const [winner, setWinner] = useState(initial)
+export default function AnnouncementMarque({ durationSec = 28, announcement, className, locale }: Props) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const [shouldAnimate, setShouldAnimate] = useState(false)
 
-  // Ganti pemenang tiap 1 siklus marquee
   useEffect(() => {
-    const id = setInterval(() => {
-      setWinner(winners?.length ? pickRandom(winners) : randomUSD())
-    }, Math.max(8, durationSec) * 1000) // jaga-jaga minimal 8s
-    return () => clearInterval(id)
-  }, [winners, durationSec])
+    const checkOverflow = () => {
+      if (containerRef.current && contentRef.current) {
+        const containerWidth = containerRef.current.offsetWidth
+        const contentWidth = contentRef.current.scrollWidth
+        setShouldAnimate(contentWidth > containerWidth)
+      }
+    }
 
-  const text = `Congratz to ${winner} for winning jackpot KRW 1,000,000 | ${tailMessage}`
-
+    checkOverflow()
+    window.addEventListener('resize', checkOverflow)
+    return () => window.removeEventListener('resize', checkOverflow)
+  }, [announcement])
   return (
-    <div
+    <Link
+      href={`/${locale}/announcements`}
       className={clsx(
         'relative w-full overflow-hidden rounded-xl bg-app-primary400',
         'px-4 py-2 md:py-0', // md tanpa padding vertikal agar pas 60px
@@ -70,11 +61,14 @@ export default function Announcement({
       </div>
 
       {/* marquee */}
-      <div className='relative ml-3 flex-1 overflow-hidden'>
-        <div className='marquee whitespace-nowrap'>
-          <span className='mr-10'>{text}</span>
-          <span className='mr-10'>{text}</span>
-          <span className='mr-10'>{text}</span>
+      <div ref={containerRef} className='relative ml-3 flex-1 overflow-hidden'>
+        <div ref={contentRef} className={clsx('whitespace-nowrap', shouldAnimate && 'marquee')}>
+          {announcement?.map((item, index) => (
+            <Fragment key={index}>
+              <span>{item.title}</span>
+              {index !== announcement?.length - 1 && <span className='mx-4'>|</span>}
+            </Fragment>
+          ))}
         </div>
       </div>
 
@@ -105,6 +99,6 @@ export default function Announcement({
           }
         }
       `}</style>
-    </div>
+    </Link>
   )
 }

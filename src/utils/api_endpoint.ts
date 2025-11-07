@@ -64,7 +64,8 @@ export const API_ENDPOINT = {
 
   //banner
   banner: '/v1/banner',
-  announcement: '/v1/announcement-text'
+  announcement_text: '/v1/announcement-text',
+  announcement: '/v1/announcement'
 } as const
 
 export type EndpointKey = keyof typeof API_ENDPOINT

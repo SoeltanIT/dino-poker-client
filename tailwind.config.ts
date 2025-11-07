@@ -186,7 +186,45 @@ const config: Config = {
         xs: '420px',
         xxl: '1440px',
         '3xl': '2000px'
-      }
+      },
+      typography: () => ({
+        DEFAULT: {
+          css: {
+            '--tw-prose-body': 'var(--c-text-color)',
+            '--tw-prose-headings': 'var(--c-text-color)',
+            '--tw-prose-lead': 'var(--c-text-color)',
+            '--tw-prose-links': 'var(--c-text-color)',
+            '--tw-prose-bold': 'var(--c-text-color)',
+            '--tw-prose-counters': 'var(--c-text-color)',
+            '--tw-prose-bullets': 'var(--c-text-color)',
+            '--tw-prose-hr': 'var(--c-text-color)',
+            '--tw-prose-quotes': 'var(--c-text-color)',
+            '--tw-prose-quote-borders': 'var(--c-text-color)',
+            '--tw-prose-captions': 'var(--c-text-color)',
+            '--tw-prose-code': 'var(--c-text-color)',
+            '--tw-prose-pre-code': 'var(--c-text-color)',
+            '--tw-prose-pre-bg': 'var(--c-background-secondary)',
+            '--tw-prose-th-borders': 'var(--c-text-color)',
+            '--tw-prose-td-borders': 'var(--c-text-color)',
+            '--tw-prose-invert-body': 'var(--c-text-color)',
+            '--tw-prose-invert-headings': 'var(--c-text-color)',
+            '--tw-prose-invert-lead': 'var(--c-text-color)',
+            '--tw-prose-invert-links': 'var(--c-text-color)',
+            '--tw-prose-invert-bold': 'var(--c-text-color)',
+            '--tw-prose-invert-counters': 'var(--c-text-color)',
+            '--tw-prose-invert-bullets': 'var(--c-text-color)',
+            '--tw-prose-invert-hr': 'var(--c-text-color)',
+            '--tw-prose-invert-quotes': 'var(--c-text-color)',
+            '--tw-prose-invert-quote-borders': 'var(--c-text-color)',
+            '--tw-prose-invert-captions': 'var(--c-text-color)',
+            '--tw-prose-invert-code': 'var(--c-text-color)',
+            '--tw-prose-invert-pre-code': 'var(--c-text-color)',
+            '--tw-prose-invert-pre-bg': 'var(--c-background-secondary)',
+            '--tw-prose-invert-th-borders': 'var(--c-text-color)',
+            '--tw-prose-invert-td-borders': 'var(--c-text-color)'
+          }
+        }
+      })
     }
   },
   plugins: [
@@ -222,7 +260,8 @@ const config: Config = {
         ['responsive']
       )
     }),
-    require('tailwindcss-animate')
+    require('tailwindcss-animate'),
+    require('@tailwindcss/typography')
   ]
 }
 export default config

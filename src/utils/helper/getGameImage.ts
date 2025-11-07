@@ -13,13 +13,13 @@ export type GameImageItem = {
  */
 export function getGameImage(item: GameImageItem, theme: 'light' | 'dark', locale?: Locale) {
   if (theme === 'dark') {
-    return locale === 'ko' ? item?.image_ko ?? item?.image : item?.image ?? item?.image_ko
+    return locale === 'ko' && item?.image_ko ? item?.image_ko : item?.image
   }
 
   // theme === 'light'
-  if (locale === 'ko') {
-    return item.image_light_ko || item.image_ko || item.image
+  if (locale === 'ko' && item.image_light_ko) {
+    return item.image_light_ko
   }
 
-  return item.image_light || item.image || item.image_ko
+  return item.image_light || item.image
 }
