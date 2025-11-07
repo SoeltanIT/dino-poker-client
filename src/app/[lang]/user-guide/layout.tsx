@@ -79,6 +79,7 @@ const TABS = [
 export default function Layout({ children }: { children: ReactNode }) {
   const [activeTab, setActiveTab] = useState(TABS[0].value)
   const [activeGame, setActiveGame] = useState(GAMES[0].value)
+
   return (
     <div className='min-h-screen flex flex-col w-full md:w-[870px] text-app-text-color px-6 lg:px-16 my-10 mx-auto'>
       <div className='container mx-auto flex flex-col'>
