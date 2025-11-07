@@ -56,7 +56,7 @@ export default function BannerCard({
             {lang?.banner?.userGuideTitle}
           </h3>
 
-          <p className='mt-1 text-sm text-white/85 drop-shadow capitalize'>{lang?.banner?.userGuideSubTitle}</p>
+          <p className='mt-1 text-sm text-white/85 drop-shadow capitalize truncate'>{lang?.banner?.userGuideSubTitle}</p>
 
           <div className={'pt-3 flex justify-center'}>
             <Button

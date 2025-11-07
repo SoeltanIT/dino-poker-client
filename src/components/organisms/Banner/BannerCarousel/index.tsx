@@ -142,7 +142,7 @@ export default function BannerCarousel({
                         )}
 
                         {ev.sub_title && (
-                          <p className={clsx('mt-1 text-sm text-white/85 drop-shadow md:text-sm')}>{ev.sub_title}</p>
+                          <p className={clsx('mt-1 text-sm text-white/85 drop-shadow md:text-sm truncate')}>{ev.sub_title}</p>
                         )}
 
                         {ev.title && (
