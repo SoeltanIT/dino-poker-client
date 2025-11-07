@@ -151,7 +151,7 @@ export default function PromoCarousel({
                             </h2>
                           )}
                           {p.subtitle && (
-                            <p className='mt-1 text-sm text-white/85 md:text-base uppercase'>{p.subtitle}</p>
+                            <p className='mt-1 text-sm text-white/85 md:text-base uppercase truncate'>{p.subtitle}</p>
                           )}
                           {p.ctaHref && p.ctaText && (
                             <div className='pt-3 flex justify-center'>

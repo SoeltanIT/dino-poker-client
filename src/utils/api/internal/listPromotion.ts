@@ -7,5 +7,7 @@ export const getListPromotion = async () => {
 
   const respData = res?.data?.data ?? []
 
+  console.log('res >>', respData)
+
   return respData
 }
