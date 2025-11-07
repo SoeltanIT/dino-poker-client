@@ -116,21 +116,23 @@ export function TelegramMiniAppProvider({ children }: PropsWithChildren) {
       <Script src='https://telegram.org/js/telegram-web-app.js?59' onLoad={handleLoadScript} />
 
       <TelegramMiniAppContext.Provider value={{ isTMA, isMiniAppLoaded, showAlert, closeApp, hideLoader, openLink }}>
-        {_isTMA() && (
+        {/* {_isTMA() && ( */}
+        {true && (
           <div
             className={cn(
-              'fixed top-0 left-0 size-full z-[9999] bg-black/70 transition-opacity',
-              !showLoader && 'opacity-0 pointer-events-none size-0'
+              'fixed top-0 left-0 size-full z-[9999] bg-opacity-30',
+              !showLoader && 'opacity-0 pointer-events-none size-0',
+              theme === 'dark' ? 'bg-dark' : 'bg-white'
             )}
           >
             <div className='size-full flex items-center justify-center'>
               <Image
-                src={theme === 'dark' ? '/images/logo_light.webp' : '/images/logo_dark.webp'}
+                src={theme === 'dark' ? '/images/loader_white.gif' : '/images/loader_black.gif'}
                 alt={'Logo'}
                 priority
                 width={150}
                 height={150}
-                className='w-1/3 animate-pulse'
+                className='w-1/3'
               />
             </div>
           </div>
