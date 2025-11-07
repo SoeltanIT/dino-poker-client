@@ -1,10 +1,11 @@
 'use client'
 
 import { Locale } from '@/i18n-config'
+import { LangProps } from '@/types/langProps'
 import clsx from 'clsx'
 import { Volume2 } from 'lucide-react'
 import Link from 'next/link'
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 
 type Props = {
   /** Durasi 1 siklus marquee dalam detik (semakin besar semakin lambat) */
@@ -12,6 +13,7 @@ type Props = {
   className?: string
   announcement?: { title?: string }[]
   locale?: Locale
+  lang: LangProps
 }
 
 /**
@@ -20,11 +22,16 @@ type Props = {
  * - Winner name changes every cycle
  * - Only animates if content overflows container
  */
-export default function AnnouncementMarque({ durationSec = 28, announcement, className, locale }: Props) {
+export default function AnnouncementMarque({ durationSec = 28, announcement, className, locale, lang }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   const [shouldAnimate, setShouldAnimate] = useState(false)
 
+  const isEmpty = !announcement || announcement.length === 0
+  const announcementsToRender = useMemo(
+    () => (isEmpty ? [{ title: lang?.banner?.announcements ?? '' }] : announcement),
+    [isEmpty, announcement, lang?.banner?.announcements]
+  )
   useEffect(() => {
     const checkOverflow = () => {
       if (containerRef.current && contentRef.current) {
@@ -33,27 +40,24 @@ export default function AnnouncementMarque({ durationSec = 28, announcement, cla
         setShouldAnimate(contentWidth > containerWidth)
       }
     }
-
     checkOverflow()
     window.addEventListener('resize', checkOverflow)
     return () => window.removeEventListener('resize', checkOverflow)
-  }, [announcement])
+  }, [announcementsToRender])
+
+  const Wrapper: React.ElementType = isEmpty ? 'div' : Link
+
   return (
-    <Link
-      href={`/${locale}/announcements`}
+    <Wrapper
+      {...(!isEmpty && { href: `/${locale}/announcements` })}
       className={clsx(
         'relative w-full overflow-hidden rounded-xl bg-app-primary400',
-        'px-4 py-2 md:py-0', // md tanpa padding vertikal agar pas 60px
+        'px-4 py-2 md:py-0',
         'flex items-center h-full text-white',
         className
       )}
       aria-live='polite'
-      style={
-        {
-          // kontrol kecepatan via CSS var
-          ['--marquee-duration' as any]: `${durationSec}s`
-        } as React.CSSProperties
-      }
+      style={{ ['--marquee-duration' as any]: `${durationSec}s` } as React.CSSProperties}
     >
       {/* icon */}
       <div className='shrink-0'>
@@ -63,10 +67,10 @@ export default function AnnouncementMarque({ durationSec = 28, announcement, cla
       {/* marquee */}
       <div ref={containerRef} className='relative ml-3 flex-1 overflow-hidden'>
         <div ref={contentRef} className={clsx('whitespace-nowrap', shouldAnimate && 'marquee')}>
-          {announcement?.map((item, index) => (
+          {announcementsToRender?.map((item, index) => (
             <Fragment key={index}>
               <span>{item.title}</span>
-              {index !== announcement?.length - 1 && <span className='mx-4'>|</span>}
+              {index !== announcementsToRender.length - 1 && <span className='mx-4'>|</span>}
             </Fragment>
           ))}
         </div>
@@ -86,12 +90,10 @@ export default function AnnouncementMarque({ durationSec = 28, announcement, cla
             transform: translateX(-100%);
           }
         }
-        /* pause when hover/focus */
         div:hover .marquee,
         div:focus-within .marquee {
           animation-play-state: paused;
         }
-        /* respect user's reduced-motion preference */
         @media (prefers-reduced-motion: reduce) {
           .marquee {
             animation-duration: 0.001ms !important;
@@ -99,6 +101,6 @@ export default function AnnouncementMarque({ durationSec = 28, announcement, cla
           }
         }
       `}</style>
-    </Link>
+    </Wrapper>
   )
 }

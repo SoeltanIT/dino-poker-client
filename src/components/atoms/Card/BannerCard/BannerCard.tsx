@@ -52,9 +52,11 @@ export default function BannerCard({
       {/* overlay content */}
       <div className={'absolute inset-0 flex items-end mb-6 justify-center p-4 text-center'}>
         <div className='max-w-[90%] md:max-w-none'>
-          <h3 className='text-xl font-extrabold tracking-tight text-white drop-shadow'>{title}</h3>
+          <h3 className='text-xl font-extrabold tracking-tight text-white drop-shadow uppercase'>
+            {lang?.banner?.userGuideTitle}
+          </h3>
 
-          {subtitle ? <p className='mt-1 text-sm text-white/85 drop-shadow'>{subtitle}</p> : null}
+          <p className='mt-1 text-sm text-white/85 drop-shadow capitalize'>{lang?.banner?.userGuideSubTitle}</p>
 
           <div className={'pt-3 flex justify-center'}>
             <Button
@@ -63,7 +65,7 @@ export default function BannerCard({
               variant='secondary'
               className='bg-app-primary text-white hover:bg-app-primary-hover uppercase'
             >
-              <Link href={href}>{lang?.common?.moreInfo}</Link>
+              <Link href={href}>{lang?.banner?.moreInfo}</Link>
             </Button>
           </div>
         </div>

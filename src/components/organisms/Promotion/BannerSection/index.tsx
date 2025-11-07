@@ -38,7 +38,7 @@ export default function BannerSection({
   guideCard = {
     title: 'USER GUIDE',
     subtitle: 'on how to collect your points',
-    imageUrl: '/images/dummy/dummy_user_guide.png',
+    imageUrl: '/images/default/user_guide.png',
     href: '/user-guide'
   },
   announcement,
@@ -66,7 +66,13 @@ export default function BannerSection({
       {announcement && announcement?.length > 0 && (
         <div className='md:col-span-9'>
           <div className='h-[44px] md:h-[60px]'>
-            <AnnouncementMarque announcement={announcement} durationSec={28} className='h-full' locale={locale} />
+            <AnnouncementMarque
+              announcement={announcement}
+              durationSec={28}
+              className='h-full'
+              locale={locale}
+              lang={lang}
+            />
           </div>
         </div>
       )}

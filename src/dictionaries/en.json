@@ -564,5 +564,15 @@
   },
   "withdraw": {
     "withdrawCryptoInfo": "A withdrawal fee of {value} {base_coin} will be deducted from your withdrawal amount"
+  },
+  "banner": {
+    "bannerTitle": "Upcoming Event",
+    "bannerSubTitle": "Exciting tournaments & rewards are on the way!",
+    "announcements": "Welcome to KPOKER - World Poker Game | Regular maintenance every Thursday | Don’t miss our daily bonus and special Kpoker tournaments!",
+    "promoTitle": "Big Surprises Coming Soon!",
+    "promoSubTitle": "Stay tuned for exclusive bonuses & special deals",
+    "userGuideTitle": "User Guide",
+    "userGuideSubTitle": "on how to collect your points",
+    "moreInfo": "More Info"
   }
 }
