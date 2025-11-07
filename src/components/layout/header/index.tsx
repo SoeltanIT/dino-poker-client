@@ -187,7 +187,7 @@ export const Header = ({
           {/* Mobile */}
           <div className='flex lg:hidden justify-between items-center'>
             <Link href={`/${locale}`}>
-              <Image src={logo} alt='Site Logo' width={100} height={100} priority className='w-[45px] h-[40px]' />
+              <Image src={logo} alt='Site Logo' width={100} height={100} priority className='w-[45px] h-[30px]' />
             </Link>
             <div className='flex items-center gap-4'>
               <Button
