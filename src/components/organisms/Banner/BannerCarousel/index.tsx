@@ -83,7 +83,29 @@ export default function BannerCarousel({
       {isLoading ? (
         <Skeleton className='h-full w-full rounded-2xl' />
       ) : isEmpty ? (
-        <div className='flex h-full items-center justify-center text-sm text-muted-foreground'>No event available.</div>
+        <div className='relative h-full w-full'>
+          <Image
+            src={'/images/default/main_banner.png'}
+            alt='Main banner placeholder'
+            fill
+            priority={false}
+            className='object-cover object-center rounded-2xl'
+            sizes='(min-width:1024px) 360px, 100vw'
+          />
+          <div className={'absolute inset-0 flex items-end mb-6 justify-center p-4 text-center'}>
+            <div className={clsx('max-w-[85%] md:max-w-none')}>
+              <h3
+                className={clsx('text-base font-extrabold tracking-tight text-white drop-shadow md:text-xl uppercase')}
+              >
+                {lang?.banner?.bannerTitle}
+              </h3>
+
+              <p className={clsx('mt-1 text-sm text-white/85 drop-shadow md:text-sm capitalize')}>
+                {lang?.banner?.bannerSubTitle}
+              </p>
+            </div>
+          </div>
+        </div>
       ) : (
         <>
           <div className='embla h-full' ref={emblaRef}>

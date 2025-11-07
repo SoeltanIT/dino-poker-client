@@ -1,6 +1,5 @@
 'use client'
 
-import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { LangProps } from '@/types/langProps'
@@ -101,8 +100,25 @@ export default function PromoCarousel({
       {isLoading ? (
         <Skeleton className='h-[220px] w-full rounded-2xl md:h-full' />
       ) : isEmpty ? (
-        <div className='flex h-[180px] md:h-full items-center justify-center text-sm text-muted-foreground'>
-          No promotions available.
+        <div className='relative h-[220px] w-full md:h-full'>
+          <Image
+            src={'/images/default/promo_banner.png'}
+            alt='Promotion placeholder'
+            fill
+            priority={false}
+            className='object-cover object-center rounded-2xl'
+            sizes='(min-width:1024px) 1024px, 100vw'
+          />
+          <div className='absolute inset-0 flex items-end mb-6 justify-center p-4 text-center'>
+            <div className='mx-auto w-full max-w-screen-2xl px-4 mb-4 md:px-6'>
+              <div className='max-w-xl'>
+                <h2 className='text-2xl font-bold tracking-tight text-white drop-shadow md:text-3xl uppercase'>
+                  {lang?.banner?.promoTitle}
+                </h2>
+                <p className='mt-1 text-sm text-white/85 md:text-base capitalize'>{lang?.banner?.promoSubTitle}</p>
+              </div>
+            </div>
+          </div>
         </div>
       ) : (
         <>
