@@ -116,13 +116,12 @@ export function TelegramMiniAppProvider({ children }: PropsWithChildren) {
       <Script src='https://telegram.org/js/telegram-web-app.js?59' onLoad={handleLoadScript} />
 
       <TelegramMiniAppContext.Provider value={{ isTMA, isMiniAppLoaded, showAlert, closeApp, hideLoader, openLink }}>
-        {/* {_isTMA() && ( */}
-        {true && (
+        {_isTMA() && (
           <div
             className={cn(
-              'fixed top-0 left-0 size-full z-[9999] bg-opacity-30',
-              !showLoader && 'opacity-0 pointer-events-none size-0',
-              theme === 'dark' ? 'bg-dark' : 'bg-white'
+              'fixed top-0 left-0 size-full z-[9999] bg-opacity-30 transition-all',
+              theme === 'dark' ? 'bg-black' : 'bg-white',
+              !showLoader && 'opacity-0 bg-opacity-0 pointer-events-none size-0'
             )}
           >
             <div className='size-full flex items-center justify-center'>
