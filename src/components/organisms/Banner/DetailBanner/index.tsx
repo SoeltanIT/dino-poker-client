@@ -55,7 +55,7 @@ export default function DetailBanner({ initialData, lang, locale }: DetailBanner
             </Card>
 
             {/* Description */}
-            <div className='text-app-text-color'> {initialData?.sub_title || ''} </div>
+            <div className='text-app-text-color mb-4'> {initialData?.sub_title || ''} </div>
             <div dangerouslySetInnerHTML={{ __html: initialData?.description || '' }} className='text-app-text-color' />
           </div>
         </div>
