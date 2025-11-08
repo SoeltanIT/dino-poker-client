@@ -1,7 +1,7 @@
 'use client'
 
 import { GetData } from '@/@core/hooks/use-query'
-import { LoadingTable, LoadingText } from '@/components/atoms/Loading'
+import { DataTable } from '@/components/molecules/Table/DataTable'
 import { Button } from '@/components/ui/button'
 import { ReferralGroupHistoryItem } from '@/types/referralDTO'
 import { useClaimAffiliate, useClaimReferral } from '@/utils/api/internal/claimReferral'
@@ -9,8 +9,7 @@ import { useReferralSummary } from '@/utils/api/internal/getReferralSummary'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
 import { format } from 'date-fns'
 import { Gift } from 'lucide-react'
-import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { MyReferralGroupHistoryProps } from './types'
 
 export default function MyReferralGroupHistory({
@@ -22,8 +21,6 @@ export default function MyReferralGroupHistory({
   roles
 }: MyReferralGroupHistoryProps) {
   const [page, setPage] = useState(1)
-  const [totalPage, setTotalPage] = useState(initialData?.totalPage || 1)
-  const [members, setMembers] = useState<ReferralGroupHistoryItem[]>(initialData?.data || [])
 
   const [isLoading, setIsLoading] = useState(serverLoading || false)
 
@@ -62,44 +59,19 @@ export default function MyReferralGroupHistory({
 
   const summaryData = referralSummaryData || initialSummaryData
 
-  // Update members and pagination when data changes
-  useEffect(() => {
-    setIsLoading(true)
-    if (respReferralGroupHistory) {
-      setTotalPage(respReferralGroupHistory.totalPage)
+  const members = respReferralGroupHistory?.data || []
 
-      setMembers(prev => {
-        if (page === 1) {
-          return respReferralGroupHistory?.data
-        } else {
-          // Check for duplicates before appending
-          const existingIds = new Set(prev.map(member => `${member.created_at}-${member.commission_percentage}`))
-          const newData = respReferralGroupHistory?.data.filter(
-            member => !existingIds.has(`${member.created_at}-${member.commission_percentage}`)
-          )
-          return [...prev, ...newData]
-        }
-      })
-      setIsLoading(false)
-    }
-  }, [respReferralGroupHistory, page])
+  const totalPage = respReferralGroupHistory?.totalPage || 0
+
   // Use summary data for totals instead of calculating from history
   const totalBonus = summaryData?.data?.total_commission ?? 0
   const totalMembers = summaryData?.data?.total_referral_usage ?? 0
   const totalAvailableCommission = summaryData?.data?.available_commission ?? 0
 
-  const handleLoadMore = () => {
-    if (page < totalPage) {
-      setPage(prev => prev + 1)
-    }
-  }
-
   return (
     // <div className='min-h-screen flex flex-col w-full text-app-text-color px-6 lg:px-20 my-10 mx-auto'>
-    <div className='min-h-screen flex flex-col w-full text-app-text-color px-6 lg:px-20 mb-10 mx-auto'>
+    <div className='flex flex-col w-full text-app-text-color px-6 lg:px-20 mb-10 mx-auto'>
       <div className='flex flex-col'>
-        {/* Back Button */}
-
         {/* Desktop Header */}
         <div className='flex lg:flex-row flex-col mb-4 lg:mb-0 items-center justify-between'>
           <div className='w-full lg:mb-8 mb-2'>
@@ -127,199 +99,166 @@ export default function MyReferralGroupHistory({
             toastInfo={lang?.info?.infoDate}
           /> */}
         </div>
-
-        <div className='lg:flex lg:gap-8'>
+        <div className='grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8'>
           {/* Summary Stats */}
-          <div className='lg:w-64 mb-8 lg:mb-0'>
-            <div className='gap-4 flex flex-row lg:flex-col w-full'>
-              <div className='bg-app-background-secondary rounded-lg p-4 w-full'>
-                <div className='text-app-neutral500 text-sm mb-1'>{lang?.common?.totalBonus}</div>
-                <div className='text-2xl font-bold'>
-                  KRW <span className='text-app-success'> {totalBonus.toLocaleString()}</span>
+          <div className='lg:col-span-3'>
+            <div className='mb-8 lg:mb-0'>
+              <div className='gap-4 flex flex-row lg:flex-col w-full'>
+                <div className='bg-app-background-secondary rounded-lg p-4 w-full'>
+                  <div className='text-app-neutral500 text-sm mb-1'>{lang?.common?.totalBonus}</div>
+                  <div className='text-2xl font-bold'>
+                    <span className='text-app-success'> {totalBonus.toLocaleString()}</span>원
+                  </div>
                 </div>
-              </div>
 
-              {roles !== 3 && (
-                <div className='hidden md:block bg-app-background-secondary rounded-lg p-4 w-full'>
-                  <div className='text-app-neutral500 text-sm mb-2'>
-                    {roles === 3 ? lang?.common?.claimAffiliate : lang?.common?.claimReferral || 'Claim Bonus'}
-                  </div>
-                  <div className='text-app-neutral500 text-xs mb-3'>
-                    <p className='text-2xl font-bold text-app-text-color'>
-                      KRW
-                      <span className='text-app-success'>{` ${totalAvailableCommission.toLocaleString()}`}</span>
-                    </p>
-                  </div>
-                  <Button
-                    onClick={async () => {
-                      try {
-                        if (roles === 3) {
-                          await claimAffiliate({ url: '/affiliate-claim', body: {} })
-                        } else {
-                          await claimReferral({ url: '/referral-claim', body: {} })
+                {roles !== 3 && (
+                  <div className='hidden md:block bg-app-background-secondary rounded-lg p-4 w-full'>
+                    <div className='text-app-neutral500 text-sm mb-2'>
+                      {roles === 3 ? lang?.common?.claimAffiliate : lang?.common?.claimReferral || 'Claim Bonus'}
+                    </div>
+                    <div className='text-app-neutral500 text-xs mb-3'>
+                      <p className='text-2xl font-bold text-app-text-color'>
+                        <span className='text-app-success'> {totalAvailableCommission.toLocaleString()}</span>원
+                      </p>
+                    </div>
+                    <Button
+                      onClick={async () => {
+                        try {
+                          if (roles === 3) {
+                            await claimAffiliate({ url: '/affiliate-claim', body: {} })
+                          } else {
+                            await claimReferral({ url: '/referral-claim', body: {} })
+                          }
+                        } catch (error) {
+                          console.error('Failed to claim referral:', error)
                         }
-                      } catch (error) {
-                        console.error('Failed to claim referral:', error)
-                      }
-                    }}
-                    disabled={loadingState || totalAvailableCommission === 0}
-                    className='w-full bg-app-primary hover:bg-app-primary-hover text-white'
-                  >
-                    {loadingState ? (
-                      <div className='flex items-center gap-2'>
-                        <div className='w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin'></div>
-                        {lang?.common?.claiming || 'Claiming...'}
-                      </div>
-                    ) : (
-                      <div className='flex items-center gap-2'>
-                        <Gift className='w-4 h-4' />
-                        {roles === 3 ? lang?.common?.claimAffiliate : lang?.common?.claimReferral || 'Claim'}
-                      </div>
-                    )}
-                  </Button>
-                </div>
-              )}
-
-              <div className='bg-app-background-secondary rounded-lg p-4 w-full'>
-                <div className='text-app-neutral500 text-sm mb-1'>{lang?.common?.totalMember}</div>
-                <div className='text-2xl font-bold text-app-text-color'>{totalMembers}</div>
-              </div>
-            </div>
-          </div>
-          <div className='mb-4 md:hidden'>
-            <div className='bg-app-background-secondary rounded-lg p-4 mb-3'>
-              <div className='text-app-neutral500 text-sm mb-2'>
-                {roles === 3 ? lang?.common?.claimAffiliate : lang?.common?.claimReferral || 'Claim Bonus'}
-              </div>
-              <p className='text-2xl font-bold text-app-text-color'>
-                KRW
-                <span className='text-app-success'>{` ${totalAvailableCommission.toLocaleString()}`}</span>
-              </p>
-            </div>
-            <Button
-              onClick={async () => {
-                try {
-                  if (roles === 3) {
-                    await claimAffiliate({ url: '/affiliate-claim', body: {} })
-                  } else {
-                    await claimReferral({ url: '/referral-claim', body: {} })
-                  }
-                } catch (error) {
-                  console.error('Failed to claim referral:', error)
-                }
-              }}
-              disabled={loadingState || totalAvailableCommission === 0}
-              className='w-full bg-app-primary hover:bg-app-primary-hover text-white'
-            >
-              {loadingState ? (
-                <div className='flex items-center gap-2'>
-                  <div className='w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin'></div>
-                  {lang?.common?.claiming || 'Claiming...'}
-                </div>
-              ) : (
-                <div className='flex items-center gap-2'>
-                  <Gift className='w-4 h-4' />
-                  {roles === 3 ? lang?.common?.claimAffiliate : lang?.common?.claimReferral || 'Claim'}
-                </div>
-              )}
-            </Button>
-          </div>
-          {/* Member List */}
-          <div className='flex-1'>
-            {/* Mobile Member List */}
-            <div className='lg:hidden'>
-              <h2 className='text-lg font-semibold mb-4'>{lang?.common?.memberList}</h2>
-
-              {/* Mobile Claim Button */}
-
-              {members.length > 0 && (
-                <div className='space-y-3'>
-                  {members.map((member, index) => (
-                    <div
-                      key={index}
-                      className='bg-app-table-bg-body rounded-lg p-4 border border-app-table-border-body'
+                      }}
+                      disabled={loadingState || totalAvailableCommission === 0}
+                      className='w-full bg-app-primary hover:bg-app-primary-hover text-white'
                     >
-                      <div className='flex justify-between items-center'>
-                        <div>
-                          <div className='text-sm'>{format(new Date(member?.created_at), 'yyyy-MM-dd | HH:mm')}</div>
-                          <div className='font-semibold text-app-text-color'>{member.commission_percentage}%</div>
+                      {loadingState ? (
+                        <div className='flex items-center gap-2'>
+                          <div className='w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin'></div>
+                          {lang?.common?.claiming || 'Claiming...'}
                         </div>
-                        <div className='text-right'>
-                          <div className='text-sm'>KRW</div>
-                          <div className='text-app-success font-bold text-lg'>
-                            {thousandSeparatorComma(member.amount)}
-                          </div>
+                      ) : (
+                        <div className='flex items-center gap-2'>
+                          <Gift className='w-4 h-4' />
+                          {roles === 3 ? lang?.common?.claimAffiliate : lang?.common?.claimReferral || 'Claim'}
                         </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-              {!isLoading && (!members || members.length === 0) && (
-                <div className='p-8 text-center flex flex-col gap-3 items-center bg-app-table-bg-body border border-app-table-border-body'>
-                  <Image
-                    src={'/images/betNotFound.png'}
-                    alt='Bet Not Found'
-                    width={1000}
-                    height={1000}
-                    className='h-[100px] w-[100px] object-contain object-center'
-                  />
-                  <p className='text-app-text-color text-sm'>{lang?.common?.noMemberReferral}.</p>
-                </div>
-              )}
-              {isLoading && <LoadingText lines={3} />}
-            </div>
+                      )}
+                    </Button>
+                  </div>
+                )}
 
+                <div className='bg-app-background-secondary rounded-lg p-4 w-full'>
+                  <div className='text-app-neutral500 text-sm mb-1'>{lang?.common?.totalMember}</div>
+                  <div className='text-2xl font-bold text-app-text-color'>{totalMembers}</div>
+                </div>
+              </div>
+            </div>
+            <div className='mb-4 md:hidden'>
+              <div className='bg-app-background-secondary rounded-lg p-4 mb-3'>
+                <div className='text-app-neutral500 text-sm mb-2'>
+                  {roles === 3 ? lang?.common?.claimAffiliate : lang?.common?.claimReferral || 'Claim Bonus'}
+                </div>
+                <p className='text-2xl font-bold text-app-text-color'>
+                  <span className='text-app-success'> {totalAvailableCommission.toLocaleString()}</span>원
+                </p>
+              </div>
+              <Button
+                onClick={async () => {
+                  try {
+                    if (roles === 3) {
+                      await claimAffiliate({ url: '/affiliate-claim', body: {} })
+                    } else {
+                      await claimReferral({ url: '/referral-claim', body: {} })
+                    }
+                  } catch (error) {
+                    console.error('Failed to claim referral:', error)
+                  }
+                }}
+                disabled={loadingState || totalAvailableCommission === 0}
+                className='w-full bg-app-primary hover:bg-app-primary-hover text-white'
+              >
+                {loadingState ? (
+                  <div className='flex items-center gap-2'>
+                    <div className='w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin'></div>
+                    {lang?.common?.claiming || 'Claiming...'}
+                  </div>
+                ) : (
+                  <div className='flex items-center gap-2'>
+                    <Gift className='w-4 h-4' />
+                    {roles === 3 ? lang?.common?.claimAffiliate : lang?.common?.claimReferral || 'Claim'}
+                  </div>
+                )}
+              </Button>
+            </div>
+          </div>
+
+          {/* Member List */}
+          <div className='lg:col-span-9'>
             {/* Desktop Table */}
-            <div className='hidden lg:block'>
-              <div className='overflow-hidden'>
-                <div className='hidden items-center md:grid md:grid-cols-4 gap-4 px-4 py-3 bg-app-table-bg-header rounded-[8px] mb-[10px] text-sm font-semibold text-app-table-text-header uppercase'>
-                  <div>{lang?.common?.date}</div>
-                  <div>{lang?.common?.referralGroup}</div>
-                  <div>{lang?.common?.commissionPercentage}</div>
-                  <div>{lang?.common?.commission}</div>
-                </div>
-
-                <div className='rounded-lg bg-app-table-bg-body border border-app-table-border-body'>
-                  {members.length > 0 &&
-                    members.map((member, index) => (
-                      <div key={index} className='grid grid-cols-4 gap-4 p-4 last:border-b-0'>
-                        <div className='text-app-text-color'>
-                          {format(new Date(member?.created_at), 'yyyy-MM-dd | HH:mm')}
-                        </div>
-                        <div className='text-app-text-color'>{member.parent ?? '-'}</div>
-                        <div className='text-app-text-color'>{member.commission_percentage}%</div>
-                        <div className='text-app-text-color'>
-                          KRW{' '}
-                          <span className='text-app-success font-bold'>{thousandSeparatorComma(member.amount)}</span>
-                        </div>
-                      </div>
-                    ))}
-                  {!isLoading && (!members || members.length === 0) && (
-                    <div className='p-8 text-center flex flex-col gap-3 items-center'>
-                      <Image
-                        src={'/images/betNotFound.png'}
-                        alt='Bet Not Found'
-                        width={1000}
-                        height={1000}
-                        className='h-[100px] w-[100px] object-contain object-center'
-                      />
-                      <p className='text-app-text-color text-sm'>{lang?.common?.noMemberReferral}.</p>
+            <DataTable
+              onRowClick={row => {
+                console.log(row)
+              }}
+              emptyState={{
+                message: lang?.common?.noMemberReferral,
+                image: '/images/betNotFound.png'
+              }}
+              mobileHeader={lang?.common?.memberList}
+              renderMobileRows={row => (
+                <div className='bg-app-table-bg-body rounded-lg p-4 border border-app-table-border-body'>
+                  <div className='flex justify-between items-center'>
+                    <div>
+                      <div className='text-sm'>{format(new Date(row?.created_at), 'yyyy-MM-dd | HH:mm')}</div>
+                      <div className='font-semibold text-app-text-color'>{row.commission_percentage}%</div>
                     </div>
-                  )}
-                  {isLoading && <LoadingTable columns={4} rows={1} showHeader={false} />}
+                    <div className='text-right text-sm'>
+                      <span className='text-app-success font-bold text-lg'>{thousandSeparatorComma(row.amount)}</span>원
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-
-            {/* Load More */}
-            {page < totalPage && (
-              <div className='flex justify-center py-4'>
-                <Button disabled={isFetchingHistory} onClick={handleLoadMore}>
-                  {isFetchingHistory ? `${lang?.common?.loading}...` : lang?.common?.loadMore}
-                </Button>
-              </div>
-            )}
+              )}
+              pagination={{
+                currentPage: page,
+                totalPages: totalPage,
+                onPageChange: setPage
+              }}
+              data={members}
+              loading={isFetchingHistory}
+              columns={[
+                {
+                  key: 'date',
+                  header: lang?.common?.date,
+                  accessor: 'created_at',
+                  render: value => format(new Date(value), 'yyyy-MM-dd | HH:mm')
+                },
+                {
+                  key: 'referralGroup',
+                  header: lang?.common?.referralGroup,
+                  accessor: 'parent',
+                  render: value => value ?? '-'
+                },
+                {
+                  key: 'commissionPercentage',
+                  header: lang?.common?.commissionPercentage,
+                  accessor: 'commission_percentage',
+                  render: value => value + '%'
+                },
+                {
+                  key: 'commission',
+                  header: lang?.common?.commission,
+                  accessor: 'amount',
+                  render: value => (
+                    <div className='text-app-text-color'>
+                      <span className='text-app-success font-bold'>{thousandSeparatorComma(value)}</span>원
+                    </div>
+                  )
+                }
+              ]}
+            />
           </div>
         </div>
       </div>

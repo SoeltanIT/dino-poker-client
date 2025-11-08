@@ -108,6 +108,7 @@
   --table-bg-body: var(--c-background-secondary);
   --table-bg-header: var(--c-background-secondary);
   --table-border-body: var(--neutral600);
+  --table-hover-bg: var(--neutral700);
 }
 
 /* Light Theme Overrides */
@@ -214,6 +215,7 @@
   --table-bg-body: var(--c-background-primary);
   --table-bg-header: var(--c-background-secondary);
   --table-border-body: var(--neutral300);
+  --table-hover-bg: var(--neutral200);
 }
 
 @layer base {

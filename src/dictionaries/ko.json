@@ -197,7 +197,7 @@
     "noCryptoAvailable": "사용 가능한 암호화폐가 없습니다",
     "selectCoinNetwork": "코인 네트워크 선택",
     "noCoinNetworkAvailable": "사용 가능한 코인 네트워크가 없습니다",
-    "cryptoNotes": "귀하의 암호화폐는 자동으로 대한민국 원(KRW)으로 전환됩니다.",
+    "cryptoNotes": "귀하의 암호화폐는 자동으로 대한민국 원(원)으로 전환됩니다.",
     "depositAddress": "입금 주소",
     "copiedToClipboard": "클립보드에 복사되었습니다!",
     "failedToCopy": "복사에 실패했습니다.",

@@ -101,7 +101,7 @@ export default function DepositConfirmForm({
         {activeTab !== 'crypto' && (
           <div className='flex flex-col w-full max-h-[90px] bg-app-background-secondary rounded-[16px] items-center justify-center gap-[3px] py-4 '>
             <span className='text-xs text-app-neutral500'>{lang?.common?.totalPayment}</span>
-            <span className='text-[32px] text-app-text-color'>₩{thousandSeparatorComma(data?.amount || 0)}</span>
+            <span className='text-[32px] text-app-text-color'>{thousandSeparatorComma(data?.amount || 0)}원</span>
           </div>
         )}
 
@@ -132,7 +132,7 @@ export default function DepositConfirmForm({
                       <p className='text-sm text-app-neutral500'>{lang?.common?.minimalDeposit}</p>
                     </div>
                     <p className='text-app-text-color text-sm'>
-                      ₩{thousandSeparatorComma(data?.promotion?.min_deposit ?? '0')}
+                      {thousandSeparatorComma(data?.promotion?.min_deposit ?? '0')}원
                     </p>
                   </div>
                 </div>
@@ -185,7 +185,7 @@ export default function DepositConfirmForm({
                     <p className='text-sm text-app-neutral500'>{lang?.common?.minimalDeposit}</p>
                   </div>
                   <p className='text-app-text-color text-sm'>
-                    ₩{thousandSeparatorComma(data?.promotion?.min_deposit ?? '0')}
+                    {thousandSeparatorComma(data?.promotion?.min_deposit ?? '0')}원
                   </p>
                 </div>
               </div>

@@ -248,7 +248,7 @@ export default function TransactionHistoryPage({
     widget.call('set_session_variables', {
       userID: session?.user?.id,
       transactionID: transaction.id,
-      amount: `KRW ${thousandSeparatorComma(transaction.amount)}`,
+      amount: `${thousandSeparatorComma(transaction.amount)}원`,
       type: transaction.type,
       dateTransaction: format(new Date(transaction.created_at), 'yyyy-MM-dd | HH:mm')
     })
@@ -479,7 +479,7 @@ export default function TransactionHistoryPage({
 
                   <div className='text-sm text-app-text-color uppercase'>{getTypeLabel(transaction.type)}</div>
 
-                  <div className='text-sm text-app-neutral500'>KRW</div>
+                  <div className='text-sm text-app-neutral500'>원</div>
 
                   <div className={`text-sm font-medium ${getAmountColor(transaction.type)}`}>
                     {/* {transaction?.review_status === 'REJECTED' ? '' : transaction?.type === 'deposit' ? '+' : '-'} */}
@@ -522,7 +522,7 @@ export default function TransactionHistoryPage({
 
                   <div className='flex justify-between items-center'>
                     <div className='w-[130px] text-sm font-semibold uppercase'>{getTypeLabel(transaction.type)}</div>
-                    <div className='text-app-neutral500'>KRW</div>
+                    <div className='text-app-neutral500'>원</div>
                     <div
                       className={`w-[80px] flex text-sm font-medium justify-end ${getAmountColor(transaction.type)}`}
                     >
@@ -632,7 +632,7 @@ export default function TransactionHistoryPage({
                     <div className='w-[130px] text-sm font-semibold uppercase'>
                       {transaction?.blockchains}-{transaction?.token}
                     </div>
-                    <div className='text-app-neutral500'>KRW</div>
+                    <div className='text-app-neutral500'>원</div>
                     <div
                       className={`w-[80px] flex text-sm font-medium justify-end ${getStatusColor(
                         transaction?.status?.toUpperCase()

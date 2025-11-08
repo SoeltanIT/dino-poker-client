@@ -168,6 +168,9 @@ const config: Config = {
             },
             border: {
               body: 'var(--table-border-body)'
+            },
+            hover: {
+              bg: 'var(--table-hover-bg)'
             }
           }
         }

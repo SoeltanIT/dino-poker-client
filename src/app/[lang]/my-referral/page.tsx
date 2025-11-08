@@ -4,8 +4,7 @@ import MyReferralDetail from '@/components/organisms/Referral/ReferralDetail'
 import MyReferralGroupHistory from '@/components/organisms/Referral/ReferralGroupDetail'
 import { getDictionary, getLocale } from '@/dictionaries/dictionaries'
 import { getReferral } from '@/utils/api/internal/getReferral'
-import { getReferralHistory } from '@/utils/api/internal/getReferralHistory' // ← add this
-import { getReferralGroupHistory } from '@/utils/api/internal/getReferralHistory' // your existing named export
+import { getReferralGroupHistory, getReferralHistory } from '@/utils/api/internal/getReferralHistory' // ← add this
 import { getReferralSummary } from '@/utils/api/internal/getReferralSummary'
 
 // export const runtime = 'edge'
@@ -14,6 +13,7 @@ type Role = 2 | 3 // 2 = member, 3 = manager (adjust if you have more)
 
 export default async function Page({ params }: { params: { lang: any } }) {
   const dict = await getDictionary(params?.lang)
+
   const locale = await getLocale()
 
   let roles: Role = 2
@@ -68,7 +68,7 @@ export default async function Page({ params }: { params: { lang: any } }) {
   if (!initialData) return null
 
   return (
-    <>
+    <div className='min-h-screen'>
       <MyReferral lang={dict} locale={locale} isLoading={isLoading} initialData={initialData} />
 
       {roles === 2 ? (
@@ -89,6 +89,6 @@ export default async function Page({ params }: { params: { lang: any } }) {
           roles={roles}
         />
       )}
-    </>
+    </div>
   )
 }

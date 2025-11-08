@@ -10,7 +10,7 @@ export const thousandSeparator = (x: string | number) => {
   try {
     return `${x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`
   } catch (e) {
-    return null
+    return '-'
   }
 }
 

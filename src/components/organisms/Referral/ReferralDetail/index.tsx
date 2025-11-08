@@ -8,9 +8,8 @@ import { useClaimReferral } from '@/utils/api/internal/claimReferral'
 import { useReferralSummary } from '@/utils/api/internal/getReferralSummary'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
 import { format } from 'date-fns'
-import { ArrowLeft, Gift } from 'lucide-react'
+import { Gift } from 'lucide-react'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { ReferralDetailProps } from './types'
 
@@ -144,13 +143,13 @@ export default function MyReferralDetail({
               <div className='bg-app-background-secondary rounded-lg p-4 w-full'>
                 <div className='text-app-neutral500 text-sm mb-1'>{lang?.common?.totalBonus}</div>
                 <div className='text-2xl font-bold'>
-                  KRW <span className='text-app-success'> {totalBonus.toLocaleString()}</span>
+                  <span className='text-app-success'> {totalBonus.toLocaleString()}</span>원
                 </div>
               </div>
               {/* <div className='bg-app-background-secondary rounded-lg p-4'>
                 <div className='text-app-neutral500 text-sm mb-1'>Bonus Today</div>
                 <div className='text-2xl font-bold'>
-                  KRW <span className='text-app-success'>{bonusToday}</span>
+                  <span className='text-app-success'>{bonusToday}</span>원
                 </div>
               </div> */}
               {/* Claim Referral Button */}
@@ -160,8 +159,7 @@ export default function MyReferralDetail({
                 </div>
                 <div className='text-app-neutral500 text-xs mb-3'>
                   <p className='text-2xl font-bold text-app-text-color'>
-                    KRW
-                    <span className='text-app-success'>{` ${totalAvailableCommission.toLocaleString()}`}</span>
+                    <span className='text-app-success'>{`${totalAvailableCommission.toLocaleString()}`}</span>원
                   </p>
                 </div>
                 <Button
@@ -201,8 +199,7 @@ export default function MyReferralDetail({
                 {lang?.common?.claimReferral || 'Claim Referral Bonus'}
               </div>
               <p className='text-2xl font-bold text-app-text-color'>
-                KRW
-                <span className='text-app-success'>{` ${totalAvailableCommission.toLocaleString()}`}</span>
+                <span className='text-app-success'>{`${totalAvailableCommission.toLocaleString()}`}</span>원
               </p>
             </div>
             <Button
@@ -250,11 +247,11 @@ export default function MyReferralDetail({
                           <div className='text-sm'>{format(new Date(member?.created_at), 'yyyy-MM-dd | HH:mm')}</div>
                           <div className='font-semibold text-app-text-color'>{member.referral_usage}</div>
                         </div>
-                        <div className='text-right'>
-                          <div className='text-sm'>KRW</div>
+                        <div className='text-right text-sm'>
                           <div className='text-app-success font-bold text-lg'>
                             {thousandSeparatorComma(member.amount)}
                           </div>
+                          원
                         </div>
                       </div>
                     </div>
@@ -294,8 +291,7 @@ export default function MyReferralDetail({
                         </div>
                         <div className='text-app-text-color'>{member.referral_usage}</div>
                         <div className='text-app-text-color'>
-                          KRW{' '}
-                          <span className='text-app-success font-bold'>{thousandSeparatorComma(member.amount)}</span>
+                          <span className='text-app-success font-bold'>{thousandSeparatorComma(member.amount)}</span>원
                         </div>
                       </div>
                     ))}

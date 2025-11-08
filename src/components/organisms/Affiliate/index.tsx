@@ -42,6 +42,7 @@ export default function MyAffiliate({
             </div>
           </div>
         </div>
+
         <Tabs value={tabValue} onValueChange={setTabValue} className='w-full'>
           <TabsList className='flex items-center justify-between pb-6 mt-6'>
             <div className='flex space-x-4'>

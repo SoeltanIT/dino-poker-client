@@ -52,7 +52,7 @@ export function useLiveChat() {
     widget.call('set_session_variables', {
       userID: session?.user?.id,
       depositID: transaction.deposit_id,
-      amount: `KRW ${thousandSeparatorComma(transaction.amount || 0)}`,
+      amount: `${thousandSeparatorComma(transaction.amount || 0)}원`,
       type: transaction.type,
       dateTransaction: format(new Date(transaction.created_at || ''), 'yyyy-MM-dd | HH:mm')
     })
