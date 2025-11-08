@@ -23,7 +23,7 @@ export default function BannerCard({
   subtitle,
   imageUrl,
   ctaText = 'MORE INFO',
-  href = '#',
+  href = '/user-guide/poker/texas-poker',
   isLoading,
   className,
   lang

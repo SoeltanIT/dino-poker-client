@@ -75,6 +75,12 @@ export default async function Home({ params }: any) {
         isLoadingPromo={isLoadingPromo}
         announcement={announcementText}
         locale={locale}
+        guideCard={{
+          title: 'USER GUIDE',
+          subtitle: 'on how to collect your points',
+          imageUrl: '/images/default/user_guide.png',
+          href: `/${locale}/user-guide/poker/texas-poker`
+        }}
       />
 
       <ListGamePage
