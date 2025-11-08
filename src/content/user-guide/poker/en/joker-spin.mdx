@@ -71,11 +71,10 @@ export const ranks = [
     </TableHeader>
 
     <TableBody>
-      {gameRules.map(([$1, $2, $3], i) => (
+      {gameRules.map(([$1, $2], i) => (
         <TableRow key={i} className='border-t border-app-neutral600'>
           <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
           <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
-          <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
         </TableRow>
       ))}
     </TableBody>
@@ -120,11 +119,10 @@ The blind structure (Ante, Blind Level, Time Bank) varies depending on the Joker
     </TableHeader>
 
     <TableBody>
-      {processingRules.map(([$1, $2, $3], i) => (
+      {processingRules.map(([$1, $2], i) => (
         <TableRow key={i} className='border-t border-app-neutral600'>
           <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
           <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
-          <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
         </TableRow>
       ))}
     </TableBody>
