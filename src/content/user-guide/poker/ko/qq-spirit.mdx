@@ -2,8 +2,157 @@ import { Section } from '@/components/atoms/Content/Section'
 import { TableCard } from '@/components/atoms/Content/TableCard'
 import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 
-export const title = 'Title'
-export const description = 'Description'
+export const title = 'QQ 스피릿 이용가이드'
+export const description = (
+  <>
+    QQ 스피릿
+    <br />
+    게임설명
+  </>
+)
 export const heroImage = '/images/default/user_guide.png'
+export const rules = [
+  [
+    '게임 목표',
+    "자신이 받은 2장 또는 3장의 도미노 타일 합을 '9점(키우)'에 가장 가깝게 만들어 딜러를 이기는 것입니다. (바카라와 유사한 목표)"
+  ],
+  ['인원', '플레이어는 딜러와 1대1 대결'],
+  ['사용 도구', '총 28장의 도미노 타일 (도미노 개물)']
+]
+export const progression = [
+  ['1. 베팅 및 분배', '초기 베팅', '플레이어는 라운드 시작 전 베팅을 완료합니다.'],
+  ['2. 첫 번째 타일', '타일 분배', '플레이어에게 1장의 타일이 분배됩니다.'],
+  [
+    '3. 두 번째 타일',
+    '더블/홀드 선택',
+    "플레이어는 두 번째 타일을 받은 후, 베팅 금액을 두 배로 올리지(Double) 또는 **유지할지(Hold)**를 결정합니다. (블랙잭의 '더블 다운'과 유사)"
+  ],
+  [
+    '4. 세 번째 타일 선택',
+    '추가 타일 결정',
+    '플레이어는 2장 타일의 합이 9가 아닌 경우, 상대에게 카드를 보여줄지(Open Card) 선택할 수 있습니다. 카드를 공개하면 3번째 타일을 받지 않습니다.'
+  ],
+  [
+    '5. 2장 확정',
+    '3장 타일 포기',
+    '카드를 공개하지 않거나, 이미 2장 타일의 합이 9점(키우)인 경우, 3번째 카드를 받지 않고 2장으로 플레이가 확정됩니다.'
+  ]
+]
+export const winloseRules = [
+  ['플레이어 승리 (일반)', '플레이어의 타일 값이 딜러보다 높을 때', '딜러는 플레이어에게 베팅 금액만큼 지불합니다.'],
+  ['딜러 승리 (일반)', '딜러의 타일 값이 플레이어보다 높을 때', '딜러가 플레이어의 베팅 금액을 가져갑니다.'],
+  [
+    '동점 (Tie)',
+    '딜러 무조건 승리',
+    '딜러와 플레이어의 타일 값이 같을 경우, 딜러가 승리하며 플레이어는 베팅 금액을 잃습니다.'
+  ],
+  [
+    '9점 (Qiu) 승리 (플레이어)',
+    '플레이어가 9점(키우)을 획득하고 딜러를 이길 때',
+    '딜러는 플레이어에게 베팅 금액의 두 배를 지불합니다.'
+  ],
+  [
+    '9점 (Qiu) 승리 (딜러)',
+    '딜러가 9점(키우)을 획득하면',
+    '딜러는 모든 플레이어로부터 베팅 금액을 가져갑니다. (플레이어가 9점을 가졌더라도 딜러 승리)'
+  ]
+]
 
-### No Content
+## QQ 스피릿 (QQ Spirit)
+
+<Section title='게임 소개 및 핵심 매력'>
+  QQ 스피릿은 도미노 타일을 사용하는 베팅 게임으로, 바카라(Baccarat)의 목표와 블랙잭(Blackjack)의 선택 시스템을 결합한
+  독특한 형태를 가집니다. 플레이어는 딜러를 상대로 자신의 타일 합을 9점(키우)에 가깝게 만드는 것을 목표로 합니다. 특히,
+  2장의 타일을 받은 후 베팅을 두 배로 늘리거나(Double) 세 번째 타일을 받을지 선택하는 등 플레이어의 액션 선택권이
+  강화되어 전략적인 깊이를 더합니다.
+</Section>
+
+<Section title='게임 규칙 및 목표'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>구분</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>내용</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {rules.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title="딜러 역할 규정 (Fixed Table vs. Regular Table)">
+**FIXED 테이블**: 'FIXED' 테이블에서는 **가장 윗자리(Top Position)**에 앉은 플레이어가 영구적인(Permanent) 딜러 역할을 수행합니다.
+
+**일반 테이블**: 일반 테이블에서는 3주기(Period)마다 또는 딜러가 퇴장하거나 자본이 부족할 경우 시계 방향으로 딜러 역할이 순환됩니다.
+
+</Section>
+
+<Section title="도미노 타일 값 합산 규칙">
+승패를 결정하는 최종 값은 타일의 총 점(dot)의 합으로 결정됩니다.
+
+**1의 자리 사용**: 총합이 10 이상인 두 자릿수일 경우, 10단위는 버리고 1의 자리 숫자만 최종 값으로 인정됩니다.
+
+**최고 가치**: 최종 값 중 9점이 가장 높은 가치이며 '키우(Qiu)'라고 불립니다.
+
+</Section>
+
+<Section title='게임 진행 단계 및 액션 선택'>
+QQ 스피릿은 단계를 거치며 플레이어에게 전략적 선택 기회를 제공합니다.
+
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>순서</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>명칭</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>내용 및 역할</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {progression.map(([$1, $2, $3], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title='특수 규칙 (9점 획득 시)'>
+  2장으로 9점 획득 시: 플레이어가 두 번째 카드를 받았을 때 2장 타일의 합이 9점(키우)인 경우, 자동으로 2장으로만 플레이가
+  확정되며 세 번째 타일을 받을 수 없습니다.
+</Section>
+
+<Section title='최종 승패 규정 (딜러 우위 및 9점 보상)'>
+<TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>상황</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>승자</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>보상 및 패배</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {winloseRules.map(([$1, $2, $3], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>

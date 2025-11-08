@@ -2,8 +2,145 @@ import { Section } from '@/components/atoms/Content/Section'
 import { TableCard } from '@/components/atoms/Content/TableCard'
 import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 
-export const title = 'Title'
-export const description = 'Description'
+export const title = 'Big Two (Capsa) User Guide'
+export const description = (
+  <>
+    Big Two (Capsa)
+    <br />
+    Game Description
+  </>
+)
 export const heroImage = '/images/default/user_guide.png'
+export const gameInfo = [
+  ['Game Objective', 'To be the first player to play all 13 of your cards before your opponents.'],
+  ['Players', '2 to 4 players'],
+  ['Cards Used', '52-card standard deck (Jokers excluded)']
+]
+export const progression = [
+  ['1. Hand Dealing', 'Hole Cards', 'Deal 13 cards to all players.'],
+  [
+    '2. First Player',
+    'Game Start',
+    'The player holding the **Diamond 3 (♦3), the weakest card**, starts the game by playing this card as part of their first hand.'
+  ],
+  [
+    '3. Playing',
+    'Action',
+    'The next player must play a hand of the same number of cards (single, pair, or combination) but of higher value than the previous player.'
+  ],
+  [
+    '4. Pass',
+    'Turn Skip',
+    'If a player cannot or does not want to play a higher hand, they pass, and the turn moves to the next player. Passing has no limit on frequency.'
+  ],
+  [
+    '5. New Round Start',
+    'Winning the Trick',
+    'If all other players pass, the player who played the last card wins the trick and starts a new round with any hand they choose.'
+  ]
+]
+export const ranks = [
+  ['1. Royal Flush', 'The strongest hand: A, K, Q, J, 10, all of the same suit.'],
+  ['2. Straight Flush', 'Five cards in sequential rank and all of the same suit.'],
+  ['3. Four of a Kind', 'Four cards of the same rank.'],
+  ['4. Full House', 'One triple (Three of a Kind) + one pair.'],
+  ['5. Flush', 'Five cards of the same suit.'],
+  ['6. Straight', 'Five cards in sequential rank.'],
+  ['7. Three of a Kind', 'Three cards of the same rank.'],
+  ['8. Two Pair', 'Two pairs of same-rank cards and one other card.'],
+  ['9. One Pair', 'Two cards of the same rank.'],
+  ['10. High Card', 'The rank is determined by the highest card in the hand.']
+]
 
-### No Content
+## Big Two / Capsa
+
+<Section title='Game Introduction and Core Appeal'>
+  Big Two, or Capsa, is a highly popular 'Shedding' type of card game in Asia. The objective is for a player to be the
+  first to discard all 13 of their cards to win. The biggest characteristic of this game is that the card ranking is
+  completely different from standard poker. The **2 (Two) is the most powerful card**, and the 3 is the weakest. Players
+  must use poker combinations to play single cards, pairs, or five-card combinations that are stronger than the previous
+  player's hand.
+</Section>
+
+<Section title='Game Rules and Objective'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>Category</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Details</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {gameInfo.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title="Big Two's Most Important Rule: Card and Suit Ranking">
+This ranking differs from standard poker and is critical to winning and losing.
+
+**Card Rank (Strongest to Weakest)**: 2 > A > K > Q > J > 10 > 9 > 8 > 7 > 6 > 5 > 4 > 3 (3 is the weakest)
+
+**Suit Rank (Strongest to Weakest)**: Spade (♠) > Heart (♥) > Club (♣) > Diamond (♦)
+
+</Section>
+
+<Section title='Game Progression and Playing Rules'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[150px] px-6 py-4 text-left font-semibold text-white'>Step</TableHead>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>Name</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Details and Role</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {progression.map(([$1, $2, $3], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title="Final Victory and Scoring Rules">
+**Determining the Winner**: The player who is the first to exhaust all 13 of their cards wins.
+
+**Penalty**: Once the winner is determined, losing players receive penalty points based on the number of cards remaining in their hand.
+
+</Section>
+
+<Section title='Big Two / Capsa Hand Rankings (5-Card Combinations)'>
+The 5-card combinations used in Big Two follow the same hand rankings as standard poker. (However, card comparison within the hands follows the Big Two card ranking, where 2 is the strongest.)
+
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Hand Rank</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Description</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {ranks.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>

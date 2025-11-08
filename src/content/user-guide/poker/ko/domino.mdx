@@ -2,8 +2,175 @@ import { Section } from '@/components/atoms/Content/Section'
 import { TableCard } from '@/components/atoms/Content/TableCard'
 import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 
-export const title = 'Title'
-export const description = 'Description'
+export const title = '도미노 이용가이드'
+export const description = (
+  <>
+    도미노
+    <br />
+    게임설명
+  </>
+)
 export const heroImage = '/images/default/user_guide.png'
+export const gameInfo = [
+  ['게임 목표', "4장의 도미노 타일을 2장씩 두 쌍으로 나누어 각각 9점(키우)을 만들어 'QQ (9-9)' 핸드를 완성하는 것"],
+  ['사용 타일', '도미노 타일 세트 (각 타일은 점으로 표시된 숫자를 가짐)'],
+  ['점수 계산', '2장 타일의 점수 합산 후 1의 자리만 사용 (최대 9점)'],
+  ['게임 방식', '플레이어 대 딜러, 또는 플레이어 간 대결 방식']
+]
 
-### No Content
+export const progression = [
+  ['1단계', '블라인드 베팅', '게임 시작 전, 최소 블라인드 금액을 베팅합니다.'],
+  ['2단계', '타일 배분', '각 플레이어에게 4장의 도미노 타일이 뒷면으로 배분됩니다.'],
+  [
+    '3단계',
+    '핸드 확인 및 배치',
+    '플레이어는 받은 4장의 타일을 2장씩 두 쌍으로 나눕니다. 시스템이 자동으로 최적의 배치를 제안하거나 수동으로 조정할 수 있습니다.'
+  ],
+  ['4단계', '베팅 라운드', '플레이어는 폴드(Fold), 체크(Check), 콜(Call), 레이즈(Raise) 중 하나를 선택합니다.'],
+  ['5단계', '쇼다운', '모든 베팅이 완료되면 플레이어들은 타일을 공개하고 두 쌍의 점수를 비교합니다.'],
+  ['6단계', '승자 결정', '왼쪽 핸드와 오른쪽 핸드를 각각 비교하여 두 쌍 모두 이긴 플레이어가 팟(Pot)을 획득합니다.']
+]
+
+export const prizeRules = [
+  ['완전 승리', '왼쪽 핸드와 오른쪽 핸드 모두에서 상대방보다 높은 점수를 기록한 경우, 팟 전액을 획득합니다.'],
+  ['한 쌍 승리', '한 쌍에서만 이긴 경우, 베팅 금액은 반환되거나 무승부 처리될 수 있습니다 (테이블 규칙에 따름).'],
+  ['동점 (Tie)', '양쪽 핸드의 점수가 모두 동일한 경우, 팟은 동점을 기록한 플레이어들 간에 균등 분배됩니다.'],
+  [
+    'QQ (9-9) 보너스',
+    "두 쌍 모두 9점을 달성한 'QQ' 핸드의 경우, 추가 보너스 배당이 지급될 수 있습니다 (테이블 규칙에 따름)."
+  ],
+  ['폴드 승리', '모든 상대방이 폴드한 경우, 타일 공개 없이 즉시 팟을 획득합니다.']
+]
+
+export const specialHands = [
+  ['식스 갓 (Six God)', '가장 희귀하고 강력한 핸드로, 4장의 타일 각 면의 점이 모두 6 이하로만 구성일 조합입니다.'],
+  ['트윈 시리즈 (Twin Series)', '4장의 타일이 모두 더블(Double, 양쪽 점이 같은) 타일로 구성된 조합입니다. (예: [3'],
+  ['퓨어 빅 (Pure Big)', '4장의 타일에 있는 총 점수의 합이 39점 이상인 특수 핸드입니다.'],
+  ['퓨어 스몰 (Pure Small)', '4장의 타일에 있는 총 점수의 합이 9점 이하인 특수 핸드입니다.']
+]
+
+## 도미노 (Domino)
+
+<Section title='게임 소개 및 핵심 매력'>
+  도미노 QQ(키우 키우)는 4장의 도미노 타일을 사용하는 인도네시아의 인기 카드 게임입니다. 플레이어는 받은 4장의 타일을
+  2장씩 묶어 두 쌍의 핸드로 나누고, 두 쌍 모두 '9점(키우)'이 되는 'QQ (9-9)' 핸드를 만드는 것을 목표로 합니다. 베팅
+  전략과 심리전이 결합되어 있으며, 상대방 또는 딜러와의 대결에서 가장 강력한 '두 쌍' 조합을 완성해야 합니다.
+</Section>
+
+<Section title='게임 규칙 및 목표'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>구분</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>내용</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {gameInfo.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title='베팅 및 자금 규정'>
+**최소/최대 바이인**: 각 테이블마다 최소 및 최대 참가 금액(Buy-in)이 정해져 있으며, 플레이어는 이 범위 내에서 참여해야 합니다.
+
+**최소 베팅 (Blind)**: 플레이어는 게임 참여를 유지하기 위해 최소 블라인드 금액을 베팅해야 합니다.
+
+**올인(All-in)**: 플레이어는 자신의 칩 전액을 베팅할 수 있습니다. 최대 베팅은 상대방의 칩 총액으로 제한됩니다.
+
+**자금 부족 시**: 잔액이 부족할 경우 충전(Top-up)하거나 게임에서 퇴장해야 합니다.
+
+</Section>
+
+<Section title='도미노 타일 값 합산 규칙 (QQ 게임)'>
+4장의 타일은 2장씩 두 쌍으로 묶어 각각의 점수를 계산합니다.
+
+**점수 합산**: 각 2장 묶음의 타일 점을 합산합니다.
+
+**1의 자리 사용**: 총합이 10 이상인 두 자릿수일 경우, 10단위는 버리고 1의 자리 숫자만 최종 값으로 인정됩니다. (최고 값은 9)
+
+**온라인 시스템**: 도트(점)를 셀 필요 없이, 시스템이 '왼쪽 핸드'와 '오른쪽 핸드'의 값을 자동으로 계산하여 보여주며, 왼쪽 핸드가 항상 오른쪽 핸드보다 크거나 같게 표시됩니다.
+
+</Section>
+
+<Section title='게임 진행 단계 및 베팅 순서'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>단계</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>명칭</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>내용</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {progression.map(([$1, $2, $3], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title='최종 승리 및 상금 규정'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>상황</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>승리 조건 및 결과</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {prizeRules.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title='연결 끊김 및 자동 행동 규칙'>
+**자동 폴드 및 제거**: 플레이어가 시간을 초과하거나 연결이 끊긴 후 베팅이 레이즈되면, 해당 플레이어는 자동으로 폴드 처리되고 게임에서 제거됩니다.
+
+**자동 체크**: 레이즈가 발생하지 않은 상황에서 연결이 끊긴 플레이어는 자동으로 체크(Check) 행동을 취합니다.
+
+**재접속 및 지속**: 제한 시간이 끝나기 전에 재접속하면 플레이어는 사용 가능한 액션을 취할 수 있으며, 공정한 플레이가 유지됩니다.
+
+</Section>
+
+<Section title='특수 족보 (Special Hands)'>
+도미노 QQ는 아래의 희귀한 특수 족보를 달성하면 자동 승리 또는 잭팟 풀에서 보상을 받을 수 있습니다.
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>순위</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>족보 명칭</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {specialHands.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>

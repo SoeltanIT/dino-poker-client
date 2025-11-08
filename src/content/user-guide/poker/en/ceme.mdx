@@ -2,8 +2,140 @@ import { Section } from '@/components/atoms/Content/Section'
 import { TableCard } from '@/components/atoms/Content/TableCard'
 import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 
-export const title = 'Title'
-export const description = 'Description'
+export const title = 'Ceme User Guide'
+export const description = (
+  <>
+    Ceme
+    <br />
+    Game Description
+  </>
+)
 export const heroImage = '/images/default/user_guide.png'
+export const gameInfo = [
+  [
+    'Game Objective',
+    "To defeat the dealer by making the sum of your two domino tiles as close as possible to '9 points (Qiu)'."
+  ],
+  [
+    'Players',
+    '1-on-1 match between the player and the dealer (the dealer role can rotate among players or be fixed by the house)'
+  ],
+  ['Tools Used', 'A total of 28 Domino Tiles']
+]
+export const rules = [
+  [
+    'Player Win (Normal)',
+    'Player’s tile value is higher than the dealer’s',
+    'The dealer pays the player the amount of their bet.'
+  ],
+  [
+    'Dealer Win (Normal)',
+    'Dealer’s tile value is higher than the player’s',
+    'The dealer takes the player’s bet amount.'
+  ],
+  ['Tie', 'Dealer Always Wins', 'If the dealer and player have the same tile value, the dealer wins the round.'],
+  [
+    '9 Points (Qiu) Win (Player)',
+    "When the player gets '9 points (Qiu)' and beats the dealer",
+    'The dealer must pay the player double the amount of their bet.'
+  ],
+  [
+    '9 Points (Qiu) Win (Dealer)',
+    "When the dealer gets '9 points (Qiu)'",
+    'The dealer collects the bet amount from all players. (The dealer wins even if the player has the same or a higher value. Since 9 is the highest score, if the player also has 9 points, the dealer still wins).'
+  ]
+]
 
-### No Content
+## Ceme
+
+<Section title='Game Introduction and Core Appeal'>
+  Ceme is a fast-paced, dynamic betting game that uses only 2 domino tiles. The biggest feature of this game is that
+  eligible players can take on the dealer role directly. Players aim to make the sum of their 2 tiles close to '9 points
+  (Qiu)' and win the 1-on-1 battle against the dealer.
+</Section>
+
+<Section title='Game Rules and Objective'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>Category</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Details</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {gameInfo.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title='Dealer Role Regulations'>
+  Dealer Eligibility: If a player wishes to participate as the dealer, they must possess the Minimum Dealer Balance
+  specified by the table.
+</Section>
+
+<Section title='Domino Tile Value Summation Rules (2 Tiles)'>
+Win or loss is determined by the sum of the total dots shown on the two tiles.
+
+**Score Summation**: Add up the scores of the 2 tiles.
+
+**Use of the Ones Digit**: If the total sum is 10 or more, the tens digit is discarded, and only the ones digit is accepted as the final value.
+
+**Example**: [6|6] + [6|3] = 12 + 9 = 21. The final value becomes 1.
+
+**Highest Value**: Among the final values, 9 points is the highest value and is called **'Qiu'**.
+
+</Section>
+
+<Section title="Final Win/Loss Regulations (Dealer Advantage and '9 Points' Reward)">
+Ceme has rules where the dealer holds an advantage in a tie situation.
+
+<TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Situation</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Winner</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Reward and Loss</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {rules.map(([$1, $2, $3], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title="Special Hands and Jackpot">
+Ceme operates a special 4-tile hand system through a Jackpot purchase, giving players a chance to win the jackpot.
+
+**Six God (Six Dewa)**: The rarest hand, consisting of 4 tiles where the sum of dots on each tile's face is 6 or less.
+
+**Twin Series (Seri Kembar)**: A hand where all 4 tiles are Double tiles (e.g., [0|0], [1|1], [2|2], [3|3]).
+
+**Pure Big (Murni Besar)**: A special hand where the total sum of dots on all 4 tiles is 39 points or more.
+
+**Pure Small (Murni Kecil)**: A special hand where the total sum of dots on all 4 tiles is 9 points or less.
+
+</Section>
+
+<Section title="Disconnection and Automatic Action Rules">
+**Automatic Fold and Removal**: If a player is disconnected or exceeds the time limit when a raise occurs, that player is automatically folded and removed from the game.
+
+**Automatic Check**: If no raise occurs, the action for a disconnected player is automatically treated as a Check.
+
+**Reconnection**: If you reconnect before the time limit expires, you can take any available action.
+
+</Section>
