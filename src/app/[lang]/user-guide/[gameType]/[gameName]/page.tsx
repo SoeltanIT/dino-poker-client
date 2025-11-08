@@ -45,7 +45,7 @@ export default async function Page({ params }: PageProps) {
         </div>
       </Card>
 
-      <div className='prose [&_h3]:m-0 [&_h3]:mb-2 [&_p]:first-of-type:mt-0 [&_p]:text-app-text-color max-w-none [&_ol]:first-of-type:mt-0 [&_li]:text-app-text-color'>
+      <div className='prose [&_h3]:m-0 [&_h3]:mb-2 [&_p]:first-of-type:mt-0 [&_p]:text-app-text-color max-w-none [&_ol]:first-of-type:mt-0 [&_li]:text-app-text-color [&_strong]:font-bold'>
         <Content />
       </div>
     </>
