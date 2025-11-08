@@ -88,7 +88,7 @@ export default function BannerCarousel({
       ) : isEmpty ? (
         <div className='relative h-full w-full'>
           <Image
-            src={'/images/default/main_banner.png'}
+            src={'/images/default/main_banner.avif'}
             alt='Main banner placeholder'
             fill
             priority={false}

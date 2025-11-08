@@ -78,7 +78,7 @@ export default async function Home({ params }: any) {
         guideCard={{
           title: 'USER GUIDE',
           subtitle: 'on how to collect your points',
-          imageUrl: '/images/default/user_guide.png',
+          imageUrl: '/images/default/user_guide.jpeg',
           href: `/${locale}/user-guide/poker/texas-poker`
         }}
       />
