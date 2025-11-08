@@ -1,0 +1,166 @@
+import { Section } from '@/components/atoms/Content/Section'
+import { TableCard } from '@/components/atoms/Content/TableCard'
+import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+
+export const title = 'QQ Spirit User Guide'
+export const description = (
+  <>
+    QQ Spirit
+    <br />
+    Game Description
+  </>
+)
+export const heroImage = '/images/default/user_guide.png'
+export const rules = [
+  [
+    'Game Objective',
+    "To beat the dealer by making the sum of your 2 or 3 domino tiles as close as possible to '9 points (Qiu)'. (Similar objective to Baccarat)"
+  ],
+  ['Players', 'Player vs. Dealer 1-on-1 matchup'],
+  ['Tools Used', 'A total of 28 domino tiles (Domino Gae-mul - the full set of dominoes)']
+]
+export const progression = [
+  ['1. Betting and Distribution', 'Initial Bet', 'The player completes their betting before the round begins.'],
+  ['2. First Tile', 'Tile Distribution', 'The player is dealt 1 tile.'],
+  [
+    '3. Second Tile',
+    'Double/Hold Selection',
+    "After receiving the second tile, the player decides whether to **Double** the bet amount or **Hold** it. (Similar to 'Double Down' in Blackjack)"
+  ],
+  [
+    '4. Third Tile Decision',
+    'Additional Tile Choice',
+    'If the sum of the 2 tiles is not 9, the player can choose to show their cards (Open Card) to the opponent. If they open the card, they do not receive a 3rd tile.'
+  ],
+  [
+    '5. 2-Tile Confirmation',
+    'Forfeit 3rd Tile',
+    'If the player does not open the card, or if the sum of the 2 tiles is already 9 points (Qiu), the game is confirmed to be played with 2 tiles, and a 3rd tile is not received.'
+  ]
+]
+export const winloseRules = [
+  [
+    'Player Win (Normal)',
+    "When the player's tile value is higher than the dealer's",
+    'The dealer pays the player the amount of their bet.'
+  ],
+  [
+    'Dealer Win (Normal)',
+    "When the dealer's tile value is higher than the player's",
+    "The dealer takes the player's bet amount."
+  ],
+  [
+    'Tie',
+    'Dealer always wins',
+    "If the dealer's and player's tile values are the same, the dealer wins, and the player loses their bet amount."
+  ],
+  [
+    '9 Points (Qiu) Win (Player)',
+    'When the player achieves 9 points (Qiu) and beats the dealer',
+    'The dealer pays the player double the amount of their bet.'
+  ],
+  [
+    '9 Points (Qiu) Win (Dealer)',
+    'When the dealer achieves 9 points (Qiu)',
+    'The dealer takes the bet amount from all players. (Dealer wins even if the player also has 9 points)'
+  ]
+]
+
+## QQ Spirit
+
+<Section title='Game Introduction and Core Appeal'>
+  QQ Spirit is a betting game that uses domino tiles, featuring a unique format combining the goal of Baccarat with the
+  choice system of Blackjack. Players aim to make the sum of their tiles as close as possible to 9 points (Qiu) against
+  the dealer. Notably, the player has enhanced strategic action choices, such as deciding to double the bet (Double) or
+  whether to take a third tile after receiving the second, adding strategic depth.
+</Section>
+
+<Section title='Game Rules and Objective'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>Category</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Details</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {rules.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title="Dealer Role Regulations (Fixed Table vs. Regular Table)">
+**FIXED Table**: On 'FIXED' tables, the player seated in the **Top Position** performs the role of the permanent dealer.
+
+**Regular Table**: On regular tables, the dealer role rotates clockwise every 3 periods or when the current dealer leaves or runs out of capital.
+
+</Section>
+
+<Section title="Domino Tile Value Summation Rules">
+The final value that determines win or loss is decided by the total sum of dots on the tiles.
+
+**Use of the Ones Digit**: If the total sum is a two-digit number (10 or more), the tens digit is discarded, and only the ones digit is accepted as the final value.
+
+**Highest Value**: 9 points is the highest final value and is called 'Qiu'.
+
+</Section>
+
+<Section title='Game Progression Steps and Action Selection'>
+QQ Spirit offers players strategic choices throughout its phases.
+
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Order</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Name</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Content and Role</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {progression.map(([$1, $2, $3], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title='Special Rule (Upon achieving 9 points)'>
+  Achieving 9 points with 2 tiles: If the sum of the player's 2 tiles is 9 points (Qiu) when they receive the second
+  card, their play is automatically confirmed with only 2 tiles, and they cannot receive a third tile.
+</Section>
+
+<Section title='Final Win/Loss Regulations (Dealer Advantage and 9 Point Reward)'>
+<TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Situation</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Winner</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Reward and Loss</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {winloseRules.map(([$1, $2, $3], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>

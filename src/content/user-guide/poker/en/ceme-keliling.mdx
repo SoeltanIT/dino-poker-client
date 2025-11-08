@@ -1,0 +1,165 @@
+import { Section } from '@/components/atoms/Content/Section'
+import { TableCard } from '@/components/atoms/Content/TableCard'
+import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+
+export const title = 'Ceme Keliling User Guide'
+export const description = (
+  <>
+    Ceme Keliling
+    <br />
+    Game Description
+  </>
+)
+export const heroImage = '/images/default/user_guide.png'
+export const gameInfo = [
+  [
+    'Game Objective',
+    "To defeat the dealer in the current round by getting the sum of your two domino tiles as close as possible to '9 points (Qiu)'."
+  ],
+  ['Players', '1-on-1 match between the player and the rotating dealer.'],
+  ['Tools Used', 'A total of 28 Domino Tiles (Domino Gaple)']
+]
+export const progression = [
+  ['Betting Completed', 'Mandatory Bet', 'Players complete their bets before receiving the tiles.'],
+  ['Tile Distribution', 'Hand Formation', 'Both the dealer and players receive 2 domino tiles.'],
+  [
+    'Reveal and Compare',
+    'Win/Loss Determination',
+    'Players reveal their tiles and compare their tile sum 1-on-1 against the dealer’s tile sum.'
+  ],
+  ['Dealer Rotation', 'Role Shift', 'After the round ends, the dealer role passes clockwise to the next player.']
+]
+export const winloseRules = [
+  [
+    'Player Win (Normal)',
+    'Player’s tile value is higher than the dealer’s',
+    'The dealer pays the player the amount of their bet.'
+  ],
+  [
+    'Dealer Win (Normal)',
+    'Dealer’s tile value is higher than the player’s',
+    'The dealer takes the player’s bet amount.'
+  ],
+  [
+    'Tie',
+    'Dealer Always Wins',
+    'If the dealer and player have the same tile value, the dealer wins, and the player loses their bet amount.'
+  ],
+  [
+    '9 Points (Qiu) Win (Player)',
+    'When the player gets 9 points (Qiu) and beats the dealer',
+    'The dealer pays the player double the amount of their bet.'
+  ],
+  [
+    '9 Points (Qiu) Win (Dealer)',
+    'When the dealer gets 9 points (Qiu)',
+    'The dealer collects the bet amount from all players. (Dealer wins even if the player also has 9 points)'
+  ]
+]
+
+## Ceme Keliling
+
+<Section title='Game Introduction and Core Appeal'>
+Ceme Keliling is a variation of **Ceme**, a popular betting game using domino tiles. 'Keliling' means **'Rotating'**, and the most significant feature is that all eligible players take turns serving as the dealer. The player's goal is to make the sum of just 2 domino tiles as close as possible to '9 points (Qiu)' to win against the round's dealer and claim the betting amount.
+
+</Section>
+
+<Section title='Game Rules and Objective'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>Category</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Details</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {gameInfo.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title='Betting and Dealer Role Regulations'>
+**Betting Method**: Players must complete their bets before receiving their tiles.
+
+**Dealer Rotation (Keliling)**: The dealer role is performed by eligible players (those who meet the minimum dealer balance) on a round-by-round basis, rotating clockwise.
+
+**Dealer Eligibility**: A player who wishes to be the dealer must possess the **Minimum Dealer Balance** set by the table.
+
+</Section>
+
+<Section title='Domino Tile Value Summation Rules (2 Tiles)'>
+The final value that determines win or loss is the sum of the total dots shown on the two tiles.
+
+**Score Summation**: Add up all the dots shown on the 2 tiles.
+**Use of the Ones Digit**: If the total sum is a two-digit number (10 or higher), the tens digit is discarded, and only the ones digit is accepted as the final value. (Example: 15 points become 5 points; 19 points become 9 points).
+**Highest Value**: Among the final values, 9 points is the highest and is called 'Qiu'.
+
+</Section>
+
+<Section title='Game Progression and Betting Sequence'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Step</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Name</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Details and Role</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {progression.map(([$1, $2, $3], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title='Final Win/Loss Regulations (Dealer Advantage and 9-Point Rewards)'>
+Ceme Keliling is a 1-on-1 battle between the dealer and the player, and the dealer has favorable rules.
+
+<TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Rule</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Condition</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Outcome and Payout</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {winloseRules.map(([$1, $2, $3], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title='Special Hands and Jackpot'>
+Ceme Keliling operates a special 4-tile hand system through a Jackpot. Players can purchase the Jackpot in each round, and if they achieve a 4-tile combination by combining the dealer’s hand and their own hand, they receive a large reward.
+
+**Six God (Six Dewa)**: The rarest hand, where the total sum of dots on all 4 tiles is 6 or less.
+
+**Twin Series (Seri Kembar)**: A hand where all 4 tiles are Double tiles (tiles with the same number of dots on both sides).
+
+**Pure Big (Murni Besar)**: A hand where the total sum of dots on all 4 tiles is 39 points or more.
+
+**Pure Small (Murni Kecil)**: A hand where the total sum of dots on all 4 tiles is 9 points or less.
+
+</Section>

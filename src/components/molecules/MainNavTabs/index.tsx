@@ -4,6 +4,7 @@ import { IconPoker, IconSport, IconTicket } from '@/components/atoms/Icons' // m
 import { Locale } from '@/i18n-config'
 import { cn } from '@/lib/utils'
 import { LangProps } from '@/types/langProps'
+import { BookIcon } from 'lucide-react'
 import Link from 'next/link'
 
 type MainNavTabsProps = {
@@ -90,6 +91,26 @@ export function MainNavTabs({ locale, pathname, lang, features, className }: Mai
           </span>
         </Link>
       )}
+
+      <Link
+        href='/user-guide/poker/texas-poker'
+        className={cn(
+          baseTab,
+          isActive('/user-guide')
+            ? 'bg-app-primary text-white border border-app-borderPrimary'
+            : 'text-app-neutral500 group-hover:text-app-text-color'
+        )}
+      >
+        <BookIcon
+          className={cn(
+            'w-4 h-4',
+            isActive('/user-guide') ? 'text-white' : 'text-app-neutral500 group-hover:text-app-text-color'
+          )}
+        />
+        <span className={cn(isActive('/user-guide') ? 'text-white' : 'group-hover:text-app-text-color')}>
+          {lang?.common?.userGuide}
+        </span>
+      </Link>
     </div>
   )
 }

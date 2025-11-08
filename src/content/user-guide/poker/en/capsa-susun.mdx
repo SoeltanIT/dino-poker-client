@@ -1,0 +1,197 @@
+import { Section } from '@/components/atoms/Content/Section'
+import { TableCard } from '@/components/atoms/Content/TableCard'
+import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+
+export const title = 'Capsa Susun User Guide'
+export const description = (
+  <>
+    Capsa Susun
+    <br />
+    Game Description
+  </>
+)
+export const heroImage = '/images/default/user_guide.png'
+export const gameRules = [
+  [
+    'Game Objective',
+    "To arrange 13 cards into 3 hands, compare them with the opponent's hands to win the most hands and get the highest score."
+  ],
+  ['Players', 'Minimum 2 ~ Maximum 4'],
+  ['Cards Used', '52-card standard deck (Jokers excluded)']
+]
+export const penaltyRules = [
+  ['Hand Arrangement', 'Arrange into Bottom Line (5 cards), Middle Line (5 cards), and Top Line (3 cards).'],
+  ['Strength Order', 'Must follow the hand strength order: Bottom Hand ≥ Middle Hand ≥ Top Hand.'],
+  ['Auto-Arrange', 'If you do not finish arranging in time, the system will arrange automatically.'],
+  [
+    'Incorrect Arrangement (Mis-set)',
+    'If you arrange in the **wrong order (Mis-set)**, that player is automatically defeated.'
+  ]
+]
+export const progression = [
+  ['1. Hand Dealing', 'Card Distribution', 'Deal 13 cards to all players.'],
+  [
+    '2. Swap Card',
+    'Card Exchange',
+    'On tables with the Swap Card feature enabled, players have a chance to exchange up to 3 unwanted cards. (Placed in the center and randomly redistributed)'
+  ],
+  ['3. Arrange', 'Card Placement', "Players arrange their 13 cards into 3 hands. The 'Auto' function can be used."],
+  [
+    '4. Showdown',
+    'Hand Comparison & Score Calculation',
+    'After all players finish arranging, they compare their hands 1-on-1 to calculate scores.'
+  ]
+]
+export const specialCombinations = [
+  ['Royal Flush', 'Back Line / Middle Line', '+10 Points/Units'],
+  ['Straight Flush', 'Back Line / Middle Line', '+10 Points/Units'],
+  ['Four of a Kind', 'Back Line / Middle Line', '+8 Points/Units'],
+  ['Full House', 'Middle Line', '+2 Points/Units'],
+  ['Three of a Kind', 'Top Line', '+3 Points/Units']
+]
+export const naturalCombinations = [
+  ['1. Dragon', 'A hand composed of 13 cards from 2 to A, all of different suits.', '+36 Points'],
+  ['2. All Alphabets', 'A hand composed of only picture cards (J, Q, K) and Aces.', '+32 Points'],
+  ['3. Three Straight Flushes', 'A hand where all 3 lines are composed of Straight Flushes.', '+24 Points'],
+  ['4. Four Quads', 'Composed of 4 pairs of Four of a Kind and 1 extra card.', '+20 Points'],
+  ['5. All Low/High', 'A hand where all 13 cards are 8 or lower (All Low) or 8 or higher (All High).', '+12 Points'],
+  ['6. Full-colored', 'A hand where all 13 cards are black (♠, ♣) or all red (♥, ♦).', '+10 Points'],
+  ['7. Four Triples', 'Composed of 4 triples and 1 extra card.', '+8 Points'],
+  ['8. Six Pairs', 'Composed of 6 pairs and 1 extra card.', '+6 Points'],
+  ['9. Three Straights', 'A hand where all 3 lines are composed of Straights.', '+4 Points'],
+  ['10. Three Flushes', 'A hand where all 3 lines are composed of Flushes.', '+3 Points'],
+  ['11. No Broadway', 'A hand that does not include picture cards (J, Q, K) or an Ace.', '+3 Points']
+]
+
+## Capsa Susun
+
+<Section title='Game Rules and Objective'>
+  Capsa Susun is a strategic game also known as **Chinese Poker**. Players arrange their 13 received cards into three
+  hands: Bottom (5 cards), Middle (5 cards), and Top (3 cards). The objective of this game is to win the most points
+  (Units) through 1-on-1 hand comparisons with opponents, while strictly adhering to the hand strength rule of 'Bottom ≥
+  Middle ≥ Top'. It is characterized by its hand arrangement strategy and complex bonus system.
+</Section>
+
+<Section title='Game Progression and Set-Down Rules'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[150px] px-6 py-4 text-left font-semibold text-white'>Category</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Details</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {gameRules.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title='3-Hand Arrangement (Susun) and Penalty Rules'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[150px] px-6 py-4 text-left font-semibold text-white'>Rule</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Details</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {penaltyRules.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title="Betting and Unit Calculation">
+**Unit Amount**: The amount displayed in the 'Stakes' column, which is the base amount for converting win/loss points (Point/Unit) to actual credits. (e.g., If Unit Amount is 100 and total score is +5, you win 500 credits)
+
+**Hand Comparison Win/Loss**: You get +1 Point/Unit for each line (Top, Middle, Bottom) you win against an opponent, and lose -1 Point/Unit for each loss.
+
+</Section>
+
+<Section title='Game Progression and Swap Card'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>Step</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Name</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Details and Role</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {progression.map(([$1, $2, $3], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title='Special Wins and Bonus Point Rules'>
+**1. Special Card Combinations (Bonus for winning a line)**
+
+When you win a line comparison, you get additional Points/Units for completing the hands below. (Some hands only apply to the Back/Middle lines)
+
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Hand Name</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Line</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Bonus Points</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {specialCombinations.map(([$1, $2, $3], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+
+**2. Natural Card Combinations - 13 Cards Total**
+
+When you win a line comparison, you get additional Points/Units for completing the hands below. (Some hands only apply to the Back/Middle lines)
+
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Hand Name</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Line</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Bonus Points</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {naturalCombinations.map(([$1, $2, $3], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>

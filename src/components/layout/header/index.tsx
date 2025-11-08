@@ -74,7 +74,7 @@ export const Header = ({
             pathname={pathname}
             lang={lang}
             features={features}
-            className='hidden w-[40%] lg:w-[55%] md:flex gap-4 ml-[15px]'
+            className='hidden md:flex gap-4 ml-[15px] w-full'
           />
 
           <div className='w-full flex items-start justify-end md:gap-3 gap-1'>

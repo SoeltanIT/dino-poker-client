@@ -1,0 +1,148 @@
+import { Section } from '@/components/atoms/Content/Section'
+import { TableCard } from '@/components/atoms/Content/TableCard'
+import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+
+export const title = '조커스핀 이용가이드'
+export const description = (
+  <>
+    조커스핀
+    <br />
+    게임설명
+  </>
+)
+export const heroImage = '/images/default/user_guide.png'
+export const gameRules = [
+  [
+    '게임 목표',
+    '토너먼트에서 최후의 1인이 되는 동시에, 게임 시작 시 결정된 높은 배수(Multiplier)를 통해 상금 풀의 보상을 획득하는 것입니다.'
+  ],
+  ['인원', '토너먼트 형식 (매치메이킹 필요)'],
+  ['사용 게임', '텍사스 홀덤 규칙을 기반으로 진행됨']
+]
+export const processingRules = [
+  [
+    '시간 초과',
+    '액션 타이머가 종료되면 자동으로 폴드(Fold) 처리되며, 해당 플레이어는 자리 비움(Sitting Out) 상태가 됩니다.'
+  ],
+  [
+    '로그오프/연결 끊김',
+    '토너먼트 진행 중 로그오프하거나 연결이 끊겨도, 남은 칩이 있다면 토너먼트에 남아있게 되며 블라인드 및 앤티는 계속 제산되어 홀드 처리됩니다.'
+  ],
+  ['재참여', "자리 비움 상태 또는 연결이 끊겼다라도, 'Sit In' 버튼을 눌러 토너먼트에 다시 참여할 수 있습니다."]
+]
+export const ranks = [
+  ['하이 카드 (High Card)', '아무 족보도 만들지 못한 경우, 5장 중 가장 높은 숫자의 카드로 순위를 결정합니다.'],
+  ['원 페어 (One Pair)', '같은 숫자의 카드 2장으로 이루어진 족보.'],
+  ['투 페어 (Two Pair)', '두 쌍의 같은 숫자 카드와 나머지 1장으로 이루어진 족보.'],
+  ['트리플 (Three of a Kind)', '같은 숫자의 카드 3장으로 이루어진 족보.'],
+  ['스트레이트 (Straight)', '연속되는 숫자 5장으로 이루어진 족보. (무늬는 달라도 무방)'],
+  ['플러시 (Flush)', '같은 무늬의 카드 5장으로 이루어진 족보. (숫자는 달라도 무방)'],
+  ['풀 하우스 (Full House)', '트리플 1쌍 + 페어 1쌍으로 이루어진 족보. (트리플의 숫자가 높을수록 강함)'],
+  ['포 카드 (Four of a Kind)', '같은 숫자의 카드 4장으로 이루어진 족보.'],
+  ['스트레이트 플러시 (Straight Flush)', '연속되는 숫자이면서 같은 무늬인 5장으로 이루어진 족보.'],
+  [
+    '로열 플러시 (Royal Flush)',
+    '가장 높은 스트레이트 플러시 (A, K, Q, J, 10이 모두 같은 무늬)로, 포커에서 가장 강력한 족보입니다.'
+  ]
+]
+
+## 조커스핀 (Joker Spin)
+
+<Section title='게임 소개 및 핵심 매력'>
+  조커스핀은 클래식한 텍사스 홀덤 게임에 조커 스핀 슬롯 머신 기능을 결합한 하이브리드 토너먼트 포맷입니다. 게임 시작 시
+  슬롯 머신이 돌아가 **무작위 배수(Multiplier Bonus)** 를 결정하며, 이 배수가 해당 토너먼트의 총 상금 풀(Prize Pool)
+  규모를 결정합니다. 플레이어는 일반 홀덤 규칙을 따르지만, 높은 배수(최대 40,000x)에 당첨될 경우 단 한 번의 바이인으로
+  초대형 상금을 획득할 기회를 가집니다.
+</Section>
+
+<Section title='게임 규칙 및 목표'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[150px] px-6 py-4 text-left font-semibold text-white'>구분</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>내용</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {gameRules.map(([$1, $2, $3], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title='조커스핀의 작동 원리 (Multiplier Bonus)'>
+* **슬롯 작동**: 게임 시작 시, 조커 스핀 슬롯 머신이 회전하여 무작위 카드 조합을 생성합니다.
+
+- **배수 결정**: 슬롯 결과에 따라 배수 값(Multiplier Bonus)이 결정됩니다. (예: 5 of a Kind 달성 시 10,000x)
+
+- **상금 풀 설정**: 총 상금 풀은 총 바이인 금액 × 결정된 배수 값으로 설정됩니다. (예: 바이인 10,000 × 40,000x = 400,000,000)
+
+</Section>
+
+<Section title='토너먼트 구조 및 블라인드'>
+**참가 방식**: 로비에서 바이인 금액을 선택하고 등록하면, 매치메이킹 시스템을 통해 플레이어가 충족될 경우 게임이 시작됩니다.
+
+**노 리바이 (No Rebuy)**: 게임이 끝나기 전에 칩을 모두 잃으면 즉시 탈락하며, 추가 비용을 내고 재참여할 수 없습니다.
+
+**상금 획득 조건**: 우승 상금을 받으려면 최소한 높은 순위권(High Ranking Position)에 진입해야 합니다.
+
+**게임 종료**: 최종 한 명의 플레이어만 남을 때 게임이 종료됩니다.
+
+</Section>
+
+<Section title='블라인드 및 시간 구조'>
+블라인드 구조(Ante, Blind Level, Time Bank)는 조커스핀 결과(배수 값)에 따라 달라지며, 게임 유형(Joker Spin 3, Joker Spin 6, All In or Fold)별로 고유한 구조를 가집니다.
+
+**블라인드 레벨 상승**: 각 블라인드 레벨은 정해진 시간 간격(예: 2분, 3분, 4분 등)마다 항상 증가합니다.
+
+</Section>
+
+<Section title='연결 및 자동 처리 규칙'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[150px] px-6 py-4 text-left font-semibold text-white'>상황</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>처리 방식</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {processingRules.map(([$1, $2, $3], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title='포커 족보 순위 (텍사스 홀덤과 동일)'>
+  조커스핀은 텍사스 홀덤 규칙을 기반으로 하므로, 족보 순위 및 동점 처리 규정은 텍사스 홀덤과 100% 동일하게 적용됩니다.
+
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>족보 명칭</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>설명</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {ranks.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>

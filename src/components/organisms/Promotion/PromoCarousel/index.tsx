@@ -115,7 +115,9 @@ export default function PromoCarousel({
                 <h2 className='text-2xl font-bold tracking-tight text-white drop-shadow md:text-3xl uppercase'>
                   {lang?.banner?.promoTitle}
                 </h2>
-                <p className='mt-1 text-sm text-white/85 md:text-base capitalize'>{lang?.banner?.promoSubTitle}</p>
+                <p className='mt-1 text-sm text-white/85 md:text-base capitalize truncate'>
+                  {lang?.banner?.promoSubTitle}
+                </p>
               </div>
             </div>
           </div>

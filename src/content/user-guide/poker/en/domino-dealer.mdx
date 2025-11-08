@@ -1,0 +1,156 @@
+import { Section } from '@/components/atoms/Content/Section'
+import { TableCard } from '@/components/atoms/Content/TableCard'
+import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+
+export const title = 'Domino Dealer User Guide'
+export const description = (
+  <>
+    Domino Dealer
+    <br />
+    Game Description
+  </>
+)
+export const heroImage = '/images/default/user_guide.png'
+export const gameRules = [
+  [
+    'Game Objective',
+    'To divide four domino tiles into a Left Side (2 tiles) and a Right Side (2 tiles) to achieve the highest possible final tile value (Left : Right).'
+  ],
+  ['Players', '2 to 6 players (1 player acts as the dealer)'],
+  ['Tools Used', 'A total of 28 Domino Tiles (Domino concept)']
+]
+export const progression = [
+  [
+    '1. Betting Complete',
+    'Initial Bet',
+    'Players select and confirm their betting amount. (No Fold, Check, or Raise options)'
+  ],
+  ['2. Card Distribution', 'Hand Formation', 'Both the dealer and players receive 4 domino tiles.'],
+  [
+    '3. Open and Compare',
+    'Showdown Exchange',
+    'All players and the dealer reveal (Show) their cards, and the winner is determined by comparing the dealer’s and the player’s Left : Right values.'
+  ],
+  ['4. Rotation', 'Dealer Movement', 'After the round ends, the dealer role rotates to the next eligible player.']
+]
+export const ranks = [
+  [
+    '1. Six God (Six Dewa)',
+    'The highest special hand. A combination where the dots on each face of all 4 tiles are 6 or less. (This hand guarantees a win)'
+  ],
+  ['2. Twin Series', 'A combination where all 4 tiles are Double tiles. Example: [3|3], [5|5]'],
+  ['3. Pure Big', 'A special hand where the total sum of dots on all 4 tiles is 39 points or more.'],
+  ['4. Pure Small', 'A special hand where the total sum of dots on all 4 tiles is 9 points or less.']
+]
+
+## Domino Dealer
+
+<Section title='Game Introduction and Core Appeal'>
+  Domino Dealer is a 'Qiu Qiu' series betting game that uses 4 domino tiles. A key characteristic of this game is the
+  absence of optional actions like Fold or Raise. The winner is determined solely by comparing the tile values (Left :
+  Right) of the dealer and the player. The dealer role rotates among eligible players, and the powerful **Special Hand
+  (Six God)**, formed with 4 tiles, is the central system for high-value rewards in the game.
+</Section>
+
+<Section title='Game Rules and Objective'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[150px] px-6 py-4 text-left font-semibold text-white'>Category</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Details</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {gameRules.map(([$1, $2, $3], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title="Dealer Role Regulations (Rotation Method)">
+**Dealer Rotation**: In the Domino Dealer game, the dealer role rotates clockwise to the next player.
+
+**Dealer Eligibility**: Dealer qualification is determined by the following two conditions:
+
+- **Minimum Dealer Capital**: The next player in line must hold the Minimum Dealer Chips specified in the lobby.
+
+- **Table Type**: Dealer rotation only applies to tables that are not designated as 'FIXED'.
+
+**Action Restriction**: The dealer cannot select a betting amount and must accept the betting amount determined by the player.
+
+</Section>
+
+<Section title='Domino Tile Value Summation Rules (Left : Right)'>
+In this game, 4 tiles are grouped into two sections (2 tiles each) and their values are compared.
+
+- Section Division: The 4 tiles are divided into a Left Side (first 2 tiles) and a Right Side (last 2 tiles).
+
+- **Value Calculation**: Sum the dots in each section (2 tiles).
+
+- **Use of the Ones Digit**: If the sum is 10 or more, only the ones digit is used as the value. Example: 6 points + 6 points = 12 → 2
+
+- **Final Value**: The player's final tile value is displayed in the form Left Side Value : Right Side Value.
+
+- **Note**: The Left Side Value is always displayed as greater than or equal to the Right Side Value (Left ≥ Right).
+
+</Section>
+
+<Section title='Game Progression Steps and Win/Loss Determination'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[150px] px-6 py-4 text-left font-semibold text-white'>Step</TableHead>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>Name</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Content and Role</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {progression.map(([$1, $2, $3], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title="Final Victory and Special Hand Rankings">
+**Victory Determination**: The side with the higher final tile value (Left : Right) wins. (Example: 9:8 is stronger than 9:4)
+
+**Special Hand Priority**: Special hands (such as Six God) take precedence over general tile value comparison for victory.
+
+</Section>
+
+<Section title='Special Hands Rankings (Jackpot)'>
+  Special hands apply to Jackpot winnings, and a higher ranked hand beats a lower ranked hand.
+
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Rank</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Hand Name</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {ranks.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>

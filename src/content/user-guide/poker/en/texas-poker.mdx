@@ -1,0 +1,146 @@
+import { Section } from '@/components/atoms/Content/Section'
+import { TableCard } from '@/components/atoms/Content/TableCard'
+import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+
+export const title = "Texas Hold'em Game Description"
+export const description = (
+  <>
+    Texas Hold'em
+    <br />
+    Game Description
+  </>
+)
+export const heroImage = '/images/default/user_guide.png'
+export const gameInfo = [
+  [
+    'Game Method',
+    'Each player is dealt 2 private **Hole Cards** (face down) and shares 5 community cards. Players use these to make the best 5-card hand.'
+  ],
+  ['Players', '2 to 9 players (entry subject to table rules).)'],
+  ['Game Objective', 'Win chips with the highest-ranking 5-card hand.']
+]
+export const rounds = [
+  [
+    'Pre-Flop',
+    'After the Small and Big Blinds make their forced bets, 2 cards are dealt to all players. A round of betting begins.'
+  ],
+  ['Flop', '3 community cards are dealt face up. A round of betting begins.'],
+  ['Turn', 'One additional community card is dealt face up. A round of betting begins.'],
+  ['River', 'The final community card is dealt (total 5). The final round of betting begins.'],
+  [
+    'Showdown',
+    'After the River betting is complete, players show their hands. The player with the best hand wins the pot.'
+  ]
+]
+
+export const ranks = [
+  ['Royal Flush', '(Cards like Ace, King of the same suit, 5 cards with flush numbers in order.)'],
+  ['S-Flush', 'Only 2 card results of the same number are acquired consecutively'],
+  ['Four Card', 'Acquired from 4 cards of the same number and 1 other card of that kind'],
+  ['Full House', 'Probability composed of 3 cards of the same number'],
+  ['Straight', 'Sun composed of 5 cards by context (same option is detachable)'],
+  ['Flush', 'Acquisition composed of 5 cards of the same suit (immediately suit is turn)'],
+  ['Two Pairs', 'Acquisition composed of 1 Triple + 1 Pair. (Acquired if the notebook number is higher)'],
+  ['One Pair', 'Acquisition composed of 2 cards of the same number'],
+  ["Straight's Flushy", 'Acquisition composed of 5 cards converted from card chips of 5 meters by context'],
+  [
+    "Crown's Straight Flushy",
+    'The highest straight flush is 10, J, Q, K, A and 10 is an odd number acquires the straight.'
+  ]
+]
+
+### Game Introduction
+
+<Section title="Texas Hold'em">
+  Texas Hold'em is the most representative Community Card Game played with 52 poker cards (Jokers are not used), enjoyed
+  by 2-9 people. Each player receives 2 private cards (hole cards/personal cards) and shares 5 common cards (community
+  cards) on the table. It is a game of betting by making the highest-ranking hand using 5 of these cards.
+</Section>
+
+<Section title='Game Structure and Roles'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>Category</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Details</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {gameInfo.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title='Blind Bet (Forced Bet)'>
+These are the rules and amounts that force a bet of a certain amount to start the game.
+
+The player to the right of the dealer (Small Blind)** must bet a certain amount, and the 2nd player (Big Blind)** must bet double the Small Blind. After the game starts, the Blind players' bet value becomes the starting point for other players.
+
+After the blind bets, players decide whether to participate based on the cards they are dealt. Afterwards, (Community cards) are opened one by one.
+
+</Section>
+
+<Section title='Game Progression and Betting Order'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>Step</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Details and Action</TableHead>
+      </TableRow>
+    </TableHeader>
+    <TableBody>
+      {rounds.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+  </TableCard>
+</Section>
+
+<Section title='Betting Chips and Flow Knowledge'>
+The size of the pearl bet must be equal to or greater than the first blind amount.
+
+The betting game proceeds with blind blinds, and the blind amount increases as time passes.
+
+The dealer's bet is made with blind blinds, and if any chips remain, you must continue to make forced bets.
+
+</Section>
+
+<Section title='Action Terminology'>
+The actions a player can choose according to the situation and strategy in each game round are as follows.
+
+Game matching order: Batangs → Small Blind → Big Blind (starts from the dealer and rotates clockwise.
+
+For the dealer bet, the flow blind bets chips, and other players in the game play based on the choices below.
+
+After betting chips for the player dealer bet, selection rights are not available. Please take your personal action within the defined time.
+
+</Section>
+
+<Section title='Poker Hand Rankings (Strongest to Weakest)'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>Rank</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Hand (Description)</TableHead>
+      </TableRow>
+    </TableHeader>
+    <TableBody>
+      {ranks.map(([$1, $2], idx) => (
+        <TableRow key={idx} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+  </TableCard>
+</Section>

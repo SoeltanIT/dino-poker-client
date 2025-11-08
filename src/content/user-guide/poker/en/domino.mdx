@@ -1,0 +1,194 @@
+import { Section } from '@/components/atoms/Content/Section'
+import { TableCard } from '@/components/atoms/Content/TableCard'
+import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+
+export const title = 'Domino User Guide (QQ)'
+export const description = (
+  <>
+    Domino
+    <br />
+    Game Description
+  </>
+)
+export const heroImage = '/images/default/user_guide.png'
+export const gameInfo = [
+  [
+    'Game Objective',
+    "To divide four domino tiles into two pairs of 2 tiles each, aiming to achieve 9 points (Qiu) in both pairs to form the 'QQ (9-9)' hand."
+  ],
+  ['Tiles Used', 'A set of Domino tiles (each tile has a number indicated by dots)'],
+  ['Score Calculation', 'Sum the dots of 2 tiles, using only the ones digit (maximum 9 points)'],
+  ['Game Type', 'Player vs. Dealer, or Player vs. Player format']
+]
+
+export const progression = [
+  ['Step 1', 'Blind Betting', 'Before the game starts, players place a minimum blind bet.'],
+  ['Step 2', 'Tile Distribution', 'Each player is dealt 4 domino tiles, face down.'],
+  [
+    'Step 3',
+    'Hand Check and Pairing',
+    'The player divides the 4 tiles received into two pairs of 2 tiles each. The system may suggest the optimal pairing automatically, or the player can adjust it manually.'
+  ],
+  ['Step 4', 'Betting Round', 'Players choose one of the following options: Fold, Check, Call, or Raise.'],
+  [
+    'Step 5',
+    'Showdown',
+    'Once all betting is complete, players reveal their tiles and compare the scores of their two pairs.'
+  ],
+  [
+    'Step 6',
+    'Winner Determination',
+    'The player who wins both the Left Hand and the Right Hand comparison wins the entire Pot.'
+  ]
+]
+
+export const prizeRules = [
+  [
+    'Complete Win',
+    'If both the Left Hand and the Right Hand score higher than the opponent, the player wins the entire pot.'
+  ],
+  [
+    'One Pair Win',
+    'If the player wins only one pair, the bet amount may be returned or treated as a tie (depending on table rules).'
+  ],
+  ['Tie', 'If the scores of both hands are identical, the pot is evenly split among the players who tied.'],
+  [
+    'QQ (9-9) Bonus',
+    "The 'QQ' hand, where both pairs achieve 9 points, may receive an additional bonus payout (depending on table rules)."
+  ],
+  ['Fold Win', 'If all opponents Fold, the player immediately wins the pot without revealing their tiles.']
+]
+
+export const specialHands = [
+  ['Six God (Six Dewa)', 'The rarest and strongest hand, where the dots on each face of all 4 tiles are 6 or less.'],
+  ['Twin Series', 'A combination where all 4 tiles are Double tiles (e.g., [3|3], [5|5]).'],
+  ['Pure Big', 'A special hand where the total sum of dots on all 4 tiles is 39 points or more.'],
+  ['Pure Small', 'A special hand where the total sum of dots on all 4 tiles is 9 points or less.']
+]
+
+## Domino (Qiu Qiu)
+
+<Section title='Game Introduction and Core Appeal'>
+  Domino QQ (Qiu Qiu) is a popular Indonesian card game using 4 domino tiles. Players aim to divide their 4 received
+  tiles into two pairs, with the goal of achieving the 'QQ (9-9)' hand where both pairs score '9 points (Qiu)'. The game
+  combines betting strategy and psychological warfare, requiring players to form the strongest 'two-pair' combination
+  against their opponents or the dealer.
+</Section>
+
+<Section title='Game Rules and Objective'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>Category</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Details</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {gameInfo.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title='Betting and Fund Regulations'>
+**Minimum/Maximum Buy-in**: Each table has a minimum and maximum entry amount (Buy-in) set, and players must participate within this range.
+
+**Minimum Bet (Blind)**: Players must bet the minimum blind amount to stay in the game.
+
+**All-in**: Players can bet their entire chip stack. The maximum bet is limited to the opponent's total chip stack.
+
+**Insufficient Funds**: If a player's balance is insufficient, they must either Top-up or exit the game.
+
+</Section>
+
+<Section title='Domino Tile Value Summation Rules (QQ Game)'>
+The 4 tiles are grouped into two pairs of 2 tiles each, and the score for each pair is calculated.
+
+**Score Summation**: Sum the dots on the 2 tiles in each pair.
+
+**Use of the Ones Digit**: If the total sum is a two-digit number (10 or more), the tens digit is discarded, and only the ones digit is accepted as the final value. (The maximum value is 9)
+
+**Online System**: Without needing to count the dots, the system automatically calculates and displays the values of the 'Left Hand' and 'Right Hand,' with the Left Hand always being displayed as greater than or equal to the Right Hand.
+
+</Section>
+
+<Section title='Game Progression Steps and Betting Order'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>Step</TableHead>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>Name</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Content</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {progression.map(([$1, $2, $3], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title='Final Victory and Prize Regulations'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>Situation</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Winning Condition and Result</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {prizeRules.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title='Disconnection and Automatic Action Rules'>
+**Automatic Fold and Removal**: If a player exceeds the time limit or is disconnected when a Raise occurs, that player is automatically Folded and removed from the game.
+
+**Automatic Check**: If no Raise occurs, a disconnected player's action is automatically treated as a Check.
+
+**Reconnection and Continuation**: If the player reconnects before the time limit expires, they can take any available action, ensuring fair play.
+
+</Section>
+
+<Section title='Special Hands (Jackpot)'>
+In Domino QQ, achieving the rare special hands listed below results in an automatic win or a reward from the Jackpot pool.
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Rank</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Hand Name</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {specialHands.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>

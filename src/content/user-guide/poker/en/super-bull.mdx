@@ -1,0 +1,177 @@
+import { Section } from '@/components/atoms/Content/Section'
+import { TableCard } from '@/components/atoms/Content/TableCard'
+import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+
+export const title = 'Super Bull User Guide'
+export const description = (
+  <>
+    Super Bull
+    <br />
+    Game Description
+  </>
+)
+export const heroImage = '/images/default/user_guide.png'
+export const gameRules = [
+  [
+    'Game Objective',
+    "To obtain a higher **'Bull Score'** than the dealer by splitting 5 cards into 3 cards (sum is a multiple of 10) + **2 cards (score)**."
+  ],
+  ['Players', 'Player vs. Dealer match'],
+  ['Cards Used', 'Standard 52-card deck (Jokers excluded)']
+]
+export const cardRules = [
+  ['J, Q, K', '10 points'],
+  ['A', '1 point'],
+  ['2 ~ 10', 'Face value']
+]
+export const bullPointsRules = [
+  [
+    'Bull Bull',
+    'A hand where the sum of 3 cards is a multiple of 10, and the sum of the remaining 2 cards is also a multiple of 10.',
+    '2x Bet Amount'
+  ],
+  ['Bull 9', 'A hand where the sum of 3 cards is Bull, and the sum of the remaining 2 cards is 9.', '2x Bet Amount'],
+  ['Bull 8', 'A hand where the sum of 3 cards is Bull, and the sum of the remaining 2 cards is 8.', '2x Bet Amount'],
+  ['Bull 7 ~ Bull 1', 'A hand with a Bull Score between 7 and 1.', '1x Bet Amount (Normal Reward)'],
+  ['No Bull', 'When the sum of 3 cards cannot be made a multiple of 10.', '1x Bet Amount (Normal Reward)']
+]
+export const jackpotSystems = [
+  ['Full House', '40x'],
+  ['Four of a Kind', '1,000x'],
+  ['Bull Bull Flush (Bull Bull + all 5 cards of the same suit)', '2,000x'],
+  ['Straight Flush', '9,000x'],
+  ['Royal Flush', '100,000x']
+]
+
+## Super Bull
+
+<Section title='Game Introduction and Core Appeal'>
+  Super Bull is a popular Asian card game also known as **Niu-Niu Poker**. Players receive 5 cards and must split them
+  to make the sum of 3 cards a multiple of 10 (Bull), using the sum of the remaining 2 cards to determine the final
+  score against the dealer. The ability to strategically divide the 5 cards determines the outcome, and the game
+  features high rewards, such as receiving double the bet amount when achieving special hands like 'Bull Bull'.
+</Section>
+
+<Section title='Game Rules and Objective'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>Category</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Details</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {gameRules.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title='Card Values and Dealer Regulation'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>Name</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Card Value</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {cardRules.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+  **Dealer Role**: The dealer rotates clockwise (circulates) for each round.
+</Section>
+
+<Section title="Game Progression Steps and Card Splitting Rules">
+Betting Completion: Before the game starts, the player decides and confirms the number of chips they will bet against the dealer. The 'Last Bet' feature can be used to bet the same amount as the previous round.
+
+**Card Distribution**: Both the dealer and the player receive 5 cards.
+
+**Card Splitting (Creating the Bull)**: The player must split the 5 cards into the following two groups:
+
+- First Group (3 Cards): The sum of the 3 cards must be a multiple of 10 (Bull). (e.g., 10, 20, 30)
+- Second Group (2 Cards): The sum of the remaining 2 cards determines the final score.
+
+**Score Confirmation**: If the sum of the remaining 2 cards is 10 or more, only the ones digit is used as the final score.
+
+Example: Sum of 3 cards is 30 (Bull) + Sum of remaining 2 cards is 9 (8+A) → Bull 9 Score
+
+**Submission**: After completing the split, press the 'Go' button to confirm. The 'Hint' button can be used to automatically find a 3-card combination that creates a Bull.
+
+**Showdown**: When the timer expires or everyone has submitted, the dealer's and player's cards are revealed, and the side with the higher Bull Score wins.
+
+</Section>
+
+<Section title="Final Win and Tie-Breaking Regulations">
+1. **Winning Determination Method (Based on Bull Score)**<br />
+  **Bull Bull (Highest Hand)**: When the sum of 3 cards is a multiple of 10, and the sum of the remaining 2 cards is also a multiple of 10.<br />
+  The side with the higher Bull Score wins in the following order: Bull 9 > Bull 8 > ... > Bull 1 > No Bull.
+
+2. **Special Reward Regulations**<br />
+   **Upon winning with Bull Bull**: The player receives double the bet amount.<br />
+   **Upon winning with Bull 8 or Bull 9**: The player receives double the bet amount.
+
+3. **Tie-Breaking Regulations**<br />
+   **If the Bull Score is identical**: The winner is determined by comparing the highest-ranked card among the 5 cards. (K is the highest rank, A is 1 point.)<br />
+   **If the highest rank is also identical**: The winner is determined by comparing the suit of the highest-ranked card.<br />
+   **Suit Ranking (Strongest to Weakest)**: Spade (♠) > Heart (♥) > Club (♣) > Diamond (♦)
+
+</Section>
+
+<Section title="Super Bull Special Hand Rankings (Bull Point)">
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>Hand Name</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Definition and Description</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Reward (Upon Winning)</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {bullPointsRules.map(([$1, $2, $3], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title="Jackpot System">
+Players can participate in the Jackpot pool by purchasing Jackpot chips. Completing specific hands with the 5 cards awards a portion of the Jackpot amount.
+    <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Jackpot Hand</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Prize Multiplier (Based on Buy-in)</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {jackpotSystems.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
