@@ -39,7 +39,7 @@ export default function BannerSection({
     title: 'USER GUIDE',
     subtitle: 'on how to collect your points',
     imageUrl: '/images/default/user_guide.png',
-    href: '/user-guide'
+    href: '/user-guide/poker/texas-poker'
   },
   announcement,
   className,
