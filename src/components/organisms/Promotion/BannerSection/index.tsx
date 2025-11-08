@@ -38,7 +38,7 @@ export default function BannerSection({
   guideCard = {
     title: 'USER GUIDE',
     subtitle: 'on how to collect your points',
-    imageUrl: '/images/default/user_guide.png',
+    imageUrl: '/images/default/user_guide.jpeg',
     href: '/user-guide/poker/texas-poker'
   },
   announcement,
@@ -94,6 +94,7 @@ export default function BannerSection({
             intervalMs={4800}
             className='h-full'
             lang={lang}
+            locale={locale}
           />
         </div>
       </div>

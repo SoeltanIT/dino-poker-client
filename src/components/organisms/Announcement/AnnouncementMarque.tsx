@@ -28,7 +28,7 @@ export default function AnnouncementMarque({ durationSec = 28, announcement, cla
 
   const isEmpty = !announcement || announcement.length === 0
   const announcementsToRender = useMemo(
-    () => (!isEmpty ? [{ title: lang?.banner?.announcement ?? 'Incoming Announcement...' }] : announcement),
+    () => (isEmpty ? [{ title: lang?.banner?.announcement ?? 'Incoming Announcement...' }] : announcement),
     [isEmpty, announcement, lang?.banner?.announcement]
   )
   useEffect(() => {

@@ -72,9 +72,7 @@ export default async function Page({ params, ...props }: any) {
                 >
                   <span className='inline-flex items-center gap-4 justify-start'>
                     {idx < 3 && (
-                      <span className='text-white uppercase px-2 py-1 text-sm bg-app-table-text-body rounded-sm bg-[#f92630]'>
-                        New
-                      </span>
+                      <span className='text-white uppercase px-2 py-1 text-sm rounded-sm bg-[#f92630]'>New</span>
                     )}
                     <span className='text-app-text-color'>{item.title}</span>
                   </span>
