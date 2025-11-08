@@ -4,11 +4,7 @@ import { ReactNode, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { cn } from '@/lib/utils'
-
-// export const metadata: Metadata = {
-//   title: 'User Guide Page',
-//   description: 'User Guide Page'
-// }
+import { useRouter, useSelectedLayoutSegments } from 'next/navigation'
 
 const GAMES = [
   {
@@ -76,9 +72,17 @@ const TABS = [
   }
 ]
 
-export default function Layout({ children }: { children: ReactNode }) {
-  const [activeTab, setActiveTab] = useState(TABS[0].value)
-  const [activeGame, setActiveGame] = useState(GAMES[0].value)
+export default function Layout({ children, params }: { params: any; children: ReactNode }) {
+  const route = useRouter()
+  const [gameType, gameName] = useSelectedLayoutSegments()
+
+  const [activeTab, setActiveTab] = useState(gameType ?? TABS[0].value)
+  const [activeGame, setActiveGame] = useState(gameName ?? GAMES[0].value)
+
+  const handleGameChange = (value: string) => {
+    setActiveGame(value)
+    route.push(`/user-guide/${gameType}/${value}`)
+  }
 
   return (
     <div className='min-h-screen flex flex-col w-full md:w-[870px] text-app-text-color px-6 lg:px-16 my-10 mx-auto'>
@@ -99,7 +103,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             ))}
           </div>
           {activeTab === 'poker' && (
-            <Select value={activeGame} onValueChange={setActiveGame}>
+            <Select value={activeGame} onValueChange={handleGameChange}>
               <SelectTrigger className='bg-app-white100 text-app-text-color'>
                 <SelectValue placeholder='Select game' />
               </SelectTrigger>
