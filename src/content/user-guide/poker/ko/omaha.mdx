@@ -2,62 +2,82 @@ import { Section } from '@/components/atoms/Content/Section'
 import { TableCard } from '@/components/atoms/Content/TableCard'
 import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 
-export const title = '텍사스 홀덤 게임설명'
-export const subtitle = '텍사스 홀덤 이용가이드'
+export const title = '오마하 이용가이드'
+export const description = (
+  <>
+    오마하
+    <br />
+    게임설명
+  </>
+)
 export const heroImage = '/images/default/user_guide.png'
 export const gameInfo = [
-  {
-    key: '게임방식',
-    val: '온 테이블에서 2장의 **홀카드(Hole Cards)**가 각자에 공개되지 않고 개인카드를 배분받고 커뮤니티 카드를 공유로서 총 5장을 이용 합니다.'
-  },
-  { key: '인원', val: '2명 ~ 9명 테이블의 규칙에 따라 입장하실 수 있습니다.)' },
-  { key: '게임목적', val: '5-9장 칩은 높은 순위 패로 획득' }
+  [
+    '게임 목표',
+    '4장의 핸드 카드 중 정확히 2장과 5장의 커뮤니티 카드 중 정확히 3장을 조합하여 가장 강력한 5장의 포커 족보를 완성하는 것입니다.'
+  ],
+  ['인원', '2명 ~ 9명 (테이블 규모에 따라 달라집니다.)'],
+  ['사용 카드', '52장 표준 카드 덱 (조커 제외)']
 ]
 export const rounds = [
-  {
-    step: '프리 플랍',
-    desc: '소스와 빅 블라인더가 지정 베팅을 한후나 한 후이며 블라인드에게 2장의 카드를 줍니다 모두에게 베팅하며 이에 모든 플레이어가 배팅을 합니다.'
-  },
-  { step: '플랍', desc: '	공통 커뮤니티 카드 3장이 앞면 상태로 열려있습니다 배팅이 시작됩니다.' },
-  { step: '턴', desc: '추가로 커뮤니티 카드를 1장 공개합니다 베팅이 시작됩니다.' },
-  { step: '리버', desc: '마지막 커뮤니티 카드 1장 합계 5장이 오픈이 됩니다 최종 배팅이 시작됩니다.' },
-  { step: '쇼다운', desc: '리버 베팅이 끝나 쇼 타이밍에 대 검증하여 가장 큰 플레이어가 판돈을 모두 가져간다.' }
-]
-
-export const actions = [
-  '폴드(Fold): 패를 포기하고 라운드에서 하차.',
-  '체크(Check): 베팅 없이 턴을 넘김(이전 베팅이 없을 때 가능).',
-  '콜(Call): 현재 최고 베팅액과 동일하게 맞춤.',
-  '베트/레이즈(Bet/Raise): 새로 베팅하거나 기존 베팅보다 금액을 올림.',
-  '올인(All-in): 보유 칩 전부를 베팅.'
-]
-
-export const ranks = [
-  ['로얄 플러시', '(같은 문양의 에이스 킹은 카드, 5장 가지 카드 숫자인 플러쉬 숫자를 순서대로 가졌습니다.)'],
-  ['스 플러시', '같은 숫자대로 카드 2 결과만이 연속적인 획득'],
-  ['포 카드', '숫자만 같은 4장의 카드와 나머지 1 그럴 것 수종에선 획득'],
-  ['풀하우스', '같은 숫자의 카드 3장으로 이루어진 확률'],
-  ['스트레이트', '맥락별로 숫자 5장으로 이루어진 태양 (같은 옵션은 뗄만)'],
-  ['플러시', '같은 무늬의 카드 5장으로 이루어진 획득 (바로 무늬는 돌리)'],
-  ['투 페어스', '트리플 1장 + 페어 1장으로 이루어진 획득. (노트북을 숫자가 높을수록 획득)'],
-  ['원 페어', '같은 숫자의 카드 2장으로 이루어진 획득'],
-  ['스트레이트의 플러쉬시', '맥락별로 숫자 5미터인 카드 칩이 전환 5장으로 이루어진 이루어진 획득'],
   [
-    '관의 스트레이트 플러시시',
-    '가장 높은 스트레이트 플러시가 10, J, Q, K, A이고 10이 것은 외수는 외주누를 스트레이트 획득합니다.'
+    '1. 핸드 분배',
+    '홀 카드 (Hole Cards)',
+    'SB와 BB가 강제 베팅을 완료한 후, 모든 플레이어에게 4장의 핸드 카드를 뒷면이 보이도록 분배합니다. (홀덤과 다른 점)'
+  ],
+  [
+    '2. 프리플롭 (Pre-Flop)',
+    '첫 베팅 라운드',
+    'BB 왼쪽 플레이어부터 베팅이 시작됩니다. 플레이어는 폴드, 콜, 레이즈 중 하나를 선택하여 진행합니다.'
+  ],
+  [
+    '3. 플롭 (Flop)',
+    '3장의 공유 카드 오픈',
+    '프리플롭 베팅이 끝난 후, 3장의 커뮤니티 카드를 테이블 중앙에 공개합니다. (두 번째 베팅 라운드)'
+  ],
+  [
+    '4. 턴 (Turn)',
+    '4번째 공유 카드 오픈',
+    '플롭 베팅이 끝난 후, 4번째 커뮤니티 카드 1장이 추가로 오픈됩니다. (세 번째 베팅 라운드)'
+  ],
+  [
+    '5. 리버 (River)',
+    '5번째 공유 카드 오픈',
+    '턴 베팅이 끝난 후, 5번째이자 마지막 커뮤니티 카드 1장이 추가로 오픈됩니다. (마지막 베팅 라운드)'
+  ],
+  [
+    '6. 쇼다운 (Showdown)',
+    '최종 족보 공개',
+    "리버 베팅까지 완료된 후, 남은 플레이어들은 '핸드 2장 + 커뮤니티 3장' 조합 규칙을 준수하여 족보를 공개합니다."
   ]
 ]
 
-<Section title="텍사스 홀덤 (Texas Hold'em)">
-텍사스 홀덤은 52 장의 포커 카드(조커는 사용하지 않습니다)로 진행하는 가장 대표적인 2~9인이 즐기는 커뮤니티 카드
+export const ranks = [
+  ['하이 카드 (High Card)', '아무 족보도 만들지 못한 경우, 5장 중 가장 높은 숫자의 카드로 순위를 결정합니다.'],
+  ['원 페어 (One Pair)', '같은 숫자의 카드 2장으로 이루어진 족보.'],
+  ['투 페어 (Two Pair)', '두 쌍의 같은 숫자 카드와 나머지 1장으로 이루어진 족보.'],
+  ['트리플 (Three of a Kind)', '같은 숫자의 카드 3장으로 이루어진 족보.'],
+  ['스트레이트 (Straight)', '연속되는 숫자 5장으로 이루어진 족보. (무늬는 달라도 무방)'],
+  ['플러시 (Flush)', '같은 무늬의 카드 5장으로 이루어진 족보. (숫자는 달라도 무방)'],
+  ['풀 하우스 (Full House)', '트리플 1쌍 + 페어 1쌍으로 이루어진 족보. (트리플의 숫자가 높을수록 강함)'],
+  ['포 카드 (Four of a Kind)', '같은 숫자의 카드 4장으로 이루어진 족보.'],
+  ['스트레이트 플러시 (Straight Flush)', '연속되는 숫자이면서 같은 무늬인 5장으로 이루어진 족보.'],
+  [
+    '로열 플러시 (Royal Flush)',
+    '가장 높은 스트레이트 플러시 (A, K, Q, J, 10이 모두 같은 무늬)로, 포커에서 가장 강력한 족보입니다.'
+  ]
+]
 
-게임(Community Card Game)입니다. 각자가 지급 받은 2장의 개인카드(홀카드/개인카드)와 테이블 위에 5장의 공용
+## 게임 소개 및 핵심 매력
 
-카드(커뮤니티 카드)가 있으며 이 중 5장의 카드를 사용하여 높은 족보를 만들어 베팅하는 게임입니다.
+<Section title="오마하 (Omaha Poker)">
+오마하 포커는 텍사스 홀덤과 동일하게 5장의 커뮤니티 카드를 사용하지만, 각 플레이어가 4장의 핸드 카드를 받고 최종 족보 조합 규칙이 엄격하다는 점에서 훨씬 더 많은 전략적 깊이를 요구합니다. 플레이어는 핸드 카드 중 2장과 커뮤니티 카드 중 3장을 반드시 사용해야 하는 복잡하고 치열한 게임입니다.
+
+이 엄격한 조합 규칙 때문에 홀덤보다 높은 족보가 자주 등장합니다.
 
 </Section>
 
-<Section title='게임 구성과 역할'>
+<Section title='게임 규칙 및 목표'>
   <TableCard>
     <TableHeader>
       <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
@@ -67,10 +87,10 @@ export const ranks = [
     </TableHeader>
 
     <TableBody>
-      {gameInfo.map((row, i) => (
+      {gameInfo.map(([$1, $2], i) => (
         <TableRow key={i} className='border-t border-app-neutral600'>
-          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{row.key}</TableCell>
-          <TableCell className='px-6 py-4 text-app-text-color'>{row.val}</TableCell>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
         </TableRow>
       ))}
     </TableBody>
@@ -78,67 +98,71 @@ export const ranks = [
   </TableCard>
 </Section>
 
-<Section title='블라인드 베팅 (Blind Bet, 강제적 베팅)'>
-플레이 게임의 시작을 위해 강제적으로 일정금액을 베팅하게 하는 금액 및 규칙 입니다.
+<Section title='오마하의 가장 중요한 규칙 (필수 준수)'>
+  최종 5장 족보를 만들 때, 반드시 핸드 카드 4장 중 정확히 2장, 커뮤니티 카드 5장 중 정확히 3장만을 사용해야 합니다. 다른
+  조합(예: 핸드 1장 + 커뮤니티 4장)은 절대 인정되지 않습니다.
+</Section>
 
-딜러 오른쪽 선수(Small Blind)**만큼 반드시 베팅하여야 하고 2번 선수 (Big Blind)**는 Small Blind의 2배를 베팅해야 하며, 게임이 시작하고 나서 블라인드 플레이어의 베팅값이 다른 플레이어를 위의 스타팅 포인트가 됩니다.
+<Section title='블라인드 베팅 (Blind Bets)의 정의'>
+게임의 시작을 위해 모든 라운드마다 의무적으로 걸어야 하는 강제 베팅입니다.
 
-블라인드 베팅 이후 배분된 카드만으로 판단하여 게임에 참가할지 여부를 결정하며, 이후 뒤에 1장씩 차례로 오픈되어 (Community 카드입니다.
+딜러 버튼 (Dealer Button): 게임 순서의 기준이 되는 마커입니다. 매 라운드 시계 방향으로 이동합니다.
+
+스몰 블라인드 (SB, Small Blind): 딜러 버튼 바로 왼쪽 플레이어가 내는 최소 의무 베팅 금액입니다.
+
+빅 블라인드 (BB, Big Blind): 스몰 블라인드 왼쪽 플레이어가 내는 최소 의무 베팅 금액이며, 프리플롭 베팅의 최소 기준액입니다.
 
 </Section>
 
-<Section title='게임 진행 단계 및 배팅 순서도'>
+<Section title='게임 진행 단계 및 베팅 라운드'>
   <TableCard>
     <TableHeader>
       <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
         <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>순서</TableHead>
-        <TableHead className='px-6 py-4 text-left font-semibold text-white'>내용 및 액션</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>명칭</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>내용 및 역할</TableHead>
       </TableRow>
     </TableHeader>
     <TableBody>
-      {rounds.map((row, i) => (
+      {rounds.map(([$1, $2, $3], i) => (
         <TableRow key={i} className='border-t border-app-neutral600'>
-          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{row.step}</TableCell>
-          <TableCell className='px-6 py-4 text-app-text-color'>{row.desc}</TableCell>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
         </TableRow>
       ))}
     </TableBody>
   </TableCard>
 </Section>
 
-<Section title='칩을 걸고 의 흐름 지식 구성'>
-진주 베팅액의 크기는 첫 블라인드 액수 이상이 되어야 합니다.
+<Section title='최종 승리 및 동점 처리 규정'>
+1. 승리 결정 방식
 
-블라인드 블라인드로 시작 베팅 게임이 진행되며 시간이 지날수록 블라인드 금액이 상승합니다
+최고 족보 완성: 쇼다운 시, '핸드 카드 4장 중 정확히 2장' + '커뮤니티 카드 5장 중 정확히 3장' 조합으로 만들어진 가장 높은 5장의 족보를 가진 플레이어가 팟을 획득합니다.
+블러핑 승리: 쇼다운 전에 모든 상대방이 폴드하여 테이블에 혼자 남는 경우, 족보에 관계없이 즉시 팟을 획득합니다.
 
-딜러의 베팅 불라인드 블라인드로 칩을 걸게 되며 남으면 계속해서 강제 베팅을 해야합니다.
+2. 점 (Chop) 처리 규정
 
-</Section>
-
-<Section title='액션 관련 용어'>
-각 게임 라운드에서 플레이어가 상황과 전략에 따라 선택할 수 있는 액션은 다음과 같습니다.
-
-게임 매칭 시 바탕스 → 스몰 블라인드 → 빅 블라인드(딜러 기준으로 시작하여 시계 방향으로 순환됨.
-
-딜러 베팅은 플로우 블라인드가 칩을 걸게 되며 게임에 참여한 다른 플레이어는 아래의 선택을 기초안에서 게임합니다.
-
-플레이어 딜러 베팅에 대한 칩을 베팅 후에는 선택 권한이 가능하지않습니다. 본인의 규정된 시간 안에 정의된 가에 개인 행동을 하세요.
+두 명 이상의 플레이어의 최종 5장 족보의 랭크와 순위를 결정하는 키커(Kicker) 카드까지 모두 동일한 경우에는 동점(Chop) 처리됩니다.
+동점 시, 해당 라운드의 총 베팅 금액(팟)은 동점을 기록한 플레이어들이 균등하게 나누어 가집니다.
 
 </Section>
 
-<Section title='포커 족보 (높을수록 강함)'>
-  <TableCard>
+<Section title='포커 족보 순위 (오마하 포커 기준)'>
+오마하 포커 역시 텍사스 홀덤과 동일한 족보 순위를 사용합니다.
+
+<TableCard>
     <TableHeader>
       <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
-        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>순위</TableHead>
-        <TableHead className='px-6 py-4 text-left font-semibold text-white'>족보 (설명)</TableHead>
+        <TableHead className='w-auto px-6 py-4 text-left font-semibold text-white'>족보 명칭</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>설명</TableHead>
       </TableRow>
     </TableHeader>
     <TableBody>
-      {ranks.map(([name, desc], idx) => (
+      {ranks.map(([$1, $2], idx) => (
         <TableRow key={idx} className='border-t border-app-neutral600'>
-          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{name}</TableCell>
-          <TableCell className='px-6 py-4 text-app-text-color'>{desc}</TableCell>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
         </TableRow>
       ))}
     </TableBody>

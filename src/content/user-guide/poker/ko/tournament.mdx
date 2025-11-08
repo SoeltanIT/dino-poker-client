@@ -2,62 +2,101 @@ import { Section } from '@/components/atoms/Content/Section'
 import { TableCard } from '@/components/atoms/Content/TableCard'
 import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 
-export const title = '텍사스 홀덤 게임설명'
-export const subtitle = '텍사스 홀덤 이용가이드'
+export const title = '토너먼트 이용가이드'
+export const description = (
+  <>
+    토너먼트
+    <br />
+    게임설명
+  </>
+)
 export const heroImage = '/images/default/user_guide.png'
 export const gameInfo = [
-  {
-    key: '게임방식',
-    val: '온 테이블에서 2장의 **홀카드(Hole Cards)**가 각자에 공개되지 않고 개인카드를 배분받고 커뮤니티 카드를 공유로서 총 5장을 이용 합니다.'
-  },
-  { key: '인원', val: '2명 ~ 9명 테이블의 규칙에 따라 입장하실 수 있습니다.)' },
-  { key: '게임목적', val: '5-9장 칩은 높은 순위 패로 획득' }
-]
-export const rounds = [
-  {
-    step: '프리 플랍',
-    desc: '소스와 빅 블라인더가 지정 베팅을 한후나 한 후이며 블라인드에게 2장의 카드를 줍니다 모두에게 베팅하며 이에 모든 플레이어가 배팅을 합니다.'
-  },
-  { step: '플랍', desc: '	공통 커뮤니티 카드 3장이 앞면 상태로 열려있습니다 배팅이 시작됩니다.' },
-  { step: '턴', desc: '추가로 커뮤니티 카드를 1장 공개합니다 베팅이 시작됩니다.' },
-  { step: '리버', desc: '마지막 커뮤니티 카드 1장 합계 5장이 오픈이 됩니다 최종 배팅이 시작됩니다.' },
-  { step: '쇼다운', desc: '리버 베팅이 끝나 쇼 타이밍에 대 검증하여 가장 큰 플레이어가 판돈을 모두 가져간다.' }
-]
-
-export const actions = [
-  '폴드(Fold): 패를 포기하고 라운드에서 하차.',
-  '체크(Check): 베팅 없이 턴을 넘김(이전 베팅이 없을 때 가능).',
-  '콜(Call): 현재 최고 베팅액과 동일하게 맞춤.',
-  '베트/레이즈(Bet/Raise): 새로 베팅하거나 기존 베팅보다 금액을 올림.',
-  '올인(All-in): 보유 칩 전부를 베팅.'
-]
-
-export const ranks = [
-  ['로얄 플러시', '(같은 문양의 에이스 킹은 카드, 5장 가지 카드 숫자인 플러쉬 숫자를 순서대로 가졌습니다.)'],
-  ['스 플러시', '같은 숫자대로 카드 2 결과만이 연속적인 획득'],
-  ['포 카드', '숫자만 같은 4장의 카드와 나머지 1 그럴 것 수종에선 획득'],
-  ['풀하우스', '같은 숫자의 카드 3장으로 이루어진 확률'],
-  ['스트레이트', '맥락별로 숫자 5장으로 이루어진 태양 (같은 옵션은 뗄만)'],
-  ['플러시', '같은 무늬의 카드 5장으로 이루어진 획득 (바로 무늬는 돌리)'],
-  ['투 페어스', '트리플 1장 + 페어 1장으로 이루어진 획득. (노트북을 숫자가 높을수록 획득)'],
-  ['원 페어', '같은 숫자의 카드 2장으로 이루어진 획득'],
-  ['스트레이트의 플러쉬시', '맥락별로 숫자 5미터인 카드 칩이 전환 5장으로 이루어진 이루어진 획득'],
   [
-    '관의 스트레이트 플러시시',
-    '가장 높은 스트레이트 플러시가 10, J, Q, K, A이고 10이 것은 외수는 외주누를 스트레이트 획득합니다.'
+    '토너먼트 목표',
+    '모든 참을 얻지 않고 다른 모든 플레이어를 탈락시켜 최후의 1인이 되어 상금 풀(Prize Pool)에서 가장 큰 상금을 획득하는 것입니다.'
+  ],
+  ['사용 게임', '주로 텍사스 홀덤 또는 오마하 규칙을 기반으로 진행됩니다.'],
+  ['칩의 가치', '칩의 수량이 아닌 **생존 관점**을 나타내며, 돈과 직접 교환되지 않습니다.']
+]
+export const rules = [
+  [
+    '바이인 (Buy-in)',
+    '토너먼트 참가를 위해 최초로 지불하는 비용입니다. 이 금액의 일부가 상금 풀(Prize Pool)로 적립됩니다.'
+  ],
+  [
+    '상금 풀 (Prize Pool)',
+    '모든 플레이어의 바이인 총합(수수료 제외)으로 형성되며, 최종 순위에 따라 배분될 총 상금 금액입니다.'
+  ],
+  ['시작 칩 (Starting Chips)', '바이인 후 모든 참가자가 동일하게 받는 초기 칩 수량입니다.'],
+  [
+    '블라인드 레벨 (Blind Levels)',
+    '토너먼트에서 SB/BB의 크기를 결정하는 단계입니다. 정해진 시간 간격(예: 10분, 15분)마다 SB/BB 금액이 상승합니다.'
+  ],
+  [
+    '인 더 머니 (In the Money, ITM)',
+    '상금을 받을 수 있는 최소 순위권에 진입하는 것을 의미합니다. (예: 100명 참가 중 상금은 상위 15명에게만 지급).'
+  ],
+  ['녹아웃 (Knockout/Elimination)', '플레이어의 칩이 모두 소진되어 토너먼트에서 탈락하는 것을 의미합니다.'],
+  [
+    '리바이 (Rebuy)',
+    '정해진 기간 동안 칩을 모두 잃었을 경우 추가 바이을 내고 다시 칩을 구매하여 토너먼트에 복귀하는 규칙입니다. (리바이 가능 토너먼트에 한함)'
+  ],
+  ['애드온 (Add-on)', '리바이 기간 종료 후, 추가 바이을 내고 정해진 양의 칩을 한 번 더 구매할 수 있는 기회입니다.'],
+  [
+    '파이널 테이블 (Final Table)',
+    '참가자 수가 최종 9명 또는 10명으로 압축되었을 때, 모든 테이블을 합쳐서 진행하는 마지막 테이블입니다.'
+  ]
+]
+export const progression = [
+  [
+    '시작 및 초기 단계',
+    '블라인드 레벨 1',
+    '모든 플레이어가 지정된 테이블에 앉아 동일한 시작 칩으로 게임을 시작합니다. 블라인드가 낮아 비교적 여유로운 플레이가 가능합니다.'
+  ],
+  [
+    '미들 단계',
+    '블라인드 상승 및 리바이 종료',
+    '블라인드가 상승하며 플레이어의 M치(현 대비 블라인드)이 줄어들어 공격적인 플레이가 증가합니다. 리바이/애드온 기간이 이 단계에서 종료되는 경우가 많습니다.'
+  ],
+  [
+    '버블 단계 (Bubble)',
+    'ITM 직전',
+    '상금권(ITM)에 진입하기 직전의 단계입니다. 탈락하면 상금을 받지 못하므로 플레이어들은 매우 신중해지며, 칩 리더들은 이 시기에 칩이 적은 플레이어들을 압박하는 심리전이 격렬해집니다.'
+  ],
+  ['인 더 머니 (ITM)', '상금권 진입', '상금을 확보한 후 플레이어들은 비교적 편안하게 공격적인 플레이를 시도합니다.'],
+  [
+    '파이널 테이블',
+    '최종 결승',
+    '최종 테이블이 구성되며, 모든 시선이 집중되는 가운데 우승 상금을 목표로 치열한 승부가 펼쳐집니다.'
+  ]
+]
+export const ranks = [
+  ['하이 카드 (High Card)', '아무 족보도 만들지 못한 경우, 5장 중 가장 높은 숫자의 카드로 순위를 결정합니다.'],
+  ['원 페어 (One Pair)', '같은 숫자의 카드 2장으로 이루어진 족보.'],
+  ['투 페어 (Two Pair)', '두 쌍의 같은 숫자 카드와 나머지 1장으로 이루어진 족보.'],
+  ['트리플 (Three of a Kind)', '같은 숫자의 카드 3장으로 이루어진 족보.'],
+  ['스트레이트 (Straight)', '연속되는 숫자 5장으로 이루어진 족보. (무늬는 달라도 무방)'],
+  ['플러시 (Flush)', '같은 무늬의 카드 5장으로 이루어진 족보. (숫자는 달라도 무방)'],
+  ['풀 하우스 (Full House)', '트리플 1쌍 + 페어 1쌍으로 이루어진 족보. (트리플의 숫자가 높을수록 강함)'],
+  ['포 카드 (Four of a Kind)', '같은 숫자의 카드 4장으로 이루어진 족보.'],
+  ['스트레이트 플러시 (Straight Flush)', '연속되는 숫자이면서 같은 무늬인 5장으로 이루어진 족보.'],
+  [
+    '로열 플러시 (Royal Flush)',
+    '가장 높은 스트레이트 플러시 (A, K, Q, J, 10이 모두 같은 무늬)로, 포커에서 가장 강력한 족보입니다.'
   ]
 ]
 
-<Section title="텍사스 홀덤 (Texas Hold'em)">
-텍사스 홀덤은 52 장의 포커 카드(조커는 사용하지 않습니다)로 진행하는 가장 대표적인 2~9인이 즐기는 커뮤니티 카드
+## 포맷 소개 및 핵심 매력
 
-게임(Community Card Game)입니다. 각자가 지급 받은 2장의 개인카드(홀카드/개인카드)와 테이블 위에 5장의 공용
-
-카드(커뮤니티 카드)가 있으며 이 중 5장의 카드를 사용하여 높은 족보를 만들어 베팅하는 게임입니다.
-
+<Section title='포맷 소개 및 핵심 매력'>
+  토너먼트는 정해진 참가비(바이인)를 지불한 플레이어들이 동일한 시작 칩(Starting Chips)을 가지고 경쟁하여, 최종적으로 단
+  한 명의 우승자를 가리는 경쟁 포맷입니다. 일반적인 캐시 게임(Cash Game)과 달리, 칩이 돈과 직접 연결되지 않고 오직
+  생존을 위한 도구로 사용됩니다. 시간이 지남에 따라 블라인드 레벨이 정기적으로 상승하여 플레이어들은 공격적인 플레이를
+  강요받으며, 긴장감과 전략적 깊이가 극대화됩니다.
 </Section>
 
-<Section title='게임 구성과 역할'>
+<Section title='토너먼트의 구조 및 목표'>
   <TableCard>
     <TableHeader>
       <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
@@ -67,10 +106,10 @@ export const ranks = [
     </TableHeader>
 
     <TableBody>
-      {gameInfo.map((row, i) => (
+      {gameInfo.map(([$1, $2], i) => (
         <TableRow key={i} className='border-t border-app-neutral600'>
-          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{row.key}</TableCell>
-          <TableCell className='px-6 py-4 text-app-text-color'>{row.val}</TableCell>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
         </TableRow>
       ))}
     </TableBody>
@@ -78,67 +117,70 @@ export const ranks = [
   </TableCard>
 </Section>
 
-<Section title='블라인드 베팅 (Blind Bet, 강제적 베팅)'>
-플레이 게임의 시작을 위해 강제적으로 일정금액을 베팅하게 하는 금액 및 규칙 입니다.
+<Section title='토너먼트 핵심 용어 및 규칙'>
+토너먼트 참여 시 반드시 알아야 할 구조적인 규칙 및 용어들입니다.
 
-딜러 오른쪽 선수(Small Blind)**만큼 반드시 베팅하여야 하고 2번 선수 (Big Blind)**는 Small Blind의 2배를 베팅해야 하며, 게임이 시작하고 나서 블라인드 플레이어의 베팅값이 다른 플레이어를 위의 스타팅 포인트가 됩니다.
-
-블라인드 베팅 이후 배분된 카드만으로 판단하여 게임에 참가할지 여부를 결정하며, 이후 뒤에 1장씩 차례로 오픈되어 (Community 카드입니다.
-
-</Section>
-
-<Section title='게임 진행 단계 및 배팅 순서도'>
   <TableCard>
     <TableHeader>
       <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
-        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>순서</TableHead>
-        <TableHead className='px-6 py-4 text-left font-semibold text-white'>내용 및 액션</TableHead>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>명칭</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>정의 및 역할</TableHead>
       </TableRow>
     </TableHeader>
     <TableBody>
-      {rounds.map((row, i) => (
+      {rules.map(([$1, $2], i) => (
         <TableRow key={i} className='border-t border-app-neutral600'>
-          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{row.step}</TableCell>
-          <TableCell className='px-6 py-4 text-app-text-color'>{row.desc}</TableCell>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
         </TableRow>
       ))}
     </TableBody>
   </TableCard>
 </Section>
 
-<Section title='칩을 걸고 의 흐름 지식 구성'>
-진주 베팅액의 크기는 첫 블라인드 액수 이상이 되어야 합니다.
+<Section title='토너먼트 진행 순서 및 특징'>
+토너먼트는 블라인드 상승 시간과 플레이어의 탈락을 중심으로 진행됩니다.
 
-블라인드 블라인드로 시작 베팅 게임이 진행되며 시간이 지날수록 블라인드 금액이 상승합니다
-
-딜러의 베팅 불라인드 블라인드로 칩을 걸게 되며 남으면 계속해서 강제 베팅을 해야합니다.
-
+<TableCard>
+  <TableHeader>
+    <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+      <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>순서</TableHead>
+      <TableHead className='px-6 py-4 text-left font-semibold text-white'>명칭</TableHead>
+      <TableHead className='px-6 py-4 text-left font-semibold text-white'>내용 및 역할</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    {progression.map(([$1, $2, $3], i) => (
+      <TableRow key={i} className='border-t border-app-neutral600'>
+        <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+        <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
+      </TableRow>
+    ))}
+  </TableBody>
+</TableCard>
 </Section>
 
-<Section title='액션 관련 용어'>
-각 게임 라운드에서 플레이어가 상황과 전략에 따라 선택할 수 있는 액션은 다음과 같습니다.
-
-게임 매칭 시 바탕스 → 스몰 블라인드 → 빅 블라인드(딜러 기준으로 시작하여 시계 방향으로 순환됨.
-
-딜러 베팅은 플로우 블라인드가 칩을 걸게 되며 게임에 참여한 다른 플레이어는 아래의 선택을 기초안에서 게임합니다.
-
-플레이어 딜러 베팅에 대한 칩을 베팅 후에는 선택 권한이 가능하지않습니다. 본인의 규정된 시간 안에 정의된 가에 개인 행동을 하세요.
-
+<Section title='최종 우승 결정 방식'>
+  칩 올인: 한 플레이어가 모든 상대방의 칩을 획득하여 혼자 남을 때까지 게임이 진행됩니다. 상금 배분: 우승자가 결정되면,
+  사전에 공지된 상금 풀 배분표에 따라 최종 순위별 상금이 지급됩니다. (1위가 상금 풀의 가장 큰 부분을 획득)
 </Section>
 
-<Section title='포커 족보 (높을수록 강함)'>
+<Section title="포커 족보 순위 (토너먼트 기준)">
+토너먼트 역시 텍사스 홀덤과 동일한 족보 순위를 사용합니다.
+
   <TableCard>
     <TableHeader>
       <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
-        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>순위</TableHead>
-        <TableHead className='px-6 py-4 text-left font-semibold text-white'>족보 (설명)</TableHead>
+        <TableHead className='w-auto px-6 py-4 text-left font-semibold text-white'>족보 명칭</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>설명</TableHead>
       </TableRow>
     </TableHeader>
     <TableBody>
-      {ranks.map(([name, desc], idx) => (
+      {ranks.map(([$1, $2], idx) => (
         <TableRow key={idx} className='border-t border-app-neutral600'>
-          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{name}</TableCell>
-          <TableCell className='px-6 py-4 text-app-text-color'>{desc}</TableCell>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
         </TableRow>
       ))}
     </TableBody>

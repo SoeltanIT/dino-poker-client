@@ -2,62 +2,108 @@ import { Section } from '@/components/atoms/Content/Section'
 import { TableCard } from '@/components/atoms/Content/TableCard'
 import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 
-export const title = "Texas Hold'em Game Description"
-export const subtitle = "Texas Hold'em User Guide"
+export const title = 'Tournament User Guide'
+export const description = (
+  <>
+    Tournament
+    <br />
+    Game Description
+  </>
+)
 export const heroImage = '/images/default/user_guide.png'
 export const gameInfo = [
-  {
-    key: 'Game Method',
-    val: 'Each player is dealt 2 private **Hole Cards** (face down) and shares 5 community cards. Players use these to make the best 5-card hand.'
-  },
-  { key: 'Players', val: '2 to 9 players (entry subject to table rules).)' },
-  { key: 'Game Objective', val: 'Win chips with the highest-ranking 5-card hand.' }
-]
-export const rounds = [
-  {
-    step: 'Pre-Flop',
-    desc: 'After the Small and Big Blinds make their forced bets, 2 cards are dealt to all players. A round of betting begins.'
-  },
-  { step: 'Flop', desc: '3 community cards are dealt face up. A round of betting begins.' },
-  { step: 'Turn', desc: 'One additional community card is dealt face up. A round of betting begins.' },
-  { step: 'River', desc: 'The final community card is dealt (total 5). The final round of betting begins.' },
-  {
-    step: 'Showdown',
-    desc: 'After the River betting is complete, players show their hands. The player with the best hand wins the pot.'
-  }
-]
-
-export const actions = [
-  'Fold: Give up the hand and exit the round.',
-  'Check: Pass the turn without betting (only possible if no previous bet).',
-  'Call: Match the current highest bet.',
-  'Bet/Raise: Make a new bet or increase the amount of a previous bet.',
-  'All-in: Bet all remaining chips.'
-]
-
-export const ranks = [
-  ['Royal Flush', '(Cards like Ace, King of the same suit, 5 cards with flush numbers in order.)'],
-  ['S-Flush', 'Only 2 card results of the same number are acquired consecutively'], // '스 플러시' is likely a typo for Straight Flush, but translated literally.
-  ['Four Card', 'Acquired from 4 cards of the same number and 1 other card of that kind'],
-  ['Full House', 'Probability composed of 3 cards of the same number'],
-  ['Straight', 'Sun composed of 5 cards by context (same option is detachable)'],
-  ['Flush', 'Acquisition composed of 5 cards of the same suit (immediately suit is turn)'],
-  ['Two Pairs', 'Acquisition composed of 1 Triple + 1 Pair. (Acquired if the notebook number is higher)'], // Note: Description is for a Full House
-  ['One Pair', 'Acquisition composed of 2 cards of the same number'],
-  ["Straight's Flushy", 'Acquisition composed of 5 cards converted from card chips of 5 meters by context'],
   [
-    "Crown's Straight Flushy",
-    'The highest straight flush is 10, J, Q, K, A and 10 is an odd number acquires the straight.'
+    'Tournament Objective',
+    'To be the last person standing by eliminating all other players and win the largest prize from the Prize Pool.'
+  ],
+  ['Game Used', "It is mainly played based on Texas Hold'em or Omaha rules."],
+  [
+    'Chip Value',
+    'Represents a **survival perspective** rather than chip quantity, and is not directly exchanged for money.'
+  ]
+]
+export const rules = [
+  ['Buy-in', 'The initial cost paid to enter the tournament. A portion of this amount is added to the Prize Pool.'],
+  [
+    'Prize Pool',
+    "Formed by the sum of all players' buy-ins (excluding fees), it is the total prize money to be distributed according to the final rankings."
+  ],
+  ['Starting Chips', 'The initial amount of chips all participants receive equally after buying in.'],
+  [
+    'Blind Levels',
+    'The stage that determines the size of the SB/BB in a tournament. The SB/BB amount increases at fixed time intervals (e.g., 10 minutes, 15 minutes).'
+  ],
+  [
+    'In the Money (ITM)',
+    'Means entering the minimum rank to receive a prize (e.g., in a 100-player tournament, prizes are paid to the top 15).'
+  ],
+  ['Knockout/Elimination', 'Means a player is eliminated from the tournament when all their chips are gone.'],
+  [
+    'Rebuy',
+    'A rule allowing a player to buy back into the tournament by paying an additional buy-in if they lose all their chips during a specified period. (Only in rebuy-eligible tournaments)'
+  ],
+  [
+    'Add-on',
+    'An opportunity to purchase a fixed amount of chips one more time by paying an additional buy-in after the rebuy period ends.'
+  ],
+  [
+    'Final Table',
+    'The last table of the tournament, formed when the number of participants is reduced to the final 9 or 10.'
+  ]
+]
+export const progression = [
+  [
+    'Start and Early Stage',
+    'Blind Level 1',
+    'All players sit at their assigned tables and start the game with the same starting chips. Blinds are low, allowing for relatively relaxed play.'
+  ],
+  [
+    'Middle Stage',
+    'Blinds Increase and Rebuy Ends',
+    "Blinds increase, reducing players' M-scores (stack vs. blinds), leading to more aggressive play. The rebuy/add-on period often ends during this stage."
+  ],
+  [
+    'Bubble Stage',
+    'Just before ITM',
+    'The stage just before entering the prize money (ITM). Players become very cautious as elimination means no prize. Chip leaders intensify pressure on short-stacked players.'
+  ],
+  [
+    'In the Money (ITM)',
+    'Entering the Prize Money',
+    'After securing a prize, players tend to play more aggressively with relative comfort.'
+  ],
+  [
+    'Final Table',
+    'Finals',
+    'The final table is formed, and with all eyes on it, an intense battle for the championship prize unfolds.'
+  ]
+]
+export const ranks = [
+  ['High Card', 'If no hand is made, the rank is decided by the highest card among the 5.'],
+  ['One Pair', 'A hand made of 2 cards of the same rank.'],
+  ['Two Pair', 'A hand made of two pairs of same-rank cards and one other card.'],
+  ['Three of a Kind', 'A hand made of 3 cards of the same rank.'],
+  ['Straight', 'A hand made of 5 cards with consecutive ranks. (Suits can be different)'],
+  ['Flush', 'A hand made of 5 cards of the same suit. (Ranks can be different)'],
+  ['Full House', "A hand made of 1 triple + 1 pair. (Stronger if the triple's rank is higher)"],
+  ['Four of a Kind', 'A hand made of 4 cards of the same rank.'],
+  ['Straight Flush', 'A hand made of 5 cards that are both consecutive in rank and of the same suit.'],
+  [
+    'Royal Flush',
+    'The highest straight flush (A, K, Q, J, 10, all of the same suit). This is the strongest hand in poker.'
   ]
 ]
 
-<Section title="Texas Hold'em">
-  Texas Hold'em is the most representative Community Card Game played with 52 poker cards (Jokers are not used), enjoyed
-  by 2-9 people. Each player receives 2 private cards (hole cards/personal cards) and shares 5 common cards (community
-  cards) on the table. It is a game of betting by making the highest-ranking hand using 5 of these cards.
+## Format Introduction and Core Appeal
+
+<Section title='Tournament'>
+  A tournament is a competitive format where players who pay a fixed entry fee (buy-in) compete with the same starting
+  chips (Starting Chips) to determine a single winner. Unlike regular cash games, chips are not directly linked to money
+  and are only used as a tool for survival. As time passes, blind levels rise periodically, forcing players into
+  aggressive play and maximizing tension and strategic depth.
 </Section>
 
-<Section title='Game Structure and Roles'>
+<Section title='Tournament Structure and Objective'>
   <TableCard>
     <TableHeader>
       <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
@@ -67,10 +113,10 @@ export const ranks = [
     </TableHeader>
 
     <TableBody>
-      {gameInfo.map((row, i) => (
+      {gameInfo.map(([$1, $2], i) => (
         <TableRow key={i} className='border-t border-app-neutral600'>
-          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{row.key}</TableCell>
-          <TableCell className='px-6 py-4 text-app-text-color'>{row.val}</TableCell>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
         </TableRow>
       ))}
     </TableBody>
@@ -78,67 +124,71 @@ export const ranks = [
   </TableCard>
 </Section>
 
-<Section title='Blind Bet (Forced Bet)'>
-These are the rules and amounts that force a bet of a certain amount to start the game.
+<Section title='Key Tournament Terms and Rules'>
+These are structural rules and terms you must know when participating in a tournament.
 
-The player to the right of the dealer (Small Blind)** must bet a certain amount, and the 2nd player (Big Blind)** must bet double the Small Blind. After the game starts, the Blind players' bet value becomes the starting point for other players.
-
-After the blind bets, players decide whether to participate based on the cards they are dealt. Afterwards, (Community cards) are opened one by one.
-
-</Section>
-
-<Section title='Game Progression and Betting Order'>
   <TableCard>
     <TableHeader>
       <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
-        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>Step</TableHead>
-        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Details and Action</TableHead>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>Name</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Definition and Role</TableHead>
       </TableRow>
     </TableHeader>
     <TableBody>
-      {rounds.map((row, i) => (
+      {rules.map(([$1, $2], i) => (
         <TableRow key={i} className='border-t border-app-neutral600'>
-          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{row.step}</TableCell>
-          <TableCell className='px-6 py-4 text-app-text-color'>{row.desc}</TableCell>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
         </TableRow>
       ))}
     </TableBody>
   </TableCard>
 </Section>
 
-<Section title='Betting Chips and Flow Knowledge'>
-The size of the pearl bet must be equal to or greater than the first blind amount.
+<Section title='Tournament Progression and Features'>
+Tournaments proceed centered around blind level increase times and player eliminations.
 
-The betting game proceeds with blind blinds, and the blind amount increases as time passes.
-
-The dealer's bet is made with blind blinds, and if any chips remain, you must continue to make forced bets.
-
+<TableCard>
+  <TableHeader>
+    <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+      <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>Step</TableHead>
+      <TableHead className='px-6 py-4 text-left font-semibold text-white'>Name</TableHead>
+      <TableHead className='px-6 py-4 text-left font-semibold text-white'>Details and Role</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    {progression.map(([$1, $2, $3], i) => (
+      <TableRow key={i} className='border-t border-app-neutral600'>
+        <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+        <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
+      </TableRow>
+    ))}
+  </TableBody>
+</TableCard>
 </Section>
 
-<Section title='Action Terminology'>
-The actions a player can choose according to the situation and strategy in each game round are as follows.
-
-Game matching order: Batangs → Small Blind → Big Blind (starts from the dealer and rotates clockwise.
-
-For the dealer bet, the flow blind bets chips, and other players in the game play based on the choices below.
-
-After betting chips for the player dealer bet, selection rights are not available. Please take your personal action within the defined time.
-
+<Section title='Determining the Final Winner'>
+  Chip All-in: The game continues until one player has acquired all of all opponents' chips and is the only one left.
+  Prize Distribution: Once a winner is determined, prize money is paid out by final rank according to the pre-announced
+  prize pool distribution table. (1st place receives the largest portion of the prize pool)
 </Section>
 
-<Section title='Poker Hand Rankings (Strongest to Weakest)'>
+<Section title="Poker Hand Rankings (Tournament Standard)">
+Tournaments also use the same hand rankings as Texas Hold'em.
+
   <TableCard>
     <TableHeader>
       <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
-        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>Rank</TableHead>
-        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Hand (Description)</TableHead>
+        <TableHead className='w-auto px-6 py-4 text-left font-semibold text-white'>Hand Name</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Description</TableHead>
       </TableRow>
     </TableHeader>
     <TableBody>
-      {ranks.map(([name, desc], idx) => (
+      {ranks.map(([$1, $2], idx) => (
         <TableRow key={idx} className='border-t border-app-neutral600'>
-          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{name}</TableCell>
-          <TableCell className='px-6 py-4 text-app-text-color'>{desc}</TableCell>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
         </TableRow>
       ))}
     </TableBody>

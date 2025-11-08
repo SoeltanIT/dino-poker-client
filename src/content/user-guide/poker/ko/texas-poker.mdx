@@ -3,33 +3,31 @@ import { TableCard } from '@/components/atoms/Content/TableCard'
 import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 
 export const title = '텍사스 홀덤 게임설명'
-export const subtitle = '텍사스 홀덤 이용가이드'
+export const description = (
+  <>
+    텍사스홀덤
+    <br />
+    게임설명
+  </>
+)
 export const heroImage = '/images/default/user_guide.png'
 export const gameInfo = [
-  {
-    key: '게임방식',
-    val: '온 테이블에서 2장의 **홀카드(Hole Cards)**가 각자에 공개되지 않고 개인카드를 배분받고 커뮤니티 카드를 공유로서 총 5장을 이용 합니다.'
-  },
-  { key: '인원', val: '2명 ~ 9명 테이블의 규칙에 따라 입장하실 수 있습니다.)' },
-  { key: '게임목적', val: '5-9장 칩은 높은 순위 패로 획득' }
+  [
+    '게임방식',
+    '온 테이블에서 2장의 **홀카드(Hole Cards)**가 각자에 공개되지 않고 개인카드를 배분받고 커뮤니티 카드를 공유로서 총 5장을 이용 합니다.'
+  ],
+  ['인원', '2명 ~ 9명 테이블의 규칙에 따라 입장하실 수 있습니다.)'],
+  ['게임목적', '5-9장 칩은 높은 순위 패로 획득']
 ]
 export const rounds = [
-  {
-    step: '프리 플랍',
-    desc: '소스와 빅 블라인더가 지정 베팅을 한후나 한 후이며 블라인드에게 2장의 카드를 줍니다 모두에게 베팅하며 이에 모든 플레이어가 배팅을 합니다.'
-  },
-  { step: '플랍', desc: '	공통 커뮤니티 카드 3장이 앞면 상태로 열려있습니다 배팅이 시작됩니다.' },
-  { step: '턴', desc: '추가로 커뮤니티 카드를 1장 공개합니다 베팅이 시작됩니다.' },
-  { step: '리버', desc: '마지막 커뮤니티 카드 1장 합계 5장이 오픈이 됩니다 최종 배팅이 시작됩니다.' },
-  { step: '쇼다운', desc: '리버 베팅이 끝나 쇼 타이밍에 대 검증하여 가장 큰 플레이어가 판돈을 모두 가져간다.' }
-]
-
-export const actions = [
-  '폴드(Fold): 패를 포기하고 라운드에서 하차.',
-  '체크(Check): 베팅 없이 턴을 넘김(이전 베팅이 없을 때 가능).',
-  '콜(Call): 현재 최고 베팅액과 동일하게 맞춤.',
-  '베트/레이즈(Bet/Raise): 새로 베팅하거나 기존 베팅보다 금액을 올림.',
-  '올인(All-in): 보유 칩 전부를 베팅.'
+  [
+    '프리 플랍',
+    '소스와 빅 블라인더가 지정 베팅을 한후나 한 후이며 블라인드에게 2장의 카드를 줍니다 모두에게 베팅하며 이에 모든 플레이어가 배팅을 합니다.'
+  ],
+  ['플랍', '공통 커뮤니티 카드 3장이 앞면 상태로 열려있습니다 배팅이 시작됩니다.'],
+  ['턴', '추가로 커뮤니티 카드를 1장 공개합니다 베팅이 시작됩니다.'],
+  ['리버', '마지막 커뮤니티 카드 1장 합계 5장이 오픈이 됩니다 최종 배팅이 시작됩니다.'],
+  ['쇼다운', '리버 베팅이 끝나 쇼 타이밍에 대 검증하여 가장 큰 플레이어가 판돈을 모두 가져간다.']
 ]
 
 export const ranks = [
@@ -47,6 +45,8 @@ export const ranks = [
     '가장 높은 스트레이트 플러시가 10, J, Q, K, A이고 10이 것은 외수는 외주누를 스트레이트 획득합니다.'
   ]
 ]
+
+## 게임소개
 
 <Section title="텍사스 홀덤 (Texas Hold'em)">
 텍사스 홀덤은 52 장의 포커 카드(조커는 사용하지 않습니다)로 진행하는 가장 대표적인 2~9인이 즐기는 커뮤니티 카드
@@ -67,10 +67,10 @@ export const ranks = [
     </TableHeader>
 
     <TableBody>
-      {gameInfo.map((row, i) => (
+      {gameInfo.map(([$1, $2], i) => (
         <TableRow key={i} className='border-t border-app-neutral600'>
-          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{row.key}</TableCell>
-          <TableCell className='px-6 py-4 text-app-text-color'>{row.val}</TableCell>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
         </TableRow>
       ))}
     </TableBody>
@@ -96,10 +96,10 @@ export const ranks = [
       </TableRow>
     </TableHeader>
     <TableBody>
-      {rounds.map((row, i) => (
+      {rounds.map(([$1, $2], i) => (
         <TableRow key={i} className='border-t border-app-neutral600'>
-          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{row.step}</TableCell>
-          <TableCell className='px-6 py-4 text-app-text-color'>{row.desc}</TableCell>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
         </TableRow>
       ))}
     </TableBody>
@@ -135,10 +135,10 @@ export const ranks = [
       </TableRow>
     </TableHeader>
     <TableBody>
-      {ranks.map(([name, desc], idx) => (
+      {ranks.map(([$1, $2], idx) => (
         <TableRow key={idx} className='border-t border-app-neutral600'>
-          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{name}</TableCell>
-          <TableCell className='px-6 py-4 text-app-text-color'>{desc}</TableCell>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
         </TableRow>
       ))}
     </TableBody>

@@ -3,46 +3,44 @@ import { TableCard } from '@/components/atoms/Content/TableCard'
 import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 
 export const title = "Texas Hold'em Game Description"
-export const subtitle = "Texas Hold'em User Guide"
+export const description = (
+  <>
+    Texas Hold'em
+    <br />
+    Game Description
+  </>
+)
 export const heroImage = '/images/default/user_guide.png'
 export const gameInfo = [
-  {
-    key: 'Game Method',
-    val: 'Each player is dealt 2 private **Hole Cards** (face down) and shares 5 community cards. Players use these to make the best 5-card hand.'
-  },
-  { key: 'Players', val: '2 to 9 players (entry subject to table rules).)' },
-  { key: 'Game Objective', val: 'Win chips with the highest-ranking 5-card hand.' }
+  [
+    'Game Method',
+    'Each player is dealt 2 private **Hole Cards** (face down) and shares 5 community cards. Players use these to make the best 5-card hand.'
+  ],
+  ['Players', '2 to 9 players (entry subject to table rules).)'],
+  ['Game Objective', 'Win chips with the highest-ranking 5-card hand.']
 ]
 export const rounds = [
-  {
-    step: 'Pre-Flop',
-    desc: 'After the Small and Big Blinds make their forced bets, 2 cards are dealt to all players. A round of betting begins.'
-  },
-  { step: 'Flop', desc: '3 community cards are dealt face up. A round of betting begins.' },
-  { step: 'Turn', desc: 'One additional community card is dealt face up. A round of betting begins.' },
-  { step: 'River', desc: 'The final community card is dealt (total 5). The final round of betting begins.' },
-  {
-    step: 'Showdown',
-    desc: 'After the River betting is complete, players show their hands. The player with the best hand wins the pot.'
-  }
-]
-
-export const actions = [
-  'Fold: Give up the hand and exit the round.',
-  'Check: Pass the turn without betting (only possible if no previous bet).',
-  'Call: Match the current highest bet.',
-  'Bet/Raise: Make a new bet or increase the amount of a previous bet.',
-  'All-in: Bet all remaining chips.'
+  [
+    'Pre-Flop',
+    'After the Small and Big Blinds make their forced bets, 2 cards are dealt to all players. A round of betting begins.'
+  ],
+  ['Flop', '3 community cards are dealt face up. A round of betting begins.'],
+  ['Turn', 'One additional community card is dealt face up. A round of betting begins.'],
+  ['River', 'The final community card is dealt (total 5). The final round of betting begins.'],
+  [
+    'Showdown',
+    'After the River betting is complete, players show their hands. The player with the best hand wins the pot.'
+  ]
 ]
 
 export const ranks = [
   ['Royal Flush', '(Cards like Ace, King of the same suit, 5 cards with flush numbers in order.)'],
-  ['S-Flush', 'Only 2 card results of the same number are acquired consecutively'], // '스 플러시' is likely a typo for Straight Flush, but translated literally.
+  ['S-Flush', 'Only 2 card results of the same number are acquired consecutively'],
   ['Four Card', 'Acquired from 4 cards of the same number and 1 other card of that kind'],
   ['Full House', 'Probability composed of 3 cards of the same number'],
   ['Straight', 'Sun composed of 5 cards by context (same option is detachable)'],
   ['Flush', 'Acquisition composed of 5 cards of the same suit (immediately suit is turn)'],
-  ['Two Pairs', 'Acquisition composed of 1 Triple + 1 Pair. (Acquired if the notebook number is higher)'], // Note: Description is for a Full House
+  ['Two Pairs', 'Acquisition composed of 1 Triple + 1 Pair. (Acquired if the notebook number is higher)'],
   ['One Pair', 'Acquisition composed of 2 cards of the same number'],
   ["Straight's Flushy", 'Acquisition composed of 5 cards converted from card chips of 5 meters by context'],
   [
@@ -50,6 +48,8 @@ export const ranks = [
     'The highest straight flush is 10, J, Q, K, A and 10 is an odd number acquires the straight.'
   ]
 ]
+
+### Game Introduction
 
 <Section title="Texas Hold'em">
   Texas Hold'em is the most representative Community Card Game played with 52 poker cards (Jokers are not used), enjoyed
@@ -67,10 +67,10 @@ export const ranks = [
     </TableHeader>
 
     <TableBody>
-      {gameInfo.map((row, i) => (
+      {gameInfo.map(([$1, $2], i) => (
         <TableRow key={i} className='border-t border-app-neutral600'>
-          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{row.key}</TableCell>
-          <TableCell className='px-6 py-4 text-app-text-color'>{row.val}</TableCell>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
         </TableRow>
       ))}
     </TableBody>
@@ -96,10 +96,10 @@ After the blind bets, players decide whether to participate based on the cards t
       </TableRow>
     </TableHeader>
     <TableBody>
-      {rounds.map((row, i) => (
+      {rounds.map(([$1, $2], i) => (
         <TableRow key={i} className='border-t border-app-neutral600'>
-          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{row.step}</TableCell>
-          <TableCell className='px-6 py-4 text-app-text-color'>{row.desc}</TableCell>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
         </TableRow>
       ))}
     </TableBody>
@@ -135,10 +135,10 @@ After betting chips for the player dealer bet, selection rights are not availabl
       </TableRow>
     </TableHeader>
     <TableBody>
-      {ranks.map(([name, desc], idx) => (
+      {ranks.map(([$1, $2], idx) => (
         <TableRow key={idx} className='border-t border-app-neutral600'>
-          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{name}</TableCell>
-          <TableCell className='px-6 py-4 text-app-text-color'>{desc}</TableCell>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
         </TableRow>
       ))}
     </TableBody>
