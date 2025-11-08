@@ -5,14 +5,25 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useRef, useState } from 'react'
 
-import { IconBell, IconBetby, IconHome, IconTicket, IconUser } from '@/components/atoms/Icons'
+import {
+  IconBell,
+  IconBetby,
+  IconHome,
+  IconMenu,
+  IconPoker,
+  IconSport,
+  IconTicket,
+  IconUser
+} from '@/components/atoms/Icons'
 import LoginModal from '@/components/organisms/Login'
 import MenuProfile from '@/components/organisms/Profile'
 import { LogoutModal } from '@/components/organisms/Profile/Logout'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { resetLiveChatSession } from '@/lib/livechat-reset'
 import { UserFullDTO } from '@/types/userDTO'
 import { useLiveChatContext } from '@/utils/context/LiveChatProvider'
+import { BookIcon } from 'lucide-react'
 import { signOut, useSession } from 'next-auth/react'
 import { useCookies } from 'react-cookie'
 import GlobalSheet from '../GlobalSheet'
@@ -30,6 +41,30 @@ export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) =
   const [isModalOpen, setIsModalOpen] = useState(false)
   const buttonLogoutRef = useRef<HTMLButtonElement>(null)
   const { status } = useSession()
+
+  const menuItems: NavItem[] = [
+    {
+      name: lang?.header?.poker,
+      href: `/${locale}`,
+      icon: IconPoker
+    },
+    // TODO: uncomment this if casino link is available
+    // {
+    //   name: lang?.header?.casino,
+    //   href: `/${locale}`,
+    //   icon: IconCasino
+    // },
+    {
+      name: lang?.common?.sport,
+      href: `/${locale}/sport`,
+      icon: IconSport
+    },
+    {
+      name: lang?.common?.userGuide,
+      href: `/${locale}/user-guide/poker/texas-poker`,
+      icon: BookIcon
+    }
+  ]
 
   const navItems: NavItem[] = [
     {
@@ -112,8 +147,34 @@ export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) =
   }
   return (
     <>
-      <nav className='fixed md:hidden bottom-0 left-0 right-0 bg-app-background-secondary text-app-text-color h-[80px] flex justify-center items-center border-t border-app-background-primary z-20'>
+      <nav className='fixed md:hidden bottom-0 left-0 right-0 bg-app-background-secondary text-app-text-color h-[60px] flex justify-center items-center border-t border-app-background-primary z-20'>
         <div className='flex justify-around w-full max-w-[375px] px-6'>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <button className='flex items-center justify-center focus:outline-none w-8 h-8'>
+                <IconMenu className='text-app-primary200 w-full h-full' />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align='start'
+              side='top'
+              className='bg-app-background-secondary w-[90vw] border-app-primary2 px-0 py-2 rounded-xl z-[9999] -ml-2 mr-4'
+              sideOffset={10}
+            >
+              {menuItems.map(({ href, name, icon: Icon }) => (
+                <DropdownMenuItem asChild>
+                  <Link
+                    href={href}
+                    className='flex text-app-text-color items-center gap-1 px-4 py-1 h-8 focus:bg-app-background-primary focus:text-app-text-color focus:font-bold'
+                  >
+                    <Icon className='text-app-neutral500' />
+                    <span className='text-[12px] uppercase text-app-neutral500'>{name}</span>
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           {navItems
             // 🧠 Filter out Notification item if no data
             .filter(item => {
