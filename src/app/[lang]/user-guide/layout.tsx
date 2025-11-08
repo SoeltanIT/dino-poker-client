@@ -1,5 +1,5 @@
 'use client'
-import { ReactNode, useState } from 'react'
+import { PropsWithChildren, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -72,7 +72,14 @@ const TABS = [
   }
 ]
 
-export default function Layout({ children, params }: { params: any; children: ReactNode }) {
+export default function Layout({
+  children,
+  params: { lang }
+}: PropsWithChildren<{
+  params: {
+    lang: string
+  }
+}>) {
   const route = useRouter()
   const [gameType, gameName] = useSelectedLayoutSegments()
 
@@ -81,7 +88,7 @@ export default function Layout({ children, params }: { params: any; children: Re
 
   const handleGameChange = (value: string) => {
     setActiveGame(value)
-    route.push(`/user-guide/${gameType}/${value}`)
+    route.push(`/${lang}/user-guide/${gameType}/${value}`)
   }
 
   return (
