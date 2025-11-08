@@ -10,7 +10,6 @@ import { useRef, useState } from 'react'
 import { IconKoreanWon, IconSize } from '@/components/atoms/Icons'
 import LocaleSwitcherDropdown from '@/components/molecules/LocaleSwitcher'
 import NotificationDropdown from '@/components/molecules/Notification'
-import ThemeSwitcher from '@/components/molecules/ThemeSwitcher'
 import LoginModal from '@/components/organisms/Login'
 import MenuProfile from '@/components/organisms/Profile'
 import { Button } from '@/components/ui/button'
@@ -119,9 +118,9 @@ export const Header = ({
             <div className='hidden md:flex'>
               <NotificationDropdown lang={lang} isLogin={!!data} />
             </div>
-            <div className='hidden md:flex'>
+            {/* <div className='hidden md:flex'>
               <ThemeSwitcher />
-            </div>
+            </div> */}
             <div className='hidden md:flex'>
               <LocaleSwitcherDropdown lang={lang} />
             </div>
@@ -179,7 +178,7 @@ export const Header = ({
                 <div className='hidden md:flex'>
                   <LocaleSwitcherDropdown lang={lang} />
                 </div>
-                <ThemeSwitcher />
+                {/* <ThemeSwitcher /> */}
               </div>
             </div>
           </div>
@@ -197,7 +196,7 @@ export const Header = ({
                 {lang?.common?.login}
               </Button>
               <RegisterForm lang={lang} locale={locale} />
-              <ThemeSwitcher />
+              {/* <ThemeSwitcher /> */}
               <div className='hidden md:flex'>
                 <LocaleSwitcherDropdown lang={lang} />
               </div>

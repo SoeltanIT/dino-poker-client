@@ -58,7 +58,13 @@ export default function BannerSection({
       {/* LEFT: Event (row-span 2, total 325px mengikuti tinggi 2 row + gap) */}
       <div className='md:col-span-3 md:row-span-2'>
         <div className='h-[180px] md:h-full'>
-          <BannerCarousel items={eventItems} isLoading={isLoadingEvent} className='h-full' lang={lang} />
+          <BannerCarousel
+            items={eventItems}
+            isLoading={isLoadingEvent}
+            className='h-full'
+            lang={lang}
+            locale={locale}
+          />
         </div>
       </div>
 

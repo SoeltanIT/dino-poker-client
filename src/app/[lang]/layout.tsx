@@ -9,7 +9,7 @@ import { getAppFeaturesServer } from '@/utils/server/app-features'
 import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
 import { ToastContainer } from 'react-toastify'
-import { baiJamjuree } from '../font'
+import { baiJamjuree, notoSansKR } from '../font'
 import '../globals.css'
 
 // Viewport configuration
@@ -177,7 +177,7 @@ export default async function RootLayout({
           async
         />
       </head>
-      <body className={`${baiJamjuree.className}`}>
+      <body className={`${baiJamjuree.className} ${notoSansKR.variable}`}>
         <Providers initialFeatures={initialFeatures}>
           <AppTemplate config={configMap} {...props}>
             {children}
