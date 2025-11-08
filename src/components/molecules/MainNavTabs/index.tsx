@@ -93,7 +93,7 @@ export function MainNavTabs({ locale, pathname, lang, features, className }: Mai
       )}
 
       <Link
-        href='/user-guide'
+        href='/user-guide/poker/texas-poker'
         className={cn(
           baseTab,
           isActive('/user-guide')
@@ -108,7 +108,7 @@ export function MainNavTabs({ locale, pathname, lang, features, className }: Mai
           )}
         />
         <span className={cn(isActive('/user-guide') ? 'text-white' : 'group-hover:text-app-text-color')}>
-          User Guide
+          {lang?.common?.userGuide}
         </span>
       </Link>
     </div>
