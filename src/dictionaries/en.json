@@ -288,7 +288,8 @@
     "noBannerFound": "No Banner Found",
     "announcements": "Announcements",
     "noAnnouncementFound": "No Announcement Found",
-    "userGuide": "User Guide"
+    "userGuide": "User Guide",
+    "goBackHome": "Go Back Home"
   },
   "game": {
     "texaspoker": "Texas Poker",
@@ -574,5 +575,9 @@
     "userGuideTitle": "User Guide",
     "userGuideSubTitle": "Guide on How to Play",
     "moreInfo": "More Info"
+  },
+  "announcements": {
+    "title": "Announcements",
+    "description": "Check the latest news and announcements from KPOKER "
   }
 }

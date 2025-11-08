@@ -39,7 +39,7 @@ export function MainNavTabs({ locale, pathname, lang, features, className }: Mai
       >
         <IconPoker
           className={cn(
-            'w-4 h-4',
+            'size-6',
             isActive(pathPoker) ? 'text-white' : 'text-app-neutral500 group-hover:text-app-text-color'
           )}
         />
@@ -59,7 +59,7 @@ export function MainNavTabs({ locale, pathname, lang, features, className }: Mai
         >
           <IconSport
             className={cn(
-              'w-4 h-4',
+              'size-6',
               isActive(pathSport) ? 'text-white' : 'text-app-neutral500 group-hover:text-app-text-color'
             )}
           />
@@ -82,7 +82,7 @@ export function MainNavTabs({ locale, pathname, lang, features, className }: Mai
         >
           <IconTicket
             className={cn(
-              'w-4 h-4',
+              'size-6',
               isActive(pathPromotion) ? 'text-white' : 'text-app-neutral500 group-hover:text-app-text-color'
             )}
           />
@@ -103,7 +103,7 @@ export function MainNavTabs({ locale, pathname, lang, features, className }: Mai
       >
         <BookIcon
           className={cn(
-            'w-4 h-4',
+            'size-6',
             isActive('/user-guide') ? 'text-white' : 'text-app-neutral500 group-hover:text-app-text-color'
           )}
         />

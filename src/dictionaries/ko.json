@@ -288,7 +288,8 @@
     "noBannerFound": "배너를 찾을 수 없습니다",
     "announcements": "공지사항",
     "noAnnouncementFound": "공지사항을 찾을 수 없습니다",
-    "userGuide": "사용자 가이드"
+    "userGuide": "사용자 가이드",
+    "goBackHome": "홈으로 돌아가기"
   },
   "game": {
     "texaspoker": "텍사스 홀덤",
@@ -574,5 +575,9 @@
     "userGuideTitle": "사용자 가이드",
     "userGuideSubTitle": "플레이 방법 가이드",
     "moreInfo": "자세히 보기"
+  },
+  "announcements": {
+    "title": "공지사항",
+    "description": "KPOKER의 최신 뉴스와 공지사항을 확인하세요"
   }
 }

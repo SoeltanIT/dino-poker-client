@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
+import { Locale } from '@/i18n-config'
 import { BannerDTO } from '@/types/bannerDTO'
 import { LangProps } from '@/types/langProps'
 import clsx from 'clsx'
@@ -20,6 +21,7 @@ type Props = {
   options?: EmblaOptionsType
   /** posisi konten overlay */
   lang: LangProps
+  locale?: Locale
 }
 
 export default function BannerCarousel({
@@ -29,7 +31,8 @@ export default function BannerCarousel({
   autoplay = true,
   intervalMs = 5000,
   options = { loop: true, align: 'start' },
-  lang
+  lang,
+  locale
 }: Props) {
   const [emblaRef, emblaApi] = useEmblaCarousel(options)
   const [selectedIndex, setSelectedIndex] = React.useState(0)
@@ -155,7 +158,7 @@ export default function BannerCarousel({
                               variant='secondary'
                               className='bg-app-primary text-white hover:bg-app-primary-hover uppercase'
                             >
-                              <Link href={`/banners/${ev.id}`}>{lang?.common?.moreInfo}</Link>
+                              <Link href={`/${locale}/announcements`}>{lang?.common?.moreInfo}</Link>
                             </Button>
                           </div>
                         )}
