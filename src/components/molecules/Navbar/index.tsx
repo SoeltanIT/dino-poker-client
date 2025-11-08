@@ -162,7 +162,7 @@ export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) =
               sideOffset={10}
             >
               {menuItems.map(({ href, name, icon: Icon }) => (
-                <DropdownMenuItem asChild>
+                <DropdownMenuItem key={name} asChild>
                   <Link
                     href={href}
                     className='flex text-app-text-color items-center gap-1 px-4 py-1 h-8 focus:bg-app-background-primary focus:text-app-text-color focus:font-bold'
