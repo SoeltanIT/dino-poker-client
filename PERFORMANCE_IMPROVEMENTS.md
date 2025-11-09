@@ -239,7 +239,6 @@ For even better perceived performance, consider streaming:
 
 ```typescript
 import { Suspense } from 'react'
-
 ;<Suspense fallback={<GameGridSkeleton />}>
   <GameList />
 </Suspense>
