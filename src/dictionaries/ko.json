@@ -1,7 +1,7 @@
 {
   "common": {
     "verifyCheckMsgDeposit": "입금 또는 출금 전 반드시 본인 확인 절차를 완료해 주시기 바랍니다.",
-    "verifyPendingMsgDeposit": "인증이 아직 승인되지 않았습니다. 승인을 기다려 주세요",
+    "verifyPendingMsgDeposit": "인증을 위해 등록해주신 번호로 승인 전화가 갈 예정입니다.",
     "verifyRejectedMsgDeposit": "인증이 거절되었습니다. 정보를 수정한 후 다시 시도해 주세요",
     "adjustmentMinus": "조정 ",
     "adjustmentPlus": "조정",
@@ -101,7 +101,7 @@
     "notificationDetail": "알림 상세",
     "notification": "알림",
     "newNotification": "새 알림",
-    "titleFooter": "GOWIN.GG에 오신 것을 환영합니다. 우리는 게임과 재미를 위한 웹사이트입니다.",
+    "titleFooter": "KPOKER에 오신 것을 환영합니다. 우리는 게임과 재미를 위한 웹사이트입니다.",
     "subTitleFooter": "이용자는 만 19세 이상이어야 합니다. 우리는 책임 있는 게임 이용을 지지합니다.",
     "email": "이메일",
     "typeEmail": "이메일 입력",
@@ -142,7 +142,7 @@
     "noBankAvailable": "사용 가능한 은행이 없습니다",
     "cannotWithdraw": "출금할 수 없습니다. 먼저 계정을 인증해 주세요",
     "verifyCheckMsg": "출금 전 확인 절차를 완료해 주세요.",
-    "verifyPendingMsg": "인증이 아직 승인되지 않았습니다. 승인을 기다려 주세요",
+    "verifyPendingMsg": "인증을 위해 등록해주신 번호로 승인 전화가 갈 예정입니다.",
     "verifyRejectedMsg": "인증이 거절되었습니다. 정보를 수정한 후 다시 시도해 주세요",
     "verifyCheckMsgReferral": "추천 프로그램에 참여하려면 인증을 완료해 주세요",
     "detail": "상세",
@@ -288,7 +288,9 @@
     "noBannerFound": "배너를 찾을 수 없습니다",
     "announcements": "공지사항",
     "noAnnouncementFound": "공지사항을 찾을 수 없습니다",
-    "userGuide": "사용자 가이드"
+    "userGuide": "사용자 가이드",
+    "goBackHome": "홈으로 돌아가기",
+    "preparingToOpen": "오픈 준비 중"
   },
   "game": {
     "texaspoker": "텍사스 홀덤",
@@ -450,14 +452,14 @@
   "metadata": {
     "title": "KPOKER.gg - 온라인 포커, 텍사스 홀덤 & 라이브 토너먼트",
     "description": "실시간 온라인 포커 게임, 텍사스 홀덤 토너먼트, 라이브 결과와 배당률, 포커룸과 다양한 게임을 언제 어디서나 즐겨보세요.",
-    "sportTitle": "스포츠 베팅 | GOWIN.GG",
-    "sportDescription": "축구, 농구, 테니스와 Dota 2, 롤, 발로란트 같은 인기 e스포츠에 베팅하세요. 라이브 배당률, 인플레이 베팅, 최고의 스포츠북 경험을 GOWIN.GG에서 즐겨보세요.",
-    "promotionTitle": "최신 프로모션 | GOWIN.GG",
-    "promotionDescription": "GOWIN.GG에서 Dota 2, LoL, 발로란트 등 최고의 보너스와 프로모션을 만나보세요.",
-    "bannersTitle": "최신 배너 | GOWIN.GG",
-    "bannersDescription": "GOWIN.GG에서 Dota 2, LoL, 발로란트 등 최고의 보너스와 프로모션을 만나보세요.",
-    "announcementsTitle": "최신 공지사항 | GOWIN.GG",
-    "announcementsDescription": "GOWIN.GG에서 Dota 2, LoL, 발로란트 등 최고의 보너스와 프로모션을 만나보세요."
+    "sportTitle": "스포츠 베팅 | KPOKER",
+    "sportDescription": "축구, 농구, 테니스와 Dota 2, 롤, 발로란트 같은 인기 e스포츠에 베팅하세요. 라이브 배당률, 인플레이 베팅, 최고의 스포츠북 경험을 KPOKER에서 즐겨보세요.",
+    "promotionTitle": "최신 프로모션 | KPOKER",
+    "promotionDescription": "KPOKER에서 Dota 2, LoL, 발로란트 등 최고의 보너스와 프로모션을 만나보세요.",
+    "bannersTitle": "최신 배너 | KPOKER",
+    "bannersDescription": "KPOKER에서 Dota 2, LoL, 발로란트 등 최고의 보너스와 프로모션을 만나보세요.",
+    "announcementsTitle": "최신 공지사항 | KPOKER",
+    "announcementsDescription": "KPOKER에서 Dota 2, LoL, 발로란트 등 최고의 보너스와 프로모션을 만나보세요."
   },
   "logout": {
     "logoutQ": "정말 로그아웃하시겠습니까?",
@@ -568,11 +570,15 @@
   "banner": {
     "bannerTitle": "다가오는 이벤트",
     "bannerSubTitle": "흥미진진한 토너먼트와 보상이 곧 찾아옵니다!",
-    "announcements": "KPOKER - 월드 포커 게임에 오신 것을 환영합니다 | 매주 목요일 정기 점검 | 매일 보너스와 특별한 KPOKER 토너먼트를 놓치지 마세요!",
+    "announcement": "KPOKER - 월드 포커 게임에 오신 것을 환영합니다 | 매주 목요일 정기 점검 | 매일 보너스와 특별한 KPOKER 토너먼트를 놓치지 마세요!",
     "promoTitle": "곧 찾아올 큰 혜택!",
     "promoSubTitle": "독점 보너스와 특별한 이벤트를 기대하세요",
     "userGuideTitle": "사용자 가이드",
     "userGuideSubTitle": "플레이 방법 가이드",
     "moreInfo": "자세히 보기"
+  },
+  "announcements": {
+    "title": "공지사항",
+    "description": "KPOKER의 최신 뉴스와 공지사항을 확인하세요"
   }
 }

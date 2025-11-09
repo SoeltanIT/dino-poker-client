@@ -9,7 +9,7 @@ import { getAppFeaturesServer } from '@/utils/server/app-features'
 import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
 import { ToastContainer } from 'react-toastify'
-import { baiJamjuree } from '../font'
+import { baiJamjuree, notoSansKR } from '../font'
 import '../globals.css'
 
 // Viewport configuration
@@ -85,19 +85,7 @@ export async function generateMetadata({ params }: { params: { lang: Locale } })
     title: initialSEO?.title ?? lang.metadata?.title ?? 'KPOKER.gg',
     description: initialSEO?.description ?? lang.metadata?.description,
     keywords: initialSEO?.keyword ?? localizedKeywords[params.lang],
-    // openGraph: {
-    //   title: initialSEO?.title ?? lang.metadata?.title,
-    //   description: initialSEO?.description ?? lang.metadata?.description,
-    //   url: `${initialSEO?.canonical ?? 'https://gowin.gg'}/${params.lang}`,
-    //   siteName: 'Gowin.gg',
-    //   locale: params.lang,
-    //   type: 'website'
-    // },
-    // twitter: {
-    //   card: 'summary_large_image',
-    //   title: initialSEO?.title ?? lang.metadata?.title,
-    //   description: initialSEO?.description ?? lang.metadata?.description
-    // },
+
     alternates: {
       canonical: `${initialSEO?.canonical ?? canonical}`,
       languages: {
@@ -177,7 +165,7 @@ export default async function RootLayout({
           async
         />
       </head>
-      <body className={`${baiJamjuree.className}`}>
+      <body className={`${baiJamjuree.className} ${notoSansKR.variable}`}>
         <Providers initialFeatures={initialFeatures}>
           <AppTemplate config={configMap} {...props}>
             {children}

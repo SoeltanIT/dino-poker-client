@@ -97,7 +97,7 @@
     "notificationDetail": "Notification Detail",
     "notification": "Notification",
     "newNotification": "New Notification",
-    "titleFooter": " Welcome to GOWIN.GG. We are website for gaming and fun.",
+    "titleFooter": " Welcome to KPOKER. We are website for gaming and fun.",
     "subTitleFooter": "Players must be over 19 to access our site. We are committed to responsible gaming.",
     "email": "Email",
     "typeEmail": "Type Email",
@@ -288,7 +288,9 @@
     "noBannerFound": "No Banner Found",
     "announcements": "Announcements",
     "noAnnouncementFound": "No Announcement Found",
-    "userGuide": "User Guide"
+    "userGuide": "User Guide",
+    "goBackHome": "Go Back Home",
+    "preparingToOpen": "Preparing to Open"
   },
   "game": {
     "texaspoker": "Texas Poker",
@@ -450,14 +452,14 @@
   "metadata": {
     "title": "KPOKER.gg - Online Poker, Texas Hold'em & Live Tournaments",
     "description": "Play online poker with live tables, Texas Hold'em tournaments, live results, odds, and streaming. Join poker rooms and enjoy exciting games anytime.",
-    "sportTitle": "Sports Betting | GOWIN.GG",
-    "sportDescription": "Bet on football, basketball, tennis, and top esports like Dota 2, LoL, and Valorant. Enjoy live odds, in-play betting, and the best sportsbook experience at GOWIN.GG.",
-    "promotionTitle": "Latest Promotions | GOWIN.GG",
-    "promotionDescription": "Claim top bonuses and promotions for Dota 2, LoL, Valorant, and more at GOWIN.GG.",
-    "bannersTitle": "Latest Banners | GOWIN.GG",
-    "bannersDescription": "Get the latest banners and promotions for Dota 2, LoL, Valorant, and more at GOWIN.GG.",
-    "announcementsTitle": "Latest Announcements | GOWIN.GG",
-    "announcementsDescription": "Get the latest announcements and promotions for Dota 2, LoL, Valorant, and more at GOWIN.GG."
+    "sportTitle": "Sports Betting | KPOKER",
+    "sportDescription": "Bet on football, basketball, tennis, and top esports like Dota 2, LoL, and Valorant. Enjoy live odds, in-play betting, and the best sportsbook experience at KPOKER.",
+    "promotionTitle": "Latest Promotions | KPOKER",
+    "promotionDescription": "Claim top bonuses and promotions for Dota 2, LoL, Valorant, and more at KPOKER.",
+    "bannersTitle": "Latest Banners | KPOKER",
+    "bannersDescription": "Get the latest banners and promotions for Dota 2, LoL, Valorant, and more at KPOKER.",
+    "announcementsTitle": "Latest Announcements | KPOKER",
+    "announcementsDescription": "Get the latest announcements and promotions for Dota 2, LoL, Valorant, and more at KPOKER."
   },
   "logout": {
     "logoutQ": "Are You Sure Want to Logout?",
@@ -568,11 +570,15 @@
   "banner": {
     "bannerTitle": "Upcoming Event",
     "bannerSubTitle": "Exciting tournaments & rewards are on the way!",
-    "announcements": "Welcome to KPOKER - World Poker Game | Regular maintenance every Thursday | Don’t miss our daily bonus and special Kpoker tournaments!",
+    "announcement": "Welcome to KPOKER - World Poker Game | Regular maintenance every Thursday | Don’t miss our daily bonus and special Kpoker tournaments!",
     "promoTitle": "Big Surprises Coming Soon!",
     "promoSubTitle": "Stay tuned for exclusive bonuses & special deals",
     "userGuideTitle": "User Guide",
     "userGuideSubTitle": "Guide on How to Play",
     "moreInfo": "More Info"
+  },
+  "announcements": {
+    "title": "Announcements",
+    "description": "Check the latest news and announcements from KPOKER "
   }
 }
