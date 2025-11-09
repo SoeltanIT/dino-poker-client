@@ -1,7 +1,7 @@
 import { getValidServerSession, handleServerAuthError } from '@/@core/lib/server-auth-utils'
+import AffiliateDetail from '@/components/organisms/Affiliate/AffiliateDetail'
 import MyReferral from '@/components/organisms/Referral'
 import MyReferralDetail from '@/components/organisms/Referral/ReferralDetail'
-import MyReferralGroupHistory from '@/components/organisms/Referral/ReferralGroupDetail'
 import { getDictionary, getLocale } from '@/dictionaries/dictionaries'
 import { getReferral } from '@/utils/api/internal/getReferral'
 import { getReferralGroupHistory, getReferralHistory } from '@/utils/api/internal/getReferralHistory' // ← add this
@@ -80,7 +80,7 @@ export default async function Page({ params }: { params: { lang: any } }) {
           isLoading={isLoading}
         />
       ) : (
-        <MyReferralGroupHistory
+        <AffiliateDetail
           lang={dict}
           locale={locale}
           initialData={initialHistoryData as Awaited<ReturnType<typeof getReferralGroupHistory>>}

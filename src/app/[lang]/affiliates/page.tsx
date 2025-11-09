@@ -9,21 +9,13 @@ import { getReferral } from '@/utils/api/internal/getReferral'
 export default async function Page({ params, ...props }: any) {
   const dict = await getDictionary(params?.lang)
   const locale = await getLocale()
+  const session = await getValidServerSession()
 
-  let initialAff = null
+  let initialAffiliateData = null
   let myReferralData = null
 
   try {
-    // Check if user has valid session first
-    const session = await getValidServerSession()
-    const roles = Number(session?.user?.roles) || 2
-    if (!session && roles !== 3) {
-      // No valid session, redirect to login
-      await handleServerAuthError(locale)
-      return null // This won't be reached due to redirect
-    }
-
-    initialAff = await getAffiliateList(session?.user?.id || '', {
+    initialAffiliateData = await getAffiliateList(session?.user?.id || '', {
       page: 1,
       pageSize: 10
     })
@@ -42,8 +34,11 @@ export default async function Page({ params, ...props }: any) {
 
     err = err.message || 'Failed to load data'
   }
-  if (initialAff && myReferralData) {
-    return <MyAffiliate lang={dict} locale={locale} initialAffiliateData={initialAff} myReferralData={myReferralData} />
+
+  if (initialAffiliateData && myReferralData) {
+    return (
+      <MyAffiliate lang={dict} locale={locale} initialData={initialAffiliateData} myReferralData={myReferralData} />
+    )
   }
   return null
 }

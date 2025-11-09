@@ -9,7 +9,8 @@
     "lint": "next lint",
     "analyze": "ANALYZE=true next build",
     "prepare": "husky",
-    "review": "tsc --noEmit"
+    "review": "tsc --noEmit",
+    "type-check": "tsc --project tsconfig.json --pretty --noEmit"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.6.1",

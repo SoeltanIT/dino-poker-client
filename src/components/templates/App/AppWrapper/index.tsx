@@ -79,7 +79,6 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config, feat
     {},
     'transaction'
   )
-  console.log(respTransferBalanceFee?.data)
 
   // // const isMiniAppLoading = !isMiniAppLoaded || isLoading
   // const isAppLoading = isTMA ? !isMiniAppLoaded : isLoading

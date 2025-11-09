@@ -51,7 +51,7 @@
   --c-primaryLightAccent: #f8a21f52;
   --c-primaryDarkAccent: #73491500;
 
-  --c-skeleton: #ececec;
+  --c-skeleton: var(--neutral600);
   --c-primaryLight: #ffe0b2;
   --c-lightGrey: #e5e5e5;
   --c-grey: #f7f7f7;
@@ -159,7 +159,7 @@
   --c-primaryLightAccent: #fcd34d50;
   --c-primaryDarkAccent: #00000010;
 
-  --c-skeleton: #e5e7eb;
+  --c-skeleton: var(--neutral200);
   --c-primaryLight: #fef3c7;
   --c-lightGrey: #f3f4f6;
   --c-grey: #f9fafb;

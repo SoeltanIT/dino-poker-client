@@ -12,7 +12,7 @@ import { MyAffiliateProps } from './types'
 export default function MyAffiliate({
   lang,
   locale,
-  initialAffiliateData,
+  initialData,
   myReferralData,
   initialAffiliateUserData
 }: MyAffiliateProps) {
@@ -66,7 +66,7 @@ export default function MyAffiliate({
           </TabsList>
 
           <TabsContent value='affiliate'>
-            <AffiliateList lang={lang || {}} locale={locale} initialAffiliateData={initialAffiliateData} />
+            <AffiliateList lang={lang || {}} locale={locale} initialAffiliateData={initialData} />
           </TabsContent>
 
           <TabsContent value='user_affiliate'>

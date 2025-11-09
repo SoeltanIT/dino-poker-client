@@ -76,9 +76,9 @@ export const Pagination: React.FC<PaginationProps> = ({
                 ) : (
                   <Button
                     onClick={() => onPageChange(page as number)}
-                    variant='ghost'
+                    variant={page === currentPage ? 'default' : 'ghost'}
                     size='icon'
-                    disabled={page === currentPage}
+                    className={page === currentPage ? 'bg-app-primary text-white' : ''}
                   >
                     {page}
                   </Button>
