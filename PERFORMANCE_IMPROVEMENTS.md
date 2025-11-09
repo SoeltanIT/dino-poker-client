@@ -5,7 +5,6 @@
 The home page (`src/app/[lang]/page.tsx`) has been significantly optimized following Next.js 14+ best practices. These changes result in **dramatically faster page loads** and better user experience.
 
 ---
-
 ## 🚀 Key Performance Improvement
 
 ### 1. **Parallel API Calls (Biggest Win)**
