@@ -12,7 +12,7 @@ const commonKeyword = [
   'dota 2 betting',
   'lol betting',
   'betting offers',
-  'gowin promotions',
+  'kpoker promotions',
   'sportsbook bonus',
   'welcome bonus',
   '이스포츠 배팅',

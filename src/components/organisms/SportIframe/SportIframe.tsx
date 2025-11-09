@@ -187,7 +187,7 @@ export const BetByIframe = ({
         lang: locale,
         target: el,
         betslipZIndex: 999,
-        themeName: theme === 'dark' ? 'gowin-dark-tile' : 'gowin-light-tile',
+        themeName: theme === 'dark' ? 'kpoker-dark-tile' : 'kpoker-light-tile',
         currency: 'KRW',
         betSlipOffsetBottom: window.innerWidth >= 768 ? 0 : 70,
         betSlipOffsetTop: window.innerWidth >= 768 ? 81 : 72,
@@ -265,7 +265,7 @@ export const BetByIframe = ({
   useEffect(() => {
     if (!rendererRef.current?.updateOptions) return
     rendererRef.current.updateOptions({
-      themeName: theme === 'dark' ? 'gowin-dark-tile' : 'gowin-light-tile',
+      themeName: theme === 'dark' ? 'kpoker-dark-tile' : 'kpoker-light-tile',
       betSlipOffsetTop: window.innerWidth >= 768 ? 81 : 72,
       betSlipOffsetBottom: window?.innerWidth >= 768 ? 0 : 70,
       stickyTop: window.innerWidth >= 768 ? 81 : 72
