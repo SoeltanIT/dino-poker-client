@@ -1,6 +1,5 @@
 import ListGamePage from '@/components/organisms/Games'
 import { getDictionary, getLocal } from '@/dictionaries/dictionaries'
-import { getGameList } from '@/utils/api/internal/getGameList'
 
 import { headers } from 'next/headers'
 
