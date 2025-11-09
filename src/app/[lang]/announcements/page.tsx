@@ -93,7 +93,6 @@ export default async function Page({ params, ...props }: any) {
                       'prose-th:border-b prose-th:border-b-[#e5e7eb]',
                       'prose-thead:bg-[#f9fafb]',
                       'prose-th:text-start prose-th:text-base prose-th:p-4 prose-th:border-collapse prose-th:border-spacing-0 prose-th:border-b-2 prose-th:border-b-[#e5e7eb] prose-td:py-3 prose-td:px-4 prose-td:border-collapse prose-td:border-spacing-0 prose-td:border-[#303947]',
-                      'prose-td:text-sm',
                       'prose-img:m-0'
                     )}
                     dangerouslySetInnerHTML={{ __html: item.content }}
