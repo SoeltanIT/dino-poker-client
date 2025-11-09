@@ -1,6 +1,6 @@
 'use client'
 
-import { AffiliateGroup } from '@/components/organisms/Affiliate/AffiliateDetail/AffiliateGroup'
+import { AffiliateHistoryGroup } from '@/components/organisms/Affiliate/AffiliateDetail/AffiliateHistoryGroup'
 import { Button } from '@/components/ui/button'
 import { useClaimAffiliate, useClaimReferral } from '@/utils/api/internal/claimReferral'
 import { useReferralSummary } from '@/utils/api/internal/getReferralSummary'
@@ -132,7 +132,7 @@ export default function AffiliateDetail({ lang, locale, initialSummaryData, role
 
           {/* Member List */}
           <div className='lg:col-span-9'>
-            <AffiliateGroup lang={lang} />
+            <AffiliateHistoryGroup lang={lang} />
           </div>
         </div>
       </div>

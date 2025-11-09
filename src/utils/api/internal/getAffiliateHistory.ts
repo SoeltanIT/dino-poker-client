@@ -1,32 +1,18 @@
 // utils/api/internal/getAffiliateHistory.ts
 
 import { serverApiClient } from '@/@core/lib/axios-client'
-import {
-  ReferralGroupHistoryItem,
-  ReferralGroupHistoryResponse,
-  ReferralHistoryItem,
-  ReferralHistoryParams,
-  ReferralHistoryResponse
-} from '@/types/referralDTO'
+import { AffiliateHistoryPokerDTO } from '@/types/affiliateDTO'
+import { PaginatedResponseDTO } from '@/types/baseDTO'
+import { ReferralHistoryParams } from '@/types/referralDTO'
 import { getApiEndpoint } from '@/utils/api_endpoint'
 
-export interface ReferralHistoryListResponse {
-  status: string
-  page: number
+export type AffiliateHistoryPokerListResponse = PaginatedResponseDTO<AffiliateHistoryPokerDTO> & {
   totalPage: number
-  data: ReferralHistoryItem[]
 }
 
-export interface ReferralGroupHistoryListResponse {
-  status: string
-  page: number
-  totalPage: number
-  data: ReferralGroupHistoryItem[]
-}
-
-export const getAffiliatePokerHistory = async (
+export const getAffiliateHistoryPoker = async (
   params: ReferralHistoryParams = {}
-): Promise<ReferralHistoryListResponse | null> => {
+): Promise<AffiliateHistoryPokerListResponse | null> => {
   const { page = 1, pageSize = 10 } = params
 
   const bodyRequest: Record<string, any> = {
@@ -34,8 +20,8 @@ export const getAffiliatePokerHistory = async (
     pageSize
   }
   try {
-    const res = await serverApiClient.get<ReferralHistoryResponse>(
-      getApiEndpoint('affiliate_history'),
+    const res = await serverApiClient.get<AffiliateHistoryPokerListResponse>(
+      getApiEndpoint('affiliate_history_poker'),
       {
         params: bodyRequest
       },
@@ -45,80 +31,23 @@ export const getAffiliatePokerHistory = async (
     const rawData = res?.data?.data ?? []
     const total = res?.data?.pagination?.total ?? 0
     const totalPage = Math.ceil(total / pageSize)
-    const status = res?.data?.status
 
     return {
-      status,
-      page,
-      totalPage,
-      data: rawData
+      ...res?.data,
+      totalPage
     }
   } catch (err) {
     return {
-      status: '',
-      page: 1,
-      totalPage: 0,
-      data: []
-    }
-  }
-}
-
-export const getReferralGroupHistory = async (
-  params: ReferralHistoryParams = {}
-): Promise<ReferralGroupHistoryListResponse | null> => {
-  const { page = 1, pageSize = 10 } = params
-
-  const bodyRequest: Record<string, any> = {
-    page,
-    pageSize
-  }
-  try {
-    const res = await serverApiClient.get<ReferralGroupHistoryResponse>(
-      getApiEndpoint('referral_group_history'),
-      {
-        params: bodyRequest
+      data: [],
+      success: false,
+      message: '',
+      pagination: {
+        next: '',
+        page: 1,
+        prev: '',
+        total: 0
       },
-      'user'
-    )
-
-    const rawData = res?.data?.data ?? []
-    const total = res?.data?.pagination?.total ?? 0
-    const totalPage = Math.ceil(total / pageSize)
-    const status = res?.data?.status
-
-    return {
-      status,
-      page,
-      totalPage,
-      data: rawData
-    }
-  } catch (err) {
-    return {
-      status: '',
-      page: 1,
-      totalPage: 0,
-      data: []
+      totalPage: 0
     }
   }
 }
-
-// Client-side hook for fetching referral history data
-// export const useReferralHistory = (params: ReferralHistoryParams = {}, initialData?: ReferralHistoryListResponse) => {
-//   const { page = 1, pageSize = 10, dateFrom, dateTo } = params
-
-//   const queryKey = ['referral_history', page, pageSize, dateFrom, dateTo]
-
-//   return GetData<ReferralHistoryListResponse>(
-//     `/referral-history?page=${page}&pageSize=${pageSize}${dateFrom ? `&dateFrom=${dateFrom}` : ''}${dateTo ? `&dateTo=${dateTo}` : ''}`,
-//     queryKey,
-//     false, // requires auth
-//     initialData,
-//     true, // enabled
-//     false, // don't show message
-//     undefined, // no success message
-//     undefined, // no additional options
-//     'GET',
-//     undefined, // no body
-//     'user' // api type
-//   )
-// }

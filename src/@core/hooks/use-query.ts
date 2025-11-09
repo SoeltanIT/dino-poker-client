@@ -25,7 +25,7 @@ function GetData<FetchingT>(
   otherQueryOptions?: Omit<UseQueryOptions<FetchingT, unknown, FetchingT, typeof key>, 'queryKey' | 'queryFn'>,
   method: 'GET' | 'POST' = 'GET',
   body?: Record<string, any>,
-  apiType: 'user' | 'transaction' | 'promotion' = 'user',
+  apiType: 'user' | 'transaction' | 'promotion' | 'user_proxy' = 'user',
   cache?: CacheOptions // 👈 NEW
 ) {
   // 🔍 THIS IS WHERE status COMES FROM
