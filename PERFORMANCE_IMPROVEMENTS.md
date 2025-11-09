@@ -6,7 +6,7 @@ The home page (`src/app/[lang]/page.tsx`) has been significantly optimized follo
 
 ---
 
-## 🚀 Key Performance Improvements
+## 🚀 Key Performance Improvement
 
 ### 1. **Parallel API Calls (Biggest Win)**
 
