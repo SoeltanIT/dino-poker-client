@@ -16,6 +16,7 @@ import {
   IconUser
 } from '@/components/atoms/Icons'
 import LoginModal from '@/components/organisms/Login'
+import { MaintenanceModal } from '@/components/organisms/MaintenanceModal'
 import MenuProfile from '@/components/organisms/Profile'
 import { LogoutModal } from '@/components/organisms/Profile/Logout'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
@@ -33,6 +34,7 @@ type NavItem = {
   name: string
   href: string
   icon: React.ComponentType<any>
+  onClick?: () => void
 }
 
 export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) => {
@@ -41,6 +43,8 @@ export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) =
   const [isModalOpen, setIsModalOpen] = useState(false)
   const buttonLogoutRef = useRef<HTMLButtonElement>(null)
   const { status } = useSession()
+
+  const [isMaintenanceModalOpen, setIsMaintenanceModalOpen] = useState(false)
 
   const menuItems: NavItem[] = [
     {
@@ -99,7 +103,8 @@ export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) =
     navItems.splice(navbarSport, 0, {
       name: lang?.common?.promotion,
       href: `/${locale}/promotion`,
-      icon: IconTicket
+      icon: IconTicket,
+      onClick: () => setIsMaintenanceModalOpen(true)
     })
   }
 
@@ -107,7 +112,8 @@ export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) =
     navItems.splice(2, 0, {
       name: lang?.common?.sport,
       href: `/${locale}/sport`,
-      icon: IconBetby
+      icon: IconBetby,
+      onClick: () => setIsMaintenanceModalOpen(true)
     })
   }
 
@@ -227,7 +233,12 @@ export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) =
 
               // ✅ Default link for others
               return (
-                <Link key={item.name} href={item.href} className='flex flex-col items-center gap-1'>
+                <Link
+                  key={item.name}
+                  href={!item.onClick ? item.href : ''}
+                  className='flex flex-col items-center gap-1'
+                  onClick={item.onClick}
+                >
                   <Icon className={clsx('h-7 w-7', isActive ? 'text-app-text-color' : 'text-app-neutral500')} />
                   <span
                     className={clsx(
@@ -257,6 +268,12 @@ export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) =
       </Dialog>
 
       <LoginModal open={isModalOpen} onClose={() => setIsModalOpen(false)} lang={lang} locale={locale} />
+
+      <MaintenanceModal
+        label={lang?.common?.preparingToOpen}
+        open={isMaintenanceModalOpen}
+        onOpenChange={setIsMaintenanceModalOpen}
+      />
     </>
   )
 }
