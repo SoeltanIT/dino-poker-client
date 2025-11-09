@@ -1,5 +1,3 @@
-import ListGamePage from '@/components/organisms/Games'
-import BannerSection from '@/components/organisms/Promotion/BannerSection'
 import { type Promotion } from '@/components/organisms/Promotion/PromoCarousel'
 import { getDictionary, getLocal } from '@/dictionaries/dictionaries'
 import { type Locale } from '@/i18n-config'
@@ -9,7 +7,21 @@ import { getGameList, type GameListResponse } from '@/utils/api/internal/getGame
 import { getListBanner } from '@/utils/api/internal/listBanner'
 import { getListPromotion } from '@/utils/api/internal/listPromotion'
 import { mapPromotionList, type PromotionApi } from '@/utils/mappers/promotion'
+import dynamic from 'next/dynamic'
 import { type Metadata } from 'next'
+
+// ============================================================================
+// Dynamic Imports - Reduce Initial JavaScript Bundle
+// ============================================================================
+const ListGamePage = dynamic(() => import('@/components/organisms/Games'), {
+  loading: () => null // Games will show their own skeleton
+})
+
+const BannerSection = dynamic(() => import('@/components/organisms/Promotion/BannerSection'), {
+  loading: () => (
+    <div className='h-[480px] md:h-[325px] w-full animate-pulse bg-gray-800/20 rounded-2xl' />
+  )
+})
 
 // ============================================================================
 // Next.js Segment Config - Enable ISR with 2-minute revalidation
