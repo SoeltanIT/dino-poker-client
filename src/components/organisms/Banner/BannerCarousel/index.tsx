@@ -22,6 +22,7 @@ type Props = {
   /** posisi konten overlay */
   lang: LangProps
   locale?: Locale
+  useOverlay?: boolean
 }
 
 export default function BannerCarousel({
@@ -32,7 +33,8 @@ export default function BannerCarousel({
   intervalMs = 5000,
   options = { loop: true, align: 'start' },
   lang,
-  locale
+  locale,
+  useOverlay = false
 }: Props) {
   const [emblaRef, emblaApi] = useEmblaCarousel(options)
   const [selectedIndex, setSelectedIndex] = React.useState(0)
@@ -129,7 +131,9 @@ export default function BannerCarousel({
                       <div className='h-full w-full bg-muted' />
                     )}
 
-                    <div className={'absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent'} />
+                    {useOverlay && (
+                      <div className={'absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent'} />
+                    )}
 
                     {/* overlay content */}
                     <div className={'absolute inset-0 flex items-end mb-6 justify-center p-4 text-center'}>
