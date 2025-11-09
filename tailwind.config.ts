@@ -11,6 +11,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        notoSansKR: ['var(--font-noto-sans-kr)']
+      },
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
@@ -102,6 +105,13 @@ const config: Config = {
           neutral800: 'var(--neutral800)',
           neutral900: 'var(--neutral900)',
 
+          primary100: 'var(--c-primary100)',
+          primary200: 'var(--c-primary200)',
+          primary300: 'var(--c-primary300)',
+          primary400: 'var(--c-primary400)',
+
+          borderPrimary: 'var(--c-borderPrimary)',
+
           grey150: 'var(--c-grey150)',
           skeleton: 'var(--c-skeleton)',
           tertiary: 'var(--c-tertiary)',
@@ -179,7 +189,45 @@ const config: Config = {
         xs: '420px',
         xxl: '1440px',
         '3xl': '2000px'
-      }
+      },
+      typography: () => ({
+        DEFAULT: {
+          css: {
+            '--tw-prose-body': 'var(--c-text-color)',
+            '--tw-prose-headings': 'var(--c-text-color)',
+            '--tw-prose-lead': 'var(--c-text-color)',
+            '--tw-prose-links': 'var(--c-text-color)',
+            '--tw-prose-bold': 'var(--c-text-color)',
+            '--tw-prose-counters': 'var(--c-text-color)',
+            '--tw-prose-bullets': 'var(--c-text-color)',
+            '--tw-prose-hr': 'var(--c-text-color)',
+            '--tw-prose-quotes': 'var(--c-text-color)',
+            '--tw-prose-quote-borders': 'var(--c-text-color)',
+            '--tw-prose-captions': 'var(--c-text-color)',
+            '--tw-prose-code': 'var(--c-text-color)',
+            '--tw-prose-pre-code': 'var(--c-text-color)',
+            '--tw-prose-pre-bg': 'var(--c-background-secondary)',
+            '--tw-prose-th-borders': 'var(--c-text-color)',
+            '--tw-prose-td-borders': 'var(--c-text-color)',
+            '--tw-prose-invert-body': 'var(--c-text-color)',
+            '--tw-prose-invert-headings': 'var(--c-text-color)',
+            '--tw-prose-invert-lead': 'var(--c-text-color)',
+            '--tw-prose-invert-links': 'var(--c-text-color)',
+            '--tw-prose-invert-bold': 'var(--c-text-color)',
+            '--tw-prose-invert-counters': 'var(--c-text-color)',
+            '--tw-prose-invert-bullets': 'var(--c-text-color)',
+            '--tw-prose-invert-hr': 'var(--c-text-color)',
+            '--tw-prose-invert-quotes': 'var(--c-text-color)',
+            '--tw-prose-invert-quote-borders': 'var(--c-text-color)',
+            '--tw-prose-invert-captions': 'var(--c-text-color)',
+            '--tw-prose-invert-code': 'var(--c-text-color)',
+            '--tw-prose-invert-pre-code': 'var(--c-text-color)',
+            '--tw-prose-invert-pre-bg': 'var(--c-background-secondary)',
+            '--tw-prose-invert-th-borders': 'var(--c-text-color)',
+            '--tw-prose-invert-td-borders': 'var(--c-text-color)'
+          }
+        }
+      })
     }
   },
   plugins: [
@@ -215,7 +263,8 @@ const config: Config = {
         ['responsive']
       )
     }),
-    require('tailwindcss-animate')
+    require('tailwindcss-animate'),
+    require('@tailwindcss/typography')
   ]
 }
 export default config

@@ -1,0 +1,153 @@
+import { Section } from '@/components/atoms/Content/Section'
+import { TableCard } from '@/components/atoms/Content/TableCard'
+import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+
+export const title = '체메 켈릴링 이용가이드'
+export const description = (
+  <>
+    체메 켈릴링
+    <br />
+    게임설명
+  </>
+)
+export const heroImage = '/images/new_user_guide.jpeg'
+export const gameInfo = [
+  [
+    '게임 목표',
+    "자신이 받은 2장의 도미노 타일 합을 '9점(키우)'에 가장 가깝게 만들어 해당 라운드의 딜러를 이기는 것입니다."
+  ],
+  ['인원', '플레이어와 순환하는 딜러 간의 1대1 대결'],
+  ['사용 도구', '총 28장의 도미노 타일 (도미노 개골)']
+]
+export const progression = [
+  ['베팅 완료', '강제 베팅', '플레이어들은 타일을 받기 전 베팅을 완료합니다.'],
+  ['타일 분배', '핸드 구성', '딜러와 플레이어 모두 2장의 도미노 타일을 받습니다.'],
+  ['오픈 및 비교', '승패 결정', '플레이어들은 타일을 공개하고, 딜러의 타일 값과 자신의 타일 합을 1대1로 비교합니다.'],
+  ['딜러 순환', '역할 이동', '라운드 종료 후, 딜러 역할은 다음 순서의 플레이어에게 시계 방향으로 넘어갑니다.']
+]
+export const winloseRules = [
+  ['플레이어 승리 (일반)', '플레이어의 타일 값이 딜러보다 높을 때', '딜러는 플레이어에게 베팅 금액만큼 지불합니다.'],
+  ['딜러 승리 (일반)', '딜러의 타일 값이 플레이어보다 높을 때', '딜러가 플레이어의 베팅 금액을 가져갑니다.'],
+  [
+    '동점 (Tie)',
+    '딜러 무조건 승리',
+    '딜러와 플레이어의 타일 값이 같을 경우, 딜러가 승리하며 플레이어는 베팅 금액을 잃습니다.'
+  ],
+  [
+    '9점 (Qiu) 승리 (플레이어)',
+    '플레이어가 9점(키우)을 획득하고 딜러를 이길 때',
+    '딜러는 플레이어에게 베팅 금액의 두 배를 지불합니다.'
+  ],
+  [
+    '9점 (Qiu) 승리 (딜러)',
+    '딜러가 9점(키우)을 획득하면',
+    '딜러는 모든 플레이어로부터 베팅 금액을 가져갑니다. (플레이어가 9점을 가졌더라도 딜러 승리)'
+  ]
+]
+
+## 체메 켈릴링 (Ceme Keliling)
+
+<Section title='게임 소개 및 핵심 매력'>
+체메 켈릴링은 도미노 타일을 사용하는 인기 있는 베팅 게임인 **체메(Ceme)**의 변형 버전입니다. '켈릴링(Keliling)'은 **'순환(Rotating)**'을 의미하며, 모든 플레이어가 번갈아 가며 딜러 역할을 수행할 수 있다는 것이 가장 큰 특징입니다. 플레이어는 단 2장의 도미노 타일 합을 '9점(키우)'에 가깝게 만들어, 그 라운드의 딜러를 상대로 승리하고 베팅 금액을 획득해야 합니다.
+
+</Section>
+
+<Section title='게임 규칙 및 목표'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>구분</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>내용</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {gameInfo.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title='베팅 및 딜러 역할 규정'>
+**베팅 방식**: 플레이어들은 타일을 받기 전에 먼저 베팅을 완료합니다.
+
+**딜러 순환 (Keliling)**: 딜러 역할은 자격이 되는 플레이어(최소 딜러 자금 충족)들 사이에서 시계 방향으로 한 라운드씩 돌아가며 수행됩니다.
+
+**딜러의 자격**: 딜러가 되려는 플레이어는 테이블에서 **정한최소 딜러 자본(Min Dealer Balance)**을 보유하고 있어야 합니다.
+
+</Section>
+
+<Section title='도미노 타일 값 합산 규칙 (2장 기준)'>
+승패를 결정하는 최종 값은 타일 두 장에 표시된 총 점(dot)의 합으로 결정됩니다.
+
+**점수 합산**: 2장의 타일에 표시된 모든 점수를 합산합니다.
+1의 자리 사용: 총합이 10 이상인 두 자릿수일 경우, 10단위는 버리고 1의 자리 숫자만 최종 값으로 인정됩니다. (예: 15점은 5점, 19점은 9점)
+최고 가치: 최종 값 중 9점이 가장 높은 가치이며 '키우(Qiu)'라고 불립니다.
+
+</Section>
+
+<Section title='게임 진행 단계 및 베팅 순서'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>순서</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>명칭</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>내용 및 역할</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {progression.map(([$1, $2, $3], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title='최종 승패 규정 (딜러 우위 및 9점 보상)'>
+체메 켈릴링은 딜러와 플레이어의 1대1 대결이며, 딜러가 유리한 규칙을 가집니다.
+
+<TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>순서</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>명칭</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>내용 및 역할</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {winloseRules.map(([$1, $2, $3], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title='특수 족보 및 잭팟 (Jackpot)'>
+체메 켈릴링은 잭팟을 통해 4장 타일 기반의 특수 족보 시스템을 운영합니다. 플레이어는 각 라운드에서 잭팟을 구매할 수 있으며, 딜러의 핸드와 자신의 핸드를 조합하여 4장 족보를 달성 시 거대한 보상을 받습니다.
+
+**식스 갓 (Six God)**: 4장 타일의 모든 점이 6 이하로 구성된 가장 희귀한 족보.
+
+**트윈 시리즈 (Twin Series)**: 4장의 타일이 모두 더블(Double) 타일로 구성된 족보.
+
+**퓨어 빅 (Pure Big)**: 4장의 타일 총 점수 합이 39점 이상인 족보.
+
+**퓨어 스몰 (Pure Small)**: 4장의 타일 총 점수 합이 9점 이하인 족보.
+
+</Section>

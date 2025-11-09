@@ -1,15 +1,19 @@
 'use client'
 
+import { useAppFeatures } from '@/@core/context/AppFeaturesContext'
 import { GetData, useMutationQuery } from '@/@core/hooks/use-query'
+import { UseServerSendEvent } from '@/@core/hooks/UseServerSendEvent'
+import { BalanceResponse } from '@/@core/interface/balance/Balance'
 import { UserMeResponse } from '@/@core/interface/User'
 import { LiveChatButton } from '@/components/atoms/Button/LiveChatButton'
 import RegisterFormState from '@/components/layout/header/views/register/RegisterFormState'
-import DepositWithdrawSheet from '@/components/layout/header/views/transaction/DepositWithdrawSheet'
+import { HeaderSheet } from '@/components/layout/header/views/transaction'
 import LocaleSwitcherDropdown from '@/components/molecules/LocaleSwitcher'
 import BetbySkeleton from '@/components/molecules/Skeleton/BetbySkeleton'
 import { Locale } from '@/i18n-config'
 import { cn } from '@/lib/utils'
 import { LangProps } from '@/types/langProps'
+import { TransferBalanceFeeResponseMapped } from '@/types/transferBalanceFeeDTO'
 import { useLiveChatContext } from '@/utils/context/LiveChatProvider'
 import { useThemeToggle } from '@/utils/hooks/useTheme'
 import { useSession } from 'next-auth/react'
@@ -49,6 +53,9 @@ export const BetByIframe = ({
     'json',
     false
   )
+
+  const { features } = useAppFeatures()
+  const showLiveChat = ready && !!features?.livechat
 
   // Keep the most recent token and prevent duplicate requests
   const tokenRef = useRef<string | null>(null)
@@ -279,6 +286,26 @@ export const BetByIframe = ({
     prevBtPathRef.current = now
   }, [theme, iframeHeight, btPath])
 
+  const { balanceTrigger } = UseServerSendEvent()
+  const { data: respBalance } = GetData<BalanceResponse>(
+    '/balance', // hits your Next.js API route, not the real backend
+    ['getBalance', balanceTrigger] //trigger put here if need to refresh on SSE event
+  )
+
+  const { data: respTransferBalanceFee } = GetData<TransferBalanceFeeResponseMapped>(
+    '/transfer_balance_fee', // hits your Next.js API route, not the real backend
+    ['getTransferBalanceFee'],
+    false,
+    undefined,
+    true,
+    undefined,
+    undefined,
+    undefined,
+    'GET', // method
+    {},
+    'transaction'
+  )
+
   return (
     <>
       <div ref={containerRef} className='relative w-full z-10' style={{ minHeight: iframeHeight }}>
@@ -309,17 +336,20 @@ export const BetByIframe = ({
           <div className='flex md:hidden items-center justify-center w-14 h-14 bg-app-primary hover:bg-app-primary-hover rounded-full shadow-lg'>
             <LocaleSwitcherDropdown lang={locale} />
           </div>
-          {ready && <LiveChatButton user={userData} ready={ready} />}
+          {showLiveChat && <LiveChatButton user={userData} ready={ready} />}
         </div>
       )}
 
-      <DepositWithdrawSheet
+      <HeaderSheet
         open={isOpenDeposit}
         onClose={() => setIsOpenDeposit(false)}
         defaultValue={'DEPOSIT'}
         lang={lang}
         locale={locale}
         data={userData}
+        features={features}
+        balance={respBalance?.data}
+        dataFee={respTransferBalanceFee?.data}
       />
       <LoginModal open={isModalOpen} onClose={() => setIsModalOpen(false)} lang={lang} locale={locale} />
       <RegisterFormState lang={lang} locale={locale} open={isRegisterOpen} setOpen={setIsRegisterOpen} />

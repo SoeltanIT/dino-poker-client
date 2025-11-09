@@ -1,46 +1,153 @@
 import ListGamePage from '@/components/organisms/Games'
+import BannerSection from '@/components/organisms/Promotion/BannerSection'
+import { type Promotion } from '@/components/organisms/Promotion/PromoCarousel'
 import { getDictionary, getLocal } from '@/dictionaries/dictionaries'
-import { getGameList } from '@/utils/api/internal/getGameList'
+import { type Locale } from '@/i18n-config'
+import { BannerDTO } from '@/types/bannerDTO'
+import { getAnnouncementText } from '@/utils/api/internal/getAnnouncementText'
+import { getGameList, type GameListResponse } from '@/utils/api/internal/getGameList'
+import { getListBanner } from '@/utils/api/internal/listBanner'
+import { getListPromotion } from '@/utils/api/internal/listPromotion'
+import { mapPromotionList, type PromotionApi } from '@/utils/mappers/promotion'
+import { type Metadata } from 'next'
 
-import { headers } from 'next/headers'
+// ============================================================================
+// Next.js Segment Config - Enable ISR with 2-minute revalidation
+// ============================================================================
+export const revalidate = 120 // Revalidate page every 2 minutes
 
-function absoluteUrl(path: string) {
-  const h = headers()
-  const proto = h.get('x-forwarded-proto') ?? 'https'
-  const host = h.get('x-forwarded-host') ?? h.get('host')!
-  return `${proto}://${host}${path}`
+// ============================================================================
+// SEO Metadata
+// ============================================================================
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: 'Kpoker - Play Online Poker Games',
+    description: 'Play exciting poker games online. Join now and start winning!',
+    openGraph: {
+      title: 'Kpoker',
+      description: 'Play exciting poker games online',
+      type: 'website'
+    }
+  }
 }
 
-export default async function Home({ params, ...props }: any) {
-  const locale = await getLocal()
-  const dict = await getDictionary(params?.lang)
+// ============================================================================
+// Page Props Type
+// ============================================================================
+interface HomePageProps {
+  params: {
+    lang: Locale
+  }
+}
 
-  let initialData = null
+// ============================================================================
+// Fallback Data
+// ============================================================================
+const FALLBACK_BANNERS: BannerDTO[] = [
+  {
+    id: 'ev-1',
+    image: '/images/dummy/dummy_event.png',
+    title: 'YEAR END EVENT',
+    sub_title: 'follow and get the benefits',
+    is_active: true
+  },
+  {
+    id: 'ev-2',
+    image: '/images/dummy/dummy_promotion.png',
+    title: 'BLACK FRIDAY BONUS',
+    sub_title: "limited time — don't miss it",
+    is_active: true
+  }
+]
 
-  let isLoading = true
+// ============================================================================
+// Main Page Component
+// ============================================================================
+export default async function Home({ params }: HomePageProps) {
+  // Fetch locale and dictionary first (these are fast and needed for all data)
+  const [locale, dict] = await Promise.all([getLocal(), getDictionary(params?.lang)])
 
-  try {
-    // Fetch user data
-    // initialData = await getGameList({ page: 1, pageSize: 12 })
-    const url = absoluteUrl(`/api/transactions/game_list?page=1&pageSize=12`)
-    const res = await fetch(url, { next: { revalidate: 2 * 60 } })
-    initialData = await res.json()
+  // ============================================================================
+  // Parallel Data Fetching - This is the key performance optimization
+  // All API calls run simultaneously instead of sequentially
+  // ============================================================================
+  const [gameListResult, promotionsResult, bannersResult, announcementResult] = await Promise.allSettled([
+    getGameList({ page: 1, pageSize: 12 }),
+    getListPromotion(),
+    getListBanner(),
+    getAnnouncementText()
+  ])
 
-    if (initialData) {
-      isLoading = false
+  // ============================================================================
+  // Extract Data with Proper Error Handling
+  // Each API call is handled independently, so one failure doesn't break the page
+  // ============================================================================
+
+  // Games data
+  const gameListData: GameListResponse =
+    gameListResult.status === 'fulfilled' ? gameListResult.value : { page: 1, totalPage: 1, data: [] }
+
+  // Promotions data
+  const promotionsData: PromotionApi[] = promotionsResult.status === 'fulfilled' ? promotionsResult.value || [] : []
+
+  // Banners data
+  const bannersData: BannerDTO[] =
+    bannersResult.status === 'fulfilled' ? bannersResult.value || FALLBACK_BANNERS : FALLBACK_BANNERS
+
+  // Announcement data
+  const announcementData = announcementResult.status === 'fulfilled' ? announcementResult.value : null
+
+  // ============================================================================
+  // Log Errors in Development
+  // ============================================================================
+  if (process.env.NODE_ENV === 'development') {
+    if (gameListResult.status === 'rejected') {
+      console.error('[Home Page] Game list fetch failed:', gameListResult.reason)
     }
-  } catch (err: any) {
-    console.log('err', err)
+    if (promotionsResult.status === 'rejected') {
+      console.error('[Home Page] Promotions fetch failed:', promotionsResult.reason)
+    }
+    if (bannersResult.status === 'rejected') {
+      console.error('[Home Page] Banners fetch failed:', bannersResult.reason)
+    }
+    if (announcementResult.status === 'rejected') {
+      console.error('[Home Page] Announcement fetch failed:', announcementResult.reason)
+    }
   }
 
+  // ============================================================================
+  // Transform Data for UI Components
+  // ============================================================================
+  const promos: Promotion[] = mapPromotionList(promotionsData)
+
+  // ============================================================================
+  // Render Page
+  // ============================================================================
   return (
-    <ListGamePage
-      lang={dict}
-      locale={locale}
-      initialData={initialData?.data}
-      initialPage={1}
-      isInitialLoading={isLoading}
-      initialTotalPage={initialData?.totalPage || 1}
-    />
+    <div className='mx-auto w-full max-w-screen-2xl space-y-4 md:px-20 px-6 mt-4'>
+      <BannerSection
+        lang={dict}
+        promos={promos}
+        eventItems={bannersData}
+        isLoadingPromo={false}
+        announcement={announcementData}
+        locale={locale}
+        guideCard={{
+          title: 'USER GUIDE',
+          subtitle: 'on how to collect your points',
+          imageUrl: '/images/default/user_guide.jpeg',
+          href: `/${locale}/user-guide/poker/texas-poker`
+        }}
+      />
+
+      <ListGamePage
+        lang={dict}
+        locale={locale}
+        initialData={gameListData.data}
+        initialPage={1}
+        isInitialLoading={false}
+        initialTotalPage={gameListData.totalPage}
+      />
+    </div>
   )
 }

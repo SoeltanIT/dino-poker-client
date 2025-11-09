@@ -60,7 +60,12 @@ export const API_ENDPOINT = {
   uploadImage: '/v1/storage/private-image',
 
   // Master data
-  master_bank: '/v1/bank-provider'
+  master_bank: '/v1/bank-provider',
+
+  //banner
+  banner: '/v1/banner',
+  announcement_text: '/v1/announcement-text',
+  announcement: '/v1/announcement'
 } as const
 
 export type EndpointKey = keyof typeof API_ENDPOINT

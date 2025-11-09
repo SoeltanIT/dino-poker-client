@@ -75,7 +75,7 @@ type GameCardVariant = VariantProps<typeof gameCardVariants>['variant']
 
 export interface GameCardProps {
   id: string
-  image: string
+  image?: string
   // title: {
   //   line1: string
   //   line2: string
@@ -101,7 +101,7 @@ export function GameCard({
   image,
   title,
   provider,
-  playersCount = 0,
+  // playersCount = 0,
   tag,
   accent = '#4f2bbc',
   className = '',
@@ -130,22 +130,24 @@ export function GameCard({
     <div className={cn(variantClass, 'relative group', className)}>
       {/* IMAGE FRAME (keeps aspect 3/4 and rounded border) */}
       <div className={cn('relative aspect-[3/4] overflow-hidden border border-app-grey12op rounded-xl md:rounded-2xl')}>
-        <Image
-          src={image}
-          alt={title}
-          fill
-          sizes={SIZES}
-          // If you have a tiny preview, pass it:
-          // placeholder="blur"
-          // blurDataURL={props.preview}
-          priority={priority} // set true for first ~4–6 cards above the fold
-          onLoad={() => setLoaded(true)}
-          className={cn(
-            'object-cover transition-[transform,filter,opacity] duration-500 ease-out',
-            'group-hover:scale-[1.06] group-hover:brightness-110',
-            loaded ? 'opacity-100' : 'opacity-90 blur-[6px]' // blur-up fallback if you don’t have blurDataURL
-          )}
-        />
+        {image && (
+          <Image
+            src={image}
+            alt={title}
+            fill
+            sizes={SIZES}
+            // If you have a tiny preview, pass it:
+            // placeholder="blur"
+            // blurDataURL={props.preview}
+            priority={priority} // set true for first ~4–6 cards above the fold
+            onLoad={() => setLoaded(true)}
+            className={cn(
+              'object-cover transition-[transform,filter,opacity] duration-500 ease-out',
+              'group-hover:scale-[1.06] group-hover:brightness-110',
+              loaded ? 'opacity-100' : 'opacity-90 blur-[6px]' // blur-up fallback if you don’t have blurDataURL
+            )}
+          />
+        )}
       </div>
 
       {/* Content */}
@@ -171,7 +173,7 @@ export function GameCard({
         </div>
       )}
 
-      <div className='absolute top-[6px] right-[10px] z-10'>
+      {/* <div className='absolute top-[6px] right-[10px] z-10'>
         {variant !== 'provider' && (
           <div
             className={cn(
@@ -191,7 +193,7 @@ export function GameCard({
             )}
           </div>
         )}
-      </div>
+      </div> */}
 
       <div
         onClick={isOpening ? undefined : handleClick}

@@ -4,10 +4,10 @@ import Image from 'next/image'
 import { FooterProps } from './types'
 
 export const Footer = ({ children, lang, locale, theme, content, version, ...props }: FooterProps) => {
-  const logo = theme === 'dark' ? '/images/logo_footer_light.png' : '/images/logo_footer_dark.png'
+  const logo = theme === 'dark' ? '/images/logo_footer_light.webp' : '/images/logo_footer_dark.webp'
 
   return (
-    <footer className='bg-app-background-secondary px-8 py-8 pb-[75px]'>
+    <footer className='bg-app-background-secondary px-8 py-8 pb-[100px]'>
       {/* Logo and Copyright */}
       <div className='flex items-center justify-center mb-8'>
         <div className='flex flex-col items-center gap-4'>
@@ -17,7 +17,7 @@ export const Footer = ({ children, lang, locale, theme, content, version, ...pro
             width={100}
             height={100}
             priority
-            className='md:w-[100px] md:h-[45px] w-[30px] h-[30px]'
+            className='md:w-[100px] md:h-[45px] w-[80px] h-[40px]'
           />
 
           <div className='flex flex-col text-center'>

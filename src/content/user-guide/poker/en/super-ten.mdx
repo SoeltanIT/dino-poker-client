@@ -1,0 +1,199 @@
+import { Section } from '@/components/atoms/Content/Section'
+import { TableCard } from '@/components/atoms/Content/TableCard'
+import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+
+export const title = 'Super10 User Guide'
+export const description = (
+  <>
+    Super10
+    <br />
+    Game Description
+  </>
+)
+export const heroImage = '/images/new_user_guide.jpeg'
+export const gameInfo = [
+  [
+    'Game Objective',
+    "To create a hand value that is closest to or exactly the number '10' by summing the values of a total of 3 hand cards."
+  ],
+  ['Players', 'Competition among players (No dealer involved)'],
+  ['Cards Used', 'Standard 52-card deck (Jokers excluded)']
+]
+
+export const progression = [
+  ['Ante Completion', 'Mandatory Bet', 'All players complete the Ante before the game starts.'],
+  ['First Deal', '2 Hand Cards', 'Two face-down hand cards are dealt to all players.'],
+  ['Betting Round', 'Bet and Call', 'After checking the first 2 cards, players choose to Bet, Call, Raise, or Fold.'],
+  [
+    'Second Deal',
+    '1 Additional Card',
+    'After the betting round, one additional face-down card is dealt to all players. All players now have a total of 3 cards.'
+  ],
+  [
+    'Showdown',
+    'Final Hand Reveal',
+    'After the final betting round, the remaining players reveal their 3 cards, and the winner is determined by the sum of the card values.'
+  ]
+]
+export const ranks = [
+  ['1. Three Picture', 'A combination where all 3 cards are composed of J, Q, or K.'],
+  ['2. Any Three Picture', 'A combination where the 3 cards are composed of K, Q, and J. (Suits can be different)'],
+  ['3. Super10', 'A combination where the sum of the 3 card values is exactly 10. (J, Q, K included)'],
+  [
+    '4. Value 10',
+    'A combination where the sum of the 3 card values is 20 or 30, calculated as having a last digit of 0.'
+  ],
+  [
+    '5. Value 9',
+    'A combination where the sum of the 3 card values is 9 or 19, calculated as having a last digit of 9.'
+  ],
+  [
+    '6. Value 8',
+    'A combination where the sum of the 3 card values is 8 or 18, calculated as having a last digit of 8.'
+  ],
+  [
+    '7. Value 7',
+    'A combination where the sum of the 3 card values is 7 or 17, calculated as having a last digit of 7.'
+  ],
+  [
+    '8. Value 6',
+    'A combination where the sum of the 3 card values is 6 or 16, calculated as having a last digit of 6.'
+  ],
+  [
+    '9. Value 5',
+    'A combination where the sum of the 3 card values is 5 or 15, calculated as having a last digit of 5.'
+  ],
+  [
+    '10. Value 4',
+    'A combination where the sum of the 3 card values is 4 or 14, calculated as having a last digit of 4.'
+  ],
+  [
+    '11. Value 3',
+    'A combination where the sum of the 3 card values is 3 or 13, calculated as having a last digit of 3.'
+  ],
+  [
+    '12. Value 2',
+    'A combination where the sum of the 3 card values is 2 or 12, calculated as having a last digit of 2.'
+  ],
+  [
+    '13. Value 1',
+    'A combination where the sum of the 3 card values is 1 or 11, calculated as having a last digit of 1.'
+  ],
+  [
+    '14. Value 0',
+    'A combination where the sum of the 3 card values is 10 or 20, calculated as having a last digit of 0.'
+  ]
+]
+
+## Super10
+
+<Section title="Game Introduction and Core Appeal">
+Super10 is a simple yet strategic card game inspired by the traditional Indonesian game Samgong (or Three Pictures). The goal is to sum the values of 3 cards to get as close as possible to the number '10', focusing on competition among players.
+
+The game progresses quickly with only two deals and two betting rounds. High-ranking hands and the suit rank in case of a tie have a decisive impact on the outcome.
+
+</Section>
+
+<Section title='Game Rules and Objective'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>Category</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Details</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {gameInfo.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title='Ante Betting Regulation'>
+  Ante: Before the game begins, all players are obligated to place a bet according to the value set at the table. This
+  amount is used to form the central pot prize.
+</Section>
+
+<Section title='Game Progression Steps and Betting Order'>
+The game proceeds clockwise, with the action starting from the winner of the previous round (or to the left of the dealer button).
+
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>Order</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Name</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Details and Role</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {progression.map(([$1, $2, $3], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title='Card Value Summation Rules (Important)'>
+J, Q, K Cards: Each is counted as 10.
+
+A Card: Counted as 1.
+
+2 ~ 10 Cards: Counted as the number indicated on the card.
+
+Summation Rule: If the sum of the 3 card values is a two-digit number (e.g., 17), only the last digit (the ones place) is recognized as the final value. (e.g., 17 becomes 7, 30 becomes 0)
+
+</Section>
+
+<Section title='Final Win and Tie-Breaking Regulations'>
+
+1. Winning Determination Method
+   Highest Value: The player with the highest final card value sum wins. (The highest value is 10.)
+
+   Special Hands: A player with a special hand ranking takes precedence over the general value summation ranking.
+
+2. Tie-Breaking and Rank Criteria
+   If two or more players have the same highest value, the winner is determined in the following order:
+
+   Highest Card: Among the tied players, the player with the highest-ranked card among their 3 hand cards wins. (K > A in strength, while J, Q, and K are all equally high cards.)
+
+Highest Suit: If the rank of the hand cards is also identical, the player with the highest suit card wins.
+
+Suit Ranking (Strongest to Weakest): Spade (♠) > Heart (♥) > Club (♣) > Diamond (♦)
+
+</Section>
+
+<Section title='Super10 Hand Rankings (Strongest First)'>
+Instead of general poker hands, Super10 determines the ranking based on the summation and combination of card values.
+
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Rank</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Hand Name</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Definition</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {ranks.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>

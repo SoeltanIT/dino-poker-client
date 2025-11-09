@@ -3,8 +3,8 @@ import { BalanceDTO } from '@/types/balanceDTO'
 import { ReactNode } from 'react'
 import { UserMeResponse } from '../User'
 // HeaderProps
-import type { TransferFeePayload } from '@/types/transferBalanceFeeDTO'
 import { FeatureFlags } from '@/components/templates/App/AppWrapper'
+import type { TransferFeePayload } from '@/types/transferBalanceFeeDTO'
 
 export interface HeaderProps {
   children?: ReactNode
@@ -15,4 +15,5 @@ export interface HeaderProps {
   theme: string
   transferBalanceFee?: TransferFeePayload // ← changed
   features?: FeatureFlags
+  isLoading?: boolean
 }

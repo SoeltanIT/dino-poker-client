@@ -1,4 +1,4 @@
-import { getValidServerSession, handleServerAuthError } from '@/@core/lib/server-auth-utils'
+import { handleServerAuthError } from '@/@core/lib/server-auth-utils'
 import PromotionPage from '@/components/organisms/Promotion'
 import { getDictionary, getLocale } from '@/dictionaries/dictionaries'
 import { getListPromotion } from '@/utils/api/internal/listPromotion'

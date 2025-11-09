@@ -282,7 +282,15 @@
     "withdrawalSecurity": "Withdrawal Security",
     "chipAmount": "Chip Amount",
     "transferHistory": "Transfer History",
-    "createdAt": "Created At"
+    "createdAt": "Created At",
+    "moreInfo": "More Info",
+    "banners": "Banners",
+    "noBannerFound": "No Banner Found",
+    "announcements": "Announcements",
+    "noAnnouncementFound": "No Announcement Found",
+    "userGuide": "User Guide",
+    "goBackHome": "Go Back Home",
+    "preparingToOpen": "Preparing to Open"
   },
   "game": {
     "texaspoker": "Texas Poker",
@@ -447,7 +455,11 @@
     "sportTitle": "Sports Betting | GOWIN.GG",
     "sportDescription": "Bet on football, basketball, tennis, and top esports like Dota 2, LoL, and Valorant. Enjoy live odds, in-play betting, and the best sportsbook experience at GOWIN.GG.",
     "promotionTitle": "Latest Promotions | GOWIN.GG",
-    "promotionDescription": "Claim top bonuses and promotions for Dota 2, LoL, Valorant, and more at GOWIN.GG."
+    "promotionDescription": "Claim top bonuses and promotions for Dota 2, LoL, Valorant, and more at GOWIN.GG.",
+    "bannersTitle": "Latest Banners | GOWIN.GG",
+    "bannersDescription": "Get the latest banners and promotions for Dota 2, LoL, Valorant, and more at GOWIN.GG.",
+    "announcementsTitle": "Latest Announcements | GOWIN.GG",
+    "announcementsDescription": "Get the latest announcements and promotions for Dota 2, LoL, Valorant, and more at GOWIN.GG."
   },
   "logout": {
     "logoutQ": "Are You Sure Want to Logout?",
@@ -529,6 +541,10 @@
     "infoDate": "End date cleared because it was earlier than start date."
   },
   "header": {
+    "poker": "Poker",
+    "casino": "Casino",
+    "promotion": "Promotion",
+    "sport": "Sport",
     "totalBalance": "Total Balance",
     "mainBalance": "Main Balance",
     "mainShort": "Main...",
@@ -550,5 +566,19 @@
   },
   "withdraw": {
     "withdrawCryptoInfo": "A withdrawal fee of {value} {base_coin} will be deducted from your withdrawal amount"
+  },
+  "banner": {
+    "bannerTitle": "Upcoming Event",
+    "bannerSubTitle": "Exciting tournaments & rewards are on the way!",
+    "announcement": "Welcome to KPOKER - World Poker Game | Regular maintenance every Thursday | Don’t miss our daily bonus and special Kpoker tournaments!",
+    "promoTitle": "Big Surprises Coming Soon!",
+    "promoSubTitle": "Stay tuned for exclusive bonuses & special deals",
+    "userGuideTitle": "User Guide",
+    "userGuideSubTitle": "Guide on How to Play",
+    "moreInfo": "More Info"
+  },
+  "announcements": {
+    "title": "Announcements",
+    "description": "Check the latest news and announcements from KPOKER "
   }
 }

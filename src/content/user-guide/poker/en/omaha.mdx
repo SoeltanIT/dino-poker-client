@@ -1,0 +1,170 @@
+import { Section } from '@/components/atoms/Content/Section'
+import { TableCard } from '@/components/atoms/Content/TableCard'
+import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+
+export const title = 'Omaha User Guide'
+export const description = (
+  <>
+    Omaha
+    <br />
+    Game Description
+  </>
+)
+export const heroImage = '/images/new_user_guide.jpeg'
+export const gameInfo = [
+  [
+    'Game Objective',
+    'To make the strongest 5-card poker hand by combining exactly 2 of the 4 hand cards and exactly 3 of the 5 community cards.'
+  ],
+  ['Players', '2 to 9 players (depends on table size.)'],
+  ['Cards Used', '52-card standard deck (Jokers excluded)']
+]
+export const rounds = [
+  [
+    '1. Hand Dealing',
+    'Hole Cards',
+    "After the SB and BB complete their forced bets, 4 hand cards are dealt face down to all players. (Difference from Hold'em)"
+  ],
+  [
+    '2. Pre-Flop',
+    'First Betting Round',
+    'Betting starts from the player to the left of the BB. Players choose to fold, call, or raise.'
+  ],
+  [
+    '3. Flop',
+    '3 Community Cards Opened',
+    'After the pre-flop betting is over, 3 community cards are revealed in the center of the table. (Second betting round)'
+  ],
+  [
+    '4. Turn',
+    '4th Community Card Opened',
+    'After the flop betting is over, a 4th community card is opened. (Third betting round)'
+  ],
+  [
+    '5. River',
+    '5th Community Card Opened',
+    'After the turn betting is over, the 5th and final community card is opened. (Final betting round)'
+  ],
+  [
+    '6. Showdown',
+    'Final Hand Reveal',
+    "After all betting is complete, remaining players reveal their hands, following the '2 hand cards + 3 community cards' combination rule."
+  ]
+]
+
+export const ranks = [
+  ['High Card', 'If no hand is made, the rank is decided by the highest card among the 5.'],
+  ['One Pair', 'A hand made of 2 cards of the same rank.'],
+  ['Two Pair', 'A hand made of two pairs of same-rank cards and one other card.'],
+  ['Three of a Kind', 'A hand made of 3 cards of the same rank.'],
+  ['Straight', 'A hand made of 5 cards with consecutive ranks. (Suits can be different)'],
+  ['Flush', 'A hand made of 5 cards of the same suit. (Ranks can be different)'],
+  ['Full House', "A hand made of 1 triple + 1 pair. (Stronger if the triple's rank is higher)"],
+  ['Four of a Kind', 'A hand made of 4 cards of the same rank.'],
+  ['Straight Flush', 'A hand made of 5 cards that are both consecutive in rank and of the same suit.'],
+  [
+    'Royal Flush',
+    'The highest straight flush (A, K, Q, J, 10, all of the same suit). This is the strongest hand in poker.'
+  ]
+]
+
+## Game Introduction and Core Appeal
+
+<Section title="Omaha (Omaha Poker)">
+Omaha Poker, like Texas Hold'em, uses 5 community cards, but it demands much greater strategic depth because each player receives 4 hand cards and the final hand combination rule is strict. It is a complex and intense game where players must use exactly 2 of their hand cards and 3 of the community cards.
+
+Because of this strict combination rule, higher-ranking hands appear more frequently than in Hold'em.
+
+</Section>
+
+<Section title='Game Rules and Objective'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>Category</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Details</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {gameInfo.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title="Omaha's Most Important Rule (Must Be Followed)">
+  When making the final 5-card hand, you must use exactly 2 of the 4 hand cards and exactly 3 of the 5 community cards.
+  Other combinations (e.g., 1 hand card + 4 community cards) are never permitted.
+</Section>
+
+<Section title='Definition of Blind Bets'>
+A forced bet that must be placed every round to start the game.
+
+Dealer Button: A marker that indicates the order of play. It moves clockwise each round.
+
+Small Blind (SB): The minimum forced bet placed by the player immediately to the left of the dealer button.
+
+Big Blind (BB): The minimum forced bet placed by the player to the left of the Small Blind, and the minimum bet amount for pre-flop betting.
+
+</Section>
+
+<Section title='Game Progression and Betting Rounds'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>Step</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Name</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Details and Role</TableHead>
+      </TableRow>
+    </TableHeader>
+    <TableBody>
+      {rounds.map(([$1, $2, $3], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+  </TableCard>
+</Section>
+
+<Section title='Final Victory and Tie-Breaker Rules'>
+1. Determining the Winner
+
+Best Hand: At showdown, the player with the highest 5-card hand made from 'exactly 2 of 4 hand cards' + 'exactly 3 of 5 community cards' wins the pot.
+Winning by Bluffing: If all other players fold before the showdown, the last remaining player immediately wins the pot, regardless of their hand.
+
+2. Tie (Chop) Rules
+
+If two or more players have identical final 5-card hands, including the rank and all kicker cards, it is a tie (Chop).
+In case of a tie, the total pot for that round is split equally among the tied players.
+
+</Section>
+
+<Section title='Poker Hand Rankings (Omaha Poker Standard)'>
+Omaha Poker uses the same hand rankings as Texas Hold'em.
+
+<TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-auto px-6 py-4 text-left font-semibold text-white'>Hand Name</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Description</TableHead>
+      </TableRow>
+    </TableHeader>
+    <TableBody>
+      {ranks.map(([$1, $2], idx) => (
+        <TableRow key={idx} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+  </TableCard>
+</Section>

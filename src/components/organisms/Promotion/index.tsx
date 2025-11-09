@@ -20,7 +20,7 @@ export default function PromotionListing({ lang, locale, initialData }: Promotio
 
   return (
     <div className='min-h-screen flex flex-col w-full text-app-text-color px-6 lg:px-16 my-10'>
-      <div className='container flex flex-col'>
+      <div className='container mx-auto flex flex-col'>
         {/* Header */}
         <div className='mb-[36px]'>
           <h1 className='text-3xl font-bold text-app-text-color uppercase'>{lang?.common?.promotion}</h1>

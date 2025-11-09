@@ -1,0 +1,155 @@
+import { Section } from '@/components/atoms/Content/Section'
+import { TableCard } from '@/components/atoms/Content/TableCard'
+import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+
+export const title = 'Joker Spin User Guide'
+export const description = (
+  <>
+    Joker Spin
+    <br />
+    Game Description
+  </>
+)
+export const heroImage = '/images/new_user_guide.jpeg'
+export const gameRules = [
+  [
+    'Game Objective',
+    'To be the last player standing in the tournament while winning a reward from the prize pool, which is determined by a high Multiplier set at the beginning of the game.'
+  ],
+  ['Format', 'Tournament style (Matchmaking required)'],
+  ['Game Basis', "Played based on Texas Hold'em rules"]
+]
+export const processingRules = [
+  ['Time Out', 'If the action timer expires, the player is automatically Folded and enters a Sitting Out state.'],
+  [
+    'Logoff/Disconnection',
+    'If a player logs off or disconnects during the tournament, they remain in the tournament as long as they have chips remaining. Blinds and antes will continue to be deducted, resulting in an automatic Hold.'
+  ],
+  [
+    'Re-entry',
+    "Players can rejoin the tournament by pressing the 'Sit In' button, even if they were Sitting Out or disconnected."
+  ]
+]
+export const ranks = [
+  [
+    'High Card',
+    'The rank is determined by the highest value card when no specific hand has been made with the 5 cards.'
+  ],
+  ['One Pair', 'A hand consisting of two cards of the same rank.'],
+  ['Two Pair', 'A hand consisting of two pairs of cards of the same rank, and one remaining card.'],
+  ['Three of a Kind', 'A hand consisting of three cards of the same rank.'],
+  ['Straight', 'A hand consisting of five cards in sequential rank. (Suits can be different)'],
+  ['Flush', 'A hand consisting of five cards of the same suit. (Ranks can be different)'],
+  [
+    'Full House',
+    'A hand consisting of one Three of a Kind + one Pair. (The higher the rank of the Three of a Kind, the stronger the hand)'
+  ],
+  ['Four of a Kind', 'A hand consisting of four cards of the same rank.'],
+  ['Straight Flush', 'A hand consisting of five cards in sequential rank and of the same suit.'],
+  [
+    'Royal Flush',
+    'The highest Straight Flush (A, K, Q, J, 10 all of the same suit), which is the strongest hand in Poker.'
+  ]
+]
+
+## Joker Spin
+
+<Section title='Game Introduction and Core Appeal'>
+  Joker Spin is a hybrid tournament format that combines the classic Texas Hold\'em game with a Joker Spin slot machine
+  feature. At the start of the game, a slot machine spins to determine a **Random Multiplier Bonus**, which dictates the
+  size of that tournament’s total Prize Pool. Players follow standard Hold\'em rules, but hitting a high multiplier (up
+  to 40,000x) gives them the chance to win a massive prize with just a single buy-in.
+</Section>
+
+<Section title='Game Rules and Objective'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[150px] px-6 py-4 text-left font-semibold text-white'>Category</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Details</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {gameRules.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title='Joker Spin Working Principle (Multiplier Bonus)'>
+* **Slot Operation**: At the beginning of the game, the Joker Spin slot machine rotates to generate a random card combination.
+
+- **Multiplier Determination**: The Multiplier Bonus value is determined based on the slot result. (Example: Achieving 5 of a Kind results in 10,000x)
+
+- **Prize Pool Setting**: The total prize pool is set as: Total Buy-in Amount × Determined Multiplier Value. (Example: Buy-in 10,000 × 40,000x = 400,000,000)
+
+</Section>
+
+<Section title='Tournament Structure and Blinds'>
+**Entry Method**: After selecting the buy-in amount and registering in the lobby, the game starts once enough players are fulfilled by the matchmaking system.
+
+**No Rebuy**: If a player loses all their chips before the end of the game, they are immediately eliminated and cannot re-enter with an additional payment.
+
+**Prize Winning Condition**: Players must reach at least a High Ranking Position to receive a winning prize.
+
+**Game End**: The game ends when only one player remains.
+
+</Section>
+
+<Section title='Blind and Time Structure'>
+The blind structure (Ante, Blind Level, Time Bank) varies depending on the Joker Spin result (Multiplier value) and has a unique structure for each game type (Joker Spin 3, Joker Spin 6, All In or Fold).
+
+**Blind Level Increase**: Each blind level consistently increases at set time intervals (e.g., 2 minutes, 3 minutes, 4 minutes, etc.).
+
+</Section>
+
+<Section title='Connection and Automatic Processing Rules'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[150px] px-6 py-4 text-left font-semibold text-white'>Situation</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Processing Method</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {processingRules.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title="Poker Hand Rankings (Identical to Texas Hold'em)">
+  Since Joker Spin is based on Texas Hold\'em rules, the hand rankings and tie-breaking regulations are 100% identical to Texas Hold\'em.
+
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Hand Name</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>Description</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {ranks.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+  [Image of Texas Hold'em poker hand rankings]
+</Section>

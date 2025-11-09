@@ -1,17 +1,19 @@
 'use client'
 
 import { GetData } from '@/@core/hooks/use-query'
-import { GameCard } from '@/components/atoms/Card/GameCard'
+import GameCardLive from '@/components/atoms/Card/GameCardLive'
+import { GameCardSkeleton } from '@/components/atoms/Skeleton/GameCardSkeleton'
+import { GameGridSkeleton } from '@/components/atoms/Skeleton/GameGridSkeleton'
+import { useTelegramMiniApp } from '@/components/providers/TelegramMiniApp'
 import { Button } from '@/components/ui/button'
 import { gameDTO } from '@/types/gameDTO'
+import { getGameImage } from '@/utils/helper/getGameImage'
+import { useThemeToggle } from '@/utils/hooks/useTheme'
+import { keepPreviousData } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import LoginModal from '../Login'
 import { GameListProps } from './types'
-import { GameGridSkeleton } from '@/components/atoms/Skeleton/GameGridSkeleton'
-import { GameCardSkeleton } from '@/components/atoms/Skeleton/GameCardSkeleton'
-import GameCardLive from '@/components/atoms/Card/GameCardLive'
-import { keepPreviousData } from '@tanstack/react-query'
 
 export default function ListGamePage({
   lang,
@@ -33,6 +35,8 @@ export default function ListGamePage({
   const popupRef = useRef<Window | null>(null)
   /** which card is opening */
   const [openingGameId, setOpeningGameId] = useState<string | null>(null)
+
+  const { theme } = useThemeToggle()
 
   const {
     data: dataList,
@@ -129,7 +133,15 @@ export default function ListGamePage({
     'transaction'
   )
 
+  const { isTMA, openLink } = useTelegramMiniApp()
+
   const openGamePopup = (url: string) => {
+    if (isTMA) {
+      const gameUrl = new URL(url, window.location.origin)
+      openLink(gameUrl.toString())
+      return
+    }
+
     const w = window.screen.availWidth
     const h = window.screen.availHeight
     const left = 0
@@ -190,7 +202,7 @@ export default function ListGamePage({
   const PRIORITY_COUNT = 12
 
   return (
-    <main className='w-full min-h-screen px-4 py-4'>
+    <main className='w-full min-h-screen py-4'>
       {/* Flex container using basis for columns */}
       {/* {roles === 3 ? (
         <div className='flex min-h-screen items-center justify-center py-24 text-center gap-4'>
@@ -263,46 +275,51 @@ export default function ListGamePage({
         {showInitialSkeleton ? (
           <GameGridSkeleton count={12} />
         ) : (
-          <div className='flex flex-wrap gap-2'>
-            {listGame?.map((items, i) => (
-              <div
-                key={i}
-                onClick={() => setGameId(items.id)}
-                className='
+          <div key={`${theme}-${locale}`} className='flex flex-wrap gap-2'>
+            {listGame?.map((item, i) => {
+              const showImage = getGameImage(item, theme, locale)
+
+              const stableId = item?.id || `${item.title}-${item.provider}`
+              return (
+                <div
+                  // 👉 key stabil + ikut theme/locale supaya tiap card remount saat theme/locale berubah
+                  key={`${stableId}-${theme}-${locale}`}
+                  onClick={() => setGameId(item.id)}
+                  className='
                     basis-[calc((100%-0.5rem*2)/3)]
                     md:basis-[calc((100%-0.5rem*5)/6)]
                     shrink-0 min-w-0
                   '
-              >
-                <GameCardLive
-                  seedIndex={i}
-                  lang={lang}
-                  locale={locale}
-                  id={items?.id}
-                  image={locale === 'ko' ? items?.image_ko : items?.image}
-                  provider={items.provider}
-                  title={items.title}
-                  // playersCount={stableCount(items?.id || `${items.title}-${items.provider}`)}
-                  isLogin={isLogin}
-                  onRequireLogin={() => setLoginOpen(true)}
-                  onClickOpenGames={(id: any) => onClickOpenGames(id)}
-                  className='w-full h-full min-w-0'
-                  isOpening={openingGameId === items.id && isFetchingGameDetail}
-                  priority={page === 1 && i < PRIORITY_COUNT}
-                />
-              </div>
-            ))}
+                >
+                  <GameCardLive
+                    seedIndex={i}
+                    lang={lang}
+                    locale={locale}
+                    id={item?.id}
+                    image={showImage}
+                    provider={item.provider}
+                    title={item.title}
+                    isLogin={isLogin}
+                    onRequireLogin={() => setLoginOpen(true)}
+                    onClickOpenGames={onClickOpenGames}
+                    className='w-full h-full min-w-0'
+                    isOpening={openingGameId === item.id && isFetchingGameDetail}
+                    priority={page === 1 && i < PRIORITY_COUNT}
+                  />
+                </div>
+              )
+            })}
 
             {/* Append skeletons while fetching the next page */}
             {showAppendSkeleton &&
               Array.from({ length: 6 }).map((_, i) => (
                 <div
-                  key={`sk-${i}`}
+                  key={`sk-${i}-${theme}-${locale}`}
                   className='
-                      basis-[calc((100%-0.5rem*2)/3)]
-                      md:basis-[calc((100%-0.5rem*5)/6)]
-                      shrink-0 min-w-0
-                    '
+                    basis-[calc((100%-0.5rem*2)/3)]
+                    md:basis-[calc((100%-0.5rem*5)/6)]
+                    shrink-0 min-w-0
+                  '
                 >
                   <GameCardSkeleton className='w-full h-full min-w-0' />
                 </div>

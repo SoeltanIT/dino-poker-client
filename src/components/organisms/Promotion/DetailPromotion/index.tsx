@@ -1,11 +1,15 @@
 'use client'
 
+import { useAppFeatures } from '@/@core/context/AppFeaturesContext'
 import { GetData } from '@/@core/hooks/use-query'
+import { UseServerSendEvent } from '@/@core/hooks/UseServerSendEvent'
+import { BalanceResponse } from '@/@core/interface/balance/Balance'
 import { UserMeResponse } from '@/@core/interface/User'
-import DepositWithdrawSheet from '@/components/layout/header/views/transaction/DepositWithdrawSheet'
+import { HeaderSheet } from '@/components/layout/header/views/transaction'
 import CountdownTimerPromotion from '@/components/molecules/CountdownTimer/CountdownTimerPromotion'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
+import { TransferBalanceFeeResponseMapped } from '@/types/transferBalanceFeeDTO'
 import { ArrowLeft, Clock, ImageIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -16,10 +20,31 @@ export default function PromotionDetail({ initialData, lang, locale, isLogin }: 
   const [activeTab, setActiveTab] = useState<'DEPOSIT' | 'WITHDRAW'>('DEPOSIT')
   const [isSheetOpen, setIsSheetOpen] = useState(false)
   const [selectedPromotion, setSelectedPromotion] = useState<any>(null)
+  const { features } = useAppFeatures()
 
   const { data: userData, isLoading: userDataLoading } = GetData<UserMeResponse>(
     '/me', // hits your Next.js API route, not the real backend
     ['user', 'me']
+  )
+
+  const { balanceTrigger } = UseServerSendEvent()
+  const { data: respBalance, isLoading: balanceLoading } = GetData<BalanceResponse>(
+    '/balance', // hits your Next.js API route, not the real backend
+    ['getBalance', balanceTrigger] //trigger put here if need to refresh on SSE event
+  )
+
+  const { data: respTransferBalanceFee } = GetData<TransferBalanceFeeResponseMapped>(
+    '/transfer_balance_fee', // hits your Next.js API route, not the real backend
+    ['getTransferBalanceFee'],
+    false,
+    undefined,
+    true,
+    undefined,
+    undefined,
+    undefined,
+    'GET', // method
+    {},
+    'transaction'
   )
 
   return (
@@ -143,7 +168,7 @@ export default function PromotionDetail({ initialData, lang, locale, isLogin }: 
         </div>
       </div>
       {activeTab && (
-        <DepositWithdrawSheet
+        <HeaderSheet
           selectedPromotion={selectedPromotion}
           open={isSheetOpen}
           onClose={() => setIsSheetOpen(false)}
@@ -151,6 +176,9 @@ export default function PromotionDetail({ initialData, lang, locale, isLogin }: 
           lang={lang}
           locale={locale}
           data={userData}
+          balance={respBalance?.data}
+          features={features}
+          dataFee={respTransferBalanceFee?.data}
         />
       )}
     </div>

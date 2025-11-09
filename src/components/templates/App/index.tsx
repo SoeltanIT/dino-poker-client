@@ -1,6 +1,7 @@
 import { getDictionary, getLocal } from '@/dictionaries/dictionaries'
 import { ConfigType } from '@/types/config'
 import { LiveChatProvider } from '@/utils/context/LiveChatProvider'
+import { getAppFeaturesServer } from '@/utils/server/app-features'
 import { FC, ReactNode } from 'react'
 import AppWrapper from './AppWrapper'
 
@@ -17,11 +18,7 @@ const AppTemplate: FC<AppTemplateProps> = async ({ children, params, config, ...
   const locale = await getLocal()
   // ✅ central feature registry
 
-  const features = {
-    sports: process.env.FEATURE_SHOW_SPORTS === 'true',
-    promotion: process.env.FEATURE_SHOW_PROMOTION === 'true',
-    crypto: process.env.FEATURE_SHOW_CRYPTO === 'true'
-  }
+  const features = await getAppFeaturesServer()
 
   return (
     <LiveChatProvider licenseId={config['livechat_id']}>

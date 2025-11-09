@@ -10,12 +10,12 @@ type Props = Omit<GameCardProps, 'playersCount'> & {
 }
 
 export default function GameCardLive({ seedIndex, min = 200, max = 700, ...rest }: Props) {
-  const players = useRandomizeCount(seedIndex, {
-    min,
-    max,
-    intervalMs: 6000, // ~3.2s base + jitter
-    stepMin: 1,
-    stepMax: 4
-  })
-  return <GameCard {...rest} playersCount={players} />
+  // const players = useRandomizeCount(seedIndex, {
+  //   min,
+  //   max,
+  //   intervalMs: 6000, // ~3.2s base + jitter
+  //   stepMin: 1,
+  //   stepMax: 4
+  // })
+  return <GameCard {...rest} />
 }
