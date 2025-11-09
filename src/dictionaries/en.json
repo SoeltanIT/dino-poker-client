@@ -289,7 +289,8 @@
     "announcements": "Announcements",
     "noAnnouncementFound": "No Announcement Found",
     "userGuide": "User Guide",
-    "goBackHome": "Go Back Home"
+    "goBackHome": "Go Back Home",
+    "preparingToOpen": "Maintenance"
   },
   "game": {
     "texaspoker": "Texas Poker",
