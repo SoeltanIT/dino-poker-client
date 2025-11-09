@@ -29,6 +29,7 @@ type Props = {
   isLoading?: boolean
   lang: LangProps
   locale?: Locale
+  useOverlay?: boolean
 }
 
 export default function PromoCarousel({
@@ -39,7 +40,8 @@ export default function PromoCarousel({
   options = { loop: true, align: 'start' },
   isLoading,
   lang,
-  locale
+  locale,
+  useOverlay = false
 }: Props) {
   const [emblaRef, emblaApi] = useEmblaCarousel(options)
   const [selectedIndex, setSelectedIndex] = React.useState(0)
@@ -145,7 +147,10 @@ export default function PromoCarousel({
                       ) : (
                         <div className='h-full w-full bg-muted' />
                       )}
-                      <div className='absolute inset-0 bg-gradient-to-r from-black/70 via-black/35 to-black/10' />
+
+                      {useOverlay && (
+                        <div className='absolute inset-0 bg-gradient-to-r from-black/70 via-black/35 to-black/10' />
+                      )}
 
                       {/* overlay */}
                       <div className='absolute inset-0 flex items-end mb-6 justify-center p-4 text-center'>

@@ -204,6 +204,57 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
     },
 
     {
+      title: '[Mandatory Read] Notice on the 100% Rolling Rule for Anti-Money Laundering (AML)',
+      is_active: true,
+      content: `
+<section>
+    <h3>[Mandatory Read] Notice on the 100% Rolling Rule for Anti-Money Laundering (AML)</h3>
+
+    <p>Kpoker strictly adheres to relevant laws and international standards to maintain a sound and transparent financial transaction environment and prevent money laundering activities. Accordingly, meeting the required Rolling criteria based on the deposit amount is mandatory before any withdrawal request.</p>
+
+    <h3>I. Mandatory Rolling Policy</h3>
+    <table>
+      <thead>
+        <tr>
+          <th class="text-start">Category</th>
+          <th class="text-start">Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Policy Goal</td>
+          <td>To maintain a healthy gaming environment by fundamentally blocking Money Laundering and the inflow/outflow of illegal funds.</td>
+        </tr>
+        <tr>
+          <td>Applicable Scope</td>
+          <td>All funds deposited (charged) by any user for game use (KRW-based)</td>
+        </tr>
+        <tr>
+          <td>Rolling Requirement</td>
+          <td>100% of the deposited amount</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>II. Detailed Guide to Withdrawal Eligibility</h3>
+    <p>Withdrawal requests will only be processed normally if the following Rolling criteria are met:</p>
+
+    <p><strong>Fulfilling the 100% Rolling Requirement:</strong> A minimum of 100% of the total accumulated deposited (charged) amount must be wagered in-game before the final withdrawal request is submitted.</p>
+
+    <p><strong>Example:</strong> If you deposit 1,000,000 KRW, your total in-game wagering amount must be 1,000,000 chips or more (chips equivalent to 1,000,000 KRW based on the exchange rate).</p>
+
+    <p><strong>Processing in Case of Non-Compliance:</strong> If a withdrawal is requested without meeting the Rolling Requirement (100%), the withdrawal will be suspended, and the user may be asked to continue participating in games until the criteria are met.</p>
+
+    <h3>III. Request for Cooperation in Maintaining a Sound Gaming Environment</h3>
+    <p>This Rolling Policy is a mandatory requirement imposed by all legal financial transaction systems. We ask for your understanding that this is a minimum measure necessary to protect your assets and provide a fair system for all users.</p>
+
+    <p>Kpoker is committed to providing transparent and secure service. We kindly request the active cooperation and understanding of all users.</p>
+</section>
+`,
+      created_at: '2025-11-08T03:36:17Z'
+    },
+
+    {
       title: '[Warning — Must Read] IDN Official Clean Game Policy: Notice on Chip Dumping Penalty',
       is_active: true,
       content: `<section>
@@ -598,6 +649,55 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
   <h3>III. 클린 게임 환경 보장 및 사용자 신뢰</h3>
   <p>Kpoker는 IDN의 독자적인 AI 알고리즘을 통해 모든 부정 행위(악용, 담합 등)를 실시간으로 탐지하고 제재합니다. 저희는 모든 이용자가 오직 실력과 정당한 전략만으로 경쟁할 수 있도록 클린 게임 환경 조성에 힘쓸 것을 약속드립니다.</p>
 </section>`,
+      created_at: '2025-11-08T03:36:17Z'
+    },
+
+    {
+      title: '[필독] 자금세탁방지를 위한 롤링 100% 규정 안내',
+      is_active: true,
+      content: `<section>
+      <h3>[필독] 자금세탁방지를 위한 롤링 100% 규정 안내</h3>
+
+      <p>저희 Kpoker는 건전하고 투명한 금융거래 환경을 유지하고 자금세탁행위를 방지하기 위해 관련 법규 및 국제 기준을 철저히 준수하고 있습니다. 이에 따라 모든 환전 신청에 앞서 충전 금액에 대한 롤링(Rolling) 기준 충족이 의무화됩니다.</p>
+
+      <h3>I. 롤링(Rolling) 의무화 정책</h3>
+      <table>
+        <thead>
+          <tr>
+            <th class="text-start">구분</th>
+            <th class="text-start">내용</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>정책 목표</td>
+            <td>자금세탁(Money Laundering) 및 불법적인 자금 유출입을 원천적으로 차단하여 건전한 게임 환경을 유지합니다.</td>
+          </tr>
+          <tr>
+            <td>적용 대상</td>
+            <td>모든 이용자가 환전(KRW)를 입금(충전)한 모든 금액</td>
+          </tr>
+          <tr>
+            <td>롤링 기준</td>
+            <td>충전 금액의 100%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>II. 환전 가능 조건 상세 안내</h3>
+      <p>환전 신청은 다음과 같은 롤링 기준을 충족해야만 정상적으로 처리됩니다.</p>
+
+      <p><strong>롤링 100% 충족:</strong> 최종 환전 신청 시점까지 입금(충전)한 금액 총합의 100% 이상을 게임 내에서 베팅해야 합니다.</p>
+
+      <p><strong>예시:</strong> 100만 원을 충전했을 경우, 게임 내에서 총 베팅액이 100만 칩 (환율에 따라 원화 기준 100만 원에 상응하는 칩) 이상이 되어야 합니다.</p>
+
+      <p><strong>미충족 시 처리:</strong> 롤링 기준(100%)을 채우지 않고 환전을 신청하는 경우, 환전은 보류되며 기준 충족 시까지 이용자에게 게임 참여를 요청드릴 수 있습니다.</p>
+
+      <h3>III. 건전한 이용 문화 협조 요청</h3>
+      <p>이 롤링 정책은 모든 합법적인 금융 거래 시스템에서 요구하는 필수적인 의무 사항입니다. 이는 고객님의 자산을 보호하고, 모든 이용자에게 공정한 시스템을 제공하기 위한 최소한의 조치임을 이해해 주시기 바랍니다.</p>
+
+      <p>저희 Kpoker는 투명하고 안전한 서비스를 제공하기 위해 최선을 다하겠습니다. 이용자 여러분의 적극적인 협조와 이해를 부탁드립니다.</p>
+      </section>`,
       created_at: '2025-11-08T03:36:17Z'
     },
 
