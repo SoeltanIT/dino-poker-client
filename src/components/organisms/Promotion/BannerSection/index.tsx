@@ -52,11 +52,11 @@ export default function BannerSection({
     <div
       className={clsx(
         // mobile: 1 kolom; md: 12 kolom, 2 baris fixed
-        'grid grid-cols-1 gap-4 md:grid-cols-12 md:[grid-template-rows:60px_245px]'
+        'grid grid-cols-2 gap-4 md:grid-cols-12 md:[grid-template-rows:60px_245px]'
       )}
     >
       {/* LEFT: Event (row-span 2, total 325px mengikuti tinggi 2 row + gap) */}
-      <div className='md:col-span-3 md:row-span-2'>
+      <div id='banner-event' className='order-4 col-span-1 md:order-none md:col-span-3 md:row-span-2'>
         <div className='h-[180px] md:h-full'>
           <BannerCarousel
             items={eventItems}
@@ -70,7 +70,7 @@ export default function BannerSection({
 
       {/* TOP RIGHT: Announcement (60px) */}
       {announcement && announcement?.length > 0 && (
-        <div className='md:col-span-9'>
+        <div id='banner-announcement' className='order-1 col-span-2 md:order-none md:col-span-9'>
           <div className='h-[44px] md:h-[60px]'>
             <AnnouncementMarque
               announcement={announcement}
@@ -84,7 +84,7 @@ export default function BannerSection({
       )}
 
       {/* BOTTOM MIDDLE: Promo (245px) */}
-      <div className='md:col-span-6'>
+      <div id='banner-promo' className='order-3 col-span-2 md:order-none md:col-span-6'>
         <div className='h-[180px] md:h-[245px]'>
           <PromoCarousel
             items={promos}
@@ -100,7 +100,7 @@ export default function BannerSection({
       </div>
 
       {/* BOTTOM RIGHT: Guide (245px) */}
-      <div className='md:col-span-3'>
+      <div id='banner-user-guide' className='order-5 col-span-1 md:order-none md:col-span-3'>
         <div className='h-[180px] md:h-[245px]'>
           <BannerCard
             title={guideCard.title}
