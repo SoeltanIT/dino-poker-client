@@ -27,6 +27,7 @@ export type FeatureFlags = {
   sports: boolean
   promotion: boolean
   crypto: boolean
+  livechat: boolean
   // add more toggles here in the future
 }
 interface AppTemplateProps {
@@ -40,6 +41,7 @@ interface AppTemplateProps {
 
 const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config, features }) => {
   const { ready } = useLiveChatContext()
+  const showLiveChat = ready && !!features?.livechat
   const pathname = usePathname()
 
   const parts = pathname.split('/').filter(Boolean) // ["en", "sport"]
@@ -140,7 +142,7 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config, feat
           <div className='flex md:hidden items-center justify-center w-14 h-14 bg-app-primary hover:bg-app-primary-hover rounded-full shadow-lg'>
             <LocaleSwitcherDropdown lang={locale} />
           </div>
-          {ready && <LiveChatButton user={userData} ready={ready} />}
+          {showLiveChat && <LiveChatButton user={userData} ready={ready} />}
         </div>
       )}
     </div>

@@ -1,11 +1,13 @@
 'use client'
 
 import { IconPoker, IconSport, IconTicket } from '@/components/atoms/Icons' // make sure IconCasino exists
+import { MaintenanceModal } from '@/components/organisms/MaintenanceModal'
 import { Locale } from '@/i18n-config'
 import { cn } from '@/lib/utils'
 import { LangProps } from '@/types/langProps'
 import { BookIcon } from 'lucide-react'
 import Link from 'next/link'
+import { useState } from 'react'
 
 type MainNavTabsProps = {
   locale?: Locale
@@ -16,6 +18,7 @@ type MainNavTabsProps = {
 }
 
 export function MainNavTabs({ locale, pathname, lang, features, className }: MainNavTabsProps) {
+  const [isMaintenanceModalOpen, setIsMaintenanceModalOpen] = useState(false)
   const isActive = (path: string) => pathname === path
 
   let pathPoker = `/${locale}`
@@ -26,91 +29,105 @@ export function MainNavTabs({ locale, pathname, lang, features, className }: Mai
     'flex items-center gap-2 font-bold text-sm uppercase rounded-[10px] px-4 py-2 transition-colors duration-150 group'
 
   return (
-    <div className={cn('flex gap-3', className)}>
-      {/* Poker */}
-      <Link
-        href={pathPoker}
-        className={cn(
-          baseTab,
-          isActive(pathPoker)
-            ? 'bg-app-primary text-white border border-app-borderPrimary'
-            : 'text-app-neutral500 group-hover:text-app-text-color'
-        )}
-      >
-        <IconPoker
-          className={cn(
-            'size-6',
-            isActive(pathPoker) ? 'text-white' : 'text-app-neutral500 group-hover:text-app-text-color'
-          )}
-        />
-        <span className={cn(isActive(pathPoker) ? 'text-white' : 'group-hover:text-app-text-color')}>
-          {lang?.header?.poker ?? 'POKER'}
-        </span>
-      </Link>
-
-      {/* Sports */}
-      {features?.sports && (
+    <>
+      <div className={cn('flex gap-3', className)}>
+        {/* Poker */}
         <Link
-          href={pathSport}
+          href={pathPoker}
           className={cn(
             baseTab,
-            isActive(pathSport) ? 'bg-app-primary text-white border border-app-borderPrimary' : 'text-app-neutral500'
-          )}
-        >
-          <IconSport
-            className={cn(
-              'size-6',
-              isActive(pathSport) ? 'text-white' : 'text-app-neutral500 group-hover:text-app-text-color'
-            )}
-          />
-          <span className={cn(isActive(pathSport) ? 'text-white' : 'group-hover:text-app-text-color')}>
-            {lang?.header?.sport ?? 'SPORT'}
-          </span>
-        </Link>
-      )}
-
-      {/* Sport */}
-      {features?.promotion && (
-        <Link
-          href={pathPromotion}
-          className={cn(
-            baseTab,
-            isActive(pathPromotion)
+            isActive(pathPoker)
               ? 'bg-app-primary text-white border border-app-borderPrimary'
               : 'text-app-neutral500 group-hover:text-app-text-color'
           )}
         >
-          <IconTicket
+          <IconPoker
             className={cn(
               'size-6',
-              isActive(pathPromotion) ? 'text-white' : 'text-app-neutral500 group-hover:text-app-text-color'
+              isActive(pathPoker) ? 'text-white' : 'text-app-neutral500 group-hover:text-app-text-color'
             )}
           />
-          <span className={cn(isActive(pathPromotion) ? 'text-white' : 'group-hover:text-app-text-color')}>
-            {lang?.header?.promotion ?? 'PROMOTION'}
+          <span className={cn(isActive(pathPoker) ? 'text-white' : 'group-hover:text-app-text-color')}>
+            {lang?.header?.poker ?? 'POKER'}
           </span>
         </Link>
-      )}
 
-      <Link
-        href='/user-guide/poker/texas-poker'
-        className={cn(
-          baseTab,
-          isActive('/user-guide')
-            ? 'bg-app-primary text-white border border-app-borderPrimary'
-            : 'text-app-neutral500 group-hover:text-app-text-color'
+        {/* Sports */}
+        {features?.sports && (
+          <Link
+            // TODO: fixme
+            // href={pathSport}
+            href={''}
+            onClick={() => setIsMaintenanceModalOpen(true)}
+            className={cn(
+              baseTab,
+              isActive(pathSport) ? 'bg-app-primary text-white border border-app-borderPrimary' : 'text-app-neutral500'
+            )}
+          >
+            <IconSport
+              className={cn(
+                'size-6',
+                isActive(pathSport) ? 'text-white' : 'text-app-neutral500 group-hover:text-app-text-color'
+              )}
+            />
+            <span className={cn(isActive(pathSport) ? 'text-white' : 'group-hover:text-app-text-color')}>
+              {lang?.header?.sport ?? 'SPORT'}
+            </span>
+          </Link>
         )}
-      >
-        <BookIcon
+
+        {/* Sport */}
+        {features?.promotion && (
+          <Link
+            // TODO: fixme
+            // href={pathPromotion}
+            href={''}
+            onClick={() => setIsMaintenanceModalOpen(true)}
+            className={cn(
+              baseTab,
+              isActive(pathPromotion)
+                ? 'bg-app-primary text-white border border-app-borderPrimary'
+                : 'text-app-neutral500 group-hover:text-app-text-color'
+            )}
+          >
+            <IconTicket
+              className={cn(
+                'size-6',
+                isActive(pathPromotion) ? 'text-white' : 'text-app-neutral500 group-hover:text-app-text-color'
+              )}
+            />
+            <span className={cn(isActive(pathPromotion) ? 'text-white' : 'group-hover:text-app-text-color')}>
+              {lang?.header?.promotion ?? 'PROMOTION'}
+            </span>
+          </Link>
+        )}
+
+        <Link
+          href='/user-guide/poker/texas-poker'
           className={cn(
-            'size-6',
-            isActive('/user-guide') ? 'text-white' : 'text-app-neutral500 group-hover:text-app-text-color'
+            baseTab,
+            isActive('/user-guide')
+              ? 'bg-app-primary text-white border border-app-borderPrimary'
+              : 'text-app-neutral500 group-hover:text-app-text-color'
           )}
-        />
-        <span className={cn(isActive('/user-guide') ? 'text-white' : 'group-hover:text-app-text-color')}>
-          {lang?.common?.userGuide}
-        </span>
-      </Link>
-    </div>
+        >
+          <BookIcon
+            className={cn(
+              'size-6',
+              isActive('/user-guide') ? 'text-white' : 'text-app-neutral500 group-hover:text-app-text-color'
+            )}
+          />
+          <span className={cn(isActive('/user-guide') ? 'text-white' : 'group-hover:text-app-text-color')}>
+            {lang?.common?.userGuide}
+          </span>
+        </Link>
+      </div>
+
+      <MaintenanceModal
+        label={lang.common.preparingToOpen}
+        open={isMaintenanceModalOpen}
+        onOpenChange={setIsMaintenanceModalOpen}
+      />
+    </>
   )
 }

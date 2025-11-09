@@ -1,9 +1,8 @@
 'use client'
 
-import { useLiveChatContext } from '@/utils/context/LiveChatProvider'
-import { IconLiveChat } from '../Icons'
 import { UserMeResponse } from '@/@core/interface/User'
 import { useSession } from 'next-auth/react'
+import { IconLiveChat } from '../Icons'
 
 export const LiveChatButton = ({ user, ready }: { user?: UserMeResponse; ready: boolean }) => {
   const { data: session } = useSession()

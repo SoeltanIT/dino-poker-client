@@ -104,13 +104,13 @@ export default function PromoCarousel({
         {isLoading ? (
           <Skeleton className='h-[220px] w-full rounded-2xl md:h-full' />
         ) : isEmpty ? (
-          <div className='relative h-[220px] w-full md:h-full'>
+          <div className='relative w-full h-full overflow-hidden rounded-2xl ring-1 ring-white/10 cursor-pointer hover:opacity-90 transition-opacity'>
             <Image
               src={'/images/default/promo_banner.avif'}
               alt='Promotion placeholder'
               fill
               priority={false}
-              className='object-cover object-center rounded-2xl'
+              className='object-cover object-center rounded-2xl w-full! h-full'
               sizes='(min-width:1024px) 1024px, 100vw'
             />
             {/* <div className='absolute inset-0 flex items-end mb-6 justify-center p-4 text-center'>

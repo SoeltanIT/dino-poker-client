@@ -14,14 +14,16 @@ export async function getAppFeaturesServer(): Promise<AppFeatures> {
     const fallbackFeatures: AppFeatures = {
       sports: false,
       promotion: false,
-      crypto: false
+      crypto: false,
+      livechat: false
     }
 
     // Merge edge config with fallback (edge config takes priority)
     return {
       sports: features?.sports ?? fallbackFeatures.sports,
       promotion: features?.promotion ?? fallbackFeatures.promotion,
-      crypto: features?.crypto ?? fallbackFeatures.crypto
+      crypto: features?.crypto ?? fallbackFeatures.crypto,
+      livechat: features?.crypto ?? fallbackFeatures.crypto
     }
   } catch (error) {
     console.error('[getAppFeaturesServer] Error fetching from edge config:', error)
@@ -30,7 +32,8 @@ export async function getAppFeaturesServer(): Promise<AppFeatures> {
     return {
       sports: false,
       promotion: false,
-      crypto: false
+      crypto: false,
+      livechat: false
     }
   }
 }
