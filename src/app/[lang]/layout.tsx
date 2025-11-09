@@ -81,12 +81,9 @@ export async function generateMetadata({ params }: { params: { lang: Locale } })
   let canonical = 'https://kpoker.gg'
 
   return {
-    // title: initialSEO?.title ?? lang.metadata?.title ?? 'KPOKER.gg',
-    title: lang.metadata?.title ?? 'KPOKER.gg',
-    // description: initialSEO?.description ?? lang.metadata?.description,
-    description: lang.metadata?.description,
-    // keywords: initialSEO?.keyword ?? localizedKeywords[params.lang],
-    keywords: localizedKeywords[params.lang],
+    title: initialSEO?.title ?? lang.metadata?.title ?? 'KPOKER.gg',
+    description: initialSEO?.description ?? lang.metadata?.description,
+    keywords: initialSEO?.keyword ?? localizedKeywords[params.lang],
     // openGraph: {
     //   title: initialSEO?.title ?? lang.metadata?.title,
     //   description: initialSEO?.description ?? lang.metadata?.description,
@@ -101,13 +98,10 @@ export async function generateMetadata({ params }: { params: { lang: Locale } })
     //   description: initialSEO?.description ?? lang.metadata?.description
     // },
     alternates: {
-      // canonical: `${initialSEO?.canonical ?? canonical}`,
-      canonical: `${canonical}`,
+      canonical: `${initialSEO?.canonical ?? canonical}`,
       languages: {
-        en: `${canonical}/en`,
-        // en: `${initialSEO?.canonical ?? canonical}/en`,
-        // ko: `${initialSEO?.canonical ?? canonical}/ko`
-        ko: `${canonical}/ko`
+        en: `${initialSEO?.canonical ?? canonical}/en`,
+        ko: `${initialSEO?.canonical ?? canonical}/ko`
       }
     }
   }
