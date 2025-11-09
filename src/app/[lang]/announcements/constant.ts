@@ -23,6 +23,185 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
     },
 
     {
+      title:
+        "[Official Certification] IDN's 15 Years of Technology and Asia's No. 1 Poker Platform presented by Kpoker",
+      is_active: true,
+      content: `<section>
+  <h2>[Official Certification] IDN's 15 Years of Technology and Asia's No. 1 Poker Platform presented by Kpoker</h2>
+  <h3>I. The Powerful Meeting of Kpoker and IDN Poker</h3>
+  <p>
+    We at Kpoker, as the official licensed partner of the global poker platform IDN, are proud to announce that we are exclusively providing IDN's overwhelming credibility and cutting-edge security technology, accumulated over 15 years, to our Korean users. Based on IDN's global status, Kpoker promises the safest and cleanest gaming environment.
+  </p>
+
+  <h3>II. IDN's Global No. 2 Status and Technological Superiority</h3>
+  <p>
+    IDN Poker, which Kpoker is connected to, is leading the standards of the global poker industry.
+  </p>
+
+  <ul>
+    <li><strong>Global Scale:</strong> According to **PokerScout** statistics, IDN ranks second worldwide in terms of user numbers. This proves the overwhelming scale and global reliability of the service Kpoker provides.</li>
+  </ul>
+
+  <p><strong>PokerScout Real-Time Statistics</strong><br />
+  <span class="text-[#6b7280] text-[0.875rem]">Last Updated: November 8, 2025, 6:13 AM GMT</span></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Brand</th>
+        <th>Connected Users</th>
+        <th>Cash Players</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>
+          <div class="flex items-center gap-2.5">
+            <img src="/images/svg/pokerscout-rank/01_wpt_global.svg" alt="WPT Global" class="w-[60px] h-[60px] shrink-0">
+            <span>WPT Global</span>
+          </div>
+        </td>
+        <td>9,308</td>
+        <td>3,196</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>
+          <div class="flex items-center gap-2.5">
+            <img src="/images/svg/pokerscout-rank/02_idnpoker.svg" alt="IDN Poker" class="w-[60px] h-[60px] shrink-0">
+            <span>IDNPoker</span>
+          </div>
+        </td>
+        <td>9,736</td>
+        <td>2,360</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>
+          <div class="flex items-center gap-2.5">
+            <img src="/images/svg/pokerscout-rank/03_paiwangluo.svg" alt="PaiWangLuo" class="w-[60px] h-[60px] shrink-0">
+            <span>PaiWangLuo (Bodog)</span>
+          </div>
+        </td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>
+          <div class="flex items-center gap-2.5">
+            <img src="/images/svg/pokerscout-rank/04_mpl_poker.svg" alt="MPL Poker" class="w-[60px] h-[60px] shrink-0">
+            <span>MPL Poker</span>
+          </div>
+        </td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>
+          <div class="flex items-center gap-2.5">
+            <img src="/images/svg/pokerscout-rank/05_unibet.svg" alt="Unibet" class="w-[60px] h-[60px] shrink-0">
+            <span>Unibet</span>
+          </div>
+        </td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>
+          <div class="flex items-center gap-2.5">
+            <img src="/images/svg/pokerscout-rank/06_ggpoker_on.svg" alt="GGPoker ON" class="w-[60px] h-[60px] shrink-0">
+            <span>GGPoker ON</span>
+          </div>
+        </td>
+        <td>825</td>
+        <td>62</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>
+          <div class="flex items-center gap-2.5">
+            <img src="/images/svg/pokerscout-rank/07_betmgm_mi.svg" alt="BetMGM MI" class="w-[60px] h-[60px] shrink-0">
+            <span>BetMGM MI</span>
+          </div>
+        </td>
+        <td>0</td>
+        <td>229</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>
+          <div class="flex items-center gap-2.5">
+            <img src="/images/svg/pokerscout-rank/08_pokerklas.svg" alt="PokerKlas" class="w-[60px] h-[60px] shrink-0">
+            <span>PokerKlas</span>
+          </div>
+        </td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>
+          <div class="flex items-center gap-2.5">
+            <img src="/images/svg/pokerscout-rank/09_wsop_mi.svg" alt="WSOP MI" class="w-[60px] h-[60px] shrink-0">
+            <span>WSOP MI</span>
+          </div>
+        </td>
+        <td>0</td>
+        <td>132</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>
+          <div class="flex items-center gap-2.5">
+            <img src="/images/svg/pokerscout-rank/10_gamezy.svg" alt="Gamezy" class="w-[60px] h-[60px] shrink-0">
+            <span>Gamezy</span>
+          </div>
+        </td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>
+          <div class="flex items-center gap-2.5">
+            <img src="/images/svg/pokerscout-rank/11_pocket52.svg" alt="Pocket52" class="w-[60px] h-[60px] shrink-0">
+            <span>Pocket52</span>
+          </div>
+        </td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td style="padding: 12px 20px;">12</td>
+        <td style="padding: 12px 16px;">
+          <div class="flex items-center gap-2.5">
+            <img src="/images/svg/pokerscout-rank/12_pokerstars.it.svg" alt="PokerStars.it" class="w-[60px] h-[60px] shrink-0">
+            <span>PokerStars.it</span>
+          </div>
+        </td>
+        <td style="padding: 12px 16px; text-align: right;">11,145</td>
+        <td style="padding: 12px 20px; text-align: right;">4</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ul>
+    <li><strong>Asia's Strongest Player:</strong> IDN firmly maintains its undisputed position and influence as the No. 1 platform in the Asian market in terms of user numbers.</li>
+    <li><strong>15 Years of Secure Operation:</strong> Kpoker inherits IDN's 15 years of operational know-how, prioritizing user asset protection and system stability.</li>
+  </ul>
+
+  <h3>III. Guarantee of a Clean Gaming Environment and User Trust</h3>
+  <p>Kpoker utilizes IDN's proprietary AI algorithm to detect and penalize all fraudulent activities (exploitation, collusion, etc.) in real-time. We promise to strive for the creation of a clean gaming environment where all users can compete solely with skill and fair strategy.</p>
+</section>`,
+      created_at: '2025-11-08T03:36:17Z'
+    },
+
+    {
       title: '[Warning — Must Read] IDN Official Clean Game Policy: Notice on Chip Dumping Penalty',
       is_active: true,
       content: `<section>
@@ -73,24 +252,26 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
     <h4>II. Official Chip Exchange Rate</h4>
     <p>Deposited Korean Won (KRW) will be exchanged into IDN chips used within the game according to a fixed rate.</p>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Currency</th>
-          <th>IDN Chip Unit</th>
-          <th>Exchange Rate</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Korean Won (₩)</td>
-          <td>IDN Chip</td>
-          <td><strong>₩1,000 = 11,000 Chips</strong></td>
-          <td>When 1,000 KRW is deposited, it will be converted to 11,000 chips for in-game use.</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="overflow-auto">
+      <table class="w-[500px] md:w-auto">
+        <thead>
+          <tr>
+            <th class="w-[200px]">Currency</th>
+            <th class="w-[200px]">IDN Chip Unit</th>
+            <th class="w-[200px]">Exchange Rate</th>
+            <th class="w-[200px]">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Korean Won (₩)</td>
+            <td>IDN Chip</td>
+            <td><strong>₩1,000 = 11,000 Chips</strong></td>
+            <td>When 1,000 KRW is deposited, it will be converted to 11,000 chips for in-game use.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <p><strong>Example:</strong> Deposit ₩10,000 → Receive 110,000 chips.</p>
 
@@ -239,6 +420,184 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
     },
 
     {
+      title: '[공식 인증] Kpoker가 선사하는 IDN의 15년 기술력과 아시아 1위 포커 플랫폼',
+      is_active: true,
+      content: `<section>
+  <h2>[공식 인증] Kpoker가 선사하는 IDN의 15년 기술력과 아시아 1위 포커 플랫폼</h2>
+  <h3>I. Kpoker와 IDN 포커의 압도적인 만남</h3>
+  <p>
+    저희 Kpoker는 글로벌 포커 플랫폼 IDN의 정식 라이센스 파트너로서, IDN이 15년 이상 쌓아온 압도적인 공신력과 최첨단 보안 기술력을 한국 사용자 여러분께 독점 제공함을 자랑스럽게 공지합니다. Kpoker는 IDN의 세계적 위상을 바탕으로 가장 안전하고 클린한 게임 환경을 약속드립니다.
+  </p>
+
+  <h3>II. IDN의 글로벌 No.2 위상과 기술적 우위성</h3>
+  <p>
+    저희 Kpoker가 연동한 IDN 포커는 전 세계 포커 산업의 기준을 선도하고 있습니다.
+  </p>
+
+  <ul>
+    <li><strong>세계적 규모: 포커스카우트(PokerScout)</strong> 통계 기준, IDN은 전 세계 이용자 수 2위를 기록하고 있습니다. 이는 저희 Kpoker가 제공하는 서비스의 압도적인 규모와 글로벌 신뢰도를 입증합니다.</li>
+  </ul>
+
+  <p><strong>포커스카우트(PokerScout) 실시간 통계</strong><br />
+  <span class="text-[#6b7280] text-[0.875rem]">최종 업데이트: 2025년 11월 8일 오전 6:13 GMT</span></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>순위</th>
+        <th class="w-[100px]">브랜드</th>
+        <th>접속자</th>
+        <th>캐시 플레이어</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>
+          <div class="flex items-center text-xs gap-2.5">
+            <img src="/images/svg/pokerscout-rank/01_wpt_global.svg" alt="WPT Global" class="w-[60px] h-[60px] shrink-0">
+            <span>WPT Global</span>
+          </div>
+        </td>
+        <td>9,308</td>
+        <td>3,196</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>
+          <div class="flex items-center text-xs gap-2.5">
+            <img src="/images/svg/pokerscout-rank/02_idnpoker.svg" alt="IDN Poker" class="w-[60px] h-[60px] shrink-0">
+            <span>IDNPoker</span>
+          </div>
+        </td>
+        <td>9,736</td>
+        <td>2,360</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>
+          <div class="flex items-center text-xs gap-2.5">
+            <img src="/images/svg/pokerscout-rank/03_paiwangluo.svg" alt="PaiWangLuo" class="w-[60px] h-[60px] shrink-0">
+            <span>PaiWangLuo (Bodog)</span>
+          </div>
+        </td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>
+          <div class="flex items-center text-xs gap-2.5">
+            <img src="/images/svg/pokerscout-rank/04_mpl_poker.svg" alt="MPL Poker" class="w-[60px] h-[60px] shrink-0">
+            <span>MPL Poker</span>
+          </div>
+        </td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>
+          <div class="flex items-center text-xs gap-2.5">
+            <img src="/images/svg/pokerscout-rank/05_unibet.svg" alt="Unibet" class="w-[60px] h-[60px] shrink-0">
+            <span>Unibet</span>
+          </div>
+        </td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>
+          <div class="flex items-center text-xs gap-2.5">
+            <img src="/images/svg/pokerscout-rank/06_ggpoker_on.svg" alt="GGPoker ON" class="w-[60px] h-[60px] shrink-0">
+            <span>GGPoker ON</span>
+          </div>
+        </td>
+        <td>825</td>
+        <td>62</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>
+          <div class="flex items-center text-xs gap-2.5">
+            <img src="/images/svg/pokerscout-rank/07_betmgm_mi.svg" alt="BetMGM MI" class="w-[60px] h-[60px] shrink-0">
+            <span>BetMGM MI</span>
+          </div>
+        </td>
+        <td>0</td>
+        <td>229</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>
+          <div class="flex items-center text-xs gap-2.5">
+            <img src="/images/svg/pokerscout-rank/08_pokerklas.svg" alt="PokerKlas" class="w-[60px] h-[60px] shrink-0">
+            <span>PokerKlas</span>
+          </div>
+        </td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>
+          <div class="flex items-center text-xs gap-2.5">
+            <img src="/images/svg/pokerscout-rank/09_wsop_mi.svg" alt="WSOP MI" class="w-[60px] h-[60px] shrink-0">
+            <span>WSOP MI</span>
+          </div>
+        </td>
+        <td>0</td>
+        <td>132</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>
+          <div class="flex items-center text-xs gap-2.5">
+            <img src="/images/svg/pokerscout-rank/10_gamezy.svg" alt="Gamezy" class="w-[60px] h-[60px] shrink-0">
+            <span>Gamezy</span>
+          </div>
+        </td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>
+          <div class="flex items-center text-xs gap-2.5">
+            <img src="/images/svg/pokerscout-rank/11_pocket52.svg" alt="Pocket52" class="w-[60px] h-[60px] shrink-0">
+            <span>Pocket52</span>
+          </div>
+        </td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>
+          <div class="flex items-center gap-2.5">
+            <img src="/images/svg/pokerscout-rank/12_pokerstars.it.svg" alt="PokerStars.it" class="w-[60px] h-[60px] shrink-0">
+            <span>PokerStars.it</span>
+          </div>
+        </td>
+        <td>11,145</td>
+        <td>4</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ul>
+    <li><strong>아시아 최강자</strong>: 아시아 시장에서는 명실상부한 이용자 수 1위 플랫폼으로서, 그 영향력과 독보적인 입지를 확고히 하고 있습니다.</li>
+    <li><strong>15년 보안 운영</strong>: Kpoker는 IDN의 15년 운영 노하우를 계승하여 사용자 자산 보호와 시스템 안정성을 최우선으로 합니다.</li>
+  </ul>
+
+  <h3>III. 클린 게임 환경 보장 및 사용자 신뢰</h3>
+  <p>Kpoker는 IDN의 독자적인 AI 알고리즘을 통해 모든 부정 행위(악용, 담합 등)를 실시간으로 탐지하고 제재합니다. 저희는 모든 이용자가 오직 실력과 정당한 전략만으로 경쟁할 수 있도록 클린 게임 환경 조성에 힘쓸 것을 약속드립니다.</p>
+</section>`,
+      created_at: '2025-11-08T03:36:17Z'
+    },
+
+    {
       title: '[경고 필독] IDN 공식 클린 게임 정책: 칩 덤핑 행위 제재 공지',
       is_active: true,
       content: `<section>
@@ -290,24 +649,26 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
     <h4>II. 공식 칩 교환 비율 안내</h4>
     <p>이용자가 입금하는 한국 원화(KRW)는 게임 내 사용되는 IDN 칩으로 고정된 비율에 따라 교환됩니다.</p>
 
-    <table>
-      <thead>
-        <tr>
-          <th>화폐 단위</th>
-          <th>IDN 칩 단위</th>
-          <th>교환 비율</th>
-          <th>설명</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>한국 원 (₩)</td>
-          <td>IDN 칩 (Chip)</td>
-          <td><strong>₩1,000 = 11,000 칩</strong></td>
-          <td>한국 원화 1,000원 입금 시, 게임 내에서 11,000 칩으로 전환되어 이용 가능합니다.</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="overflow-auto">
+      <table class="w-[500px] md:w-auto">
+        <thead>
+          <tr>
+            <th class="w-[200px]">화폐 단위</th>
+            <th class="w-[200px]">IDN 칩 단위</th>
+            <th class="w-[200px]">교환 비율</th>
+            <th class="w-[200px]">설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>한국 원 (₩)</td>
+            <td>IDN 칩 (Chip)</td>
+            <td><strong>₩1,000 = 11,000 칩</strong></td>
+            <td>한국 원화 1,000원 입금 시, 게임 내에서 11,000 칩으로 전환되어 이용 가능합니다.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <p><strong>예시:</strong> 10,000원 입금 시 → 110,000 칩이 지급됩니다.</p>
 
