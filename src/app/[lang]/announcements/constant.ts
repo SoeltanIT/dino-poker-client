@@ -288,26 +288,26 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
       created_at: '2025-11-06T03:36:17Z'
     },
 
-    {
-      title: 'Daily Bonus Reward Event',
-      is_active: true,
-      content: `<section>
-   <div>
-    <h3>Daily Bonus Reward Event</h3>
-    <p>As a token of appreciation to our KPOKER members, we provide daily attendance bonuses.</p>
+    //     {
+    //       title: 'Daily Bonus Reward Event',
+    //       is_active: true,
+    //       content: `<section>
+    //    <div>
+    //     <h3>Daily Bonus Reward Event</h3>
+    //     <p>As a token of appreciation to our KPOKER members, we provide daily attendance bonuses.</p>
 
-    <h4>Bonus Details:</h4>
-    <ul>
-      <li>Receive an attendance bonus upon your first login each day</li>
-      <li>Get additional bonuses for consecutive logins</li>
-      <li>Receive a special bonus after 7 consecutive days of attendance</li>
-    </ul>
+    //     <h4>Bonus Details:</h4>
+    //     <ul>
+    //       <li>Receive an attendance bonus upon your first login each day</li>
+    //       <li>Get additional bonuses for consecutive logins</li>
+    //       <li>Receive a special bonus after 7 consecutive days of attendance</li>
+    //     </ul>
 
-    <p>Log in every day and claim your bonuses!</p>
-  </div>
-</section>`,
-      created_at: '2025-11-05T03:36:17Z'
-    },
+    //     <p>Log in every day and claim your bonuses!</p>
+    //   </div>
+    // </section>`,
+    //       created_at: '2025-11-05T03:36:17Z'
+    //     },
 
     {
       title: 'System Update Completed Notice',
@@ -686,27 +686,27 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
       created_at: '2025-11-06T03:36:17Z'
     },
 
-    {
-      title: '매일 보너스 지급 이벤트',
-      is_active: true,
-      content: `<section>
-    <div>
-    <h3>매일 보너스 지급 이벤트</h3>
-    <p>KPOKER 회원님들께 감사의 마음을 담아 매일 출석 보너스를 지급합니다.</p>
+    //   {
+    //     title: '매일 보너스 지급 이벤트',
+    //     is_active: true,
+    //     content: `<section>
+    //   <div>
+    //   <h3>매일 보너스 지급 이벤트</h3>
+    //   <p>KPOKER 회원님들께 감사의 마음을 담아 매일 출석 보너스를 지급합니다.</p>
 
-    <h4>보너스 내용:</h4>
-    <ul>
-      <li>매일 첫 로그인 시 출석 보너스 지급</li>
-      <li>연속 출석 시 추가 보너스 제공</li>
-      <li>7일 연속 출석 시 특별 보너스 지급</li>
-    </ul>
+    //   <h4>보너스 내용:</h4>
+    //   <ul>
+    //     <li>매일 첫 로그인 시 출석 보너스 지급</li>
+    //     <li>연속 출석 시 추가 보너스 제공</li>
+    //     <li>7일 연속 출석 시 특별 보너스 지급</li>
+    //   </ul>
 
-    <p>매일 접속하셔서 보너스를 받아가세요!</p>
-  </div>
-  </section>
-  `,
-      created_at: '2025-11-05T03:36:17Z'
-    },
+    //   <p>매일 접속하셔서 보너스를 받아가세요!</p>
+    // </div>
+    // </section>
+    // `,
+    //     created_at: '2025-11-05T03:36:17Z'
+    //   },
 
     {
       title: '시스템 업데이트 완료 공지',
