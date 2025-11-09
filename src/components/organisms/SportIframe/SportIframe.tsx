@@ -55,6 +55,7 @@ export const BetByIframe = ({
   )
 
   const { features } = useAppFeatures()
+  const showLiveChat = ready && !!features?.livechat
 
   // Keep the most recent token and prevent duplicate requests
   const tokenRef = useRef<string | null>(null)
@@ -335,7 +336,7 @@ export const BetByIframe = ({
           <div className='flex md:hidden items-center justify-center w-14 h-14 bg-app-primary hover:bg-app-primary-hover rounded-full shadow-lg'>
             <LocaleSwitcherDropdown lang={locale} />
           </div>
-          {ready && <LiveChatButton user={userData} ready={ready} />}
+          {showLiveChat && <LiveChatButton user={userData} ready={ready} />}
         </div>
       )}
 
