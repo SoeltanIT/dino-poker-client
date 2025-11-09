@@ -5,7 +5,7 @@ const imageDomains = process.env.NEXT_PUBLIC_IMAGE_REMOTE_PATTERN?.split(',') ||
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
-  
+
   // ============================================================================
   // Image Optimization for Mobile Performance
   // ============================================================================
@@ -27,9 +27,12 @@ const nextConfig = {
   // Compiler Optimizations
   // ============================================================================
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production' ? {
-      exclude: ['error', 'warn']
-    } : false
+    removeConsole:
+      process.env.NODE_ENV === 'production'
+        ? {
+            exclude: ['error', 'warn']
+          }
+        : false
   },
 
   // ============================================================================
@@ -38,7 +41,7 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: [
       '@/components/atoms',
-      '@/components/molecules', 
+      '@/components/molecules',
       '@/components/organisms',
       'lucide-react',
       'date-fns'

@@ -7,8 +7,8 @@ import { getGameList, type GameListResponse } from '@/utils/api/internal/getGame
 import { getListBanner } from '@/utils/api/internal/listBanner'
 import { getListPromotion } from '@/utils/api/internal/listPromotion'
 import { mapPromotionList, type PromotionApi } from '@/utils/mappers/promotion'
-import dynamic from 'next/dynamic'
 import { type Metadata } from 'next'
+import dynamic from 'next/dynamic'
 
 // ============================================================================
 // Dynamic Imports - Reduce Initial JavaScript Bundle
@@ -18,9 +18,7 @@ const ListGamePage = dynamic(() => import('@/components/organisms/Games'), {
 })
 
 const BannerSection = dynamic(() => import('@/components/organisms/Promotion/BannerSection'), {
-  loading: () => (
-    <div className='h-[480px] md:h-[325px] w-full animate-pulse bg-gray-800/20 rounded-2xl' />
-  )
+  loading: () => <div className='h-[480px] md:h-[325px] w-full animate-pulse bg-gray-800/20 rounded-2xl' />
 })
 
 // ============================================================================
