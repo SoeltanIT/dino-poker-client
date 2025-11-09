@@ -45,150 +45,152 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
   <p><strong>PokerScout Real-Time Statistics</strong><br />
   <span class="text-[#6b7280] text-[0.875rem]">Last Updated: November 8, 2025, 6:13 AM GMT</span></p>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Rank</th>
-        <th>Brand</th>
-        <th>Connected Users</th>
-        <th>Cash Players</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>
-          <div class="flex items-center gap-2.5">
-            <img src="/images/svg/pokerscout-rank/01_wpt_global.svg" alt="WPT Global" class="w-[60px] h-[60px] shrink-0">
-            <span>WPT Global</span>
-          </div>
-        </td>
-        <td>9,308</td>
-        <td>3,196</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>
-          <div class="flex items-center gap-2.5">
-            <img src="/images/svg/pokerscout-rank/02_idnpoker.svg" alt="IDN Poker" class="w-[60px] h-[60px] shrink-0">
-            <span>IDNPoker</span>
-          </div>
-        </td>
-        <td>9,736</td>
-        <td>2,360</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>
-          <div class="flex items-center gap-2.5">
-            <img src="/images/svg/pokerscout-rank/03_paiwangluo.svg" alt="PaiWangLuo" class="w-[60px] h-[60px] shrink-0">
-            <span>PaiWangLuo (Bodog)</span>
-          </div>
-        </td>
-        <td>0</td>
-        <td>0</td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>
-          <div class="flex items-center gap-2.5">
-            <img src="/images/svg/pokerscout-rank/04_mpl_poker.svg" alt="MPL Poker" class="w-[60px] h-[60px] shrink-0">
-            <span>MPL Poker</span>
-          </div>
-        </td>
-        <td>0</td>
-        <td>0</td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td>
-          <div class="flex items-center gap-2.5">
-            <img src="/images/svg/pokerscout-rank/05_unibet.svg" alt="Unibet" class="w-[60px] h-[60px] shrink-0">
-            <span>Unibet</span>
-          </div>
-        </td>
-        <td>0</td>
-        <td>0</td>
-      </tr>
-      <tr>
-        <td>6</td>
-        <td>
-          <div class="flex items-center gap-2.5">
-            <img src="/images/svg/pokerscout-rank/06_ggpoker_on.svg" alt="GGPoker ON" class="w-[60px] h-[60px] shrink-0">
-            <span>GGPoker ON</span>
-          </div>
-        </td>
-        <td>825</td>
-        <td>62</td>
-      </tr>
-      <tr>
-        <td>7</td>
-        <td>
-          <div class="flex items-center gap-2.5">
-            <img src="/images/svg/pokerscout-rank/07_betmgm_mi.svg" alt="BetMGM MI" class="w-[60px] h-[60px] shrink-0">
-            <span>BetMGM MI</span>
-          </div>
-        </td>
-        <td>0</td>
-        <td>229</td>
-      </tr>
-      <tr>
-        <td>8</td>
-        <td>
-          <div class="flex items-center gap-2.5">
-            <img src="/images/svg/pokerscout-rank/08_pokerklas.svg" alt="PokerKlas" class="w-[60px] h-[60px] shrink-0">
-            <span>PokerKlas</span>
-          </div>
-        </td>
-        <td>0</td>
-        <td>0</td>
-      </tr>
-      <tr>
-        <td>9</td>
-        <td>
-          <div class="flex items-center gap-2.5">
-            <img src="/images/svg/pokerscout-rank/09_wsop_mi.svg" alt="WSOP MI" class="w-[60px] h-[60px] shrink-0">
-            <span>WSOP MI</span>
-          </div>
-        </td>
-        <td>0</td>
-        <td>132</td>
-      </tr>
-      <tr>
-        <td>10</td>
-        <td>
-          <div class="flex items-center gap-2.5">
-            <img src="/images/svg/pokerscout-rank/10_gamezy.svg" alt="Gamezy" class="w-[60px] h-[60px] shrink-0">
-            <span>Gamezy</span>
-          </div>
-        </td>
-        <td>0</td>
-        <td>0</td>
-      </tr>
-      <tr>
-        <td>11</td>
-        <td>
-          <div class="flex items-center gap-2.5">
-            <img src="/images/svg/pokerscout-rank/11_pocket52.svg" alt="Pocket52" class="w-[60px] h-[60px] shrink-0">
-            <span>Pocket52</span>
-          </div>
-        </td>
-        <td>0</td>
-        <td>0</td>
-      </tr>
-      <tr>
-        <td style="padding: 12px 20px;">12</td>
-        <td style="padding: 12px 16px;">
-          <div class="flex items-center gap-2.5">
-            <img src="/images/svg/pokerscout-rank/12_pokerstars.it.svg" alt="PokerStars.it" class="w-[60px] h-[60px] shrink-0">
-            <span>PokerStars.it</span>
-          </div>
-        </td>
-        <td style="padding: 12px 16px; text-align: right;">11,145</td>
-        <td style="padding: 12px 20px; text-align: right;">4</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="overflow-auto">
+    <table class="w-screen">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th class="w-[100px]">Brand</th>
+          <th>Connected Users</th>
+          <th>Cash Players</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>
+            <div class="flex items-center gap-2.5">
+              <img src="/images/svg/pokerscout-rank/01_wpt_global.svg" alt="WPT Global" class="w-[60px] h-[60px] shrink-0">
+              <span>WPT Global</span>
+            </div>
+          </td>
+          <td>9,308</td>
+          <td>3,196</td>
+        </tr>
+        <tr class="bg-[#fef3c7] [&_td]:bg-transparent [&_td]:font-bold">
+          <td>2</td>
+          <td>
+            <div class="flex items-center gap-2.5">
+              <img src="/images/svg/pokerscout-rank/02_idnpoker.svg" alt="IDN Poker" class="w-[60px] h-[60px] shrink-0">
+              <span>IDNPoker</span>
+            </div>
+          </td>
+          <td>9,736</td>
+          <td>2,360</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>
+            <div class="flex items-center gap-2.5">
+              <img src="/images/svg/pokerscout-rank/03_paiwangluo.svg" alt="PaiWangLuo" class="w-[60px] h-[60px] shrink-0">
+              <span>PaiWangLuo (Bodog)</span>
+            </div>
+          </td>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>
+            <div class="flex items-center gap-2.5">
+              <img src="/images/svg/pokerscout-rank/04_mpl_poker.svg" alt="MPL Poker" class="w-[60px] h-[60px] shrink-0">
+              <span>MPL Poker</span>
+            </div>
+          </td>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>
+            <div class="flex items-center gap-2.5">
+              <img src="/images/svg/pokerscout-rank/05_unibet.svg" alt="Unibet" class="w-[60px] h-[60px] shrink-0">
+              <span>Unibet</span>
+            </div>
+          </td>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>
+            <div class="flex items-center gap-2.5">
+              <img src="/images/svg/pokerscout-rank/06_ggpoker_on.svg" alt="GGPoker ON" class="w-[60px] h-[60px] shrink-0">
+              <span>GGPoker ON</span>
+            </div>
+          </td>
+          <td>825</td>
+          <td>62</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>
+            <div class="flex items-center gap-2.5">
+              <img src="/images/svg/pokerscout-rank/07_betmgm_mi.svg" alt="BetMGM MI" class="w-[60px] h-[60px] shrink-0">
+              <span>BetMGM MI</span>
+            </div>
+          </td>
+          <td>0</td>
+          <td>229</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>
+            <div class="flex items-center gap-2.5">
+              <img src="/images/svg/pokerscout-rank/08_pokerklas.svg" alt="PokerKlas" class="w-[60px] h-[60px] shrink-0">
+              <span>PokerKlas</span>
+            </div>
+          </td>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>
+            <div class="flex items-center gap-2.5">
+              <img src="/images/svg/pokerscout-rank/09_wsop_mi.svg" alt="WSOP MI" class="w-[60px] h-[60px] shrink-0">
+              <span>WSOP MI</span>
+            </div>
+          </td>
+          <td>0</td>
+          <td>132</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>
+            <div class="flex items-center gap-2.5">
+              <img src="/images/svg/pokerscout-rank/10_gamezy.svg" alt="Gamezy" class="w-[60px] h-[60px] shrink-0">
+              <span>Gamezy</span>
+            </div>
+          </td>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>11</td>
+          <td>
+            <div class="flex items-center gap-2.5">
+              <img src="/images/svg/pokerscout-rank/11_pocket52.svg" alt="Pocket52" class="w-[60px] h-[60px] shrink-0">
+              <span>Pocket52</span>
+            </div>
+          </td>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>12</td>
+          <td>
+            <div class="flex items-center gap-2.5">
+              <img src="/images/svg/pokerscout-rank/12_pokerstars.it.svg" alt="PokerStars.it" class="w-[60px] h-[60px] shrink-0">
+              <span>PokerStars.it</span>
+            </div>
+          </td>
+          <td>11,145</td>
+          <td>4</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <ul>
     <li><strong>Asia's Strongest Player:</strong> IDN firmly maintains its undisputed position and influence as the No. 1 platform in the Asian market in terms of user numbers.</li>
@@ -252,7 +254,7 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
     <h4>II. Official Chip Exchange Rate</h4>
     <p>Deposited Korean Won (KRW) will be exchanged into IDN chips used within the game according to a fixed rate.</p>
 
-    <div class="overflow-auto">
+    <div class="max-height-[400px] overflow-y-auto; border border-#e5e7eb rounded-[8px] scrollbar-color: #d1d5db #f3f4f6;">
       <table class="w-[500px] md:w-auto">
         <thead>
           <tr>
@@ -445,7 +447,7 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
     <thead>
       <tr>
         <th>순위</th>
-        <th class="w-[100px]">브랜드</th>
+        <th>브랜드</th>
         <th>접속자</th>
         <th>캐시 플레이어</th>
       </tr>
@@ -454,7 +456,7 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
       <tr>
         <td>1</td>
         <td>
-          <div class="flex items-center text-xs gap-2.5">
+          <div class="flex items-center gap-2.5">
             <img src="/images/svg/pokerscout-rank/01_wpt_global.svg" alt="WPT Global" class="w-[60px] h-[60px] shrink-0">
             <span>WPT Global</span>
           </div>
@@ -462,10 +464,10 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
         <td>9,308</td>
         <td>3,196</td>
       </tr>
-      <tr>
+      <tr class="bg-[#fef3c7] [&_td]:bg-transparent [&_td]:font-bold">
         <td>2</td>
         <td>
-          <div class="flex items-center text-xs gap-2.5">
+          <div class="flex items-center gap-2.5">
             <img src="/images/svg/pokerscout-rank/02_idnpoker.svg" alt="IDN Poker" class="w-[60px] h-[60px] shrink-0">
             <span>IDNPoker</span>
           </div>
@@ -476,7 +478,7 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
       <tr>
         <td>3</td>
         <td>
-          <div class="flex items-center text-xs gap-2.5">
+          <div class="flex items-center gap-2.5">
             <img src="/images/svg/pokerscout-rank/03_paiwangluo.svg" alt="PaiWangLuo" class="w-[60px] h-[60px] shrink-0">
             <span>PaiWangLuo (Bodog)</span>
           </div>
@@ -487,7 +489,7 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
       <tr>
         <td>4</td>
         <td>
-          <div class="flex items-center text-xs gap-2.5">
+          <div class="flex items-center gap-2.5">
             <img src="/images/svg/pokerscout-rank/04_mpl_poker.svg" alt="MPL Poker" class="w-[60px] h-[60px] shrink-0">
             <span>MPL Poker</span>
           </div>
@@ -498,7 +500,7 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
       <tr>
         <td>5</td>
         <td>
-          <div class="flex items-center text-xs gap-2.5">
+          <div class="flex items-center gap-2.5">
             <img src="/images/svg/pokerscout-rank/05_unibet.svg" alt="Unibet" class="w-[60px] h-[60px] shrink-0">
             <span>Unibet</span>
           </div>
@@ -509,7 +511,7 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
       <tr>
         <td>6</td>
         <td>
-          <div class="flex items-center text-xs gap-2.5">
+          <div class="flex items-center gap-2.5">
             <img src="/images/svg/pokerscout-rank/06_ggpoker_on.svg" alt="GGPoker ON" class="w-[60px] h-[60px] shrink-0">
             <span>GGPoker ON</span>
           </div>
@@ -520,7 +522,7 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
       <tr>
         <td>7</td>
         <td>
-          <div class="flex items-center text-xs gap-2.5">
+          <div class="flex items-center gap-2.5">
             <img src="/images/svg/pokerscout-rank/07_betmgm_mi.svg" alt="BetMGM MI" class="w-[60px] h-[60px] shrink-0">
             <span>BetMGM MI</span>
           </div>
@@ -531,7 +533,7 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
       <tr>
         <td>8</td>
         <td>
-          <div class="flex items-center text-xs gap-2.5">
+          <div class="flex items-center gap-2.5">
             <img src="/images/svg/pokerscout-rank/08_pokerklas.svg" alt="PokerKlas" class="w-[60px] h-[60px] shrink-0">
             <span>PokerKlas</span>
           </div>
@@ -542,7 +544,7 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
       <tr>
         <td>9</td>
         <td>
-          <div class="flex items-center text-xs gap-2.5">
+          <div class="flex items-center gap-2.5">
             <img src="/images/svg/pokerscout-rank/09_wsop_mi.svg" alt="WSOP MI" class="w-[60px] h-[60px] shrink-0">
             <span>WSOP MI</span>
           </div>
@@ -553,7 +555,7 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
       <tr>
         <td>10</td>
         <td>
-          <div class="flex items-center text-xs gap-2.5">
+          <div class="flex items-center gap-2.5">
             <img src="/images/svg/pokerscout-rank/10_gamezy.svg" alt="Gamezy" class="w-[60px] h-[60px] shrink-0">
             <span>Gamezy</span>
           </div>
@@ -564,7 +566,7 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
       <tr>
         <td>11</td>
         <td>
-          <div class="flex items-center text-xs gap-2.5">
+          <div class="flex items-center gap-2.5">
             <img src="/images/svg/pokerscout-rank/11_pocket52.svg" alt="Pocket52" class="w-[60px] h-[60px] shrink-0">
             <span>Pocket52</span>
           </div>
