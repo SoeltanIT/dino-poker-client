@@ -55,7 +55,7 @@ export const revalidate = 120 // 2 minutes
 ```typescript
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'Dino Poker - Play Online Poker Games',
+    title: 'Kpoker - Play Online Poker Games',
     description: '...',
     openGraph: { ... }
   }
