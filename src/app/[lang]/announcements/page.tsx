@@ -87,9 +87,14 @@ export default async function Page({ params, ...props }: any) {
                       },
                       'prose-headings:text-base prose-headings:font-bold prose-headings:mt-6 prose-headings:mb-4 prose-ul:list-disc prose-ul:pl-4 prose-ul:my-4',
                       'prose-p:text-base prose-p:my-4',
-                      'prose-table:text-base prose-table:my-4 prose-table:border-collapse prose-table:border-spacing-0 prose-th:border prose-td:border prose-table:border-[#303947] prose-table:border-app-table-border-body',
-                      'prose-th:bg-[#0a1a2f] prose-table:text-white prose-thead:font-bold prose-td:bg-[#1d2530]',
-                      'prose-th:text-start prose-th:text-base prose-th:p-4 prose-th:border-collapse prose-th:border-spacing-0 prose-th:border-[#303947] prose-td:py-2 prose-td:p-4 prose-td:border-collapse prose-td:border-spacing-0 prose-td:border-[#303947]'
+                      'prose-table:border-none prose-table:border-collapse',
+                      'prose-table:text-base prose-table:my-4 prose-table:border-collapse prose-table:border-spacing-0 prose-td:border-none prose-table:border-[#303947] prose-table:border-app-table-border-body',
+                      'prose-th:bg-[#f9fafb] prose-table:text-app-text-color prose-thead:font-bold prose-td:bg-white',
+                      'prose-th:border-b prose-th:border-b-[#e5e7eb]',
+                      'prose-thead:bg-[#f9fafb]',
+                      'prose-th:text-start prose-th:text-base prose-th:p-4 prose-th:border-collapse prose-th:border-spacing-0 prose-th:border-b-2 prose-th:border-b-[#e5e7eb] prose-td:py-3 prose-td:px-4 prose-td:border-collapse prose-td:border-spacing-0 prose-td:border-[#303947]',
+                      'prose-td:text-sm',
+                      'prose-img:m-0'
                     )}
                     dangerouslySetInnerHTML={{ __html: item.content }}
                   />
