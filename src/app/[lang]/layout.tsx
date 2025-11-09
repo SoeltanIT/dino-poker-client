@@ -85,19 +85,7 @@ export async function generateMetadata({ params }: { params: { lang: Locale } })
     title: initialSEO?.title ?? lang.metadata?.title ?? 'KPOKER.gg',
     description: initialSEO?.description ?? lang.metadata?.description,
     keywords: initialSEO?.keyword ?? localizedKeywords[params.lang],
-    // openGraph: {
-    //   title: initialSEO?.title ?? lang.metadata?.title,
-    //   description: initialSEO?.description ?? lang.metadata?.description,
-    //   url: `${initialSEO?.canonical ?? 'https://gowin.gg'}/${params.lang}`,
-    //   siteName: 'Gowin.gg',
-    //   locale: params.lang,
-    //   type: 'website'
-    // },
-    // twitter: {
-    //   card: 'summary_large_image',
-    //   title: initialSEO?.title ?? lang.metadata?.title,
-    //   description: initialSEO?.description ?? lang.metadata?.description
-    // },
+
     alternates: {
       canonical: `${initialSEO?.canonical ?? canonical}`,
       languages: {
