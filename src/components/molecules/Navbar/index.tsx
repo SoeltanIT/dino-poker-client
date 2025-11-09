@@ -58,11 +58,24 @@ export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) =
     //   href: `/${locale}`,
     //   icon: IconCasino
     // },
-    {
-      name: lang?.common?.sport,
-      href: `/${locale}/sport`,
-      icon: IconSport
-    },
+    ...(features?.sports
+      ? [
+          {
+            name: lang?.common?.sport,
+            href: `/${locale}/sport`,
+            icon: IconSport
+          }
+        ]
+      : []),
+    ...(features?.promotion
+      ? [
+          {
+            name: lang?.common?.promotion,
+            href: `/${locale}/promotion`,
+            icon: IconTicket
+          }
+        ]
+      : []),
     {
       name: lang?.common?.userGuide,
       href: `/${locale}/user-guide/poker/texas-poker`,
