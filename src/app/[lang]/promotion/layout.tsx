@@ -1,7 +1,9 @@
 import { getDictionary } from '@/dictionaries/dictionaries'
 import { Locale } from '@/i18n-config'
 import { getSEOPage } from '@/utils/api/internal/getSEOPage'
+import { getAppFeaturesServer } from '@/utils/server/app-features'
 import type { Metadata } from 'next'
+import { redirect } from 'next/navigation'
 import { ReactNode } from 'react'
 
 const commonKeyword = [
@@ -60,6 +62,11 @@ export async function generateMetadata({ params }: { params: { lang: Locale } })
   }
 }
 
-export default function Layout({ children }: { children: ReactNode }) {
-  return children
+export default async function Layout({ children }: { children: ReactNode }) {
+  const features = await getAppFeaturesServer()
+  if (features.promotion) {
+    return children
+  }
+
+  return redirect('/')
 }
