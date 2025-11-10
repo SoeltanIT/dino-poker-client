@@ -208,6 +208,7 @@ export default function MenuProfile({
         </div>
 
         <KYC
+          locale={locale}
           open={isSheetOpen}
           onClose={() => {
             setIsSheetOpen(false), onClose()
