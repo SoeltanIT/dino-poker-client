@@ -333,7 +333,7 @@
     "retypeWithdrawalPassword": "출금 비밀번호 다시 입력",
     "typeRetypeWithdrawPassword": "출금 비밀번호를 다시 입력하세요",
     "consentForAdvertising": "광고 목적 정보 활용 동의",
-    "checkBoxConsent": "이메일, 문자, 전화 VIP 및 계정 관리 절차 포함",
+    "checkBoxConsent": "닉네임, 문자, 전화 VIP 및 계정 관리 절차 포함",
     "notesConsent1": "다른 사람 명의로 가입할 경우 승인이 거부될 수 있습니다.",
     "notesConsent2": "등록하신 계좌로만 입금이 가능합니다.",
     "placeholderRecCode": "코드는 4~15자 사이여야 합니다",
@@ -345,7 +345,7 @@
     "uploadFailed": "업로드에 실패했습니다. 다시 시도해 주세요.",
     "placeholderPassword": "비밀번호는 4~15자 사이여야 합니다",
     "placeholderName": "이름을 입력하세요...",
-    "placeholderUsername": "ID는 라틴 문자 2~30자입니다",
+    "placeholderUsername": "ID는 라틴 문자 4~12자입니다",
     "placeholderWithdrawalPassword": "비밀번호는 4~15자 사이여야 합니다",
     "selectDate": "날짜 선택",
     "depoWithdrawInformation": "출금 및 입금 정보",
@@ -363,7 +363,9 @@
     "registerSuccessfully": "가입이 완료되었습니다",
     "referral": "추천",
     "referralCode": "추천 코드",
-    "typeReferralCode": "추천 코드를 입력하세요"
+    "typeReferralCode": "추천 코드를 입력하세요",
+    "nickname": "닉네임",
+    "placeholderNickname": "닉네임을 입력하세요 (한글만 가능, 2-12자)"
   },
   "form": {
     "email_min": "이메일은 최소 5자 이상이어야 합니다",
@@ -380,8 +382,8 @@
     "phone_min": "전화번호는 최소 7자리 이상이어야 합니다",
     "phone_max": "전화번호는 15자리를 초과할 수 없습니다",
     "phone_number_invalid": "전화번호는 숫자만 포함해야 합니다",
-    "username_min": "ID은 2~30자 사이여야 합니다",
-    "username_max": "ID은 2~30자 사이여야 합니다",
+    "username_min": "ID은 4~12자 사이여야 합니다",
+    "username_max": "ID은 4~12자 사이여야 합니다",
     "username_required": "ID은 필수입니다",
     "username_invalid": "ID은 라틴 문자, 숫자, 특수 문자(._-)만 포함해야 합니다",
     "password_required": "비밀번호는 필수입니다",
@@ -432,7 +434,10 @@
     "user_share_max": "사용자 공유는 최대 100까지 가능합니다",
     "affiliate_share_max": "제휴 공유는 최대 100까지 가능합니다",
     "user_share_min": "사용자 공유는 최소 0 이상이어야 합니다",
-    "affiliate_share_min": "제휴 공유는 최소 0 이상이어야 합니다"
+    "affiliate_share_min": "제휴 공유는 최소 0 이상이어야 합니다",
+    "nickname_min": "닉네임은 최소 2자 이상이어야 합니다",
+    "nickname_max": "닉네임은 최대 12자 이하이어야 합니다",
+    "nickname_invalid": "닉네임은 한글만 입력 가능합니다"
   },
   "notification": {
     "depositApprovedTitle": "입금 승인됨",
@@ -504,19 +509,19 @@
     "ongoingPromoBlocksWithdrawal": "진행 중인 프로모션으로 인해 출금이 제한됩니다.",
     "noBetsFoundForUser": "사용자의 베팅 내역이 없습니다.",
     "noTransactionsFoundForUser": "사용자의 거래 내역이 없습니다.",
-    "usernameEmailPasswordRequired": "사용자명/이메일과 비밀번호가 필요합니다.",
+    "usernamePasswordRequired": "ID 비밀번호가 필요합니다.",
     "phoneCodeMustBeValidPrefix": "전화번호 국가 코드는 유효한 접두사여야 합니다.",
     "phoneMustBeNumeric": "전화번호는 숫자만 가능합니다.",
     "dobRequired": "생년월일이 필요합니다.",
     "onlyAdminCanRegisterAdmin": "다른 관리자를 등록할 수 있는 권한은 관리자에게만 있습니다.",
     "passwordIncorrect": "비밀번호가 올바르지 않습니다.",
     "consentRequiredForRegistration": "등록을 위해 동의가 필요합니다.",
-    "usernameEmailOrPasswordInvalid": "사용자명/이메일 또는 비밀번호가 올바르지 않습니다.",
+    "usernameOrPasswordInvalid": "ID 또는 비밀번호가 올바르지 않습니다.",
     "invalidInputForUpdate": "업데이트를 위한 입력이 잘못되었습니다.",
     "userNotFound": "사용자를 찾을 수 없습니다.",
     "onlyAdminCanChangeUserStatus": "사용자 상태 변경은 관리자만 가능합니다.",
     "userCannotUpdateOthersProfiles": "사용자는 다른 사용자의 프로필을 업데이트할 수 없습니다.",
-    "usernameEmailAlreadyExists": "사용자명/이메일이 이미 존재합니다.",
+    "usernameAlreadyExists": "ID가 이미 존재합니다.",
     "userAlreadyVerified": "사용자가 이미 인증되었습니다.",
     "invalidAccountType": "잘못된 계정 유형입니다.",
     "invalidOldPassword": "이전 비밀번호가 올바르지 않습니다.",
@@ -581,5 +586,17 @@
   "announcements": {
     "title": "공지사항",
     "description": "KPOKER의 최신 뉴스와 공지사항을 확인하세요"
+  },
+  "adjustment": {
+    "id": {
+      "title": "ID를 영어 문자로 업데이트",
+      "description": "현재 ID에 영어 문자가 포함되어 있습니다. 영어 문자와 숫자만 포함된 ID로 변경해 주세요 (A–Z, a–z, 0–9).",
+      "currentUsername": "현재 ID"
+    },
+    "nickname": {
+      "title": "닉네임 업데이트",
+      "description": "닉네임은 최대 12자까지 가능합니다."
+    },
+    "currentUsername": "현재 ID"
   }
 }

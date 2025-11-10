@@ -333,7 +333,7 @@
     "retypeWithdrawalPassword": "Retype Withdrawal Password",
     "typeRetypeWithdrawPassword": "Retype Withdrawal Password",
     "consentForAdvertising": "Consent to Use Information for Advertising",
-    "checkBoxConsent": "Email, text message, phone VIP and account management process.",
+    "checkBoxConsent": "Nickname, text message, phone VIP and account management process.",
     "notesConsent1": "Approval may be denied for any reason when signing up with another person.",
     "notesConsent2": "You can only deposit money into your registered account.",
     "placeholderRecCode": "Code must between 4-15 characters",
@@ -345,7 +345,7 @@
     "uploadFailed": "Upload failed. Please try again.",
     "placeholderPassword": "Password must between 4-15 characters",
     "placeholderName": "Type name ...",
-    "placeholderUsername": "ID is 2-30 Latin characters",
+    "placeholderUsername": "ID is 4-12 Latin characters",
     "placeholderWithdrawalPassword": "Password must between 4-15 characters",
     "selectDate": "Select Date",
     "depoWithdrawInformation": "Withdrawal & Deposit Information",
@@ -363,7 +363,9 @@
     "registerSuccessfully": "Your registration has been completed",
     "referral": "Referral",
     "referralCode": "Referral Code",
-    "typeReferralCode": "Type Referral Code"
+    "typeReferralCode": "Type Referral Code",
+    "nickname": "Nickname",
+    "placeholderNickname": "Enter nickname (Korean characters only, 2-12 characters)"
   },
   "form": {
     "email_min": "Email must be at least 5 characters",
@@ -380,8 +382,8 @@
     "phone_min": "Phone number must be at least 7 digits",
     "phone_max": "Phone number must not exceed 15 digits",
     "phone_number_invalid": "Phone number must contain only numbers",
-    "username_min": "ID must be 2-30 characters",
-    "username_max": "ID must be 2-30 characters",
+    "username_min": "ID must be 4-12 characters",
+    "username_max": "ID must be 4-12 characters",
     "username_required": "ID is required",
     "username_invalid": "ID can only contain Latin letters, numbers, and special characters (._-)",
     "password_required": "Password is required",
@@ -432,7 +434,10 @@
     "user_share_max": "User share must be at most 100",
     "affiliate_share_max": "Affiliate share must be at most 100",
     "user_share_min": "User share must be at least 0",
-    "affiliate_share_min": "Affiliate share must be at least 0"
+    "affiliate_share_min": "Affiliate share must be at least 0",
+    "nickname_min": "Nickname must be at least 2 characters",
+    "nickname_max": "Nickname must not exceed 12 characters",
+    "nickname_invalid": "Nickname can only contain Korean characters"
   },
   "notification": {
     "depositApprovedTitle": "Deposit Approved",
@@ -504,19 +509,19 @@
     "ongoingPromoBlocksWithdrawal": "Ongoing promotion blocks withdrawal",
     "noBetsFoundForUser": "No bets found for the user",
     "noTransactionsFoundForUser": "No transactions found for the user",
-    "usernameEmailPasswordRequired": "ID/email and password are required",
+    "usernamePasswordRequired": "ID and password are required",
     "phoneCodeMustBeValidPrefix": "Phone number code must be a valid prefix",
     "phoneMustBeNumeric": "Phone number must be numeric",
     "dobRequired": "Date of birth is required",
     "onlyAdminCanRegisterAdmin": "Only admin can register another admin",
     "passwordIncorrect": "Password is incorrect",
     "consentRequiredForRegistration": "consent is required for registration",
-    "usernameEmailOrPasswordInvalid": "ID/email or password is invalid",
+    "usernameOrPasswordInvalid": "ID or password is invalid",
     "invalidInputForUpdate": "Invalid input for update",
     "userNotFound": "User not found",
     "onlyAdminCanChangeUserStatus": "Only admin can change user status",
     "userCannotUpdateOthersProfiles": "User cannot update other users' profiles",
-    "usernameEmailAlreadyExists": "ID/email already exists",
+    "usernameAlreadyExists": "ID already exists",
     "userAlreadyVerified": "User is already verified",
     "invalidAccountType": "Invalid account type",
     "invalidOldPassword": "Invalid old password",
@@ -581,5 +586,16 @@
   "announcements": {
     "title": "Announcements",
     "description": "Check the latest news and announcements from KPOKER "
+  },
+  "adjustment": {
+    "id": {
+      "title": "Update Your ID to English Characters",
+      "description": "Your current ID includes non-English characters. Please change it to English letters and numbers only (A–Z, a–z, 0–9)."
+    },
+    "nickname": {
+      "title": "Update Your Nickname",
+      "description": "Please input your nickname with maximum length 12"
+    },
+    "currentUsername": "Current ID"
   }
 }

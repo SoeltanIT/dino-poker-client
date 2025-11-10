@@ -131,8 +131,8 @@ export default function MenuProfile({
                 <div className='font-semibold text-sm capitalize text-app-text-color truncate' title={data?.username}>
                   {data?.username}
                 </div>
-                <div className='font-semibold text-app-text-color text-sm truncate' title={data?.email}>
-                  {data?.email}
+                <div className='font-semibold text-app-text-color text-sm truncate' title={data?.nickname || '-'}>
+                  {data?.nickname || '-'}
                 </div>
               </div>
             </div>
