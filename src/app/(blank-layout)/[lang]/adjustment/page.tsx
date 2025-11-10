@@ -6,7 +6,7 @@ export default async function AdjustmentPage({ params }: { params: { lang: Local
   const lang = await getDictionary(params?.lang)
   return (
     <div className='flex items-center justify-center flex-1'>
-      <AdjustmentUsernameForm lang={lang} />
+      <AdjustmentUsernameForm lang={lang} locale={params?.lang} />
     </div>
   )
 }
