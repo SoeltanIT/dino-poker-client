@@ -581,5 +581,9 @@
   "announcements": {
     "title": "Announcements",
     "description": "Check the latest news and announcements from KPOKER "
+  },
+  "adjustment": {
+    "title": "Update Your ID to English Characters",
+    "description": "Your current ID includes non-English characters. Please change it to English letters and numbers only (A–Z, a–z, 0–9)."
   }
 }

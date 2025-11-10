@@ -581,5 +581,9 @@
   "announcements": {
     "title": "공지사항",
     "description": "KPOKER의 최신 뉴스와 공지사항을 확인하세요"
+  },
+  "adjustment": {
+    "title": "ID를 영어 문자로 업데이트",
+    "description": "현재 ID에 영어 문자가 포함되어 있습니다. 영어 문자와 숫자만 포함된 ID로 변경해 주세요 (A–Z, a–z, 0–9)."
   }
 }

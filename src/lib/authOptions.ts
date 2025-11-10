@@ -70,12 +70,14 @@ export const authOptions: AuthOptions = {
               status: resp.status,
               hasToken: !!resp.data?.token,
               hasUserId: !!resp.data?.user_id,
-              response: resp
+              response: resp,
+              is_adjustment: resp.data?.is_adjustment,
+              adjusted_at: resp.data?.adjusted_at
             })
             return null
           }
 
-          const { token, user_id, roles, email } = resp.data
+          const { token, user_id, roles, email, is_adjustment, adjusted_at } = resp.data
 
           // Set roles to cookies
 
@@ -84,7 +86,9 @@ export const authOptions: AuthOptions = {
             name: credentials.username,
             email,
             roles,
-            accessToken: token
+            accessToken: token,
+            is_adjustment,
+            adjusted_at
           }
         } catch (err) {
           console.error('[authorize] Login error:', err)
@@ -151,14 +155,16 @@ export const authOptions: AuthOptions = {
             return null
           }
 
-          const { token, user_id, roles, email } = resp.data
+          const { token, user_id, roles, email, is_adjustment, adjusted_at } = resp.data
 
           return {
             id: user_id,
             name: telegramData.first_name + (telegramData.last_name ? ` ${telegramData.last_name}` : ''),
             email: email || telegramData.username ? `${telegramData.username}@telegram.local` : '',
             roles,
-            accessToken: token
+            accessToken: token,
+            is_adjustment,
+            adjusted_at
           }
         } catch (err) {
           console.error('[authorize] Telegram login error:', err)
@@ -185,6 +191,8 @@ export const authOptions: AuthOptions = {
           token.accessToken = user.accessToken
           token.originalExp = decoded.exp // 🔥 Store original expiration
           token.iat = decoded.iat
+          token.is_adjustment = user.is_adjustment
+          token.adjusted_at = user.adjusted_at
 
           //console.log('[JWT Callback] Storing original exp:', decoded.exp)
         } catch (err) {
@@ -204,7 +212,9 @@ export const authOptions: AuthOptions = {
           roles: '',
           accessToken: '',
           originalExp: 0,
-          iat: 0
+          iat: 0,
+          is_adjustment: false,
+          adjusted_at: null
         }
       }
 
@@ -225,7 +235,9 @@ export const authOptions: AuthOptions = {
         email: token.email,
         roles: token.roles,
         accessToken: token.accessToken,
-        exp: token.originalExp // 🔥 Use original expiration
+        exp: token.originalExp, // 🔥 Use original expiration
+        is_adjustment: token.is_adjustment,
+        adjusted_at: token.adjusted_at
       }
       session.accessToken = token.accessToken
 

@@ -21,5 +21,7 @@ declare module 'next-auth/jwt' {
     originalExp?: number // 🔥 Store original JWT expiration
     exp?: number // ✅ tambahkan ini
     iat?: number // optional: issued at, juga sering ada
+    is_adjustment?: boolean
+    adjusted_at?: string | null
   }
 }

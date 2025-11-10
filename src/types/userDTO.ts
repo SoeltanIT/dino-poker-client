@@ -6,6 +6,8 @@ export interface UserDTO {
   accessToken: string
   originalExp?: number
   exp?: number
+  is_adjustment?: boolean
+  adjusted_at?: string | null
 }
 
 export interface UserFullDTO {

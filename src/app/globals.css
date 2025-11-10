@@ -47,6 +47,7 @@
   --c-tertiary: var(--c-warning);
 
   --c-borderPrimary: var(--c-primary100);
+  --c-borderDefault: var(--neutral700);
 
   --c-primaryLightAccent: #f8a21f52;
   --c-primaryDarkAccent: #73491500;
@@ -132,6 +133,7 @@
   --c-secondary-hover: #fef08a;
 
   --c-borderPrimary: transparent;
+  --c-borderDefault: var(--neutral300);
 
   --c-danger: #f05b6f;
   --c-danger-medium: #fca5a5;
