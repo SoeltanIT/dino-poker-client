@@ -49,7 +49,7 @@ export function AdjustmentUsernameForm({ lang, locale }: AdjustmentUsernameFormP
   const onSubmit = form.handleSubmit(async (data: AdjustmentFormData) => {
     try {
       const resp = await updateUser({
-        url: '/user/update',
+        url: '/updateKYC',
         body: data
       })
       if (resp?.status === 'success') {
