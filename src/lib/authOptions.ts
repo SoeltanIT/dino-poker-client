@@ -77,14 +77,14 @@ export const authOptions: AuthOptions = {
             return null
           }
 
-          const { token, user_id, roles, email, is_adjustment, adjusted_at } = resp.data
+          const { token, user_id, roles, nickname, is_adjustment, adjusted_at } = resp.data
 
           // Set roles to cookies
 
           return {
             id: user_id,
             name: credentials.username,
-            email,
+            nickname,
             roles,
             accessToken: token,
             is_adjustment,
@@ -155,16 +155,16 @@ export const authOptions: AuthOptions = {
             return null
           }
 
-          const { token, user_id, roles, email, is_adjustment, adjusted_at } = resp.data
+          const { token, user_id, roles, nickname, is_adjustment, adjusted_at } = resp.data
 
           return {
             id: user_id,
             name: telegramData.first_name + (telegramData.last_name ? ` ${telegramData.last_name}` : ''),
-            email: email || telegramData.username ? `${telegramData.username}@telegram.local` : '',
+            nickname,
             roles,
             accessToken: token,
             is_adjustment,
-            adjusted_at
+            adjusted_at: adjusted_at
           }
         } catch (err) {
           console.error('[authorize] Telegram login error:', err)
@@ -186,7 +186,7 @@ export const authOptions: AuthOptions = {
           // 🔥 FIX: Store original JWT expiration and DON'T let NextAuth refresh it
           token.id = user.id
           token.name = user.name ?? ''
-          token.email = user.email ?? ''
+          token.nickname = user.nickname ?? ''
           token.roles = user.roles
           token.accessToken = user.accessToken
           token.originalExp = decoded.exp // 🔥 Store original expiration
@@ -208,7 +208,7 @@ export const authOptions: AuthOptions = {
         return {
           id: '',
           name: '',
-          email: '',
+          nickname: '',
           roles: '',
           accessToken: '',
           originalExp: 0,
@@ -232,7 +232,7 @@ export const authOptions: AuthOptions = {
       session.user = {
         id: token.id,
         name: token.name,
-        email: token.email,
+        nickname: token.nickname,
         roles: token.roles,
         accessToken: token.accessToken,
         exp: token.originalExp, // 🔥 Use original expiration

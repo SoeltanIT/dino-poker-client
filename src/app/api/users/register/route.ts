@@ -11,6 +11,8 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(data)
   } catch (error: any) {
+    console.log(error)
+
     //console.error('[API][users/register] ❌ Error:', error?.message)
 
     return NextResponse.json(

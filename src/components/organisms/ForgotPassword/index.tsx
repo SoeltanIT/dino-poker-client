@@ -1,18 +1,8 @@
 'use client'
 
-import type React from 'react'
-import { useState } from 'react'
 import { ForgotPasswordProps } from './types'
 
 export default function ForgotPasswordPage({ lang, locale }: ForgotPasswordProps) {
-  const [email, setEmail] = useState('')
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    //console.log('Reset password for email:', email)
-    // Handle password reset logic here
-  }
-
   const handleContactSupport = () => {
     const waitForLiveChat = (cb: () => void) => {
       if (
@@ -49,33 +39,6 @@ export default function ForgotPasswordPage({ lang, locale }: ForgotPasswordProps
             </div>
           </div>
         </div>
-
-        {/* <form
-          onSubmit={handleSubmit}
-          className="space-y-8 mt-[36px] flex flex-col"
-        >
-          <div className="space-y-4">
-            <Label htmlFor="email" className="text-app-text-color text-lg">
-              {lang?.common?.email}
-              <span className="text-app-danger">*</span>
-            </Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder={lang?.common?.typeEmail}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-
-          <Button
-            type="submit"
-            className="w-full max-w-[375px] self-center bg-app-primary hover:bg-app-primary-hover text-white font-semibold py-4 text-lg rounded-lg"
-          >
-            {lang?.common?.reset}
-          </Button>
-        </form> */}
       </div>
     </div>
   )

@@ -1,7 +1,7 @@
 export interface UserDTO {
   id: string
   name: string
-  email: string
+  nickname: string
   roles: string
   accessToken: string
   originalExp?: number
@@ -15,7 +15,7 @@ export interface UserFullDTO {
   bank_account_number: string
   bank_name: string
   currency: string
-  email: string
+  nickname: string
   id_card: string
   id_number: string
   language: string

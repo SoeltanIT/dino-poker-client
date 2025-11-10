@@ -168,9 +168,9 @@ const AdjustmentAppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, co
                                   </div>
                                   <div
                                     className='font-semibold text-app-text-color text-sm truncate'
-                                    title={user?.email}
+                                    title={user?.nickname || '-'}
                                   >
-                                    {user?.email}
+                                    {user?.nickname || '-'}
                                   </div>
                                 </div>
                               </div>

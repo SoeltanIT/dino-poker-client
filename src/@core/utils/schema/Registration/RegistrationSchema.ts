@@ -4,14 +4,19 @@ import { z } from 'zod'
 export const registrationSchema = (lang: LangProps) =>
   z
     .object({
-      email: z
+      // email: z
+      //   .string()
+      //   .min(5, lang?.form?.email_min)
+      //   .regex(
+      //     /^[a-zA-Z0-9._-가-힣\u00C0-\u1FFF\u2C00-\uD7FF]+@[a-zA-Z0-9.-가-힣\u00C0-\u1FFF\u2C00-\uD7FF]+\.[a-zA-Z]{2,6}$/,
+      //     lang?.form?.email_invalid
+      //   )
+      //   .max(50, lang?.form?.email_max),
+      nickname: z
         .string()
-        .min(5, lang?.form?.email_min)
-        .regex(
-          /^[a-zA-Z0-9._-가-힣\u00C0-\u1FFF\u2C00-\uD7FF]+@[a-zA-Z0-9.-가-힣\u00C0-\u1FFF\u2C00-\uD7FF]+\.[a-zA-Z]{2,6}$/,
-          lang?.form?.email_invalid
-        )
-        .max(50, lang?.form?.email_max),
+        .min(2, lang?.form?.nickname_min)
+        .regex(/^[가-힣]+$/, lang?.form?.nickname_invalid || 'Nickname can only contain Korean characters')
+        .max(12, lang?.form?.nickname_max),
 
       transaction_password: z
         .string()
@@ -25,8 +30,8 @@ export const registrationSchema = (lang: LangProps) =>
 
       username: z
         .string()
-        .min(2, lang?.form?.username_min)
-        .max(30, lang?.form?.username_max)
+        .min(4, lang?.form?.username_min)
+        .max(12, lang?.form?.username_max)
         .regex(
           /^[a-zA-Z0-9._-]+$/,
           lang?.form?.username_invalid ||
