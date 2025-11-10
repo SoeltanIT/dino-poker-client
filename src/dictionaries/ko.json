@@ -435,9 +435,9 @@
     "affiliate_share_max": "제휴 공유는 최대 100까지 가능합니다",
     "user_share_min": "사용자 공유는 최소 0 이상이어야 합니다",
     "affiliate_share_min": "제휴 공유는 최소 0 이상이어야 합니다",
-    "nickname_min": "닉네임은 최소 2자 이상이어야 합니다",
-    "nickname_max": "닉네임은 최대 12자 이하이어야 합니다",
-    "nickname_invalid": "닉네임은 한글만 입력 가능합니다"
+    "nickname_min": "닉네임은 4~12자 한글로만 작성해 주세요.",
+    "nickname_max": "닉네임은 4~12자 한글로만 작성해 주세요.",
+    "nickname_invalid": "닉네임은 4~12자 한글로만 작성해 주세요."
   },
   "notification": {
     "depositApprovedTitle": "입금 승인됨",

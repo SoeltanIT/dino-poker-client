@@ -435,9 +435,9 @@
     "affiliate_share_max": "Affiliate share must be at most 100",
     "user_share_min": "User share must be at least 0",
     "affiliate_share_min": "Affiliate share must be at least 0",
-    "nickname_min": "Nickname must be at least 2 characters",
-    "nickname_max": "Nickname must not exceed 12 characters",
-    "nickname_invalid": "Nickname can only contain Korean characters"
+    "nickname_min": "Please create your nickname using only Korean characters, between 4 and 12 characters.",
+    "nickname_max": "Please create your nickname using only Korean characters, between 4 and 12 characters.",
+    "nickname_invalid": "Please create your nickname using only Korean characters, between 4 and 12 characters."
   },
   "notification": {
     "depositApprovedTitle": "Deposit Approved",
