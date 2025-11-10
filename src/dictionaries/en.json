@@ -541,7 +541,9 @@
     "failedToGetCurrencies": "Failed to get currencies",
     "failedToGetLanguages": "Failed to get languages",
     "failedToUpdateReferralCommissionLimitSharedSettings": "Commission limit reached: maximum 40% already allocated",
-    "ErrSharedSettingsNotFound": "No Settings was found "
+    "ErrSharedSettingsNotFound": "No Settings was found",
+    "ErrOngoingDeposit": "Ongoing transaction blocks deposit",
+    "ErrOngoingWithdrawal": "Ongoing transaction blocks withdrawal"
   },
   "info": {
     "infoDate": "End date cleared because it was earlier than start date."

@@ -5,13 +5,10 @@ import { GetData, useMutationQuery } from '@/@core/hooks/use-query'
 import { UseServerSendEvent } from '@/@core/hooks/UseServerSendEvent'
 import { BalanceResponse } from '@/@core/interface/balance/Balance'
 import { UserMeResponse } from '@/@core/interface/User'
-import { LiveChatButton } from '@/components/atoms/Button/LiveChatButton'
 import RegisterFormState from '@/components/layout/header/views/register/RegisterFormState'
 import { HeaderSheet } from '@/components/layout/header/views/transaction'
-import LocaleSwitcherDropdown from '@/components/molecules/LocaleSwitcher'
 import BetbySkeleton from '@/components/molecules/Skeleton/BetbySkeleton'
 import { Locale } from '@/i18n-config'
-import { cn } from '@/lib/utils'
 import { LangProps } from '@/types/langProps'
 import { TransferBalanceFeeResponseMapped } from '@/types/transferBalanceFeeDTO'
 import { useLiveChatContext } from '@/utils/context/LiveChatProvider'
@@ -331,14 +328,14 @@ export const BetByIframe = ({
         </div>
       </div> */}
 
-      {!isOpenBetSlip && (
+      {/* {!isOpenBetSlip && (
         <div className={cn('fixed bottom-[87px] md:bottom-16 right-4 z-[50]')}>
           <div className='flex md:hidden items-center justify-center w-14 h-14 bg-app-primary hover:bg-app-primary-hover rounded-full shadow-lg'>
             <LocaleSwitcherDropdown lang={locale} />
           </div>
           {showLiveChat && <LiveChatButton user={userData} ready={ready} />}
         </div>
-      )}
+      )} */}
 
       <HeaderSheet
         open={isOpenDeposit}
