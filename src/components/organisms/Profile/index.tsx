@@ -3,7 +3,6 @@
 import { IconBank, IconCoin, IconLogout, IconPromotion, IconReferral, IconTransaction } from '@/components/atoms/Icons'
 import ChangePasswordForm from '@/components/layout/header/views/menu/changePassword/ChangePassword'
 import KYC from '@/components/layout/header/views/menu/kyc/KYC'
-import ThemeSwitcher from '@/components/molecules/ThemeSwitcher'
 import { useTelegramMiniApp } from '@/components/providers/TelegramMiniApp'
 import { resetLiveChatSession } from '@/lib/livechat-reset'
 import { getInitials } from '@/utils/helper/getInitials'
@@ -138,9 +137,9 @@ export default function MenuProfile({
               </div>
             </div>
           </div>
-          <div className='md:hidden mr-7'>
+          {/* <div className='md:hidden mr-7'>
             <ThemeSwitcher />
-          </div>
+          </div> */}
         </div>
 
         <hr className='my-3 border-app-divider-color' />

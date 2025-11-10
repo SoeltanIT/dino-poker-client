@@ -1,10 +1,7 @@
 'use client'
 
-import { IdCard } from 'lucide-react'
-import { useState } from 'react'
-
 import KYCForm from '@/components/organisms/Profile/KYC'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { Sheet, SheetContent } from '@/components/ui/sheet'
 import { LangProps } from '@/types/langProps'
 import { ToastContainer } from 'react-toastify'
 

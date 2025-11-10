@@ -23,7 +23,15 @@ export const registrationSchema = (lang: LangProps) =>
         .min(4, { message: lang?.form?.transaction_password_min || 'Password min 4 characters' })
         .max(15, { message: lang?.form?.transaction_password_max || 'Password max 15 characters' }),
 
-      username: z.string().min(2, lang?.form?.username_min).max(30, lang?.form?.username_max),
+      username: z
+        .string()
+        .min(2, lang?.form?.username_min)
+        .max(30, lang?.form?.username_max)
+        .regex(
+          /^[a-zA-Z0-9._-]+$/,
+          lang?.form?.username_invalid ||
+            'Username can only contain Latin letters, numbers, and special characters (._-)'
+        ),
 
       password: z.string().min(4, lang?.form?.password_min).max(15, lang?.form?.password_max),
 
