@@ -2,7 +2,6 @@
 
 import { GetData } from '@/@core/hooks/use-query'
 import { UserMeResponse } from '@/@core/interface/User'
-import { LiveChatButton } from '@/components/atoms/Button/LiveChatButton'
 import { IconLogout } from '@/components/atoms/Icons'
 import { Footer } from '@/components/molecules/Footer/footer'
 import LocaleSwitcherDropdown from '@/components/molecules/LocaleSwitcher'
@@ -11,7 +10,6 @@ import { useTelegramMiniApp } from '@/components/providers/TelegramMiniApp'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Locale } from '@/i18n-config'
 import { resetLiveChatSession } from '@/lib/livechat-reset'
-import { cn } from '@/lib/utils'
 import { ConfigType } from '@/types/config'
 import { LangProps } from '@/types/langProps'
 import { useLiveChatContext } from '@/utils/context/LiveChatProvider'
@@ -136,6 +134,9 @@ const AdjustmentAppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, co
                   {/* <div className='hidden md:flex'>
               <ThemeSwitcher />
             </div> */}
+                  <div className='md:hidden flex items-center justify-center bg-app-primary hover:bg-app-primary-hover rounded-lg shadow-lg'>
+                    <LocaleSwitcherDropdown lang={lang} />
+                  </div>
                   <div className='hidden md:flex'>
                     <LocaleSwitcherDropdown lang={lang} />
                   </div>
@@ -213,14 +214,14 @@ const AdjustmentAppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, co
       </div>
 
       {/* Floating Help Button */}
-      {parts[1] !== 'sport' && (
+      {/* {parts[1] !== 'sport' && (
         <div className={cn('fixed bottom-[87px] md:bottom-6 right-4 z-[50]', parts[1] === 'sport' && 'md:bottom-16')}>
           <div className='flex md:hidden items-center justify-center w-14 h-14 bg-app-primary hover:bg-app-primary-hover rounded-full shadow-lg'>
             <LocaleSwitcherDropdown lang={locale} />
           </div>
           {showLiveChat && <LiveChatButton user={userData} ready={ready} />}
         </div>
-      )}
+      )} */}
     </div>
   )
 }
