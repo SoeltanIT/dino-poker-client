@@ -75,8 +75,7 @@ export const LiveChatProvider = ({ children, licenseId }: { children: React.Reac
 
         if (hasToken) {
           window.LiveChatWidget?.call?.('set_session_variables', {
-            name: session?.user?.name ?? '',
-            email: session?.user?.email ?? ''
+            name: session?.user?.name ?? ''
           })
         } else {
           // Option A (recommended): don't set identity for guests at all

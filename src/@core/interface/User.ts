@@ -5,7 +5,7 @@ export interface UserMeResponse {
   data: {
     user_id: string
     username: string
-    email: string
+    nickname: string
     currency: string
     language: string
     balance: string
