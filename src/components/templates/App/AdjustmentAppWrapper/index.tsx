@@ -140,7 +140,7 @@ const AdjustmentAppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, co
                   <div className='hidden md:flex'>
                     <LocaleSwitcherDropdown lang={lang} />
                   </div>
-                  <div className='hidden md:flex'>
+                  <div className='flex'>
                     <Popover open={profileOpen} onOpenChange={setProfileOpen}>
                       <PopoverTrigger asChild>
                         <button className='w-10 h-10 hover:bg-app-bg-button-hover font-semibold rounded-lg flex items-center justify-center cursor-pointer'>
