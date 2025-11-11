@@ -22,7 +22,17 @@ export const DepositSchema = (lang?: LangProps, maxValue: number = 90000000) =>
       })
       .refine(val => parseInt(val, 10) <= maxValue, {
         message: formatMaxMsg(lang?.form?.deposit_amount_max, maxValue) || 'Maximum amount is 90,000,000 KRW'
-      }),
+      })
+      .refine(
+        val => {
+          const n = parseInt(val, 10)
+          if (Number.isNaN(n)) return false
+          return n % 10000 === 0
+        },
+        {
+          message: lang?.form?.amount_multiple_of_10000 || 'Amount must be a multiple of 10,000 KRW'
+        }
+      ),
 
     // password: z.string().min(1, { message: lang?.form?.deposit_password_required || 'Password is required' }),
 

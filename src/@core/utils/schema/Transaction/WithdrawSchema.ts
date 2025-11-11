@@ -20,7 +20,17 @@ export const WithdrawSchema = (lang?: LangProps, maxValue: number = 9000000) =>
       })
       .refine(val => parseInt(val, 10) <= maxValue, {
         message: formatMaxMsg(lang?.form?.withdraw_amount_max, maxValue) || 'Maximum amount is 9,000,000 KRW'
-      }),
+      })
+      .refine(
+        val => {
+          const n = parseInt(val, 10)
+          if (Number.isNaN(n)) return false
+          return n % 10000 === 0
+        },
+        {
+          message: lang?.form?.amount_multiple_of_10000 || 'Amount must be a multiple of 10,000 KRW'
+        }
+      ),
 
     // bankName: z.string().min(1, lang?.form?.bank_name_required || 'Bank name is required'),
     // accountNumber: z.string().min(1, lang?.form?.account_number_required || 'Account number is required'),
