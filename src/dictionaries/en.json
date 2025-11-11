@@ -405,7 +405,7 @@
     "deposit_amount_number": "Only numbers are allowed",
     "deposit_amount_min": "Minimum amount is 10,000 KRW",
     "deposit_amount_max": "Maximum amount is MAX KRW",
-    "amount_multiple_of_10000": " Amount must be a multiple of 10,000 KRW",
+    "amount_multiple_of_10000": "The amount can be entered starting from units of 10,000 KRW.",
     "deposit_password_required": "Password is required",
     "withdraw_amount_required": "Amount is required",
     "withdraw_address_required": "Withdraw address is required",
