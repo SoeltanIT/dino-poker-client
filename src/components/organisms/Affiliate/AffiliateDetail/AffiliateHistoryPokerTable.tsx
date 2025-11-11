@@ -45,19 +45,81 @@ export function AffiliateHistoryPokerTable({ lang }: AffiliateHistoryPokerTableP
           console.log(row)
         }}
         emptyState={{
-          message: lang?.common?.noMemberReferral,
+          message: lang?.common?.noAffiliateHistory,
           image: '/images/betNotFound.png'
         }}
-        mobileHeader={lang?.common?.memberList}
+        mobileHeader={lang?.common?.affiliateHistory}
         renderMobileRows={row => (
-          <div className='bg-app-table-bg-body rounded-lg p-4 border border-app-table-border-body'>
-            <div className='flex justify-between items-center'>
+          <div className='bg-app-table-bg-body rounded-lg p-4 border border-app-table-border-body space-y-3'>
+            {/* Header Section */}
+            <div className='flex justify-between items-start pb-3 border-b border-app-table-border-body'>
               <div>
-                <div className='text-sm'>{format(new Date(row?.created_at), 'yyyy-MM-dd | HH:mm')}</div>
-                <div className='font-semibold text-app-text-color'>{row.commission_percentage}%</div>
+                <div className='text-xs text-gray-400 mb-1'>{lang?.common?.paidDate}</div>
+                <div className='text-sm font-semibold text-app-text-color'>
+                  {row.paid_date ? format(new Date(row.paid_date), 'yyyy-MM-dd | HH:mm') : '-'}
+                </div>
               </div>
-              <div className='text-right text-sm'>
-                <span className='text-app-success font-bold text-lg'>{thousandSeparatorComma(row.amount)}</span>원
+              <div className='text-right'>
+                <div className='text-xs text-gray-400 mb-1'>{lang?.common?.paidStatus}</div>
+                <div className='text-sm font-semibold text-app-text-color'>{row.paid_status ?? '-'}</div>
+              </div>
+            </div>
+
+            {/* User Info Section */}
+            <div className='grid grid-cols-2 gap-3'>
+              <div>
+                <div className='text-xs text-gray-400 mb-1'>{lang?.common?.codeName}</div>
+                <div className='text-sm text-app-text-color'>{row.code_name ?? '-'}</div>
+              </div>
+              <div>
+                <div className='text-xs text-gray-400 mb-1'>{lang?.common?.username}</div>
+                <div className='text-sm text-app-text-color'>{row.username ?? '-'}</div>
+              </div>
+              <div>
+                <div className='text-xs text-gray-400 mb-1'>{lang?.common?.parent}</div>
+                <div className='text-sm text-app-text-color'>{row.parent?.username ?? '-'}</div>
+              </div>
+              <div>
+                <div className='text-xs text-gray-400 mb-1'>{lang?.common?.affiliateMember}</div>
+                <div className='text-sm text-app-text-color'>{row.affiliated_members ?? '-'}</div>
+              </div>
+            </div>
+
+            {/* Period */}
+            <div>
+              <div className='text-xs text-gray-400 mb-1'>{lang?.common?.period}</div>
+              <div className='text-sm text-app-text-color'>{row.period ?? '-'}</div>
+            </div>
+
+            {/* Financial Info Section */}
+            <div className='bg-app-table-bg-header rounded-lg p-3 space-y-2'>
+              <div className='flex justify-between items-center'>
+                <span className='text-xs text-gray-400'>{lang?.common?.rakeAmount}</span>
+                <span className='text-sm font-medium text-app-text-color'>
+                  {row.rake_amount != null ? thousandSeparatorComma(row.rake_amount) + '원' : '-'}
+                </span>
+              </div>
+              <div className='flex justify-between items-center'>
+                <span className='text-xs text-gray-400'>{lang?.common?.commissionEarned}</span>
+                <span className='text-sm font-semibold text-green-500'>
+                  {row.commission_earned != null ? thousandSeparatorComma(row.commission_earned) + '원' : '-'}
+                </span>
+              </div>
+              <div className='flex justify-between items-center'>
+                <span className='text-xs text-gray-400'>{lang?.common?.adjustedCommission}</span>
+                <span className='text-sm font-semibold text-blue-500'>
+                  {row.adjusted_commission != null ? thousandSeparatorComma(row.adjusted_commission) + '원' : '-'}
+                </span>
+              </div>
+            </div>
+
+            {/* Last Commission Paid */}
+            <div className='text-center pt-2 border-t border-app-table-border-body'>
+              <div className='text-xs text-gray-400 mb-1'>{lang?.common?.lastCommissionPaid}</div>
+              <div className='text-sm text-app-text-color'>
+                {row.last_commission_paid_at
+                  ? format(new Date(row.last_commission_paid_at), 'yyyy-MM-dd | HH:mm')
+                  : '-'}
               </div>
             </div>
           </div>
@@ -71,32 +133,70 @@ export function AffiliateHistoryPokerTable({ lang }: AffiliateHistoryPokerTableP
         loading={isFetchingHistory}
         columns={[
           {
-            key: 'date',
-            header: lang?.common?.date,
-            accessor: 'created_at',
-            render: value => format(new Date(value), 'yyyy-MM-dd | HH:mm')
+            key: 'paid_date',
+            header: lang?.common?.paidDate,
+            accessor: 'paid_date',
+            render: value => (value ? format(new Date(value), 'yyyy-MM-dd | HH:mm') : '-')
           },
           {
-            key: 'referralGroup',
-            header: lang?.common?.referralGroup,
-            accessor: 'parent',
+            key: 'code_name',
+            header: lang?.common?.codeName,
+            accessor: 'code_name',
             render: value => value ?? '-'
           },
           {
-            key: 'commissionPercentage',
-            header: lang?.common?.commissionPercentage,
-            accessor: 'commission_percentage',
-            render: value => value + '%'
+            key: 'username',
+            header: lang?.common?.username,
+            accessor: 'username',
+            render: value => value ?? '-'
           },
           {
-            key: 'commission',
-            header: lang?.common?.commission,
-            accessor: 'amount',
-            render: value => (
-              <div className='text-app-text-color'>
-                <span className='text-app-success font-bold'>{thousandSeparatorComma(value)}</span>원
-              </div>
-            )
+            key: 'parent',
+            header: lang?.common?.parent,
+            accessor: 'parent',
+            render: value => value?.username ?? '-'
+          },
+          {
+            key: 'affiliated_members',
+            header: lang?.common?.affiliateMember,
+            accessor: 'affiliated_members',
+            render: value => value ?? '-'
+          },
+          {
+            key: 'period',
+            header: lang?.common?.period,
+            accessor: 'period',
+            render: value => value ?? '-'
+          },
+          {
+            key: 'rake_amount',
+            header: lang?.common?.rakeAmount,
+            accessor: 'rake_amount',
+            render: value => (value != null ? thousandSeparatorComma(value) + '원' : '-')
+          },
+          {
+            key: 'commission_earned',
+            header: lang?.common?.commissionEarned,
+            accessor: 'commission_earned',
+            render: value => (value != null ? thousandSeparatorComma(value) + '원' : '-')
+          },
+          {
+            key: 'adjusted_commission',
+            header: lang?.common?.adjustedCommission,
+            accessor: 'adjusted_commission',
+            render: value => (value != null ? thousandSeparatorComma(value) + '원' : '-')
+          },
+          {
+            key: 'last_commission_paid_at',
+            header: lang?.common?.lastCommissionPaid,
+            accessor: 'last_commission_paid_at',
+            render: value => (value ? format(new Date(value), 'yyyy-MM-dd | HH:mm') : '-')
+          },
+          {
+            key: 'paid_status',
+            header: lang?.common?.paidStatus,
+            accessor: 'paid_status',
+            render: value => value ?? '-'
           }
         ]}
       />

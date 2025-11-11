@@ -290,7 +290,9 @@
     "noAnnouncementFound": "No Announcement Found",
     "userGuide": "User Guide",
     "goBackHome": "Go Back Home",
-    "preparingToOpen": "Preparing to Open"
+    "preparingToOpen": "Preparing to Open",
+    "noAffiliateHistory": "No affiliate history found",
+    "affiliateHistory": "Affiliate History"
   },
   "game": {
     "texaspoker": "Texas Poker",
