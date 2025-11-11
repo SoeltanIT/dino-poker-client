@@ -122,6 +122,9 @@ export const Header = ({
             {/* <div className='hidden md:flex'>
               <ThemeSwitcher />
             </div> */}
+            <div className='md:hidden flex items-center justify-center bg-app-primary hover:bg-app-primary-hover rounded-lg shadow-lg'>
+              <LocaleSwitcherDropdown lang={lang} />
+            </div>
             <div className='hidden md:flex'>
               <LocaleSwitcherDropdown lang={lang} />
             </div>
@@ -176,6 +179,9 @@ export const Header = ({
 
                 <div className='hidden md:flex bg-app-divider-color h-10 w-0.5 mx-1' />
 
+                <div className='md:hidden flex items-center justify-center bg-app-primary hover:bg-app-primary-hover rounded-lg shadow-lg'>
+                  <LocaleSwitcherDropdown lang={lang} />
+                </div>
                 <div className='hidden md:flex'>
                   <LocaleSwitcherDropdown lang={lang} />
                 </div>
@@ -198,6 +204,9 @@ export const Header = ({
               </Button>
               <RegisterForm lang={lang} locale={locale} />
               {/* <ThemeSwitcher /> */}
+              <div className='md:hidden flex items-center justify-center bg-app-primary hover:bg-app-primary-hover rounded-lg shadow-lg'>
+                <LocaleSwitcherDropdown lang={lang} />
+              </div>
               <div className='hidden md:flex'>
                 <LocaleSwitcherDropdown lang={lang} />
               </div>

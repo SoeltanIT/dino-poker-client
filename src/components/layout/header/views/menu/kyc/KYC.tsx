@@ -1,23 +1,23 @@
 'use client'
 
-import { IdCard } from 'lucide-react'
-import { useState } from 'react'
-
 import KYCForm from '@/components/organisms/Profile/KYC'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { Sheet, SheetContent } from '@/components/ui/sheet'
 import { LangProps } from '@/types/langProps'
 import { ToastContainer } from 'react-toastify'
+import { Locale } from '@/i18n-config'
 
 export default function KYC({
   open,
   lang,
   isStatus,
-  onClose
+  onClose,
+  locale
 }: {
   open: boolean
   lang?: LangProps
   isStatus?: string
   onClose: () => void
+  locale?: Locale
 }) {
   const getStatusColor = (status?: string) => {
     if (status === 'APPROVED') return 'border-app-success text-app-success'
@@ -77,7 +77,7 @@ export default function KYC({
           <h2 className='text-xl font-bold uppercase'>{lang?.common?.kyc}</h2>
           <p className='text-sm'>{lang?.common?.kycDescription}</p>
         </div>
-        <KYCForm lang={lang} onClose={() => onPressClose()} isStatus={isStatus} />
+        <KYCForm lang={lang} onClose={() => onPressClose()} isStatus={isStatus} locale={locale} />
       </SheetContent>
     </Sheet>
   )

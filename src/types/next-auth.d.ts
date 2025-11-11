@@ -15,11 +15,13 @@ declare module 'next-auth/jwt' {
   interface JWT {
     id: string
     name: string
-    email: string
+    nickname: string
     roles: string
     accessToken: string
     originalExp?: number // 🔥 Store original JWT expiration
     exp?: number // ✅ tambahkan ini
     iat?: number // optional: issued at, juga sering ada
+    is_adjustment?: boolean
+    adjusted_at?: string | null
   }
 }

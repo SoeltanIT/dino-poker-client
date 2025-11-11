@@ -111,6 +111,7 @@ const config: Config = {
           primary400: 'var(--c-primary400)',
 
           borderPrimary: 'var(--c-borderPrimary)',
+          borderDefault: 'var(--c-borderDefault)',
 
           grey150: 'var(--c-grey150)',
           skeleton: 'var(--c-skeleton)',

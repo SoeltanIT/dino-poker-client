@@ -67,7 +67,7 @@ export default function LoginModal({
       return
     }
 
-    widget.call('set_session_variables', { name: session.user.name, email: session.user.email })
+    widget.call('set_session_variables', { name: session.user.name })
 
     setTimeout(() => {
       widget.call('maximize')
