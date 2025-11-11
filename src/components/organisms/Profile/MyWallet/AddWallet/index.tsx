@@ -1,8 +1,6 @@
 'use client'
 
 import { IconClose, IconSize } from '@/components/atoms/Icons'
-import OtpInput from '@/components/molecules/Input/OTP'
-import { TabSwitcher } from '@/components/molecules/TabSwitcher'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { queryString } from '@/utils/queryString'
@@ -55,8 +53,7 @@ export default function AddWallet({ lang, locale }: AddWalletProps) {
     }
   }, [])
 
-  const handleOtpChange = (value: string) => {
-  }
+  const handleOtpChange = (value: string) => {}
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()

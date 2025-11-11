@@ -42,7 +42,7 @@ export default function RegisterForm({ lang, locale }: { lang: LangProps; locale
   type FormType = RegistrationFormData
   type ResolverType = Resolver<FormType>
   type RegistrationPayload = {
-    email: string
+    nickname: string
     username: string
     password: string
     referral_code?: string
@@ -62,7 +62,7 @@ export default function RegisterForm({ lang, locale }: { lang: LangProps; locale
   const form = useForm<FormType>({
     resolver: zodResolver(registrationSchema(lang)) as ResolverType,
     defaultValues: {
-      email: '',
+      nickname: '',
       username: '',
       password: '',
       retypePassword: '',
@@ -82,7 +82,7 @@ export default function RegisterForm({ lang, locale }: { lang: LangProps; locale
 
   const onSubmit: SubmitHandler<FormType> = async (data: FormType) => {
     const payload: RegistrationPayload = {
-      email: data.email,
+      nickname: data.nickname,
       username: data.username,
       password: data.password,
       referral_code: data.referral_code || undefined,
@@ -169,22 +169,6 @@ export default function RegisterForm({ lang, locale }: { lang: LangProps; locale
             <p className='text-xl font-semibold text-app-text-color'>{lang?.register?.personalInformation}</p>
             <FormField
               control={form.control}
-              name='email'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className='text-app-text-color'>
-                    {lang?.register?.email}
-                    <span className='text-app-danger'>*</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input {...field} type='text' placeholder={lang?.common?.typeEmail} />
-                  </FormControl>
-                  <FormMessage className='text-app-danger' />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
               name='username'
               render={({ field }) => (
                 <FormItem>
@@ -194,6 +178,23 @@ export default function RegisterForm({ lang, locale }: { lang: LangProps; locale
                   </FormLabel>
                   <FormControl>
                     <Input {...field} placeholder={lang?.register?.placeholderUsername} />
+                  </FormControl>
+                  <FormMessage className='text-app-danger' />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name='nickname'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className='text-app-text-color'>
+                    {lang?.register?.nickname}
+                    <span className='text-app-danger'>*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input {...field} type='text' placeholder={lang?.register?.placeholderNickname} />
                   </FormControl>
                   <FormMessage className='text-app-danger' />
                 </FormItem>
