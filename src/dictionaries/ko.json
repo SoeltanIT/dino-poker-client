@@ -405,6 +405,7 @@
     "deposit_amount_number": "숫자만 입력할 수 있습니다.",
     "deposit_amount_min": "최소 입금 금액은 10,000원입니다.",
     "deposit_amount_max": "최대 입금 금액은 9,000,000원입니다.",
+    "amount_multiple_of_10000": "금액은 10,000원의 배수여야 합니다.",
     "deposit_password_required": "비밀번호를 입력해주세요.",
     "withdraw_amount_required": "출금 금액을 입력해주세요.",
     "withdraw_address_required": "출금 주소는 필수입니다",
