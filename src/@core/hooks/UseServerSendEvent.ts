@@ -72,8 +72,8 @@ export const UseServerSendEvent = () => {
           const data: any = JSON.parse(event.data)
           if (data && data.data?.event && data.data.event === 'balance_updated') {
             setBalanceTrigger(prevBalanceTrigger => [...prevBalanceTrigger, data])
-            }
-            setBalanceMessages(prevBalanceMessages => [...prevBalanceMessages, data])
+          }
+          setBalanceMessages(prevBalanceMessages => [...prevBalanceMessages, data])
         } catch (error) {
           console.error('Error parsing SSE data:', error)
         }
@@ -83,7 +83,7 @@ export const UseServerSendEvent = () => {
       // eventSource.onerror = error => {
       //   console.error('Error connecting to SSE server:', error)
       //   setIsConnected(false)
-      
+
       //   if (eventSource) {
       //     eventSource.close()
       //     eventSource = null
@@ -96,22 +96,21 @@ export const UseServerSendEvent = () => {
       //     }
       //   }, 3000)
       // }
-   // handle balance source error
+      // handle balance source error
       balanceSource.onerror = error => {
-       setIsBalanceConnected(false)
-       if (balanceSource) {
-         balanceSource.close()
-         balanceSource = null
-       }
-       setTimeout(() => {
-         if (status === 'authenticated') {
-           connectToSSE()
-         }
-       }, 3000)
+        setIsBalanceConnected(false)
+        if (balanceSource) {
+          balanceSource.close()
+          balanceSource = null
+        }
+        setTimeout(() => {
+          if (status === 'authenticated') {
+            connectToSSE()
+          }
+        }, 3000)
       }
     }
 
-    
     connectToSSE()
 
     // Cleanup on unmount
@@ -129,5 +128,5 @@ export const UseServerSendEvent = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status, session])
 
-  return {  isConnected, balanceMessages, isBalanceConnected, balanceTrigger: balanceTrigger.length }
+  return { isConnected, balanceMessages, isBalanceConnected, balanceTrigger: balanceTrigger.length }
 }
