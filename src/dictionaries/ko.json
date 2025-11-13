@@ -1,7 +1,7 @@
 {
   "common": {
     "verifyCheckMsgDeposit": "입금 또는 출금 전 반드시 본인 확인 절차를 완료해 주시기 바랍니다.",
-    "verifyPendingMsgDeposit": "인증이 아직 승인되지 않았습니다. 승인을 기다려 주세요",
+    "verifyPendingMsgDeposit": "인증을 위해 등록해주신 번호로 승인 전화가 갈 예정입니다.",
     "verifyRejectedMsgDeposit": "인증이 거절되었습니다. 정보를 수정한 후 다시 시도해 주세요",
     "adjustmentMinus": "조정 ",
     "adjustmentPlus": "조정",
@@ -12,7 +12,8 @@
     "userSharePlaceholder": "사용자 공유 비율 입력",
     "login": "로그인",
     "changeSharedSettings": "공유 설정 변경",
-    "typeUsername": "사용자 이름 입력",
+    "typeUsername": "ID 입력",
+    "typeNickname": "닉네임 입력",
     "typePassword": "비밀번호 입력",
     "typeDepoPassword": "입금 비밀번호 입력",
     "register": "회원가입",
@@ -101,7 +102,7 @@
     "notificationDetail": "알림 상세",
     "notification": "알림",
     "newNotification": "새 알림",
-    "titleFooter": "GOWIN.GG에 오신 것을 환영합니다. 우리는 게임과 재미를 위한 웹사이트입니다.",
+    "titleFooter": "KPOKER에 오신 것을 환영합니다. 우리는 게임과 재미를 위한 웹사이트입니다.",
     "subTitleFooter": "이용자는 만 19세 이상이어야 합니다. 우리는 책임 있는 게임 이용을 지지합니다.",
     "email": "이메일",
     "typeEmail": "이메일 입력",
@@ -142,7 +143,7 @@
     "noBankAvailable": "사용 가능한 은행이 없습니다",
     "cannotWithdraw": "출금할 수 없습니다. 먼저 계정을 인증해 주세요",
     "verifyCheckMsg": "출금 전 확인 절차를 완료해 주세요.",
-    "verifyPendingMsg": "인증이 아직 승인되지 않았습니다. 승인을 기다려 주세요",
+    "verifyPendingMsg": "인증을 위해 등록해주신 번호로 승인 전화가 갈 예정입니다.",
     "verifyRejectedMsg": "인증이 거절되었습니다. 정보를 수정한 후 다시 시도해 주세요",
     "verifyCheckMsgReferral": "추천 프로그램에 참여하려면 인증을 완료해 주세요",
     "detail": "상세",
@@ -221,7 +222,7 @@
     "memberList": "회원 목록",
     "join": "가입",
     "joinDate": "가입 날짜",
-    "username": "사용자 이름",
+    "username": "ID",
     "commission": "커미션",
     "referralGroup": "추천 그룹",
     "commissionPercentage": "커미션 비율",
@@ -288,7 +289,29 @@
     "noBannerFound": "배너를 찾을 수 없습니다",
     "announcements": "공지사항",
     "noAnnouncementFound": "공지사항을 찾을 수 없습니다",
-    "userGuide": "사용자 가이드"
+    "userGuide": "사용자 가이드",
+    "goBackHome": "홈으로 돌아가기",
+    "preparingToOpen": "오픈 준비 중",
+    "usernameAlreadyInUse": "이미 사용 중인 ID입니다",
+    "nickname": "닉네임",
+    "noAffiliateHistory": "제휴 내역을 찾을 수 없습니다",
+    "affiliateHistory": "제휴 내역",
+    "paidDate": "지급 날짜",
+    "paidStatus": "지급 상태",
+    "affiliateMember": "제휴 회원",
+    "period": "기간",
+    "parent": "부모",
+    "rakeAmount": "레이크 금액",
+    "commissionEarned": "커미션 수입",
+    "adjustedCommission": "조정된 커미션",
+    "lastCommissionPaid": "마지막 커미션 지급",
+    "previousNGR": "이전 NGR",
+    "totalBet": "총 베팅",
+    "totalWin": "총 승리",
+    "totalGGR": "총 GGR",
+    "totalPromotion": "총 프로모션",
+    "totalNGR": "총 NGR",
+    "reason": "사유"
   },
   "game": {
     "texaspoker": "텍사스 홀덤",
@@ -316,7 +339,7 @@
     "password": "비밀번호",
     "retypePassword": "비밀번호 재입력",
     "name": "이름",
-    "username": "사용자 이름",
+    "username": "ID",
     "email": "이메일",
     "dob": "생년월일",
     "phoneNumber": "전화번호",
@@ -331,7 +354,7 @@
     "retypeWithdrawalPassword": "출금 비밀번호 다시 입력",
     "typeRetypeWithdrawPassword": "출금 비밀번호를 다시 입력하세요",
     "consentForAdvertising": "광고 목적 정보 활용 동의",
-    "checkBoxConsent": "이메일, 문자, 전화 VIP 및 계정 관리 절차 포함",
+    "checkBoxConsent": "닉네임, 문자, 전화 VIP 및 계정 관리 절차 포함",
     "notesConsent1": "다른 사람 명의로 가입할 경우 승인이 거부될 수 있습니다.",
     "notesConsent2": "등록하신 계좌로만 입금이 가능합니다.",
     "placeholderRecCode": "코드는 4~15자 사이여야 합니다",
@@ -343,7 +366,7 @@
     "uploadFailed": "업로드에 실패했습니다. 다시 시도해 주세요.",
     "placeholderPassword": "비밀번호는 4~15자 사이여야 합니다",
     "placeholderName": "이름을 입력하세요...",
-    "placeholderUsername": "사용자 이름은 한글/영문 2~30자입니다",
+    "placeholderUsername": "영문 또는 숫자를 이용해 4-12자를 기입해주세요",
     "placeholderWithdrawalPassword": "비밀번호는 4~15자 사이여야 합니다",
     "selectDate": "날짜 선택",
     "depoWithdrawInformation": "출금 및 입금 정보",
@@ -361,7 +384,9 @@
     "registerSuccessfully": "가입이 완료되었습니다",
     "referral": "추천",
     "referralCode": "추천 코드",
-    "typeReferralCode": "추천 코드를 입력하세요"
+    "typeReferralCode": "추천 코드를 입력하세요",
+    "nickname": "닉네임",
+    "placeholderNickname": "닉네임을 입력하세요 (한글만 가능, 2-12자)"
   },
   "form": {
     "email_min": "이메일은 최소 5자 이상이어야 합니다",
@@ -378,9 +403,10 @@
     "phone_min": "전화번호는 최소 7자리 이상이어야 합니다",
     "phone_max": "전화번호는 15자리를 초과할 수 없습니다",
     "phone_number_invalid": "전화번호는 숫자만 포함해야 합니다",
-    "username_min": "사용자 이름은 2~30자 사이여야 합니다",
-    "username_max": "사용자 이름은 2~30자 사이여야 합니다",
-    "username_required": "사용자 이름은 필수입니다",
+    "username_min": "영문 또는 숫자를 이용해 4-12자를 기입해주세요",
+    "username_max": "영문 또는 숫자를 이용해 4-12자를 기입해주세요",
+    "username_required": "영문 또는 숫자를 이용해 4-12자를 기입해주세요",
+    "username_invalid": "영문 또는 숫자를 이용해 4-12자를 기입해주세요",
     "password_required": "비밀번호는 필수입니다",
     "role_min": "역할은 최소 1 이상이어야 합니다",
     "role_max": "역할은 10을 초과할 수 없습니다",
@@ -390,7 +416,7 @@
     "dob_min_age": "만 19세 이상이어야 합니다",
     "password_match": "비밀번호가 일치하지 않습니다",
     "transaction_password_match": "거래 비밀번호가 일치하지 않습니다",
-    "invalid_username_password": "사용자 이름 또는 비밀번호가 올바르지 않습니다",
+    "invalid_username_password": "ID 또는 비밀번호가 올바르지 않습니다",
     "type_required": "유형은 필수입니다.",
     "current_password_required": "현재 비밀번호를 입력해주세요.",
     "new_password_min": "새 비밀번호는 최소 8자 이상이어야 합니다.",
@@ -400,6 +426,7 @@
     "deposit_amount_number": "숫자만 입력할 수 있습니다.",
     "deposit_amount_min": "최소 입금 금액은 10,000원입니다.",
     "deposit_amount_max": "최대 입금 금액은 9,000,000원입니다.",
+    "amount_multiple_of_10000": "금액은 만원 단위부터 가능합니다.",
     "deposit_password_required": "비밀번호를 입력해주세요.",
     "withdraw_amount_required": "출금 금액을 입력해주세요.",
     "withdraw_address_required": "출금 주소는 필수입니다",
@@ -429,7 +456,13 @@
     "user_share_max": "사용자 공유는 최대 100까지 가능합니다",
     "affiliate_share_max": "제휴 공유는 최대 100까지 가능합니다",
     "user_share_min": "사용자 공유는 최소 0 이상이어야 합니다",
-    "affiliate_share_min": "제휴 공유는 최소 0 이상이어야 합니다"
+    "affiliate_share_min": "제휴 공유는 최소 0 이상이어야 합니다",
+    "nickname_min": "닉네임은 2~12자 한글로만 작성해 주세요.",
+    "nickname_max": "닉네임은 2~12자 한글로만 작성해 주세요.",
+    "nickname_invalid": "닉네임은 2~12자 한글로만 작성해 주세요.",
+    "code_name_min": "영문 또는 숫자를 이용해 2-30자를 기입해주세요.",
+    "code_name_max": "영문 또는 숫자를 이용해 2-30자를 기입해주세요.",
+    "code_name_invalid": "영문 또는 숫자를 이용해 2-30자를 기입해주세요."
   },
   "notification": {
     "depositApprovedTitle": "입금 승인됨",
@@ -450,14 +483,14 @@
   "metadata": {
     "title": "KPOKER.gg - 온라인 포커, 텍사스 홀덤 & 라이브 토너먼트",
     "description": "실시간 온라인 포커 게임, 텍사스 홀덤 토너먼트, 라이브 결과와 배당률, 포커룸과 다양한 게임을 언제 어디서나 즐겨보세요.",
-    "sportTitle": "스포츠 베팅 | GOWIN.GG",
-    "sportDescription": "축구, 농구, 테니스와 Dota 2, 롤, 발로란트 같은 인기 e스포츠에 베팅하세요. 라이브 배당률, 인플레이 베팅, 최고의 스포츠북 경험을 GOWIN.GG에서 즐겨보세요.",
-    "promotionTitle": "최신 프로모션 | GOWIN.GG",
-    "promotionDescription": "GOWIN.GG에서 Dota 2, LoL, 발로란트 등 최고의 보너스와 프로모션을 만나보세요.",
-    "bannersTitle": "최신 배너 | GOWIN.GG",
-    "bannersDescription": "GOWIN.GG에서 Dota 2, LoL, 발로란트 등 최고의 보너스와 프로모션을 만나보세요.",
-    "announcementsTitle": "최신 공지사항 | GOWIN.GG",
-    "announcementsDescription": "GOWIN.GG에서 Dota 2, LoL, 발로란트 등 최고의 보너스와 프로모션을 만나보세요."
+    "sportTitle": "스포츠 베팅 | KPOKER",
+    "sportDescription": "축구, 농구, 테니스와 Dota 2, 롤, 발로란트 같은 인기 e스포츠에 베팅하세요. 라이브 배당률, 인플레이 베팅, 최고의 스포츠북 경험을 KPOKER에서 즐겨보세요.",
+    "promotionTitle": "최신 프로모션 | KPOKER",
+    "promotionDescription": "KPOKER에서 Dota 2, LoL, 발로란트 등 최고의 보너스와 프로모션을 만나보세요.",
+    "bannersTitle": "최신 배너 | KPOKER",
+    "bannersDescription": "KPOKER에서 Dota 2, LoL, 발로란트 등 최고의 보너스와 프로모션을 만나보세요.",
+    "announcementsTitle": "최신 공지사항 | KPOKER",
+    "announcementsDescription": "KPOKER에서 Dota 2, LoL, 발로란트 등 최고의 보너스와 프로모션을 만나보세요."
   },
   "logout": {
     "logoutQ": "정말 로그아웃하시겠습니까?",
@@ -501,19 +534,19 @@
     "ongoingPromoBlocksWithdrawal": "진행 중인 프로모션으로 인해 출금이 제한됩니다.",
     "noBetsFoundForUser": "사용자의 베팅 내역이 없습니다.",
     "noTransactionsFoundForUser": "사용자의 거래 내역이 없습니다.",
-    "usernameEmailPasswordRequired": "사용자명/이메일과 비밀번호가 필요합니다.",
+    "usernamePasswordRequired": "ID 비밀번호가 필요합니다.",
     "phoneCodeMustBeValidPrefix": "전화번호 국가 코드는 유효한 접두사여야 합니다.",
     "phoneMustBeNumeric": "전화번호는 숫자만 가능합니다.",
     "dobRequired": "생년월일이 필요합니다.",
     "onlyAdminCanRegisterAdmin": "다른 관리자를 등록할 수 있는 권한은 관리자에게만 있습니다.",
     "passwordIncorrect": "비밀번호가 올바르지 않습니다.",
     "consentRequiredForRegistration": "등록을 위해 동의가 필요합니다.",
-    "usernameEmailOrPasswordInvalid": "사용자명/이메일 또는 비밀번호가 올바르지 않습니다.",
+    "usernameOrPasswordInvalid": "ID 또는 비밀번호가 올바르지 않습니다.",
     "invalidInputForUpdate": "업데이트를 위한 입력이 잘못되었습니다.",
     "userNotFound": "사용자를 찾을 수 없습니다.",
     "onlyAdminCanChangeUserStatus": "사용자 상태 변경은 관리자만 가능합니다.",
     "userCannotUpdateOthersProfiles": "사용자는 다른 사용자의 프로필을 업데이트할 수 없습니다.",
-    "usernameEmailAlreadyExists": "사용자명/이메일이 이미 존재합니다.",
+    "usernameAlreadyExists": "ID가 이미 존재합니다.",
     "userAlreadyVerified": "사용자가 이미 인증되었습니다.",
     "invalidAccountType": "잘못된 계정 유형입니다.",
     "invalidOldPassword": "이전 비밀번호가 올바르지 않습니다.",
@@ -533,7 +566,9 @@
     "failedToGetCurrencies": "통화를 가져오지 못했습니다.",
     "failedToGetLanguages": "언어를 가져오지 못했습니다.",
     "failedToUpdateReferralCommissionLimitSharedSettings": "커미션 한도 도달: 최대 40%가 이미 할당되었습니다",
-    "ErrSharedSettingsNotFound": "설정을 찾을 수 없습니다."
+    "errSharedSettingsNotFound": "설정을 찾을 수 없습니다.",
+    "errOngoingDeposit": "진행 중인 거래로 인해 입금이 제한됩니다",
+    "errOngoingWithdrawal": "진행 중인 거래로 인해 출금이 제한됩니다"
   },
   "info": {
     "infoDate": "종료일이 시작일보다 이전이어서 초기화되었습니다."
@@ -568,11 +603,33 @@
   "banner": {
     "bannerTitle": "다가오는 이벤트",
     "bannerSubTitle": "흥미진진한 토너먼트와 보상이 곧 찾아옵니다!",
-    "announcements": "KPOKER - 월드 포커 게임에 오신 것을 환영합니다 | 매주 목요일 정기 점검 | 매일 보너스와 특별한 KPOKER 토너먼트를 놓치지 마세요!",
+    "announcement": "KPOKER - 월드 포커 게임에 오신 것을 환영합니다 | 매주 목요일 정기 점검 | 매일 보너스와 특별한 KPOKER 토너먼트를 놓치지 마세요!",
     "promoTitle": "곧 찾아올 큰 혜택!",
     "promoSubTitle": "독점 보너스와 특별한 이벤트를 기대하세요",
     "userGuideTitle": "사용자 가이드",
     "userGuideSubTitle": "플레이 방법 가이드",
     "moreInfo": "자세히 보기"
+  },
+  "announcements": {
+    "title": "공지사항",
+    "description": "KPOKER의 최신 뉴스와 공지사항을 확인하세요"
+  },
+  "adjustment": {
+    "id": {
+      "title": "ID를 영어 문자로 업데이트",
+      "description": "현재 ID에 영어 문자가 포함되어 있습니다. 영어 문자와 숫자만 포함된 ID로 변경해 주세요 (A–Z, a–z, 0–9).",
+      "currentUsername": "현재 ID"
+    },
+    "nickname": {
+      "title": "닉네임 업데이트",
+      "description": "닉네임은 최대 12자까지 가능합니다."
+    },
+    "currentUsername": "현재 ID"
+  },
+  "affiliate": {
+    "affiliateHistoryPokerByUser": "사용자별 포커 제휴 내역",
+    "detailAffiliateHistoryPokerByUser": "사용자별 포커 제휴 내역 상세",
+    "affiliateHistoryCasinoByUser": "사용자별 카지노 제휴 내역",
+    "detailAffiliateHistoryCasinoByUser": "사용자별 카지노 제휴 내역 상세"
   }
 }

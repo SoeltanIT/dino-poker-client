@@ -9,7 +9,8 @@
     "typeCodeName": "Type Code Name",
     "typeParentCode": "Type Parent Code",
     "login": "Login",
-    "typeUsername": "Type Username",
+    "typeUsername": "Type ID",
+    "typeNickname": "Type Nickname",
     "typePassword": "Type Password",
     "typeDepoPassword": "Type Deposit Password",
     "register": "Register",
@@ -97,7 +98,7 @@
     "notificationDetail": "Notification Detail",
     "notification": "Notification",
     "newNotification": "New Notification",
-    "titleFooter": " Welcome to GOWIN.GG. We are website for gaming and fun.",
+    "titleFooter": " Welcome to KPOKER. We are website for gaming and fun.",
     "subTitleFooter": "Players must be over 19 to access our site. We are committed to responsible gaming.",
     "email": "Email",
     "typeEmail": "Type Email",
@@ -217,7 +218,7 @@
     "memberList": "Member List",
     "join": "Join",
     "joinDate": "Join Date",
-    "username": "Username",
+    "username": "ID",
     "referralGroup": "Referral Group",
     "commissionPercentage": "Commission Percentage",
     "commission": "Comission",
@@ -288,7 +289,29 @@
     "noBannerFound": "No Banner Found",
     "announcements": "Announcements",
     "noAnnouncementFound": "No Announcement Found",
-    "userGuide": "User Guide"
+    "userGuide": "User Guide",
+    "goBackHome": "Go Back Home",
+    "preparingToOpen": "Preparing to Open",
+    "usernameAlreadyInUse": "Id already in use",
+    "nickname": "Nickname",
+    "noAffiliateHistory": "No affiliate history found",
+    "affiliateHistory": "Affiliate History",
+    "paidDate": "Paid Date",
+    "paidStatus": "Paid Status",
+    "affiliateMember": "Affiliate Member",
+    "period": "Period",
+    "parent": "Parent",
+    "rakeAmount": "Rake Amount",
+    "commissionEarned": "Commission Earned",
+    "adjustedCommission": "Adjusted Commission",
+    "lastCommissionPaid": "Last Commission Paid",
+    "previousNGR": "Previous NGR",
+    "totalBet": "Total Bet",
+    "totalWin": "Total Win",
+    "totalGGR": "Total GGR",
+    "totalPromotion": "Total Promotion",
+    "totalNGR": "Total NGR",
+    "reason": "Reason"
   },
   "game": {
     "texaspoker": "Texas Poker",
@@ -316,7 +339,7 @@
     "password": "Password",
     "retypePassword": "Retype Password",
     "name": "Full Name",
-    "username": "Username",
+    "username": "ID",
     "email": "Email",
     "dob": "Date of Birth",
     "phoneNumber": "Phone Number",
@@ -331,7 +354,7 @@
     "retypeWithdrawalPassword": "Retype Withdrawal Password",
     "typeRetypeWithdrawPassword": "Retype Withdrawal Password",
     "consentForAdvertising": "Consent to Use Information for Advertising",
-    "checkBoxConsent": "Email, text message, phone VIP and account management process.",
+    "checkBoxConsent": "Nickname, text message, phone VIP and account management process.",
     "notesConsent1": "Approval may be denied for any reason when signing up with another person.",
     "notesConsent2": "You can only deposit money into your registered account.",
     "placeholderRecCode": "Code must between 4-15 characters",
@@ -343,7 +366,7 @@
     "uploadFailed": "Upload failed. Please try again.",
     "placeholderPassword": "Password must between 4-15 characters",
     "placeholderName": "Type name ...",
-    "placeholderUsername": "Username is 2-30 Korean/English characters",
+    "placeholderUsername": "Please enter 4-12 characters using English letters or numbers.",
     "placeholderWithdrawalPassword": "Password must between 4-15 characters",
     "selectDate": "Select Date",
     "depoWithdrawInformation": "Withdrawal & Deposit Information",
@@ -361,7 +384,9 @@
     "registerSuccessfully": "Your registration has been completed",
     "referral": "Referral",
     "referralCode": "Referral Code",
-    "typeReferralCode": "Type Referral Code"
+    "typeReferralCode": "Type Referral Code",
+    "nickname": "Nickname",
+    "placeholderNickname": "Enter nickname (Korean characters only, 2-12 characters)"
   },
   "form": {
     "email_min": "Email must be at least 5 characters",
@@ -378,9 +403,10 @@
     "phone_min": "Phone number must be at least 7 digits",
     "phone_max": "Phone number must not exceed 15 digits",
     "phone_number_invalid": "Phone number must contain only numbers",
-    "username_min": "Username must be 2-30 characters",
-    "username_max": "Username must be 2-30 characters",
-    "username_required": "Username is required",
+    "username_min": "Please enter 4-12 characters using English letters or numbers.",
+    "username_max": "Please enter 4-12 characters using English letters or numbers.",
+    "username_required": "Please enter 4-12 characters using English letters or numbers.",
+    "username_invalid": "Please enter 4-12 characters using English letters or numbers.",
     "password_required": "Password is required",
     "role_min": "Role must be at least 1",
     "role_max": "Role must not exceed 10",
@@ -400,6 +426,7 @@
     "deposit_amount_number": "Only numbers are allowed",
     "deposit_amount_min": "Minimum amount is 10,000원",
     "deposit_amount_max": "Maximum amount is MAX 원",
+    "amount_multiple_of_10000": "The amount can be entered starting from units of 10,000원.",
     "deposit_password_required": "Password is required",
     "withdraw_amount_required": "Amount is required",
     "withdraw_address_required": "Withdraw address is required",
@@ -429,7 +456,13 @@
     "user_share_max": "User share must be at most 100",
     "affiliate_share_max": "Affiliate share must be at most 100",
     "user_share_min": "User share must be at least 0",
-    "affiliate_share_min": "Affiliate share must be at least 0"
+    "affiliate_share_min": "Affiliate share must be at least 0",
+    "nickname_min": "Please create your nickname using only Korean characters, between 2 and 12 characters.",
+    "nickname_max": "Please create your nickname using only Korean characters, between 2 and 12 characters.",
+    "nickname_invalid": "Please create your nickname using only Korean characters, between 2 and 12 characters.",
+    "code_name_min": "Please enter 2-30 characters using English letters or numbers.",
+    "code_name_max": "Please enter 2-30 characters using English letters or numbers.",
+    "code_name_invalid": "Please enter 2-30 characters using English letters or numbers."
   },
   "notification": {
     "depositApprovedTitle": "Deposit Approved",
@@ -450,14 +483,14 @@
   "metadata": {
     "title": "KPOKER.gg - Online Poker, Texas Hold'em & Live Tournaments",
     "description": "Play online poker with live tables, Texas Hold'em tournaments, live results, odds, and streaming. Join poker rooms and enjoy exciting games anytime.",
-    "sportTitle": "Sports Betting | GOWIN.GG",
-    "sportDescription": "Bet on football, basketball, tennis, and top esports like Dota 2, LoL, and Valorant. Enjoy live odds, in-play betting, and the best sportsbook experience at GOWIN.GG.",
-    "promotionTitle": "Latest Promotions | GOWIN.GG",
-    "promotionDescription": "Claim top bonuses and promotions for Dota 2, LoL, Valorant, and more at GOWIN.GG.",
-    "bannersTitle": "Latest Banners | GOWIN.GG",
-    "bannersDescription": "Get the latest banners and promotions for Dota 2, LoL, Valorant, and more at GOWIN.GG.",
-    "announcementsTitle": "Latest Announcements | GOWIN.GG",
-    "announcementsDescription": "Get the latest announcements and promotions for Dota 2, LoL, Valorant, and more at GOWIN.GG."
+    "sportTitle": "Sports Betting | KPOKER",
+    "sportDescription": "Bet on football, basketball, tennis, and top esports like Dota 2, LoL, and Valorant. Enjoy live odds, in-play betting, and the best sportsbook experience at KPOKER.",
+    "promotionTitle": "Latest Promotions | KPOKER",
+    "promotionDescription": "Claim top bonuses and promotions for Dota 2, LoL, Valorant, and more at KPOKER.",
+    "bannersTitle": "Latest Banners | KPOKER",
+    "bannersDescription": "Get the latest banners and promotions for Dota 2, LoL, Valorant, and more at KPOKER.",
+    "announcementsTitle": "Latest Announcements | KPOKER",
+    "announcementsDescription": "Get the latest announcements and promotions for Dota 2, LoL, Valorant, and more at KPOKER."
   },
   "logout": {
     "logoutQ": "Are You Sure Want to Logout?",
@@ -501,19 +534,19 @@
     "ongoingPromoBlocksWithdrawal": "Ongoing promotion blocks withdrawal",
     "noBetsFoundForUser": "No bets found for the user",
     "noTransactionsFoundForUser": "No transactions found for the user",
-    "usernameEmailPasswordRequired": "Username/email and password are required",
+    "usernamePasswordRequired": "ID and password are required",
     "phoneCodeMustBeValidPrefix": "Phone number code must be a valid prefix",
     "phoneMustBeNumeric": "Phone number must be numeric",
     "dobRequired": "Date of birth is required",
     "onlyAdminCanRegisterAdmin": "Only admin can register another admin",
     "passwordIncorrect": "Password is incorrect",
     "consentRequiredForRegistration": "consent is required for registration",
-    "usernameEmailOrPasswordInvalid": "Username/email or password is invalid",
+    "usernameOrPasswordInvalid": "ID or password is invalid",
     "invalidInputForUpdate": "Invalid input for update",
     "userNotFound": "User not found",
     "onlyAdminCanChangeUserStatus": "Only admin can change user status",
     "userCannotUpdateOthersProfiles": "User cannot update other users' profiles",
-    "usernameEmailAlreadyExists": "Username/email already exists",
+    "usernameAlreadyExists": "ID already exists",
     "userAlreadyVerified": "User is already verified",
     "invalidAccountType": "Invalid account type",
     "invalidOldPassword": "Invalid old password",
@@ -533,7 +566,9 @@
     "failedToGetCurrencies": "Failed to get currencies",
     "failedToGetLanguages": "Failed to get languages",
     "failedToUpdateReferralCommissionLimitSharedSettings": "Commission limit reached: maximum 40% already allocated",
-    "ErrSharedSettingsNotFound": "No Settings was found "
+    "errSharedSettingsNotFound": "No Settings was found",
+    "errOngoingDeposit": "Ongoing transaction blocks deposit",
+    "errOngoingWithdrawal": "Ongoing transaction blocks withdrawal"
   },
   "info": {
     "infoDate": "End date cleared because it was earlier than start date."
@@ -568,11 +603,32 @@
   "banner": {
     "bannerTitle": "Upcoming Event",
     "bannerSubTitle": "Exciting tournaments & rewards are on the way!",
-    "announcements": "Welcome to KPOKER - World Poker Game | Regular maintenance every Thursday | Don’t miss our daily bonus and special Kpoker tournaments!",
+    "announcement": "Welcome to KPOKER - World Poker Game | Regular maintenance every Thursday | Don’t miss our daily bonus and special Kpoker tournaments!",
     "promoTitle": "Big Surprises Coming Soon!",
     "promoSubTitle": "Stay tuned for exclusive bonuses & special deals",
     "userGuideTitle": "User Guide",
     "userGuideSubTitle": "Guide on How to Play",
     "moreInfo": "More Info"
+  },
+  "announcements": {
+    "title": "Announcements",
+    "description": "Check the latest news and announcements from KPOKER "
+  },
+  "adjustment": {
+    "id": {
+      "title": "Update Your ID to English Characters",
+      "description": "Your current ID includes non-English characters. Please change it to English letters and numbers only (A–Z, a–z, 0–9)."
+    },
+    "nickname": {
+      "title": "Update Your Nickname",
+      "description": "Please input your nickname with maximum length 12"
+    },
+    "currentUsername": "Current ID"
+  },
+  "affiliate": {
+    "affiliateHistoryPokerByUser": "Affiliate History Poker by User",
+    "detailAffiliateHistoryPokerByUser": "Detail Affiliate History Poker by User",
+    "affiliateHistoryCasinoByUser": "Affiliate History Casino by User",
+    "detailAffiliateHistoryCasinoByUser": "Detail Affiliate History Casino by User"
   }
 }

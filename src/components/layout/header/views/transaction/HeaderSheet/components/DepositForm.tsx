@@ -378,6 +378,7 @@ export default function DepositForm({
       )}
 
       <KYC
+        locale={locale}
         open={isSheetOpen}
         onClose={() => {
           setIsSheetOpen(false), onClose()

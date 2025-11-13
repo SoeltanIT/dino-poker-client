@@ -122,6 +122,7 @@ export default function HeaderSheet({
               cryptoData={cryptoData}
               cryptoLoading={cryptoLoading}
               cryptoWithdrawFee={cryptoWithdrawFee}
+              locale={locale}
             />
           }
           convertBalanceTab={<ConvertBalanceTab lang={lang} locale={locale} data={balance} dataFee={dataFee} />}

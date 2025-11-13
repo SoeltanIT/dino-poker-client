@@ -35,7 +35,8 @@ export default function WithdrawForm({
   setActiveTab,
   cryptoData,
   cryptoLoading,
-  cryptoWithdrawFeeInfo
+  cryptoWithdrawFeeInfo,
+  locale
 }: WithdrawFormProps) {
   const [showAccountNumber, setShowAccountNumber] = useState(false)
   const [showWithdrawalPassword, setShowWithdrawalPassword] = useState(false)
@@ -654,6 +655,7 @@ export default function WithdrawForm({
       )}
 
       <KYC
+        locale={locale}
         open={isSheetOpen}
         onClose={() => {
           setIsSheetOpen(false), onClose()

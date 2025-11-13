@@ -1,9 +1,8 @@
 'use client'
 
-import { useLiveChatContext } from '@/utils/context/LiveChatProvider'
-import { IconLiveChat } from '../Icons'
 import { UserMeResponse } from '@/@core/interface/User'
 import { useSession } from 'next-auth/react'
+import { IconLiveChat } from '../Icons'
 
 export const LiveChatButton = ({ user, ready }: { user?: UserMeResponse; ready: boolean }) => {
   const { data: session } = useSession()
@@ -28,7 +27,6 @@ export const LiveChatButton = ({ user, ready }: { user?: UserMeResponse; ready: 
 
       if (session?.user) {
         widget.call('set_customer_name', session.user.name ?? '')
-        widget.call('set_customer_email', session.user.email ?? '')
       } else {
         console.warn('[LiveChat] Session user not found. Skipping customer info.')
       }

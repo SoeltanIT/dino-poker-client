@@ -4,14 +4,11 @@ import { GetData } from '@/@core/hooks/use-query'
 import { UseServerSendEvent } from '@/@core/hooks/UseServerSendEvent'
 import { BalanceResponse } from '@/@core/interface/balance/Balance'
 import { UserMeResponse } from '@/@core/interface/User'
-import { LiveChatButton } from '@/components/atoms/Button/LiveChatButton'
 import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/molecules/Footer/footer'
-import LocaleSwitcherDropdown from '@/components/molecules/LocaleSwitcher'
 import { Navbar } from '@/components/molecules/Navbar'
 import { useTelegramMiniApp } from '@/components/providers/TelegramMiniApp'
 import { Locale } from '@/i18n-config'
-import { cn } from '@/lib/utils'
 import { ConfigType } from '@/types/config'
 import { LangProps } from '@/types/langProps'
 import { TransferBalanceFeeResponseMapped } from '@/types/transferBalanceFeeDTO'
@@ -27,6 +24,7 @@ export type FeatureFlags = {
   sports: boolean
   promotion: boolean
   crypto: boolean
+  livechat: boolean
   // add more toggles here in the future
 }
 interface AppTemplateProps {
@@ -40,6 +38,7 @@ interface AppTemplateProps {
 
 const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config, features }) => {
   const { ready } = useLiveChatContext()
+  const showLiveChat = ready && !!features?.livechat
   const pathname = usePathname()
 
   const parts = pathname.split('/').filter(Boolean) // ["en", "sport"]
@@ -79,7 +78,6 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config, feat
     {},
     'transaction'
   )
-  console.log(respTransferBalanceFee?.data)
 
   // // const isMiniAppLoading = !isMiniAppLoaded || isLoading
   // const isAppLoading = isTMA ? !isMiniAppLoaded : isLoading
@@ -136,14 +134,24 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config, feat
       />
 
       {/* Floating Help Button */}
-      {parts[1] !== 'sport' && (
-        <div className={cn('fixed bottom-[87px] md:bottom-6 right-4 z-[50]', parts[1] === 'sport' && 'md:bottom-16')}>
-          <div className='flex md:hidden items-center justify-center w-14 h-14 bg-app-primary hover:bg-app-primary-hover rounded-full shadow-lg'>
+      {/* {parts[1] !== 'sport' && (
+        <div
+          className={cn(
+            'fixed bottom-[58px] right-4 z-[999]',
+            showLiveChat && 'bottom-[87px] right-4 md:bottom-6',
+            parts[1] === 'sport' && 'md:bottom-16'
+          )}
+        >
+          <div
+            className={cn(
+              'flex md:hidden items-center justify-center w-14 h-14 bg-app-primary hover:bg-app-primary-hover rounded-full shadow-lg'
+            )}
+          >
             <LocaleSwitcherDropdown lang={locale} />
           </div>
-          {ready && <LiveChatButton user={userData} ready={ready} />}
+          {showLiveChat && <LiveChatButton user={userData} ready={ready} />}
         </div>
-      )}
+      )} */}
     </div>
   )
 }

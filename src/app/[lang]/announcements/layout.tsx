@@ -39,5 +39,5 @@ export async function generateMetadata({ params }: { params: { lang: Locale } })
 }
 
 export default function Layout({ children }: { children: ReactNode }) {
-  return children
+  return <div className='mx-auto w-full max-w-screen-2xl space-y-4 md:px-20 px-6 mt-4'>{children}</div>
 }

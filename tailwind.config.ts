@@ -11,6 +11,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        notoSansKR: ['var(--font-noto-sans-kr)']
+      },
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
@@ -108,6 +111,7 @@ const config: Config = {
           primary400: 'var(--c-primary400)',
 
           borderPrimary: 'var(--c-borderPrimary)',
+          borderDefault: 'var(--c-borderDefault)',
 
           grey150: 'var(--c-grey150)',
           skeleton: 'var(--c-skeleton)',

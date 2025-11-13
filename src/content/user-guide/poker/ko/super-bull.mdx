@@ -1,0 +1,172 @@
+import { Section } from '@/components/atoms/Content/Section'
+import { TableCard } from '@/components/atoms/Content/TableCard'
+import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+
+export const title = '수퍼 불 이용가이드'
+export const description = (
+  <>
+    수퍼 불<br />
+    게임설명
+  </>
+)
+export const heroImage = '/images/new_user_guide.jpeg'
+export const gameRules = [
+  [
+    '게임 목표',
+    "5장의 카드를 3장(합 10의 배수) + **2장(점수)**으로 분할하여 딜러보다 높은 **'Bull 점수'**를 획득하는 것입니다."
+  ],
+  ['인원', '플레이어 대 딜러 간의 대결'],
+  ['사용 카드', '52장 표준 카드 덱 (조커 제외)']
+]
+export const cardRules = [
+  ['J, Q, K', '10점'],
+  ['A', '1점'],
+  ['2 ~ 10', '표시된 숫자 그대로']
+]
+export const bullPointsRules = [
+  ['Bull Bull', '3장 합이 10의 배수이고, 남은 2장 합도 10의 배수인 족보.', '베팅 금액의 2배'],
+  ['Bull 9', '3장 합이 Bull이고, 남은 2장 합이 9인 족보.', '베팅 금액의 2배'],
+  ['Bull 8', '3장 합이 Bull이고, 남은 2장 합이 8인 족보.', '베팅 금액의 2배'],
+  ['Bull 7 ~ Bull 1', 'Bull 점수가 7~1인 족보.', '베팅 금액의 1배 (일반 보상)'],
+  ['No Bull', '3장 카드의 합을 10의 배수로 만들지 못한 경우.', '베팅 금액의 1배 (일반 보상)']
+]
+export const jackpotSystems = [
+  ['Full House', '40배'],
+  ['Four of a Kind', '1,000배'],
+  ['Bull Bull Flush (Bull Bull + 5장 모두 같은 무늬)', '2,000배'],
+  ['Straight Flush', '9,000배'],
+  ['Royal Flush', '100,000배']
+]
+
+## 슈퍼불 (Super Bull)
+
+<Section title='게임 소개 및 핵심 매력'>
+  슈퍼불은 **니우니우 포커(Niu-Niu Poker)** 라고도 불리는 아시아의 인기 카드 게임입니다. 플레이어는 5장의 카드를 받아,
+  3장의 카드 합을 10의 배수로 만들고(Bull), 남은 2장의 카드 합을 통해 최종 점수를 결정하여 딜러와 대결합니다. 5장의
+  카드를 전략적으로 분할하는 능력이 승패를 좌우하며, 'Bull Bull'과 같은 특수 족보를 달성할 경우 베팅 금액의 두 배를
+  보상받는 등 높은 리워드가 특징입니다.
+</Section>
+
+<Section title='게임 규칙 및 목표'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>구분</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>내용</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {gameRules.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title='카드 값 및 딜러 규정'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>명칭</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>카드 값</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {cardRules.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+  **딜러 역할**: 딜러는 라운드마다 시계 방향으로 돌아가며(순환) 역할을 수행합니다.
+</Section>
+
+<Section title="게임 진행 단계 및 카드 분할 규칙">
+베팅 완료: 게임 시작 전, 플레이어는 딜러를 상대로 베팅할 칩의 수량을 결정하고 확정합니다. 'Last Bet' 기능을 사용하여 이전 라운드와 동일한 금액을 베팅할 수 있습니다.
+
+**카드 분배**: 딜러와 플레이어 모두 5장의 카드를 받습니다.
+
+**카드 분할 (Bull 만들기)**: 플레이어는 5장의 카드를 다음 두 부분으로 분할해야 합니다.
+
+- 첫 번째 부분 (3장): 3장 카드의 합이 10의 배수(Bull)가 되도록 만듭니다. (예: 10, 20, 30)
+- 두 번째 부분 (2장): 남은 2장의 카드 합이 최종 점수가 됩니다.
+
+**점수 확정**: 남은 2장의 카드 합이 10 이상일 경우, 1의 자리 숫자만 최종 점수로 사용됩니다.
+
+예시 : 3장 합 30(Bull) + 남은 2장 합 9 (8+A) → Bull 9 점
+
+**제출**: 분할을 완료한 후 'Go' 버튼을 눌러 확정합니다. 'Hint' 버튼을 사용하면 시스템이 Bull을 만들 수 있는 3장 조합을 자동으로 찾아줍니다.
+
+**쇼다운**: 타이머가 종료되거나 모두 제출하면 딜러와 플레이어의 카드를 공개하고, 더 높은 Bull 점수를 가진 쪽이 승리합니다.
+
+</Section>
+
+<Section title="최종 승리 및 동점 처리 규정">
+1. **승리 결정 방식 (Bull 점수 기준)**<br />
+  **Bull Bull (최고 족보)**: 3장 합이 10의 배수이고, 남은 2장 합도 10의 배수인 경우.<br />
+  Bull 9 > Bull 8 > ... > Bull 1 > No Bull 순으로 Bull 점수가 높은 쪽이 승리합니다.
+
+2. **특별 보상 규정**<br />
+   **Bull Bull 승리 시**: 플레이어는 베팅 금액의 두 배를 보상받습니다.<br />
+   **Bull 8 또는 Bull 9 승리 시**: 플레이어는 베팅 금액의 두 배를 보상받습니다.
+
+3. **동점 처리 규정**<br />
+   **Bull 점수까지 동일한 경우**: 5장 중 가장 높은 숫자의 카드를 비교하여 승자를 결정합니다. (K가 가장 높은 랭크이며, A는 1점입니다.)<br />
+   **가장 높은 랭크까지 동일한 경우**: 가장 높은 무늬를 가진 카드를 비교하여 승자를 결정합니다.<br />
+   **무늬 순위 (강한 순)**: 스페이드(♠) > 하트(♥) > 클로버(♣) > 다이아몬드(♦)
+
+</Section>
+
+<Section title="슈퍼불 특수 족보 순위 (Bull Point)">
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>족보 명칭</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>정의 및 설명</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>보상 (승리 시)</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {bullPointsRules.map(([$1, $2, $3], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title="잭팟 (Jackpot) 시스템">
+플레이어는 잭팟 칩을 구매하여 잭팟 풀에 참여할 수 있으며, 5장의 카드로 특정 족보를 완성하면 잭팟 금액의 일부를 획득합니다.
+    <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>잭팟 족보</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>상금 배수 (구매 금액 기준)</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {jackpotSystems.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>

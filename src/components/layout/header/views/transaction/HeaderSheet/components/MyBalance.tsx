@@ -1,6 +1,6 @@
 'use client'
 
-import { useMutationQuery } from '@/@core/hooks/use-query'
+import { GetData, useMutationQuery } from '@/@core/hooks/use-query'
 import { TransferBalanceFormData, TransferBalanceSchema } from '@/@core/utils/schema/Balance/TransferBalanceSchema'
 import { IconSouthKoreaFlag } from '@/components/atoms/Icons'
 import { TabSwitcher } from '@/components/molecules/TabSwitcher'
@@ -15,50 +15,7 @@ import { Eye, EyeOff, Loader2 } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { Resolver, SubmitHandler, useForm } from 'react-hook-form'
 import { MyBalanceProps } from '../types'
-
-interface Currency {
-  id: string
-  name: string
-  code: string
-  amount: string
-  icon: React.ReactNode
-  type: 'FIAT' | 'CRYPTO'
-}
-
-const currencies: Currency[] = [
-  {
-    id: 'KRW',
-    name: 'South Korean Won',
-    code: 'KRW',
-    amount: '1,000',
-    icon: <span className='text-xs'>🇰🇷</span>,
-    type: 'FIAT'
-  },
-  {
-    id: 'BTC',
-    name: 'Bitcoin',
-    code: 'BTC',
-    amount: '100',
-    icon: <span className='text-app-text-color text-xs'>₿</span>,
-    type: 'CRYPTO'
-  },
-  {
-    id: 'EOS',
-    name: 'EOS',
-    code: 'EOS',
-    amount: '100',
-    icon: <span className='text-app-text-color text-xs'>E</span>,
-    type: 'CRYPTO'
-  },
-  {
-    id: 'SOL',
-    name: 'SOLANA',
-    code: 'SOL',
-    amount: '100',
-    icon: <span className='text-black text-xs'>S</span>,
-    type: 'CRYPTO'
-  }
-]
+import { BalanceResponse } from '@/@core/interface/balance/Balance'
 
 export default function MyBalance({ lang, locale, onClose, data, dataFee }: MyBalanceProps) {
   const [showBalance, setShowBalance] = useState(true)
@@ -72,8 +29,6 @@ export default function MyBalance({ lang, locale, onClose, data, dataFee }: MyBa
     { name: lang?.common?.transferIn, value: 'transferIn' },
     { name: lang?.common?.transferOut, value: 'transferOut' }
   ]
-
-  const selectedCurrencyData = currencies.find(c => c.id === selectedCurrency) || currencies[0]
 
   const { mutateAsync: transferBalance, isPending: isLoading } = useMutationQuery<any, any>(
     ['transferBalance'],

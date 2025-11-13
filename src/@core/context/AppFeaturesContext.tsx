@@ -7,6 +7,7 @@ export interface AppFeatures {
   sports: boolean
   promotion: boolean
   crypto: boolean
+  livechat: boolean
 }
 
 interface AppFeaturesContextType {
@@ -59,7 +60,8 @@ export function AppFeaturesProvider({ children, initialFeatures }: AppFeaturesPr
     features: features ?? {
       sports: false,
       promotion: false,
-      crypto: false
+      crypto: false,
+      livechat: false
     },
     isLoading,
     isError: isError ?? false,

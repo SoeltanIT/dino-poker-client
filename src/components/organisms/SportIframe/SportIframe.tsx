@@ -5,13 +5,10 @@ import { GetData, useMutationQuery } from '@/@core/hooks/use-query'
 import { UseServerSendEvent } from '@/@core/hooks/UseServerSendEvent'
 import { BalanceResponse } from '@/@core/interface/balance/Balance'
 import { UserMeResponse } from '@/@core/interface/User'
-import { LiveChatButton } from '@/components/atoms/Button/LiveChatButton'
 import RegisterFormState from '@/components/layout/header/views/register/RegisterFormState'
 import { HeaderSheet } from '@/components/layout/header/views/transaction'
-import LocaleSwitcherDropdown from '@/components/molecules/LocaleSwitcher'
 import BetbySkeleton from '@/components/molecules/Skeleton/BetbySkeleton'
 import { Locale } from '@/i18n-config'
-import { cn } from '@/lib/utils'
 import { LangProps } from '@/types/langProps'
 import { TransferBalanceFeeResponseMapped } from '@/types/transferBalanceFeeDTO'
 import { useLiveChatContext } from '@/utils/context/LiveChatProvider'
@@ -55,6 +52,7 @@ export const BetByIframe = ({
   )
 
   const { features } = useAppFeatures()
+  const showLiveChat = ready && !!features?.livechat
 
   // Keep the most recent token and prevent duplicate requests
   const tokenRef = useRef<string | null>(null)
@@ -186,7 +184,7 @@ export const BetByIframe = ({
         lang: locale,
         target: el,
         betslipZIndex: 999,
-        themeName: theme === 'dark' ? 'gowin-dark-tile' : 'gowin-light-tile',
+        themeName: theme === 'dark' ? 'kpoker-dark-tile' : 'kpoker-light-tile',
         currency: 'KRW',
         betSlipOffsetBottom: window.innerWidth >= 768 ? 0 : 70,
         betSlipOffsetTop: window.innerWidth >= 768 ? 81 : 72,
@@ -264,7 +262,7 @@ export const BetByIframe = ({
   useEffect(() => {
     if (!rendererRef.current?.updateOptions) return
     rendererRef.current.updateOptions({
-      themeName: theme === 'dark' ? 'gowin-dark-tile' : 'gowin-light-tile',
+      themeName: theme === 'dark' ? 'kpoker-dark-tile' : 'kpoker-light-tile',
       betSlipOffsetTop: window.innerWidth >= 768 ? 81 : 72,
       betSlipOffsetBottom: window?.innerWidth >= 768 ? 0 : 70,
       stickyTop: window.innerWidth >= 768 ? 81 : 72
@@ -330,14 +328,14 @@ export const BetByIframe = ({
         </div>
       </div> */}
 
-      {!isOpenBetSlip && (
+      {/* {!isOpenBetSlip && (
         <div className={cn('fixed bottom-[87px] md:bottom-16 right-4 z-[50]')}>
           <div className='flex md:hidden items-center justify-center w-14 h-14 bg-app-primary hover:bg-app-primary-hover rounded-full shadow-lg'>
             <LocaleSwitcherDropdown lang={locale} />
           </div>
-          {ready && <LiveChatButton user={userData} ready={ready} />}
+          {showLiveChat && <LiveChatButton user={userData} ready={ready} />}
         </div>
-      )}
+      )} */}
 
       <HeaderSheet
         open={isOpenDeposit}

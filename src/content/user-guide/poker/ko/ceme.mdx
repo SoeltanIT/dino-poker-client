@@ -1,0 +1,127 @@
+import { Section } from '@/components/atoms/Content/Section'
+import { TableCard } from '@/components/atoms/Content/TableCard'
+import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+
+export const title = '체메 이용가이드'
+export const description = (
+  <>
+    체메
+    <br />
+    게임설명
+  </>
+)
+export const heroImage = '/images/new_user_guide.jpeg'
+export const gameInfo = [
+  ['게임 목표[', "자신이 받은 2장의 도미노 타일 합을 '9점(키우)'에 가장 가까게 만들어 딜러를 이기는 것입니다."],
+  ['인원[', '플레이어 대 딜러 간의 1대1 대결 (딜러 역할은 플레이어가 순환하거나 하우스가 고정)'],
+  ['사용 도구[', '총 28장의 도미노 타일']
+]
+export const rules = [
+  ['플레이어 승리 (일반)', '플레이어의 타일 값이 딜러보다 높을 때', '딜러는 플레이어에게 베팅 금액만큼 지불합니다.'],
+  ['딜러 승리 (일반)', '딜러의 타일 값이 플레이어보다 높을 때', '딜러가 플레이어의 베팅 금액을 가져갑니다.'],
+  ['동점 (Tie)', '딜러 무조건 승리', '딜러와 플레이어의 타일 값이 같을 경우, 딜러가 라운드를 승리합니다.'],
+  [
+    '9점 (Qiu) 승리 (플레이어)',
+    "플레이어가 '9점(키우)'을 획득하고 딜러를 이길 때",
+    '딜러는 플레이어에게 베팅 금액의 두 배를 지불해야 합니다.'
+  ],
+  [
+    '9점 (Qiu) 승리 (딜러)',
+    "딜러가 '9점(키우)'을 획득하면",
+    '딜러는 모든 플레이어의 베팅 금액을 가져갑니다. (이때 플레이어가 동일하거나 더 높은 값을 갖았더라도 딜러가 승리합니다. 다만 9점이 최고점이므로 플레이어가 9점을 가졌다면 딜러가 9점을 가졌더 딜러가 승리합니다).'
+  ]
+]
+
+## 체메 (Ceme)
+
+<Section title='게임 소개 및 핵심 매력'>
+  체메는 도미노 타일 중 단 2장만을 사용하는 빠르고 역동적인 베팅 게임입니다. 이 게임의 가장 큰 특징은 플레이어들이 일정
+  자격을 갖추면 딜러 역할을 직접 수행할 수 있다는 점입니다. 플레이어들은 자신의 2장 타일 합을 '9점(키우)'에 가깝게
+  만들고, 딜러와의 1대1 대결에서 승리하는 것을 목표로 합니다.
+</Section>
+
+<Section title='게임 규칙 및 목표'>
+  <TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='w-[130px] px-6 py-4 text-left font-semibold text-white'>구분</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>내용</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {gameInfo.map(([$1, $2], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title='딜러 역할 규정'>
+  딜러 자격: 딜러로 참여하기를 원할 경우, 테이블이 지정한 최소 딜러 잔액(Minimum Dealer Balance)을 보유하고 있어야
+  합니다.
+</Section>
+
+<Section title='도미노 타일 값 합산 규칙 (2장 기준)'>
+승패는 두 장의 타일에 표시된 총 점(dot)의 합으로 결정됩니다.
+
+**점수 합산**: 2장의 타일 점수를 합산합니다.
+
+**1의 자리 사용**: 총합이 10 이상일 경우, 10단위를 버리고 1의 자리 숫자만 최종 값으로 인정됩니다.
+
+**예시**: [6|6] + [6|3] = 12 + 9 = 21. 최종 값은 1이 됩니다.
+
+**최고 가치**: 최종 값 중 9점이 가장 높은 가치이며 **'키우(Qiu)'**라고 불립니다.
+
+</Section>
+
+<Section title="최종 승패 규정 (딜러 우위 및 '9점' 보상)">
+체메는 딜러가 무승부 상황에서 유리한 규칙을 가집니다.
+
+<TableCard>
+    <TableHeader>
+      <TableRow className='bg-[#0E1B2A] border-app-neutral600'>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>상황</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>승자</TableHead>
+        <TableHead className='px-6 py-4 text-left font-semibold text-white'>보상 및 패배</TableHead>
+      </TableRow>
+    </TableHeader>
+
+    <TableBody>
+      {rules.map(([$1, $2, $3], i) => (
+        <TableRow key={i} className='border-t border-app-neutral600'>
+          <TableCell className='px-6 py-4 font-medium text-app-text-color'>{$1}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$2}</TableCell>
+          <TableCell className='px-6 py-4 text-app-text-color'>{$3}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+
+  </TableCard>
+</Section>
+
+<Section title="특수 족보 및 잭팟 (Jackpot)">
+체메는 잭팟 구매를 통해 4장 타일 기반의 특수 족보 시스템을 운영하며, 플레이어는 잭팟에 당첨될 기회를 얻을 수 있습니다.
+
+**식스 갓 (Six God)**: 4장의 타일 각 면의 점이 6 이하로 구성된 가장 희귀한 족보.
+
+**트윈 시리즈 (Twin Series)**: 4장의 타일이 모두 더블(Double) 타일로 구성된 족보.
+
+**퓨어 빅 (Pure Big)**: 4장의 타일 총 점수 합이 39점 이상인 족보.
+
+**퓨어 스몰 (Pure Small)**: 4장의 타일 총 점수 합이 9점 이하인 특수 핸드.
+
+</Section>
+
+<Section title="연결 끊김 및 자동 행동 규칙">
+**자동 폴드 및 제거**: 플레이어가 연결을 끊거나 시간을 초과한 후 레이즈가 발생하면, 해당 플레이어는 자동으로 폴드 처리되며 게임에서 제외됩니다.
+
+**자동 체크**: 레이즈가 없을 경우, 연결이 끊긴 플레이어의 행동은 자동으로 체크로 처리됩니다.
+
+**재접속**: 시간이 만료되기 전에 재접속하면 사용 가능한 모든 행동을 취할 수 있습니다.
+
+</Section>

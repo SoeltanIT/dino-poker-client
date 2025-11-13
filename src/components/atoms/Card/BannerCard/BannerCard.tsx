@@ -16,6 +16,7 @@ type Props = {
   isLoading?: boolean
   className?: string
   lang: LangProps
+  useOverlay?: boolean
 }
 
 export default function BannerCard({
@@ -23,10 +24,11 @@ export default function BannerCard({
   subtitle,
   imageUrl,
   ctaText = 'MORE INFO',
-  href = '#',
+  href = '/user-guide/poker/texas-poker',
   isLoading,
   className,
-  lang
+  lang,
+  useOverlay
 }: Props) {
   if (isLoading) return <Skeleton className={clsx('h-[180px] w-full rounded-2xl md:h-full', className)} />
 
@@ -46,7 +48,7 @@ export default function BannerCard({
           <div className='h-full w-full bg-muted' />
         )}
         {/* gradient untuk keterbacaan teks */}
-        <div className='absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent' />
+        {useOverlay && <div className='absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent' />}
       </div>
 
       {/* overlay content */}

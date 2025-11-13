@@ -10,7 +10,6 @@ import { useRef, useState } from 'react'
 import { IconKoreanWon, IconSize } from '@/components/atoms/Icons'
 import LocaleSwitcherDropdown from '@/components/molecules/LocaleSwitcher'
 import NotificationDropdown from '@/components/molecules/Notification'
-import ThemeSwitcher from '@/components/molecules/ThemeSwitcher'
 import LoginModal from '@/components/organisms/Login'
 import MenuProfile from '@/components/organisms/Profile'
 import { Button } from '@/components/ui/button'
@@ -74,7 +73,7 @@ export const Header = ({
             pathname={pathname}
             lang={lang}
             features={features}
-            className='hidden w-[40%] lg:w-[55%] md:flex gap-4 ml-[15px]'
+            className='hidden md:flex gap-4 ml-[15px] w-full'
           />
 
           <div className='w-full flex items-start justify-end md:gap-3 gap-1'>
@@ -120,8 +119,11 @@ export const Header = ({
             <div className='hidden md:flex'>
               <NotificationDropdown lang={lang} isLogin={!!data} />
             </div>
-            <div className='hidden md:flex'>
+            {/* <div className='hidden md:flex'>
               <ThemeSwitcher />
+            </div> */}
+            <div className='md:hidden flex items-center justify-center bg-app-primary hover:bg-app-primary-hover rounded-lg shadow-lg'>
+              <LocaleSwitcherDropdown lang={lang} />
             </div>
             <div className='hidden md:flex'>
               <LocaleSwitcherDropdown lang={lang} />
@@ -177,10 +179,13 @@ export const Header = ({
 
                 <div className='hidden md:flex bg-app-divider-color h-10 w-0.5 mx-1' />
 
+                <div className='md:hidden flex items-center justify-center bg-app-primary hover:bg-app-primary-hover rounded-lg shadow-lg'>
+                  <LocaleSwitcherDropdown lang={lang} />
+                </div>
                 <div className='hidden md:flex'>
                   <LocaleSwitcherDropdown lang={lang} />
                 </div>
-                <ThemeSwitcher />
+                {/* <ThemeSwitcher /> */}
               </div>
             </div>
           </div>
@@ -198,7 +203,10 @@ export const Header = ({
                 {lang?.common?.login}
               </Button>
               <RegisterForm lang={lang} locale={locale} />
-              <ThemeSwitcher />
+              {/* <ThemeSwitcher /> */}
+              <div className='md:hidden flex items-center justify-center bg-app-primary hover:bg-app-primary-hover rounded-lg shadow-lg'>
+                <LocaleSwitcherDropdown lang={lang} />
+              </div>
               <div className='hidden md:flex'>
                 <LocaleSwitcherDropdown lang={lang} />
               </div>
