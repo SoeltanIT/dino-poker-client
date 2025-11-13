@@ -7,7 +7,7 @@ import { LangProps } from '@/types/langProps'
 import { getTotalPage } from '@/utils/get-total-page'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
 import { format } from 'date-fns'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 export interface AffiliateHistoryPokerByUserProps {
