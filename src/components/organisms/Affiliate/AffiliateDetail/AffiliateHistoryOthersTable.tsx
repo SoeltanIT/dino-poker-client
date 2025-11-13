@@ -4,20 +4,29 @@ import { GetData } from '@/@core/hooks/use-query'
 import { DataTable } from '@/components/molecules/Table/DataTable'
 import { AffiliateHistoryOthersDTO } from '@/types/affiliateDTO'
 import { LangProps } from '@/types/langProps'
+import { getTotalPage } from '@/utils/get-total-page'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
 import { format } from 'date-fns'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 export interface AffiliateHistoryOthersTableProps {
   lang?: LangProps
 }
 
+const pageSize = 10
+
 export function AffiliateHistoryOthersTable({ lang }: AffiliateHistoryOthersTableProps) {
+  const router = useRouter()
   const [page, setPage] = useState(1)
   // Use client-side hooks for data fetching with server-side initial data
   const { data: respAffiliateHistoryOthers, isFetching: isFetchingHistory } = GetData<{
     data: AffiliateHistoryOthersDTO[]
-    totalPage: number
+    pagination: {
+      total: number
+      page: number
+      pageSize: number
+    }
   }>(
     `/v1/affiliate-history/others`,
     ['affiliate_history_others', page], // You can still use this as queryKey cache
@@ -30,19 +39,19 @@ export function AffiliateHistoryOthersTable({ lang }: AffiliateHistoryOthersTabl
     'GET', // method
     {
       page,
-      pageSize: 10
+      pageSize
     },
     'user_proxy'
   )
 
   const members = respAffiliateHistoryOthers?.data || []
-  const totalPage = respAffiliateHistoryOthers?.totalPage || 0
+  const totalPage = getTotalPage(respAffiliateHistoryOthers?.pagination?.total || 0, pageSize)
   return (
     <>
       {/* Desktop Table */}
       <DataTable
         onRowClick={row => {
-          console.log(row)
+          router.push(`/affiliates/others/${row.user_id}`)
         }}
         emptyState={{
           message: lang?.common?.noAffiliateHistory,

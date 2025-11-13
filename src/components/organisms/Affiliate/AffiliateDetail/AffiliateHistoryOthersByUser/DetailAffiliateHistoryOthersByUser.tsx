@@ -4,6 +4,7 @@ import { GetData } from '@/@core/hooks/use-query'
 import { DataTable } from '@/components/molecules/Table/DataTable'
 import { AffiliateSummaryOthersDTO } from '@/types/affiliateDTO'
 import { LangProps } from '@/types/langProps'
+import { getTotalPage } from '@/utils/get-total-page'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
 import { useState } from 'react'
 
@@ -12,12 +13,18 @@ export interface DetailAffiliateHistoryOthersByUserProps {
   lang?: LangProps
 }
 
+const pageSize = 10
+
 export function DetailAffiliateHistoryOthersByUser({ userId, lang }: DetailAffiliateHistoryOthersByUserProps) {
   const [page, setPage] = useState(1)
 
   const { data: respAffiliateHistoryOthers, isFetching: isFetchingHistory } = GetData<{
     data: AffiliateSummaryOthersDTO[]
-    totalPage: number
+    pagination: {
+      total: number
+      page: number
+      pageSize: number
+    }
   }>(
     `/v1/affiliate-history/others/${userId}/details`,
     ['detail_affiliate_history_others_by_user', userId, page],
@@ -30,12 +37,12 @@ export function DetailAffiliateHistoryOthersByUser({ userId, lang }: DetailAffil
     'GET', // method
     {
       page,
-      pageSize: 10
+      pageSize
     },
     'user_proxy'
   )
   const affiliateHistoryOthersData = respAffiliateHistoryOthers?.data || []
-  const totalPage = respAffiliateHistoryOthers?.totalPage || 0
+  const totalPage = getTotalPage(respAffiliateHistoryOthers?.pagination?.total || 0, pageSize)
 
   return (
     <DataTable

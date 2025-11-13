@@ -4,8 +4,10 @@ import { GetData } from '@/@core/hooks/use-query'
 import { DataTable } from '@/components/molecules/Table/DataTable'
 import { AffiliateHistoryDetailPokerDTO } from '@/types/affiliateDTO'
 import { LangProps } from '@/types/langProps'
+import { getTotalPage } from '@/utils/get-total-page'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
 import { format } from 'date-fns'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 export interface AffiliateHistoryPokerByUserProps {
@@ -13,12 +15,19 @@ export interface AffiliateHistoryPokerByUserProps {
   lang?: LangProps
 }
 
+const pageSize = 10
+
 export function AffiliateHistoryPokerByUser({ userId, lang }: AffiliateHistoryPokerByUserProps) {
+  const router = useRouter()
   const [page, setPage] = useState(1)
 
   const { data: respAffiliateHistoryPoker, isFetching: isFetchingHistory } = GetData<{
     data: AffiliateHistoryDetailPokerDTO[]
-    totalPage: number
+    pagination: {
+      total: number
+      page: number
+      pageSize: number
+    }
   }>(
     `/v1/affiliate-history/poker/${userId}`,
     ['affiliate_history_poker_by_user', userId, page],
@@ -31,18 +40,18 @@ export function AffiliateHistoryPokerByUser({ userId, lang }: AffiliateHistoryPo
     'GET', // method
     {
       page,
-      pageSize: 10
+      pageSize
     },
     'user_proxy'
   )
   const affiliateHistoryPokerData = respAffiliateHistoryPoker?.data || []
-  const totalPage = respAffiliateHistoryPoker?.totalPage || 0
+  const totalPage = getTotalPage(respAffiliateHistoryPoker?.pagination?.total || 0, pageSize)
 
   return (
     <DataTable
-      // onRowClick={row => {
-      //   router.push(`/affiliates/poker/${row.user_id}`)
-      // }}
+      onRowClick={row => {
+        router.push(`/affiliates/poker/${userId}/detail`)
+      }}
       emptyState={{
         message: lang?.common?.noAffiliateHistory,
         image: '/images/betNotFound.png'

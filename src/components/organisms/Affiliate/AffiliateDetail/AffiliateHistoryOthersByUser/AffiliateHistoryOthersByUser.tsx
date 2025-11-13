@@ -4,8 +4,10 @@ import { GetData } from '@/@core/hooks/use-query'
 import { DataTable } from '@/components/molecules/Table/DataTable'
 import { AffiliateHistoryDetailOthersDTO } from '@/types/affiliateDTO'
 import { LangProps } from '@/types/langProps'
+import { getTotalPage } from '@/utils/get-total-page'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
 import { format } from 'date-fns'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 export interface AffiliateHistoryOthersByUserProps {
@@ -13,12 +15,18 @@ export interface AffiliateHistoryOthersByUserProps {
   lang?: LangProps
 }
 
+const pageSize = 10
 export function AffiliateHistoryOthersByUser({ userId, lang }: AffiliateHistoryOthersByUserProps) {
   const [page, setPage] = useState(1)
+  const router = useRouter()
 
   const { data: respAffiliateHistoryOthers, isFetching: isFetchingHistory } = GetData<{
     data: AffiliateHistoryDetailOthersDTO[]
-    totalPage: number
+    pagination: {
+      total: number
+      page: number
+      pageSize: number
+    }
   }>(
     `/v1/affiliate-history/others/${userId}`,
     ['affiliate_history_others_by_user', userId, page],
@@ -31,18 +39,18 @@ export function AffiliateHistoryOthersByUser({ userId, lang }: AffiliateHistoryO
     'GET', // method
     {
       page,
-      pageSize: 10
+      pageSize
     },
     'user_proxy'
   )
   const affiliateHistoryOthersData = respAffiliateHistoryOthers?.data || []
-  const totalPage = respAffiliateHistoryOthers?.totalPage || 0
+  const totalPage = getTotalPage(respAffiliateHistoryOthers?.pagination?.total || 0, pageSize)
 
   return (
     <DataTable
-      // onRowClick={row => {
-      //   router.push(`/affiliates/poker/${row.user_id}`)
-      // }}
+      onRowClick={row => {
+        router.push(`/affiliates/others/${userId}/detail`)
+      }}
       emptyState={{
         message: lang?.common?.noAffiliateHistory,
         image: '/images/betNotFound.png'
