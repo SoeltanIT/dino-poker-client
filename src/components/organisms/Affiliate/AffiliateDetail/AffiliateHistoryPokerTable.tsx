@@ -4,6 +4,7 @@ import { GetData } from '@/@core/hooks/use-query'
 import { DataTable } from '@/components/molecules/Table/DataTable'
 import { AffiliateHistoryPokerDTO } from '@/types/affiliateDTO'
 import { LangProps } from '@/types/langProps'
+import { getTotalPage } from '@/utils/get-total-page'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
 import { format } from 'date-fns'
 import { useRouter } from 'next/navigation'
@@ -12,6 +13,7 @@ import { useState } from 'react'
 export interface AffiliateHistoryPokerTableProps {
   lang?: LangProps
 }
+const pageSize = 10
 
 export function AffiliateHistoryPokerTable({ lang }: AffiliateHistoryPokerTableProps) {
   const router = useRouter()
@@ -19,7 +21,11 @@ export function AffiliateHistoryPokerTable({ lang }: AffiliateHistoryPokerTableP
   // Use client-side hooks for data fetching with server-side initial data
   const { data: respAffiliateHistoryPoker, isFetching: isFetchingHistory } = GetData<{
     data: AffiliateHistoryPokerDTO[]
-    totalPage: number
+    pagination: {
+      total: number
+      page: number
+      pageSize: number
+    }
   }>(
     `/v1/affiliate-history/poker`,
     ['affiliate_history_poker', page], // You can still use this as queryKey cache
@@ -32,13 +38,13 @@ export function AffiliateHistoryPokerTable({ lang }: AffiliateHistoryPokerTableP
     'GET', // method
     {
       page,
-      pageSize: 10
+      pageSize
     },
     'user_proxy'
   )
 
   const affiliateHistoryPokerData = respAffiliateHistoryPoker?.data || []
-  const totalPage = respAffiliateHistoryPoker?.totalPage || 0
+  const totalPage = getTotalPage(respAffiliateHistoryPoker?.pagination?.total || 0, pageSize)
   return (
     <>
       {/* Desktop Table */}
