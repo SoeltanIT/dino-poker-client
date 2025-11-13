@@ -50,7 +50,7 @@ export async function middleware(req: NextRequest) {
       const response = await fetch(url)
       const html = await response.text()
       return new Response(html, {
-        status: 503,
+        status: 200,
         headers: {
           'Content-Type': 'text/html',
           'Retry-After': '3600'
