@@ -79,7 +79,7 @@ function useMutationQuery<BodyT, ResponseData>(
   isShowMsg = false,
   successMessage?: string,
   additionalInvalidates: Array<Array<string | number>> = [],
-  apiType: 'user' | 'transaction' = 'user',
+  apiType: 'user' | 'transaction' | 'promotion' = 'user',
   skipAuth = false // 🔥 Single parameter - if true, skip auth. If false, require auth
 ) {
   const queryClient = useQueryClient()

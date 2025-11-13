@@ -5,12 +5,26 @@ export const CreateAffiliateSchema = (lang: LangProps) =>
   z.object({
     code_name: z
       .string()
-      .min(2, { message: lang?.form?.username_min || 'Code name must be at least 2 characters' })
-      .max(30, { message: lang?.form?.username_max || 'Code name must be at most 30 characters' }),
+      .min(2, { message: lang?.form?.code_name_min || 'Code name must be at least 2 characters' })
+      .max(30, { message: lang?.form?.code_name_max || 'Code name must be at most 30 characters' })
+      .regex(
+        /^[a-zA-Z0-9._-]+$/,
+        lang?.form?.code_name_invalid ||
+          'Code name can only contain Latin letters, numbers, and special characters (._-)'
+      ),
+    nickname: z
+      .string()
+      .min(2, lang?.form?.nickname_min)
+      .regex(/^[가-힣]+$/, lang?.form?.nickname_invalid || 'Nickname can only contain Korean characters')
+      .max(12, lang?.form?.nickname_max),
     username: z
       .string()
-      .min(2, { message: lang?.form?.username_min || 'Username must be at least 2 characters' })
-      .max(30, { message: lang?.form?.username_max || 'Username must be at most 30 characters' }),
+      .min(4, lang?.form?.username_min)
+      .max(12, lang?.form?.username_max)
+      .regex(
+        /^[a-zA-Z0-9._-]+$/,
+        lang?.form?.username_invalid || 'Username can only contain Latin letters, numbers, and special characters (._-)'
+      ),
     password: z
       .string()
       .min(4, { message: lang?.form?.password_min || 'Password must be at least 4 characters' })
