@@ -11,10 +11,10 @@ export interface AffiliateHistoryGroupProps {
 }
 
 export function AffiliateHistoryGroup({ lang }: AffiliateHistoryGroupProps) {
-  const [activeTab, setActiveTab] = useState('casino')
+  const [activeTab, setActiveTab] = useState('poker')
   const tabs = [
-    { name: lang?.header?.casino, value: 'casino' },
-    { name: lang?.header?.sport, value: 'sport' }
+    { name: lang?.header?.poker, value: 'poker' },
+    { name: lang?.header?.casino, value: 'casino' }
   ]
 
   return (

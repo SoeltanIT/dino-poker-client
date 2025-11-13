@@ -625,5 +625,11 @@
       "description": "닉네임은 최대 12자까지 가능합니다."
     },
     "currentUsername": "현재 ID"
+  },
+  "affiliate": {
+    "affiliateHistoryPokerByUser": "사용자별 포커 제휴 내역",
+    "detailAffiliateHistoryPokerByUser": "사용자별 포커 제휴 내역 상세",
+    "affiliateHistoryCasinoByUser": "사용자별 카지노 제휴 내역",
+    "detailAffiliateHistoryCasinoByUser": "사용자별 카지노 제휴 내역 상세"
   }
 }

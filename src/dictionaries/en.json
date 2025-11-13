@@ -624,5 +624,11 @@
       "description": "Please input your nickname with maximum length 12"
     },
     "currentUsername": "Current ID"
+  },
+  "affiliate": {
+    "affiliateHistoryPokerByUser": "Affiliate History Poker by User",
+    "detailAffiliateHistoryPokerByUser": "Detail Affiliate History Poker by User",
+    "affiliateHistoryCasinoByUser": "Affiliate History Casino by User",
+    "detailAffiliateHistoryCasinoByUser": "Detail Affiliate History Casino by User"
   }
 }

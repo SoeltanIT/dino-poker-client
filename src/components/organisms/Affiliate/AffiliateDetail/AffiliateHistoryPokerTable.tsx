@@ -6,6 +6,7 @@ import { AffiliateHistoryPokerDTO } from '@/types/affiliateDTO'
 import { LangProps } from '@/types/langProps'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
 import { format } from 'date-fns'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 export interface AffiliateHistoryPokerTableProps {
@@ -13,6 +14,7 @@ export interface AffiliateHistoryPokerTableProps {
 }
 
 export function AffiliateHistoryPokerTable({ lang }: AffiliateHistoryPokerTableProps) {
+  const router = useRouter()
   const [page, setPage] = useState(1)
   // Use client-side hooks for data fetching with server-side initial data
   const { data: respAffiliateHistoryPoker, isFetching: isFetchingHistory } = GetData<{
@@ -42,7 +44,7 @@ export function AffiliateHistoryPokerTable({ lang }: AffiliateHistoryPokerTableP
       {/* Desktop Table */}
       <DataTable
         onRowClick={row => {
-          console.log(row)
+          router.push(`/affiliates/poker/${row.user_id}`)
         }}
         emptyState={{
           message: lang?.common?.noAffiliateHistory,
