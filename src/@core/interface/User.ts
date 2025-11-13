@@ -15,3 +15,11 @@ export interface UserMeResponse {
     status: UserStatus
   }
 }
+
+export interface CheckUsernameResponse {
+  status: string
+  message: string
+  data: {
+    is_valid: boolean
+  }
+}
