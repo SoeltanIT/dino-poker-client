@@ -311,7 +311,8 @@
     "totalGGR": "총 GGR",
     "totalPromotion": "총 프로모션",
     "totalNGR": "총 NGR",
-    "reason": "사유"
+    "reason": "사유",
+    "commissionRate": "커미션 비율"
   },
   "game": {
     "texaspoker": "텍사스 홀덤",

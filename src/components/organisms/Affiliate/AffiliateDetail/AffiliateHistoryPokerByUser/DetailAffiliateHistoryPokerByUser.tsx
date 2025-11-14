@@ -147,7 +147,7 @@ export function DetailAffiliateHistoryPokerByUser({ userId, lang }: DetailAffili
           key: 'commission_rate',
           header: lang?.common?.commissionRate,
           accessor: 'commission_rate',
-          render: value => (value != null ? value * 100 + '%' : '-')
+          render: value => (value != null ? `${value}%` : '-')
         }
       ]}
     />
