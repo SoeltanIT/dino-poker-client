@@ -604,7 +604,7 @@
     },
     "nickname": {
       "title": "닉네임 업데이트",
-      "description": "닉네임은 최대 12자까지 가능합니다."
+      "description": "닉네임은 한글로만 입력해 주세요. 최대 12자까지 가능합니다."
     },
     "currentUsername": "현재 ID"
   }
