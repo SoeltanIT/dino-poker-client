@@ -6,6 +6,7 @@ import { AffiliateSummaryOthersDTO } from '@/types/affiliateDTO'
 import { LangProps } from '@/types/langProps'
 import { getTotalPage } from '@/utils/get-total-page'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
+import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 
 export interface DetailAffiliateHistoryOthersByUserProps {
@@ -17,6 +18,8 @@ const pageSize = 10
 
 export function DetailAffiliateHistoryOthersByUser({ userId, lang }: DetailAffiliateHistoryOthersByUserProps) {
   const [page, setPage] = useState(1)
+  const searchParams = useSearchParams()
+  const period = searchParams.get('period')
 
   const { data: respAffiliateHistoryOthers, isFetching: isFetchingHistory } = GetData<{
     data: AffiliateSummaryOthersDTO[]
@@ -27,7 +30,7 @@ export function DetailAffiliateHistoryOthersByUser({ userId, lang }: DetailAffil
     }
   }>(
     `/v1/affiliate-history/others/${userId}/details`,
-    ['detail_affiliate_history_others_by_user', userId, page],
+    ['detail_affiliate_history_others_by_user', userId, page, period],
     false,
     undefined,
     true,
@@ -37,7 +40,8 @@ export function DetailAffiliateHistoryOthersByUser({ userId, lang }: DetailAffil
     'GET', // method
     {
       page,
-      pageSize
+      pageSize,
+      period
     },
     'user_proxy'
   )

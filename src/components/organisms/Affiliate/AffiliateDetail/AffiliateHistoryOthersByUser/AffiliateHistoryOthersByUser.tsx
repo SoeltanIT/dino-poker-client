@@ -49,7 +49,7 @@ export function AffiliateHistoryOthersByUser({ userId, lang }: AffiliateHistoryO
   return (
     <DataTable
       onRowClick={row => {
-        router.push(`/affiliates/others/${userId}/detail`)
+        router.push(`/affiliates/others/${userId}/detail?period=${row.period}`)
       }}
       emptyState={{
         message: lang?.common?.noAffiliateHistory,
