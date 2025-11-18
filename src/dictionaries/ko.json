@@ -367,7 +367,7 @@
     "uploadFailed": "업로드에 실패했습니다. 다시 시도해 주세요.",
     "placeholderPassword": "비밀번호는 4~15자 사이여야 합니다",
     "placeholderName": "이름을 입력하세요...",
-    "placeholderUsername": "영문 또는 숫자를 이용해 4-12자를 기입해주세요",
+    "placeholderUsername": "영문 또는 숫자를 이용해 4~12자를 기입해주세요",
     "placeholderWithdrawalPassword": "비밀번호는 4~15자 사이여야 합니다",
     "selectDate": "날짜 선택",
     "depoWithdrawInformation": "출금 및 입금 정보",
@@ -387,7 +387,7 @@
     "referralCode": "추천 코드",
     "typeReferralCode": "추천 코드를 입력하세요",
     "nickname": "닉네임",
-    "placeholderNickname": "닉네임을 입력하세요 (한글만 가능, 2-12자)"
+    "placeholderNickname": "한글로 2~12자를 기입해주세요"
   },
   "form": {
     "email_min": "이메일은 최소 5자 이상이어야 합니다",
@@ -623,7 +623,7 @@
     },
     "nickname": {
       "title": "닉네임 업데이트",
-      "description": "닉네임은 최대 12자까지 가능합니다."
+      "description": "닉네임은 한글로만 입력해 주세요. 최대 12자까지 가능합니다."
     },
     "currentUsername": "현재 ID"
   },

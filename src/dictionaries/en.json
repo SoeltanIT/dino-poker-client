@@ -622,7 +622,7 @@
     },
     "nickname": {
       "title": "Update Your Nickname",
-      "description": "Please input your nickname with maximum length 12"
+      "description": "Please input your nickname using Korean characters only and with maximum length 12 characters."
     },
     "currentUsername": "Current ID"
   },

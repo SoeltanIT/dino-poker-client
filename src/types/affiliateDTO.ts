@@ -81,7 +81,6 @@ export interface AffiliateHistoryPokerDTO {
   rake_amount: number
   commission_earned: number
   reason: string
-  adjusted_commission: number
   last_commission_paid_at: string
   paid_date: string
   paid_status: string
@@ -96,19 +95,15 @@ export interface AffiliateHistoryDetailPokerDTO {
   period: string
   rake_amount: number
   commission_earned: number
-  adjusted_commission: number
-  last_commission_paid_at: string
-  paid_date: string
-  paid_status: string
 }
 
 export interface AffiliateSummaryPokerDTO {
+  id: string
   user_id: string
   code_name: string
   username: string
-  commission_rate: number
   period: string
   rake_amount: number
-  commission_earned: number
-  adjusted_commission: number
+  parent_commission: number
+  parent_commission_rate: number
 }
