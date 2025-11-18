@@ -5,8 +5,8 @@ export const adjustmentSchema = (lang: LangProps) =>
   z.object({
     username: z
       .string()
-      .min(2, lang?.form?.username_min)
-      .max(30, lang?.form?.username_max)
+      .min(4, lang?.form?.username_min)
+      .max(12, lang?.form?.username_max)
       .regex(
         /^[a-zA-Z0-9._-]+$/,
         lang?.form?.username_invalid || 'Username can only contain Latin letters, numbers, and special characters (._-)'
