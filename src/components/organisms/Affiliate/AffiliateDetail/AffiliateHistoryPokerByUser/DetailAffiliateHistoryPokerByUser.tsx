@@ -85,19 +85,13 @@ export function DetailAffiliateHistoryPokerByUser({ userId, lang }: DetailAffili
             <div className='flex justify-between items-center'>
               <span className='text-xs text-gray-400'>{lang?.common?.commissionRate}</span>
               <span className='text-sm font-medium text-app-text-color'>
-                {row.commission_rate != null ? row.commission_rate * 100 + '%' : '-'}
+                {row.parent_commission_rate != null ? row.parent_commission_rate * 100 + '%' : '-'}
               </span>
             </div>
             <div className='flex justify-between items-center'>
               <span className='text-xs text-gray-400'>{lang?.common?.commissionEarned}</span>
               <span className='text-sm font-semibold text-green-500'>
-                {row.commission_earned != null ? thousandSeparatorComma(row.commission_earned) + '원' : '-'}
-              </span>
-            </div>
-            <div className='flex justify-between items-center'>
-              <span className='text-xs text-gray-400'>{lang?.common?.adjustedCommission}</span>
-              <span className='text-sm font-semibold text-blue-500'>
-                {row.adjusted_commission != null ? thousandSeparatorComma(row.adjusted_commission) + '원' : '-'}
+                {row.parent_commission != null ? thousandSeparatorComma(row.parent_commission) + '원' : '-'}
               </span>
             </div>
           </div>
@@ -136,21 +130,15 @@ export function DetailAffiliateHistoryPokerByUser({ userId, lang }: DetailAffili
           render: value => (value != null ? thousandSeparatorComma(value) + '원' : '-')
         },
         {
-          key: 'commission_earned',
+          key: 'parent_commission',
           header: lang?.common?.commissionEarned,
-          accessor: 'commission_earned',
+          accessor: 'parent_commission',
           render: value => (value != null ? thousandSeparatorComma(value) + '원' : '-')
         },
         {
-          key: 'adjusted_commission',
-          header: lang?.common?.adjustedCommission,
-          accessor: 'adjusted_commission',
-          render: value => (value != null ? thousandSeparatorComma(value) + '원' : '-')
-        },
-        {
-          key: 'commission_rate',
+          key: 'parent_commission_rate',
           header: lang?.common?.commissionRate,
-          accessor: 'commission_rate',
+          accessor: 'parent_commission_rate',
           render: value => (value != null ? `${value}%` : '-')
         }
       ]}
