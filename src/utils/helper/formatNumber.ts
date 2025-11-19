@@ -10,15 +10,28 @@ export const thousandSeparator = (x: string | number) => {
   try {
     return `${x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`
   } catch (e) {
-    return null
+    return '-'
   }
 }
 
 export const thousandSeparatorComma = (x: string | number): string => {
   try {
-    const value = typeof x === 'number' ? x.toString() : x.replace(/[^0-9]/g, '')
-    if (!value) return ''
-    return value.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    // Convert to number
+    const numericValue = typeof x === 'number' ? x : parseFloat(x)
+
+    if (isNaN(numericValue)) return ''
+
+    // Round to 3 decimal places
+    const rounded = Math.round(numericValue * 1000) / 1000
+
+    // Split into integer and decimal parts
+    const parts = rounded.toString().split('.')
+
+    // Add thousand separators to integer part
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+    // Join back with decimal part if it exists
+    return parts.join('.')
   } catch {
     return ''
   }

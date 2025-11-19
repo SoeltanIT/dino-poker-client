@@ -176,7 +176,7 @@ export default function MyBalance({ lang, locale, onClose, data, dataFee }: MyBa
                   '0'
                 )}
               </span>
-              <span className='text-sm text-app-neutral500'>KRW</span>
+              <span className='text-sm text-app-neutral500'>원</span>
             </div>
           </div>
         </div>
@@ -225,7 +225,7 @@ export default function MyBalance({ lang, locale, onClose, data, dataFee }: MyBa
                       '0'
                     )}
                   </span>
-                  <span className='text-sm text-app-neutral500'>KRW</span>
+                  <span className='text-sm text-app-neutral500'>원</span>
                 </div>
               </div>
               <Button
@@ -327,7 +327,7 @@ export default function MyBalance({ lang, locale, onClose, data, dataFee }: MyBa
                     '0'
                   )}
                 </span>
-                <span className='text-sm text-app-neutral500'>KRW</span>
+                <span className='text-sm text-app-neutral500'>원</span>
               </div>
             </div>
           </div>

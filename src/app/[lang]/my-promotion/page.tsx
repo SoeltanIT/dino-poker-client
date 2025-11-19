@@ -1,9 +1,6 @@
 import { getValidServerSession, handleServerAuthError } from '@/@core/lib/server-auth-utils'
 import MyPromotion from '@/components/organisms/MyPromotion'
 import { getDictionary, getLocale } from '@/dictionaries/dictionaries'
-import { getListMyPromotion } from '@/utils/api/internal/listMyPromotion'
-import { getListMyPromotionHistory } from '@/utils/api/internal/listMyPromotionHistory'
-import { getListPromotion } from '@/utils/api/internal/listPromotion'
 
 // export const runtime = 'edge'
 

@@ -21,7 +21,7 @@ export default function DepositConfirmForm({ lang }: DepositConfirmFormProps) {
       <div className='flex flex-col flex-grow'>
         <div className='flex flex-col w-full max-h-[90px] bg-app-background-secondary rounded-[16px] items-center justify-center gap-[3px] py-4 mb-[30px]'>
           <span className='text-xs text-app-placeholder'>{lang?.common?.totalPayment}</span>
-          <span className='text-[32px] text-app-text-color'>₩1234</span>
+          <span className='text-[32px] text-app-text-color'>1234원</span>
         </div>
 
         {/* {activeSubTab === 'CRYPTO' && (

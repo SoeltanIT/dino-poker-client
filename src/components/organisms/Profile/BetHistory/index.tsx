@@ -123,7 +123,6 @@ export default function BetHistoryPage({
     setOpenDetail(true)
   }
 
-
   const { claimRakeBack, isLoading: isClaiming } = useClaimRakeBack(lang)
 
   const {
@@ -223,8 +222,7 @@ export default function BetHistoryPage({
                   </div>
                   <div className='text-app-neutral500 text-xs mb-3'>
                     <p className='text-2xl font-bold text-app-text-color'>
-                      KRW
-                      <span className='text-app-success'>{` ${summaryData?.data?.total_unclaimed.toLocaleString()}`}</span>
+                      <span className='text-app-success'>{summaryData?.data?.total_unclaimed.toLocaleString()}</span>원
                     </p>
                   </div>
                   <Button
@@ -260,8 +258,7 @@ export default function BetHistoryPage({
                   {lang?.common?.claimRakeBackBonus || 'Claim Rake Back Bonus'}
                 </div>
                 <p className='text-2xl font-bold text-app-text-color'>
-                  KRW
-                  <span className='text-app-success'>{` ${summaryData?.data?.total_unclaimed.toLocaleString()}`}</span>
+                  <span className='text-app-success'>{summaryData?.data?.total_unclaimed.toLocaleString()}</span>원
                 </p>
               </div>
               <Button
@@ -317,10 +314,12 @@ export default function BetHistoryPage({
                         {format(new Date(bet.createdAt), 'yyyy-MM-dd | HH:mm')}
                       </div>
                       <div className='text-sm text-app-text-color uppercase'>{bet.gameName}</div>
-                      <div className={`text-sm font-medium ${getTextColor(bet.status)}`}>
-                        <span className='text-app-neutral500'>KRW </span>
-                        {betStatus === 'won' ? '+' : betStatus === 'pending' ? '' : bet.amount != 0 ? '-' : ''}
-                        {thousandSeparatorComma(Math.floor(bet.amount))}
+                      <div className={`text-sm font-medium text-app-neutral500`}>
+                        <span className={`${getTextColor(bet.status)}`}>
+                          {betStatus === 'won' ? '+' : betStatus === 'pending' ? '' : bet.amount != 0 ? '-' : ''}
+                          {thousandSeparatorComma(Math.floor(bet.amount))}
+                        </span>
+                        원
                       </div>
                       <div className='flex justify-between items-center'>
                         <div className={`text-sm ${getTextColor(bet.status)} uppercase`}>
@@ -351,7 +350,7 @@ export default function BetHistoryPage({
                       <div className='flex justify-between items-center'>
                         <div className={`w-full flex text-sm font-medium ${getTextColor(bet.status)}`}>
                           {betStatus === 'win' ? '+' : betStatus === 'pending' ? '' : bet.amount != 0 ? '-' : ''}
-                          {thousandSeparatorComma(Math.floor(bet.amount))} KRW
+                          {thousandSeparatorComma(Math.floor(bet.amount))}원
                         </div>
                         <div
                           className={`flex w-[100px] text-sm font-semibold uppercase justify-end ${getTextColor(
@@ -412,14 +411,14 @@ export default function BetHistoryPage({
         open={openDetail}
         setOpen={(v: boolean) => {
           setOpenDetail(v)
-           if (!v) {
-             // we’re closing:
-             // we DO want to stop row spinners, yes
-             setSelectedBet(null)
-             setLoadingId(null)
-             // BUT DO NOT clear detailBetData here
-             // setDetailBetData(null)  <-- remove this
-           }
+          if (!v) {
+            // we’re closing:
+            // we DO want to stop row spinners, yes
+            setSelectedBet(null)
+            setLoadingId(null)
+            // BUT DO NOT clear detailBetData here
+            // setDetailBetData(null)  <-- remove this
+          }
         }}
       />
     </div>

@@ -7,7 +7,6 @@ import { Loader2 } from 'lucide-react'
 interface PresetAmountSelectorProps {
   amounts: string[]
   onSelect: (amount: string) => void
-  currencySymbol?: string
   className?: string
   isLoading?: boolean
 }
@@ -15,7 +14,6 @@ interface PresetAmountSelectorProps {
 export default function PresetAmountSelector({
   amounts,
   onSelect,
-  currencySymbol = '₩',
   className = '',
   isLoading = false
 }: PresetAmountSelectorProps) {
@@ -35,8 +33,7 @@ export default function PresetAmountSelector({
             onClick={() => onSelect(amount)}
             className='md:px-3 px-2 py-1 bg-app-white100 text-app-text-color md:text-sm text-xs rounded transition-colors whitespace-nowrap'
           >
-            {currencySymbol}
-            {thousandSeparatorComma(amount)}
+            {thousandSeparatorComma(amount)}원
           </Button>
         ))
       )}
