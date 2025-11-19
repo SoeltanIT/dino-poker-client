@@ -80,6 +80,7 @@ export interface AffiliateHistoryPokerDTO {
   period: string
   rake_amount: number
   commission_earned: number
+  adjusted_commission: number
   reason: string
   last_commission_paid_at: string
   paid_date: string

@@ -113,6 +113,15 @@ export function AffiliateHistoryPokerTable({ lang }: AffiliateHistoryPokerTableP
                   {row.commission_earned != null ? thousandSeparatorComma(row.commission_earned) + '원' : '-'}
                 </span>
               </div>
+
+              <div className='flex justify-between items-center'>
+                <span className='text-xs text-gray-400'>{lang?.common?.adjustedCommission}</span>
+                <span className='text-sm font-semibold text-blue-500'>
+                  {row.adjusted_commission != null
+                    ? thousandSeparatorComma(Math.floor(row.adjusted_commission)) + '원'
+                    : '-'}
+                </span>
+              </div>
             </div>
 
             {/* Last Commission Paid */}
@@ -181,6 +190,12 @@ export function AffiliateHistoryPokerTable({ lang }: AffiliateHistoryPokerTableP
             header: lang?.common?.commissionEarned,
             accessor: 'commission_earned',
             render: value => (value != null ? thousandSeparatorComma(value) + '원' : '-')
+          },
+          {
+            key: 'adjusted_commission',
+            header: lang?.common?.adjustedCommission,
+            accessor: 'adjusted_commission',
+            render: value => (value != null ? thousandSeparatorComma(Math.floor(value)) + '원' : '-')
           },
           {
             key: 'last_commission_paid_at',
