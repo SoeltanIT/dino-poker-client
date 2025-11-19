@@ -21,11 +21,11 @@ export const thousandSeparatorComma = (x: string | number): string => {
 
     if (isNaN(numericValue)) return ''
 
-    // Round to 3 decimal places
-    const rounded = Math.round(numericValue * 1000) / 1000
+    // flooring number
+    const floor = Math.floor(numericValue)
 
     // Split into integer and decimal parts
-    const parts = rounded.toString().split('.')
+    const parts = floor.toString().split('.')
 
     // Add thousand separators to integer part
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')

@@ -195,7 +195,7 @@ export function AffiliateHistoryPokerTable({ lang }: AffiliateHistoryPokerTableP
             key: 'adjusted_commission',
             header: lang?.common?.adjustedCommission,
             accessor: 'adjusted_commission',
-            render: value => (value != null ? thousandSeparatorComma(Math.floor(value)) + '원' : '-')
+            render: value => (value != null ? thousandSeparatorComma(value) + '원' : '-')
           },
           {
             key: 'last_commission_paid_at',
