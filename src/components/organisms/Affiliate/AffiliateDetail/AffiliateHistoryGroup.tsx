@@ -1,9 +1,7 @@
 'use client'
 
-import { TabSwitcher } from '@/components/molecules/TabSwitcher'
 import { LangProps } from '@/types/langProps'
 import { useState } from 'react'
-import { AffiliateHistoryOthersTable } from './AffiliateHistoryOthersTable'
 import { AffiliateHistoryPokerTable } from './AffiliateHistoryPokerTable'
 
 export interface AffiliateHistoryGroupProps {
@@ -19,12 +17,12 @@ export function AffiliateHistoryGroup({ lang }: AffiliateHistoryGroupProps) {
 
   return (
     <>
-      <TabSwitcher tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
-      {activeTab === 'casino' ? (
+      {/* <TabSwitcher tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} /> */}
+      {/* {activeTab === 'casino' ? (
         <AffiliateHistoryOthersTable lang={lang} />
-      ) : (
-        <AffiliateHistoryPokerTable lang={lang} />
-      )}
+      ) : ( */}
+      <AffiliateHistoryPokerTable lang={lang} />
+      {/* )} */}
     </>
   )
 }
