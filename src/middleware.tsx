@@ -72,7 +72,12 @@ export async function middleware(req: NextRequest) {
   if (!hasLocalePrefix) {
     const detectedLocale = getLocale(req)
     const newUrl = new URL(req.url)
-    newUrl.pathname = `/${detectedLocale}${pathname.startsWith('/') ? '' : '/'}${pathname}`
+    const originalPathname = newUrl.pathname
+    const pathPart =
+      originalPathname === '/'
+        ? '' // If it's the root, we don't want an extra slash after the locale.
+        : `${originalPathname.startsWith('/') ? '' : '/'}${originalPathname}`
+    newUrl.pathname = `/${detectedLocale}${pathPart}`
     newUrl.search = searchParams.toString()
     return NextResponse.redirect(newUrl)
   }
@@ -197,5 +202,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/|favicon.ico|images|robots.txt|sitemap).*)']
+  matcher: ['/((?!api|_next/|favicon.ico|images|robots.txt|sitemap|proxy).*)']
 }

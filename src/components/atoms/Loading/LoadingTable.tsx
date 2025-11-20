@@ -19,7 +19,7 @@ export function LoadingTable({ rows = 5, columns = 4, className, showHeader = tr
               {Array.from({ length: columns }).map((_, i) => (
                 <div
                   key={i}
-                  className='h-4 bg-app-table-text-body rounded animate-pulse flex-1'
+                  className='h-4 bg-app-skeleton rounded animate-pulse flex-1'
                   style={{ animationDelay: `${i * 50}ms` }}
                 />
               ))}
@@ -34,7 +34,7 @@ export function LoadingTable({ rows = 5, columns = 4, className, showHeader = tr
                 {Array.from({ length: columns }).map((_, colIndex) => (
                   <div
                     key={colIndex}
-                    className='h-4 bg-app-table-text-body rounded animate-pulse flex-1'
+                    className='h-4 bg-app-skeleton rounded animate-pulse flex-1'
                     style={{ animationDelay: `${(rowIndex * columns + colIndex) * 50}ms` }}
                   />
                 ))}

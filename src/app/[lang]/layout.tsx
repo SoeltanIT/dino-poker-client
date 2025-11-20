@@ -179,12 +179,10 @@ export default async function RootLayout({
           id='ga4-init'
           strategy='afterInteractive'
           dangerouslySetInnerHTML={{
-            __html: `
-      window.dataLayer = window.dataLayer || [];
+            __html: `window.dataLayer = window.dataLayer || [];
       function gtag(){ dataLayer.push(arguments); }
       gtag('js', new Date());
-      gtag('config', 'G-TTNN5LGXZN');
-    `
+      gtag('config', 'G-TTNN5LGXZN');`
           }}
         />
       </body>

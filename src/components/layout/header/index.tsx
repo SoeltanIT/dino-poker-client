@@ -98,7 +98,8 @@ export const Header = ({
               <div className='mt-1 w-full flex items-center justify-center gap-1 rounded-full border border-app-border-chips px-2 py-[2.5px] text-[10px] font-medium text-app-warning'>
                 <IconKoreanWon size={IconSize.sm} className='text-app-warning' />
                 <span>
-                  {transferBalanceFee?.rate?.currency ?? 'KRW'} 1,000 = {formattedRate} {lang?.common?.chips}
+                  {/* {transferBalanceFee?.rate?.currency ?? '원'} 1,000원 = {formattedRate} {lang?.common?.chips} */}
+                  1,000원 = {formattedRate} {lang?.common?.chips}
                 </span>
               </div>
             </div>

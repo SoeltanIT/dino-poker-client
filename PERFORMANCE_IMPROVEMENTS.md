@@ -2,7 +2,7 @@
 
 ## Summary of Changes
 
-The home page (`src/app/[lang]/page.tsx`) has been significantly optimized following Next.js 14+ best practices. These changes result in **dramatically faster page loads** and better user experience.
+The home page (`src/app/[lang]/page.tsx`) has been significantly optimized following Next.js 14+ best practices. These chåanges result in **dramatically faster page loads** and better user experience.
 
 ---
 

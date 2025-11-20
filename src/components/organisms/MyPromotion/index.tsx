@@ -1,15 +1,15 @@
 'use client'
 
-import { useState } from 'react'
-import Image from 'next/image'
-import { MyPromotionProps } from './types'
+import { GetData } from '@/@core/hooks/use-query'
+import CountdownTimerPromotion from '@/components/molecules/CountdownTimer/CountdownTimerPromotion'
 import { TabSwitcher } from '@/components/molecules/TabSwitcher'
 import { cn } from '@/lib/utils'
+import { MyPromotionDTO } from '@/types/promotionDTO'
 import { thousandSeparator } from '@/utils/helper/formatNumber'
 import { ImageIcon } from 'lucide-react'
-import { GetData } from '@/@core/hooks/use-query'
-import { MyPromotionDTO } from '@/types/promotionDTO'
-import CountdownTimerPromotion from '@/components/molecules/CountdownTimer/CountdownTimerPromotion'
+import Image from 'next/image'
+import { useState } from 'react'
+import { MyPromotionProps } from './types'
 
 export default function MyPromotion({ lang, locale }: MyPromotionProps) {
   const [activeTab, setActiveTab] = useState('ongoing')
@@ -148,11 +148,11 @@ export default function MyPromotion({ lang, locale }: MyPromotionProps) {
 
                         <div className='absolute inset-0 flex items-center justify-center gap-1'>
                           <span className='text-app-neutral400 text-sm font-medium'>
-                            KRW {thousandSeparator(turnoverAchieved)}
+                            {thousandSeparator(turnoverAchieved)}원
                           </span>
                           <span className='text-app-neutral400'>/</span>
                           <span className='text-app-success text-sm font-medium'>
-                            KRW {thousandSeparator(turnoverTarget)}
+                            {thousandSeparator(turnoverTarget)}원
                           </span>
                         </div>
                       </div>

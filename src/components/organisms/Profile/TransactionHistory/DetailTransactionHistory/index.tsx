@@ -129,7 +129,7 @@ export default function DetailTransactionHistory({
                       <p className='text-sm text-app-neutral500'>{lang?.common?.minimalDeposit}</p>
                     </div>
                     <p className='text-app-text-color text-sm'>
-                      ₩{thousandSeparatorComma(respDetailCrypto?.promotion?.min_deposit ?? '0')}
+                      {thousandSeparatorComma(respDetailCrypto?.promotion?.min_deposit ?? '0')}원
                     </p>
                   </div>
                 </div>

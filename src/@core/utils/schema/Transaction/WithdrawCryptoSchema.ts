@@ -4,7 +4,7 @@ import { z } from 'zod'
 
 const formatMaxMsg = (template: string | undefined, max: number) => {
   const display = thousandSeparatorComma(max)
-  if (!template) return `Maximum amount is ${display} KRW`
+  if (!template) return `Maximum amount is ${display}원`
   // Replace all occurrences of MAX safely
   return template.replace(/MAX/g, display)
 }
@@ -16,10 +16,10 @@ export const WithdrawCryptoSchema = (lang?: LangProps, maxValue: number = 900000
       .min(1, { message: lang?.form?.withdraw_amount_required || 'Amount is required' })
       .regex(/^\d+$/, { message: lang?.form?.withdraw_amount_number || 'Only numbers are allowed' })
       .refine(val => parseInt(val, 10) >= 10000, {
-        message: lang?.form?.withdraw_amount_min || 'Minimum amount is 10,000 KRW'
+        message: lang?.form?.withdraw_amount_min || 'Minimum amount is 10,000원'
       })
       .refine(val => parseInt(val, 10) <= maxValue, {
-        message: formatMaxMsg(lang?.form?.withdraw_amount_max, maxValue) || 'Maximum amount is 9,000,000 KRW'
+        message: formatMaxMsg(lang?.form?.withdraw_amount_max, maxValue) || 'Maximum amount is 9,000,000원'
       }),
 
     // bankName: z.string().min(1, lang?.form?.bank_name_required || 'Bank name is required'),

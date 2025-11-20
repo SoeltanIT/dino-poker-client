@@ -13,6 +13,7 @@
     "login": "로그인",
     "changeSharedSettings": "공유 설정 변경",
     "typeUsername": "ID 입력",
+    "typeNickname": "닉네임 입력",
     "typePassword": "비밀번호 입력",
     "typeDepoPassword": "입금 비밀번호 입력",
     "register": "회원가입",
@@ -197,7 +198,7 @@
     "noCryptoAvailable": "사용 가능한 암호화폐가 없습니다",
     "selectCoinNetwork": "코인 네트워크 선택",
     "noCoinNetworkAvailable": "사용 가능한 코인 네트워크가 없습니다",
-    "cryptoNotes": "귀하의 암호화폐는 자동으로 대한민국 원(KRW)으로 전환됩니다.",
+    "cryptoNotes": "귀하의 암호화폐는 자동으로 대한민국 원(원)으로 전환됩니다.",
     "depositAddress": "입금 주소",
     "copiedToClipboard": "클립보드에 복사되었습니다!",
     "failedToCopy": "복사에 실패했습니다.",
@@ -290,7 +291,28 @@
     "noAnnouncementFound": "공지사항을 찾을 수 없습니다",
     "userGuide": "사용자 가이드",
     "goBackHome": "홈으로 돌아가기",
-    "preparingToOpen": "오픈 준비 중"
+    "preparingToOpen": "오픈 준비 중",
+    "usernameAlreadyInUse": "이미 사용 중인 ID입니다",
+    "nickname": "닉네임",
+    "noAffiliateHistory": "제휴 내역을 찾을 수 없습니다",
+    "affiliateHistory": "제휴 내역",
+    "paidDate": "지급 날짜",
+    "paidStatus": "지급 상태",
+    "affiliateMember": "제휴 회원",
+    "period": "기간",
+    "parent": "부모",
+    "rakeAmount": "레이크 금액",
+    "commissionEarned": "커미션 수입",
+    "adjustedCommission": "조정된 커미션",
+    "lastCommissionPaid": "마지막 커미션 지급",
+    "previousNGR": "이전 NGR",
+    "totalBet": "총 베팅",
+    "totalWin": "총 승리",
+    "totalGGR": "총 GGR",
+    "totalPromotion": "총 프로모션",
+    "totalNGR": "총 NGR",
+    "reason": "사유",
+    "commissionRate": "커미션 비율"
   },
   "game": {
     "texaspoker": "텍사스 홀덤",
@@ -436,9 +458,12 @@
     "affiliate_share_max": "제휴 공유는 최대 100까지 가능합니다",
     "user_share_min": "사용자 공유는 최소 0 이상이어야 합니다",
     "affiliate_share_min": "제휴 공유는 최소 0 이상이어야 합니다",
-    "nickname_min": "닉네임은 4~12자 한글로만 작성해 주세요.",
-    "nickname_max": "닉네임은 4~12자 한글로만 작성해 주세요.",
-    "nickname_invalid": "닉네임은 4~12자 한글로만 작성해 주세요."
+    "nickname_min": "닉네임은 2~12자 한글로만 작성해 주세요.",
+    "nickname_max": "닉네임은 2~12자 한글로만 작성해 주세요.",
+    "nickname_invalid": "닉네임은 2~12자 한글로만 작성해 주세요.",
+    "code_name_min": "영문 또는 숫자를 이용해 2-30자를 기입해주세요.",
+    "code_name_max": "영문 또는 숫자를 이용해 2-30자를 기입해주세요.",
+    "code_name_invalid": "영문 또는 숫자를 이용해 2-30자를 기입해주세요."
   },
   "notification": {
     "depositApprovedTitle": "입금 승인됨",
@@ -601,5 +626,11 @@
       "description": "닉네임은 한글로만 입력해 주세요. 최대 12자까지 가능합니다."
     },
     "currentUsername": "현재 ID"
+  },
+  "affiliate": {
+    "affiliateHistoryPokerByUser": "사용자별 포커 제휴 내역",
+    "detailAffiliateHistoryPokerByUser": "사용자별 포커 제휴 내역 상세",
+    "affiliateHistoryCasinoByUser": "사용자별 카지노 제휴 내역",
+    "detailAffiliateHistoryCasinoByUser": "사용자별 카지노 제휴 내역 상세"
   }
 }
