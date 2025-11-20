@@ -11,7 +11,7 @@
 
 0s ─────► fetch(absoluteUrl('/api/transactions/game_list'))
           ├── HTTP overhead
-          ├── API Route processing
+          ├── API Route processin
           └── Response
           ▼
 1-2s ───► getListPromotion() ⏳ WAITING for games to finish
