@@ -5,6 +5,7 @@ import { getSession } from 'next-auth/react'
 
 // 🔥 FRONTEND URLs - Next.js API routes (proxy to real backend)
 const FRONTEND_API_BASE = '/api/users' // Next.js API routes
+const FRONTEND_API_PROXY_BASE = '/proxy/users' // Next.js API routes
 const FRONTEND_TRANS_BASE = '/api/transactions' // Next.js transaction routes
 const FRONTEND_PROMOTION_BASE = '/api' // Next.js promotion routes
 
@@ -13,7 +14,7 @@ const BACKEND_USER_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 const BACKEND_TRANS_URL = process.env.NEXT_PUBLIC_API_TRANS_URL
 const BACKEND_PROMOTION_URL = process.env.NEXT_PUBLIC_API_PROMOTION_URL
 
-type ApiType = 'user' | 'transaction' | 'promotion'
+type ApiType = 'user' | 'transaction' | 'promotion' | 'user_proxy'
 
 // Extend AxiosRequestConfig to include metadata
 declare module 'axios' {
@@ -27,6 +28,11 @@ declare module 'axios' {
 // 🌐 FRONTEND CLIENT - Hits Next.js API routes
 const frontendUserClient = axios.create({
   baseURL: FRONTEND_API_BASE,
+  timeout: 10000
+})
+
+const frontendUserProxyClient = axios.create({
+  baseURL: FRONTEND_API_PROXY_BASE,
   timeout: 10000
 })
 
@@ -141,6 +147,7 @@ function setupBackendInterceptors(instance: AxiosInstance) {
 
 // Setup interceptors
 setupFrontendInterceptors(frontendUserClient)
+setupFrontendInterceptors(frontendUserProxyClient)
 setupFrontendInterceptors(frontendTransClient)
 setupFrontendInterceptors(frontendPromotionClient)
 setupBackendInterceptors(backendUserClient)
@@ -153,6 +160,8 @@ export function getApiClient(type: ApiType = 'user'): AxiosInstance {
     ? frontendTransClient
     : type === 'promotion'
     ? frontendPromotionClient
+    : type === 'user_proxy'
+    ? frontendUserProxyClient
     : frontendUserClient
 }
 

@@ -1,5 +1,5 @@
 {
-  "name": "dino-poker-client",
+  "name": "poker-client",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,7 +9,8 @@
     "lint": "next lint",
     "analyze": "ANALYZE=true next build",
     "prepare": "husky",
-    "review": "tsc --noEmit"
+    "review": "tsc --noEmit",
+    "type-check": "tsc --project tsconfig.json --pretty --noEmit"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.6.1",
@@ -27,12 +28,14 @@
     "@radix-ui/react-menubar": "^1.1.15",
     "@radix-ui/react-popover": "^1.1.14",
     "@radix-ui/react-select": "^2.2.5",
+    "@radix-ui/react-separator": "^1.1.8",
     "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-tabs": "^1.1.12",
     "@radix-ui/react-toggle": "^1.1.9",
     "@radix-ui/react-toggle-group": "^1.1.10",
     "@tanstack/react-query": "^5.80.7",
     "@tanstack/react-query-next-experimental": "^5.80.7",
+    "@tanstack/react-table": "^8.21.3",
     "@tma.js/sdk": "^3.0.8",
     "@types/mdx": "^2.0.13",
     "@vercel/edge-config": "^1.4.3",

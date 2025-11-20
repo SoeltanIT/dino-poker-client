@@ -45,14 +45,14 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
   <p><strong>PokerScout Real-Time Statistics</strong><br />
   <span class="text-[#6b7280] text-[0.875rem]">Last Updated: November 8, 2025, 6:13 AM GMT</span></p>
 
-  <div class="overflow-auto">
-    <table class="w-screen">
+  <div class="h-[400px] overflow-y-auto" style="scrollbar-color: #d1d5db #f3f4f6;">
+    <table class="w-full rounded-[8px]">
       <thead>
         <tr>
-          <th>Rank</th>
-          <th class="w-[100px]">Brand</th>
-          <th>Connected Users</th>
-          <th>Cash Players</th>
+          <th class="text-start">Rank</th>
+          <th class="text-start w-[100px]">Brand</th>
+          <th class="text-right">Connected Users</th>
+          <th class="text-right">Cash Players</th>
         </tr>
       </thead>
       <tbody>
@@ -64,8 +64,8 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
               <span>WPT Global</span>
             </div>
           </td>
-          <td>9,308</td>
-          <td>3,196</td>
+          <td class="text-right">9,308</td>
+          <td class="text-right">3,196</td>
         </tr>
         <tr class="bg-[#fef3c7] [&_td]:bg-transparent [&_td]:font-bold">
           <td>2</td>
@@ -75,8 +75,8 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
               <span>IDNPoker</span>
             </div>
           </td>
-          <td>9,736</td>
-          <td>2,360</td>
+          <td class="text-right">9,736</td>
+          <td class="text-right">2,360</td>
         </tr>
         <tr>
           <td>3</td>
@@ -86,8 +86,8 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
               <span>PaiWangLuo (Bodog)</span>
             </div>
           </td>
-          <td>0</td>
-          <td>0</td>
+          <td class="text-right">0</td>
+          <td class="text-right">0</td>
         </tr>
         <tr>
           <td>4</td>
@@ -97,8 +97,8 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
               <span>MPL Poker</span>
             </div>
           </td>
-          <td>0</td>
-          <td>0</td>
+          <td class="text-right">0</td>
+          <td class="text-right">0</td>
         </tr>
         <tr>
           <td>5</td>
@@ -108,8 +108,8 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
               <span>Unibet</span>
             </div>
           </td>
-          <td>0</td>
-          <td>0</td>
+          <td class="text-right">0</td>
+          <td class="text-right">0</td>
         </tr>
         <tr>
           <td>6</td>
@@ -119,8 +119,8 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
               <span>GGPoker ON</span>
             </div>
           </td>
-          <td>825</td>
-          <td>62</td>
+          <td class="text-right">825</td>
+          <td class="text-right">62</td>
         </tr>
         <tr>
           <td>7</td>
@@ -130,8 +130,8 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
               <span>BetMGM MI</span>
             </div>
           </td>
-          <td>0</td>
-          <td>229</td>
+          <td class="text-right">0</td>
+          <td class="text-right">229</td>
         </tr>
         <tr>
           <td>8</td>
@@ -141,8 +141,8 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
               <span>PokerKlas</span>
             </div>
           </td>
-          <td>0</td>
-          <td>0</td>
+          <td class="text-right">0</td>
+          <td class="text-right">0</td>
         </tr>
         <tr>
           <td>9</td>
@@ -152,8 +152,8 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
               <span>WSOP MI</span>
             </div>
           </td>
-          <td>0</td>
-          <td>132</td>
+          <td class="text-right">0</td>
+          <td class="text-right">132</td>
         </tr>
         <tr>
           <td>10</td>
@@ -163,8 +163,8 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
               <span>Gamezy</span>
             </div>
           </td>
-          <td>0</td>
-          <td>0</td>
+          <td class="text-right">0</td>
+          <td class="text-right">0</td>
         </tr>
         <tr>
           <td>11</td>
@@ -174,8 +174,8 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
               <span>Pocket52</span>
             </div>
           </td>
-          <td>0</td>
-          <td>0</td>
+          <td class="text-right">0</td>
+          <td class="text-right">0</td>
         </tr>
         <tr>
           <td>12</td>
@@ -185,8 +185,8 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
               <span>PokerStars.it</span>
             </div>
           </td>
-          <td>11,145</td>
-          <td>4</td>
+          <td class="text-right">11,145</td>
+          <td class="text-right">4</td>
         </tr>
       </tbody>
     </table>
@@ -200,6 +200,57 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
   <h3>III. Guarantee of a Clean Gaming Environment and User Trust</h3>
   <p>Kpoker utilizes IDN's proprietary AI algorithm to detect and penalize all fraudulent activities (exploitation, collusion, etc.) in real-time. We promise to strive for the creation of a clean gaming environment where all users can compete solely with skill and fair strategy.</p>
 </section>`,
+      created_at: '2025-11-08T03:36:17Z'
+    },
+
+    {
+      title: '[Mandatory Read] Notice on the 100% Rolling Rule for Anti-Money Laundering (AML)',
+      is_active: true,
+      content: `
+<section>
+    <h3>[Mandatory Read] Notice on the 100% Rolling Rule for Anti-Money Laundering (AML)</h3>
+
+    <p>Kpoker strictly adheres to relevant laws and international standards to maintain a sound and transparent financial transaction environment and prevent money laundering activities. Accordingly, meeting the required Rolling criteria based on the deposit amount is mandatory before any withdrawal request.</p>
+
+    <h3>I. Mandatory Rolling Policy</h3>
+    <table>
+      <thead>
+        <tr>
+          <th class="text-start">Category</th>
+          <th class="text-start">Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Policy Goal</td>
+          <td>To maintain a healthy gaming environment by fundamentally blocking Money Laundering and the inflow/outflow of illegal funds.</td>
+        </tr>
+        <tr>
+          <td>Applicable Scope</td>
+          <td>All funds deposited (charged) by any user for game use (KRW-based)</td>
+        </tr>
+        <tr>
+          <td>Rolling Requirement</td>
+          <td>100% of the deposited amount</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>II. Detailed Guide to Withdrawal Eligibility</h3>
+    <p>Withdrawal requests will only be processed normally if the following Rolling criteria are met:</p>
+
+    <p><strong>Fulfilling the 100% Rolling Requirement:</strong> A minimum of 100% of the total accumulated deposited (charged) amount must be wagered in-game before the final withdrawal request is submitted.</p>
+
+    <p><strong>Example:</strong> If you deposit 1,000,000 KRW, your total in-game wagering amount must be 1,000,000 chips or more (chips equivalent to 1,000,000 KRW based on the exchange rate).</p>
+
+    <p><strong>Processing in Case of Non-Compliance:</strong> If a withdrawal is requested without meeting the Rolling Requirement (100%), the withdrawal will be suspended, and the user may be asked to continue participating in games until the criteria are met.</p>
+
+    <h3>III. Request for Cooperation in Maintaining a Sound Gaming Environment</h3>
+    <p>This Rolling Policy is a mandatory requirement imposed by all legal financial transaction systems. We ask for your understanding that this is a minimum measure necessary to protect your assets and provide a fair system for all users.</p>
+
+    <p>Kpoker is committed to providing transparent and secure service. We kindly request the active cooperation and understanding of all users.</p>
+</section>
+`,
       created_at: '2025-11-08T03:36:17Z'
     },
 
@@ -255,7 +306,7 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
     <p>Deposited Korean Won (KRW) will be exchanged into IDN chips used within the game according to a fixed rate.</p>
 
     <div class="max-height-[400px] overflow-y-auto; border border-#e5e7eb rounded-[8px] scrollbar-color: #d1d5db #f3f4f6;">
-      <table class="w-[500px] md:w-auto">
+      <table class="w-full max-h-[400px] overflow-y-auto rounded-[8px]" style="scrollbar-color: #d1d5db #f3f4f6;">
         <thead>
           <tr>
             <th class="w-[200px]">Currency</th>
@@ -311,27 +362,27 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
     //       created_at: '2025-11-05T03:36:17Z'
     //     },
 
-    {
-      title: 'System Update Completed Notice',
-      is_active: true,
-      content: `<section>
-   <div>
-    <h3>System Update Completed Notice</h3>
-    <p>The system update carried out on November 4, 2025 has been successfully completed.</p>
+    //     {
+    //       title: 'System Update Completed Notice',
+    //       is_active: true,
+    //       content: `<section>
+    //    <div>
+    //     <h3>System Update Completed Notice</h3>
+    //     <p>The system update carried out on November 4, 2025 has been successfully completed.</p>
 
-    <h4>Update Details:</h4>
-    <ul>
-      <li>Improved game stability</li>
-      <li>Faster loading times</li>
-      <li>UI/UX enhancements</li>
-      <li>Bug fixes</li>
-    </ul>
+    //     <h4>Update Details:</h4>
+    //     <ul>
+    //       <li>Improved game stability</li>
+    //       <li>Faster loading times</li>
+    //       <li>UI/UX enhancements</li>
+    //       <li>Bug fixes</li>
+    //     </ul>
 
-    <p>You can now enjoy the game in a smoother environment.</p>
-  </div>
-</section>`,
-      created_at: '2025-11-04T03:36:17Z'
-    },
+    //     <p>You can now enjoy the game in a smoother environment.</p>
+    //   </div>
+    // </section>`,
+    //       created_at: '2025-11-04T03:36:17Z'
+    //     },
 
     {
       title: 'New Game “Joker Spin” Added Notice',
@@ -352,51 +403,51 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
   </div>
 </section>`,
       created_at: '2025-11-03T03:36:17Z'
-    },
-
-    {
-      title: 'Privacy Policy Update',
-      is_active: true,
-      content: `<section>
-      <div>
-<h3>Privacy Policy Update</h3>
-    <p>Our privacy policy has been updated to better protect your valuable personal information.</p>
-
-    <h4>Main Changes:</h4>
-    <ul>
-      <li>Clarified items regarding the collection of personal information</li>
-      <li>Specified retention period for personal data</li>
-      <li>Added details related to third-party information sharing</li>
-    </ul>
-
-    <p>For more details, please refer to the Privacy Policy page.</p>
-    </div>
-    </section>
-    `,
-      created_at: '2025-11-02T03:36:17Z'
-    },
-
-    {
-      title: 'Customer Service Operating Hours Notice',
-      is_active: true,
-      content: `<section>
-      <div>
-      <h3>Customer Service Operating Hours Notice</h3>
-    <p>We would like to inform you of the operating hours of the KPOKER Customer Service Center.</p>
-
-    <h4>Operating Hours:</h4>
-    <ul>
-      <li>Weekdays: 9:00 AM – 6:00 PM</li>
-      <li>Weekends & Holidays: 10:00 AM – 5:00 PM</li>
-    </ul>
-
-    <p><strong>24-hour chat support is also available.</strong></p>
-    <p>Please feel free to contact us anytime if you have any inquiries.</p>
-    </div>
-    </section>
-    `,
-      created_at: '2025-11-01T03:36:17Z'
     }
+
+    //     {
+    //       title: 'Privacy Policy Update',
+    //       is_active: true,
+    //       content: `<section>
+    //       <div>
+    // <h3>Privacy Policy Update</h3>
+    //     <p>Our privacy policy has been updated to better protect your valuable personal information.</p>
+
+    //     <h4>Main Changes:</h4>
+    //     <ul>
+    //       <li>Clarified items regarding the collection of personal information</li>
+    //       <li>Specified retention period for personal data</li>
+    //       <li>Added details related to third-party information sharing</li>
+    //     </ul>
+
+    //     <p>For more details, please refer to the Privacy Policy page.</p>
+    //     </div>
+    //     </section>
+    //     `,
+    //       created_at: '2025-11-02T03:36:17Z'
+    //     },
+
+    // {
+    //   title: 'Customer Service Operating Hours Notice',
+    //   is_active: true,
+    //   content: `<section>
+    //   <div>
+    //   <h3>Customer Service Operating Hours Notice</h3>
+    // <p>We would like to inform you of the operating hours of the KPOKER Customer Service Center.</p>
+
+    // <h4>Operating Hours:</h4>
+    // <ul>
+    //   <li>Weekdays: 9:00 AM – 6:00 PM</li>
+    //   <li>Weekends & Holidays: 10:00 AM – 5:00 PM</li>
+    // </ul>
+
+    // <p><strong>24-hour chat support is also available.</strong></p>
+    // <p>Please feel free to contact us anytime if you have any inquiries.</p>
+    // </div>
+    // </section>
+    // `,
+    //   created_at: '2025-11-01T03:36:17Z'
+    // }
   ],
 
   //   Korean Announcements
@@ -443,150 +494,152 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
   <p><strong>포커스카우트(PokerScout) 실시간 통계</strong><br />
   <span class="text-[#6b7280] text-[0.875rem]">최종 업데이트: 2025년 11월 8일 오전 6:13 GMT</span></p>
 
-  <table>
-    <thead>
-      <tr>
-        <th>순위</th>
-        <th>브랜드</th>
-        <th>접속자</th>
-        <th>캐시 플레이어</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>
-          <div class="flex items-center gap-2.5">
-            <img src="/images/svg/pokerscout-rank/01_wpt_global.svg" alt="WPT Global" class="w-[60px] h-[60px] shrink-0">
-            <span>WPT Global</span>
-          </div>
-        </td>
-        <td>9,308</td>
-        <td>3,196</td>
-      </tr>
-      <tr class="bg-[#fef3c7] [&_td]:bg-transparent [&_td]:font-bold">
-        <td>2</td>
-        <td>
-          <div class="flex items-center gap-2.5">
-            <img src="/images/svg/pokerscout-rank/02_idnpoker.svg" alt="IDN Poker" class="w-[60px] h-[60px] shrink-0">
-            <span>IDNPoker</span>
-          </div>
-        </td>
-        <td>9,736</td>
-        <td>2,360</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>
-          <div class="flex items-center gap-2.5">
-            <img src="/images/svg/pokerscout-rank/03_paiwangluo.svg" alt="PaiWangLuo" class="w-[60px] h-[60px] shrink-0">
-            <span>PaiWangLuo (Bodog)</span>
-          </div>
-        </td>
-        <td>0</td>
-        <td>0</td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>
-          <div class="flex items-center gap-2.5">
-            <img src="/images/svg/pokerscout-rank/04_mpl_poker.svg" alt="MPL Poker" class="w-[60px] h-[60px] shrink-0">
-            <span>MPL Poker</span>
-          </div>
-        </td>
-        <td>0</td>
-        <td>0</td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td>
-          <div class="flex items-center gap-2.5">
-            <img src="/images/svg/pokerscout-rank/05_unibet.svg" alt="Unibet" class="w-[60px] h-[60px] shrink-0">
-            <span>Unibet</span>
-          </div>
-        </td>
-        <td>0</td>
-        <td>0</td>
-      </tr>
-      <tr>
-        <td>6</td>
-        <td>
-          <div class="flex items-center gap-2.5">
-            <img src="/images/svg/pokerscout-rank/06_ggpoker_on.svg" alt="GGPoker ON" class="w-[60px] h-[60px] shrink-0">
-            <span>GGPoker ON</span>
-          </div>
-        </td>
-        <td>825</td>
-        <td>62</td>
-      </tr>
-      <tr>
-        <td>7</td>
-        <td>
-          <div class="flex items-center gap-2.5">
-            <img src="/images/svg/pokerscout-rank/07_betmgm_mi.svg" alt="BetMGM MI" class="w-[60px] h-[60px] shrink-0">
-            <span>BetMGM MI</span>
-          </div>
-        </td>
-        <td>0</td>
-        <td>229</td>
-      </tr>
-      <tr>
-        <td>8</td>
-        <td>
-          <div class="flex items-center gap-2.5">
-            <img src="/images/svg/pokerscout-rank/08_pokerklas.svg" alt="PokerKlas" class="w-[60px] h-[60px] shrink-0">
-            <span>PokerKlas</span>
-          </div>
-        </td>
-        <td>0</td>
-        <td>0</td>
-      </tr>
-      <tr>
-        <td>9</td>
-        <td>
-          <div class="flex items-center gap-2.5">
-            <img src="/images/svg/pokerscout-rank/09_wsop_mi.svg" alt="WSOP MI" class="w-[60px] h-[60px] shrink-0">
-            <span>WSOP MI</span>
-          </div>
-        </td>
-        <td>0</td>
-        <td>132</td>
-      </tr>
-      <tr>
-        <td>10</td>
-        <td>
-          <div class="flex items-center gap-2.5">
-            <img src="/images/svg/pokerscout-rank/10_gamezy.svg" alt="Gamezy" class="w-[60px] h-[60px] shrink-0">
-            <span>Gamezy</span>
-          </div>
-        </td>
-        <td>0</td>
-        <td>0</td>
-      </tr>
-      <tr>
-        <td>11</td>
-        <td>
-          <div class="flex items-center gap-2.5">
-            <img src="/images/svg/pokerscout-rank/11_pocket52.svg" alt="Pocket52" class="w-[60px] h-[60px] shrink-0">
-            <span>Pocket52</span>
-          </div>
-        </td>
-        <td>0</td>
-        <td>0</td>
-      </tr>
-      <tr>
-        <td>12</td>
-        <td>
-          <div class="flex items-center gap-2.5">
-            <img src="/images/svg/pokerscout-rank/12_pokerstars.it.svg" alt="PokerStars.it" class="w-[60px] h-[60px] shrink-0">
-            <span>PokerStars.it</span>
-          </div>
-        </td>
-        <td>11,145</td>
-        <td>4</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="h-[400px] overflow-y-auto" style="scrollbar-color: #d1d5db #f3f4f6;">
+    <table class="w-full rounded-[8px]">
+      <thead>
+        <tr>
+          <th class="text-start">순위</th>
+          <th class="text-start">브랜드</th>
+          <th class="text-right">접속자</th>
+          <th class="text-right">캐시 플레이어</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>
+            <div class="flex items-center gap-2.5">
+              <img src="/images/svg/pokerscout-rank/01_wpt_global.svg" alt="WPT Global" class="w-[60px] h-[60px] shrink-0">
+              <span>WPT Global</span>
+            </div>
+          </td>
+          <td class="text-right">9,308</td>
+          <td class="text-right">3,196</td>
+        </tr>
+        <tr class="bg-[#fef3c7] [&_td]:bg-transparent [&_td]:font-bold">
+          <td>2</td>
+          <td>
+            <div class="flex items-center gap-2.5">
+              <img src="/images/svg/pokerscout-rank/02_idnpoker.svg" alt="IDN Poker" class="w-[60px] h-[60px] shrink-0">
+              <span>IDNPoker</span>
+            </div>
+          </td>
+          <td class="text-right">9,736</td>
+          <td class="text-right">2,360</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>
+            <div class="flex items-center gap-2.5">
+              <img src="/images/svg/pokerscout-rank/03_paiwangluo.svg" alt="PaiWangLuo" class="w-[60px] h-[60px] shrink-0">
+              <span>PaiWangLuo (Bodog)</span>
+            </div>
+          </td>
+          <td class="text-right">0</td>
+          <td class="text-right">0</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>
+            <div class="flex items-center gap-2.5">
+              <img src="/images/svg/pokerscout-rank/04_mpl_poker.svg" alt="MPL Poker" class="w-[60px] h-[60px] shrink-0">
+              <span>MPL Poker</span>
+            </div>
+          </td>
+          <td class="text-right">0</td>
+          <td class="text-right">0</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>
+            <div class="flex items-center gap-2.5">
+              <img src="/images/svg/pokerscout-rank/05_unibet.svg" alt="Unibet" class="w-[60px] h-[60px] shrink-0">
+              <span>Unibet</span>
+            </div>
+          </td>
+          <td class="text-right">0</td>
+          <td class="text-right">0</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>
+            <div class="flex items-center gap-2.5">
+              <img src="/images/svg/pokerscout-rank/06_ggpoker_on.svg" alt="GGPoker ON" class="w-[60px] h-[60px] shrink-0">
+              <span>GGPoker ON</span>
+            </div>
+          </td>
+          <td class="text-right">825</td>
+          <td class="text-right">62</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>
+            <div class="flex items-center gap-2.5">
+              <img src="/images/svg/pokerscout-rank/07_betmgm_mi.svg" alt="BetMGM MI" class="w-[60px] h-[60px] shrink-0">
+              <span>BetMGM MI</span>
+            </div>
+          </td>
+          <td class="text-right">0</td>
+          <td class="text-right">229</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>
+            <div class="flex items-center gap-2.5">
+              <img src="/images/svg/pokerscout-rank/08_pokerklas.svg" alt="PokerKlas" class="w-[60px] h-[60px] shrink-0">
+              <span>PokerKlas</span>
+            </div>
+          </td>
+          <td class="text-right">0</td>
+          <td class="text-right">0</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>
+            <div class="flex items-center gap-2.5">
+              <img src="/images/svg/pokerscout-rank/09_wsop_mi.svg" alt="WSOP MI" class="w-[60px] h-[60px] shrink-0">
+              <span>WSOP MI</span>
+            </div>
+          </td>
+          <td class="text-right">0</td>
+          <td class="text-right">132</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>
+            <div class="flex items-center gap-2.5">
+              <img src="/images/svg/pokerscout-rank/10_gamezy.svg" alt="Gamezy" class="w-[60px] h-[60px] shrink-0">
+              <span>Gamezy</span>
+            </div>
+          </td>
+          <td class="text-right">0</td>
+          <td class="text-right">0</td>
+        </tr>
+        <tr>
+          <td>11</td>
+          <td>
+            <div class="flex items-center gap-2.5">
+              <img src="/images/svg/pokerscout-rank/11_pocket52.svg" alt="Pocket52" class="w-[60px] h-[60px] shrink-0">
+              <span>Pocket52</span>
+            </div>
+          </td>
+          <td class="text-right">0</td>
+          <td class="text-right">0</td>
+        </tr>
+        <tr>
+          <td>12</td>
+          <td>
+            <div class="flex items-center gap-2.5">
+              <img src="/images/svg/pokerscout-rank/12_pokerstars.it.svg" alt="PokerStars.it" class="w-[60px] h-[60px] shrink-0">
+              <span>PokerStars.it</span>
+            </div>
+          </td>
+          <td class="text-right">11,145</td>
+          <td class="text-right">4</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <ul>
     <li><strong>아시아 최강자</strong>: 아시아 시장에서는 명실상부한 이용자 수 1위 플랫폼으로서, 그 영향력과 독보적인 입지를 확고히 하고 있습니다.</li>
@@ -596,6 +649,55 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
   <h3>III. 클린 게임 환경 보장 및 사용자 신뢰</h3>
   <p>Kpoker는 IDN의 독자적인 AI 알고리즘을 통해 모든 부정 행위(악용, 담합 등)를 실시간으로 탐지하고 제재합니다. 저희는 모든 이용자가 오직 실력과 정당한 전략만으로 경쟁할 수 있도록 클린 게임 환경 조성에 힘쓸 것을 약속드립니다.</p>
 </section>`,
+      created_at: '2025-11-08T03:36:17Z'
+    },
+
+    {
+      title: '[필독] 자금세탁방지를 위한 롤링 100% 규정 안내',
+      is_active: true,
+      content: `<section>
+      <h3>[필독] 자금세탁방지를 위한 롤링 100% 규정 안내</h3>
+
+      <p>저희 Kpoker는 건전하고 투명한 금융거래 환경을 유지하고 자금세탁행위를 방지하기 위해 관련 법규 및 국제 기준을 철저히 준수하고 있습니다. 이에 따라 모든 환전 신청에 앞서 충전 금액에 대한 롤링(Rolling) 기준 충족이 의무화됩니다.</p>
+
+      <h3>I. 롤링(Rolling) 의무화 정책</h3>
+      <table>
+        <thead>
+          <tr>
+            <th class="text-start">구분</th>
+            <th class="text-start">내용</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>정책 목표</td>
+            <td>자금세탁(Money Laundering) 및 불법적인 자금 유출입을 원천적으로 차단하여 건전한 게임 환경을 유지합니다.</td>
+          </tr>
+          <tr>
+            <td>적용 대상</td>
+            <td>모든 이용자가 환전(KRW)를 입금(충전)한 모든 금액</td>
+          </tr>
+          <tr>
+            <td>롤링 기준</td>
+            <td>충전 금액의 100%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>II. 환전 가능 조건 상세 안내</h3>
+      <p>환전 신청은 다음과 같은 롤링 기준을 충족해야만 정상적으로 처리됩니다.</p>
+
+      <p><strong>롤링 100% 충족:</strong> 최종 환전 신청 시점까지 입금(충전)한 금액 총합의 100% 이상을 게임 내에서 베팅해야 합니다.</p>
+
+      <p><strong>예시:</strong> 100만 원을 충전했을 경우, 게임 내에서 총 베팅액이 100만 칩 (환율에 따라 원화 기준 100만 원에 상응하는 칩) 이상이 되어야 합니다.</p>
+
+      <p><strong>미충족 시 처리:</strong> 롤링 기준(100%)을 채우지 않고 환전을 신청하는 경우, 환전은 보류되며 기준 충족 시까지 이용자에게 게임 참여를 요청드릴 수 있습니다.</p>
+
+      <h3>III. 건전한 이용 문화 협조 요청</h3>
+      <p>이 롤링 정책은 모든 합법적인 금융 거래 시스템에서 요구하는 필수적인 의무 사항입니다. 이는 고객님의 자산을 보호하고, 모든 이용자에게 공정한 시스템을 제공하기 위한 최소한의 조치임을 이해해 주시기 바랍니다.</p>
+
+      <p>저희 Kpoker는 투명하고 안전한 서비스를 제공하기 위해 최선을 다하겠습니다. 이용자 여러분의 적극적인 협조와 이해를 부탁드립니다.</p>
+      </section>`,
       created_at: '2025-11-08T03:36:17Z'
     },
 
@@ -655,10 +757,10 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
       <table class="w-[500px] md:w-auto">
         <thead>
           <tr>
-            <th class="w-[200px]">화폐 단위</th>
-            <th class="w-[200px]">IDN 칩 단위</th>
-            <th class="w-[200px]">교환 비율</th>
-            <th class="w-[200px]">설명</th>
+            <th class="text-start w-[200px]">화폐 단위</th>
+            <th class="text-start w-[200px]">IDN 칩 단위</th>
+            <th class="text-start w-[200px]">교환 비율</th>
+            <th class="text-start w-[200px]">설명</th>
           </tr>
         </thead>
         <tbody>
@@ -710,28 +812,28 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
     //     created_at: '2025-11-05T03:36:17Z'
     //   },
 
-    {
-      title: '시스템 업데이트 완료 공지',
-      is_active: true,
-      content: `<section>
-    <div>
-    <h3>시스템 업데이트 완료 공지</h3>
-    <p>2025년 11월 4일 진행된 시스템 업데이트가 성공적으로 완료되었습니다.</p>
+    //   {
+    //     title: '시스템 업데이트 완료 공지',
+    //     is_active: true,
+    //     content: `<section>
+    //   <div>
+    //   <h3>시스템 업데이트 완료 공지</h3>
+    //   <p>2025년 11월 4일 진행된 시스템 업데이트가 성공적으로 완료되었습니다.</p>
 
-    <h4>업데이트 내용:</h4>
-    <ul>
-      <li>게임 안정성 향상</li>
-      <li>로딩 속도 개선</li>
-      <li>UI/UX 개선</li>
-      <li>버그 수정</li>
-    </ul>
+    //   <h4>업데이트 내용:</h4>
+    //   <ul>
+    //     <li>게임 안정성 향상</li>
+    //     <li>로딩 속도 개선</li>
+    //     <li>UI/UX 개선</li>
+    //     <li>버그 수정</li>
+    //   </ul>
 
-    <p>더욱 쾌적한 환경에서 게임을 즐기실 수 있습니다.</p>
-  </div>
-  </section>
-  `,
-      created_at: '2025-11-04T03:36:17Z'
-    },
+    //   <p>더욱 쾌적한 환경에서 게임을 즐기실 수 있습니다.</p>
+    // </div>
+    // </section>
+    // `,
+    //     created_at: '2025-11-04T03:36:17Z'
+    //   },
 
     {
       title: '신규 게임 조커스핀 추가 안내',
@@ -753,50 +855,50 @@ export const ANNOUNCEMENTS_DUMMY_DATA = {
   </section>
   `,
       created_at: '2025-11-03T03:36:17Z'
-    },
-
-    {
-      title: '개인정보 보호정책 업데이트',
-      is_active: true,
-      content: `<section>
-    <div>
-    <h3>개인정보 보호정책 업데이트</h3>
-    <p>회원님의 소중한 개인정보 보호를 위해 개인정보 보호정책이 업데이트되었습니다.</p>
-
-    <h4>주요 변경 사항:</h4>
-    <ul>
-      <li>개인정보 수집 항목 명확화</li>
-      <li>개인정보 보유 기간 명시</li>
-      <li>제3자 정보 제공 관련 내용 추가</li>
-    </ul>
-
-    <p>자세한 내용은 개인정보 보호정책 페이지에서 확인하실 수 있습니다.</p>
-  </div>
-  </section>
-  `,
-      created_at: '2025-11-02T03:36:17Z'
-    },
-
-    {
-      title: '고객센터 운영시간 안내',
-      is_active: true,
-      content: `<section>
-    <div>
-    <h3>고객센터 운영시간 안내</h3>
-    <p>KPOKER 고객센터 운영시간을 안내드립니다.</p>
-
-    <h4>운영시간:</h4>
-    <ul>
-      <li>평일: 오전 9:00 ~ 오후 6:00</li>
-      <li>주말 및 공휴일: 오전 10:00 ~ 오후 5:00</li>
-    </ul>
-
-    <p><strong>24시간 채팅 상담도 운영 중입니다.</strong></p>
-    <p>언제든지 문의사항이 있으시면 연락 주시기 바랍니다.</p>
-  </div>
-  </section>
-  `,
-      created_at: '2025-11-01T03:36:17Z'
     }
+
+    //   {
+    //     title: '개인정보 보호정책 업데이트',
+    //     is_active: true,
+    //     content: `<section>
+    //   <div>
+    //   <h3>개인정보 보호정책 업데이트</h3>
+    //   <p>회원님의 소중한 개인정보 보호를 위해 개인정보 보호정책이 업데이트되었습니다.</p>
+
+    //   <h4>주요 변경 사항:</h4>
+    //   <ul>
+    //     <li>개인정보 수집 항목 명확화</li>
+    //     <li>개인정보 보유 기간 명시</li>
+    //     <li>제3자 정보 제공 관련 내용 추가</li>
+    //   </ul>
+
+    //   <p>자세한 내용은 개인정보 보호정책 페이지에서 확인하실 수 있습니다.</p>
+    // </div>
+    // </section>
+    // `,
+    //     created_at: '2025-11-02T03:36:17Z'
+    //   },
+
+    //   {
+    //     title: '고객센터 운영시간 안내',
+    //     is_active: true,
+    //     content: `<section>
+    //   <div>
+    //   <h3>고객센터 운영시간 안내</h3>
+    //   <p>KPOKER 고객센터 운영시간을 안내드립니다.</p>
+
+    //   <h4>운영시간:</h4>
+    //   <ul>
+    //     <li>평일: 오전 9:00 ~ 오후 6:00</li>
+    //     <li>주말 및 공휴일: 오전 10:00 ~ 오후 5:00</li>
+    //   </ul>
+
+    //   <p><strong>24시간 채팅 상담도 운영 중입니다.</strong></p>
+    //   <p>언제든지 문의사항이 있으시면 연락 주시기 바랍니다.</p>
+    // </div>
+    // </section>
+    // `,
+    //     created_at: '2025-11-01T03:36:17Z'
+    //   }
   ]
 }

@@ -1,7 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Resolver, SubmitHandler, useForm } from 'react-hook-form'
 
 import { useMutationQuery } from '@/@core/hooks/use-query'
@@ -15,7 +15,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { Locale } from '@/i18n-config'
 import { LangProps } from '@/types/langProps'
 import { useQueryClient } from '@tanstack/react-query'
-import { Eye, EyeOff, Loader2 } from 'lucide-react'
+import { Check, Eye, EyeOff, Loader2 } from 'lucide-react'
 import { getSession, signIn } from 'next-auth/react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCookies } from 'react-cookie'
@@ -42,7 +42,7 @@ export default function RegisterForm({ lang, locale }: { lang: LangProps; locale
   type FormType = RegistrationFormData
   type ResolverType = Resolver<FormType>
   type RegistrationPayload = {
-    email: string
+    nickname: string
     username: string
     password: string
     referral_code?: string
@@ -59,10 +59,32 @@ export default function RegisterForm({ lang, locale }: { lang: LangProps; locale
     lang?.register?.registerSuccessfully
   )
 
+  const {
+    mutateAsync: checkUsername,
+    isPending: isPendingCheckUsername,
+    isSuccess: isSuccessCheckUsername
+  } = useMutationQuery<
+    {
+      username: string
+    },
+    any
+  >(['checkUsername'], 'post', 'json', false)
+
+  const handleCheckUsername = useCallback(
+    async (username: string) => {
+      const resp = await checkUsername({
+        url: '/check-username',
+        body: { username }
+      })
+      return resp?.status === 'success' && resp?.data?.is_valid === true
+    },
+    [checkUsername]
+  )
+
   const form = useForm<FormType>({
     resolver: zodResolver(registrationSchema(lang)) as ResolverType,
     defaultValues: {
-      email: '',
+      nickname: '',
       username: '',
       password: '',
       retypePassword: '',
@@ -73,6 +95,44 @@ export default function RegisterForm({ lang, locale }: { lang: LangProps; locale
     }
   })
 
+  // Debounced username check
+  const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  const debouncedCheckUsername = useCallback(
+    (username: string) => {
+      // Clear previous timeout
+      if (debounceTimeoutRef.current) {
+        clearTimeout(debounceTimeoutRef.current)
+      }
+
+      // Don't check empty usernames
+      if (!username || username.trim() === '' || username.length < 4) {
+        return
+      }
+
+      // Set new timeout
+      debounceTimeoutRef.current = setTimeout(async () => {
+        const isAvailable = await handleCheckUsername(username)
+        if (!isAvailable) {
+          form.setError('username', { message: lang?.common?.usernameAlreadyInUse })
+          // toast.error(lang?.register?.usernameAlreadyInUse)
+        } else {
+          form.clearErrors('username')
+        }
+      }, 500)
+    },
+    [handleCheckUsername, form, lang]
+  )
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (debounceTimeoutRef.current) {
+        clearTimeout(debounceTimeoutRef.current)
+      }
+    }
+  }, [])
+
   // keep form state in sync when the URL param arrives/changes
   useEffect(() => {
     if (referral) {
@@ -82,7 +142,7 @@ export default function RegisterForm({ lang, locale }: { lang: LangProps; locale
 
   const onSubmit: SubmitHandler<FormType> = async (data: FormType) => {
     const payload: RegistrationPayload = {
-      email: data.email,
+      nickname: data.nickname,
       username: data.username,
       password: data.password,
       referral_code: data.referral_code || undefined,
@@ -169,31 +229,51 @@ export default function RegisterForm({ lang, locale }: { lang: LangProps; locale
             <p className='text-xl font-semibold text-app-text-color'>{lang?.register?.personalInformation}</p>
             <FormField
               control={form.control}
-              name='email'
-              render={({ field }) => (
+              name='username'
+              render={({ field: { onChange, ...field } }) => (
                 <FormItem>
-                  <FormLabel className='text-app-text-color'>
-                    {lang?.register?.email}
+                  <FormLabel className='text-app-text-color' htmlFor='username'>
+                    {lang?.register?.username}
                     <span className='text-app-danger'>*</span>
                   </FormLabel>
                   <FormControl>
-                    <Input {...field} type='text' placeholder={lang?.common?.typeEmail} />
+                    <div className='relative'>
+                      <Input
+                        type='text'
+                        autoComplete='off'
+                        placeholder={lang?.common?.typeUsername}
+                        id='username'
+                        {...field}
+                        onChange={e => {
+                          onChange(e)
+                          debouncedCheckUsername(e.target.value)
+                        }}
+                      />
+                      <div className='absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent'>
+                        {isPendingCheckUsername ? (
+                          <Loader2 className='animate-spin text-app-neutral500' />
+                        ) : !form.formState.errors.username && field.value.length >= 4 && isSuccessCheckUsername ? (
+                          <Check className='text-app-accentGreen' />
+                        ) : null}
+                      </div>
+                    </div>
                   </FormControl>
                   <FormMessage className='text-app-danger' />
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
-              name='username'
+              name='nickname'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className='text-app-text-color'>
-                    {lang?.register?.username}
+                    {lang?.register?.nickname}
                     <span className='text-app-danger'>*</span>
                   </FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder={lang?.register?.placeholderUsername} />
+                    <Input {...field} type='text' placeholder={lang?.register?.placeholderNickname} />
                   </FormControl>
                   <FormMessage className='text-app-danger' />
                 </FormItem>

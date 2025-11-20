@@ -85,19 +85,7 @@ export async function generateMetadata({ params }: { params: { lang: Locale } })
     title: initialSEO?.title ?? lang.metadata?.title ?? 'KPOKER.gg',
     description: initialSEO?.description ?? lang.metadata?.description,
     keywords: initialSEO?.keyword ?? localizedKeywords[params.lang],
-    // openGraph: {
-    //   title: initialSEO?.title ?? lang.metadata?.title,
-    //   description: initialSEO?.description ?? lang.metadata?.description,
-    //   url: `${initialSEO?.canonical ?? 'https://gowin.gg'}/${params.lang}`,
-    //   siteName: 'Gowin.gg',
-    //   locale: params.lang,
-    //   type: 'website'
-    // },
-    // twitter: {
-    //   card: 'summary_large_image',
-    //   title: initialSEO?.title ?? lang.metadata?.title,
-    //   description: initialSEO?.description ?? lang.metadata?.description
-    // },
+
     alternates: {
       canonical: `${initialSEO?.canonical ?? canonical}`,
       languages: {
@@ -191,12 +179,10 @@ export default async function RootLayout({
           id='ga4-init'
           strategy='afterInteractive'
           dangerouslySetInnerHTML={{
-            __html: `
-      window.dataLayer = window.dataLayer || [];
+            __html: `window.dataLayer = window.dataLayer || [];
       function gtag(){ dataLayer.push(arguments); }
       gtag('js', new Date());
-      gtag('config', 'G-TTNN5LGXZN');
-    `
+      gtag('config', 'G-TTNN5LGXZN');`
           }}
         />
       </body>

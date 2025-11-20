@@ -28,7 +28,6 @@ export function useLiveChat() {
 
       if (session?.user) {
         widget.call('set_customer_name', session.user.name ?? '')
-        widget.call('set_customer_email', session.user.email ?? '')
       }
       window.LiveChatWidget.call('maximize')
     } else {
@@ -52,14 +51,13 @@ export function useLiveChat() {
     widget.call('set_session_variables', {
       userID: session?.user?.id,
       depositID: transaction.deposit_id,
-      amount: `KRW ${thousandSeparatorComma(transaction.amount || 0)}`,
+      amount: `${thousandSeparatorComma(transaction.amount || 0)}원`,
       type: transaction.type,
       dateTransaction: format(new Date(transaction.created_at || ''), 'yyyy-MM-dd | HH:mm')
     })
 
     if (session?.user) {
       widget.call('set_customer_name', session.user.name ?? '')
-      widget.call('set_customer_email', session.user.email ?? '')
     }
 
     widget.call('maximize')

@@ -1,8 +1,8 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Eye, EyeOff, Loader2, Plus } from 'lucide-react'
-import { ReactNode, useState } from 'react'
+import { Check, Eye, EyeOff, Loader2, Plus } from 'lucide-react'
+import { ReactNode, useCallback, useEffect, useRef, useState } from 'react'
 import { Resolver, SubmitHandler, useForm } from 'react-hook-form'
 
 import { GetData, useMutationQuery } from '@/@core/hooks/use-query'
@@ -23,11 +23,22 @@ interface CreateAffiliateSheetProps {
   parentCode?: string
 }
 
+interface CreateAffiliatePayload {
+  code_name: string
+  nickname: string
+  username: string
+  password: string
+  bank_name: string
+  bank_account_number: string
+  parent_code: string
+  commission: number
+}
+
 export default function CreateAffiliateSheet({ lang, trigger, onSuccess, parentCode }: CreateAffiliateSheetProps) {
   const [open, setOpen] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
 
-  const { data: respListMasterBank, isLoading } = GetData<ListMasterBankDTO[]>(
+  const { data: respListMasterBank, isLoading: isLoadingListMasterBank } = GetData<ListMasterBankDTO[]>(
     '/listMasterBank', // hits your Next.js API route, not the real backend
     ['getListMasterBank']
   )
@@ -39,6 +50,7 @@ export default function CreateAffiliateSheet({ lang, trigger, onSuccess, parentC
     resolver: zodResolver(CreateAffiliateSchema(lang)) as ResolverType,
     defaultValues: {
       code_name: '',
+      nickname: '',
       username: '',
       password: '',
       bank_name: '',
@@ -46,7 +58,7 @@ export default function CreateAffiliateSheet({ lang, trigger, onSuccess, parentC
       parent_code: parentCode
     }
   })
-  const { mutateAsync: createAffiliate, isPending } = useMutationQuery<any, any>(
+  const { mutateAsync: createAffiliate, isPending } = useMutationQuery<CreateAffiliatePayload, any>(
     ['getAffiliateList'],
     'post',
     'json',
@@ -54,12 +66,73 @@ export default function CreateAffiliateSheet({ lang, trigger, onSuccess, parentC
     lang?.common?.affiliateCreatedSuccessfully || 'Affiliate created successfully'
   )
 
+  const {
+    mutateAsync: checkUsername,
+    isPending: isPendingCheckUsername,
+    isSuccess: isSuccessCheckUsername
+  } = useMutationQuery<
+    {
+      username: string
+    },
+    any
+  >(['checkUsername'], 'post', 'json', false)
+
+  const handleCheckUsername = useCallback(
+    async (username: string) => {
+      const resp = await checkUsername({
+        url: '/check-username',
+        body: { username }
+      })
+      return resp?.status === 'success' && resp?.data?.is_valid === true
+    },
+    [checkUsername]
+  )
+
+  // Debounced username check
+  const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  const debouncedCheckUsername = useCallback(
+    (username: string) => {
+      // Clear previous timeout
+      if (debounceTimeoutRef.current) {
+        clearTimeout(debounceTimeoutRef.current)
+      }
+
+      // Don't check empty usernames
+      if (!username || username.trim() === '' || username.length < 4) {
+        return
+      }
+
+      // Set new timeout
+      debounceTimeoutRef.current = setTimeout(async () => {
+        const isAvailable = await handleCheckUsername(username)
+        if (!isAvailable) {
+          form.setError('username', { message: lang?.common?.usernameAlreadyInUse })
+          // toast.error(lang?.register?.usernameAlreadyInUse)
+        } else {
+          form.clearErrors('username')
+        }
+      }, 500)
+    },
+    [handleCheckUsername, form, lang]
+  )
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (debounceTimeoutRef.current) {
+        clearTimeout(debounceTimeoutRef.current)
+      }
+    }
+  }, [])
+
   const onSubmit: SubmitHandler<FormType> = async (data: FormType) => {
     try {
       const resp = await createAffiliate({
         url: '/affiliates',
         body: {
           code_name: data.code_name,
+          nickname: data.nickname,
           username: data.username,
           password: data.password,
           bank_name: data.bank_name,
@@ -119,14 +192,51 @@ export default function CreateAffiliateSheet({ lang, trigger, onSuccess, parentC
             <FormField
               control={form.control}
               name='username'
-              render={({ field }) => (
+              render={({ field: { onChange, ...field } }) => (
                 <FormItem>
-                  <FormLabel className='text-app-text-color text-sm mb-2 block'>
+                  <FormLabel className='text-app-text-color text-sm mb-2 block' htmlFor='username'>
                     {lang?.common?.username}
                     <span className='text-app-danger'>*</span>
                   </FormLabel>
                   <FormControl>
-                    <Input type='text' placeholder={lang?.common?.typeUsername} {...field} />
+                    <div className='relative'>
+                      <Input
+                        {...field}
+                        type='text'
+                        placeholder={lang?.common?.typeUsername}
+                        autoComplete='off'
+                        id='username'
+                        onChange={e => {
+                          onChange(e)
+                          debouncedCheckUsername(e.target.value)
+                        }}
+                      />
+                      <div className='absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent'>
+                        {isPendingCheckUsername ? (
+                          <Loader2 className='animate-spin text-app-neutral500' />
+                        ) : !form.formState.errors.username && field.value.length >= 4 && isSuccessCheckUsername ? (
+                          <Check className='text-app-accentGreen' />
+                        ) : null}
+                      </div>
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Nickname */}
+            <FormField
+              control={form.control}
+              name='nickname'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className='text-app-text-color text-sm mb-2 block'>
+                    {lang?.common?.nickname}
+                    <span className='text-app-danger'>*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input type='text' placeholder={lang?.common?.typeNickname} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -182,7 +292,7 @@ export default function CreateAffiliateSheet({ lang, trigger, onSuccess, parentC
                     <span className='text-app-danger'>*</span>
                   </FormLabel>
                   <FormControl>
-                    <Select value={field.value} onValueChange={field.onChange}>
+                    <Select value={field.value} onValueChange={field.onChange} disabled={isLoadingListMasterBank}>
                       <SelectTrigger className='bg-app-white100 text-app-text-color'>
                         <SelectValue placeholder={lang?.common?.selectBank} />
                       </SelectTrigger>

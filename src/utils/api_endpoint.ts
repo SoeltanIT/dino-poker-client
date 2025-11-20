@@ -11,6 +11,7 @@ export const API_ENDPOINT = {
   move_balance: '/v1/move-balance',
   transfer_IDN_balance: '/v1/aggregator/sync-balance',
   transfer_fee_rate: '/v1/fee-rate',
+  check_username: '/v1/check-username',
 
   // Referral-related
   referral: '/v1/referral',
@@ -19,6 +20,8 @@ export const API_ENDPOINT = {
   referral_claim: '/v1/referral-claim',
   referral_history: '/v1/referral-history',
   referral_group_history: '/v1/group-referral-history',
+  affiliate_history_poker: '/v1/affiliate-history/poker ',
+  affiliate_history_others: '/v1/affiliate-history/others ',
   referral_summary: '/v1/referral-summary',
   referral_settings: '/v1/referral/shared-settings',
   affiliates: '/v1/affiliates',

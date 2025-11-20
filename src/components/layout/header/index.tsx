@@ -98,7 +98,8 @@ export const Header = ({
               <div className='mt-1 w-full flex items-center justify-center gap-1 rounded-full border border-app-border-chips px-2 py-[2.5px] text-[10px] font-medium text-app-warning'>
                 <IconKoreanWon size={IconSize.sm} className='text-app-warning' />
                 <span>
-                  {transferBalanceFee?.rate?.currency ?? 'KRW'} 1,000 = {formattedRate} {lang?.common?.chips}
+                  {/* {transferBalanceFee?.rate?.currency ?? '원'} 1,000원 = {formattedRate} {lang?.common?.chips} */}
+                  1,000원 = {formattedRate} {lang?.common?.chips}
                 </span>
               </div>
             </div>
@@ -121,6 +122,9 @@ export const Header = ({
             {/* <div className='hidden md:flex'>
               <ThemeSwitcher />
             </div> */}
+            <div className='md:hidden flex items-center justify-center bg-app-primary hover:bg-app-primary-hover rounded-lg shadow-lg'>
+              <LocaleSwitcherDropdown lang={lang} />
+            </div>
             <div className='hidden md:flex'>
               <LocaleSwitcherDropdown lang={lang} />
             </div>
@@ -175,6 +179,9 @@ export const Header = ({
 
                 <div className='hidden md:flex bg-app-divider-color h-10 w-0.5 mx-1' />
 
+                <div className='md:hidden flex items-center justify-center bg-app-primary hover:bg-app-primary-hover rounded-lg shadow-lg'>
+                  <LocaleSwitcherDropdown lang={lang} />
+                </div>
                 <div className='hidden md:flex'>
                   <LocaleSwitcherDropdown lang={lang} />
                 </div>
@@ -197,6 +204,9 @@ export const Header = ({
               </Button>
               <RegisterForm lang={lang} locale={locale} />
               {/* <ThemeSwitcher /> */}
+              <div className='md:hidden flex items-center justify-center bg-app-primary hover:bg-app-primary-hover rounded-lg shadow-lg'>
+                <LocaleSwitcherDropdown lang={lang} />
+              </div>
               <div className='hidden md:flex'>
                 <LocaleSwitcherDropdown lang={lang} />
               </div>

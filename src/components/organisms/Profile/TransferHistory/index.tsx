@@ -187,14 +187,13 @@ export default function TransactionHistoryPage({
     widget.call('set_session_variables', {
       userID: session?.user?.id,
       transactionID: transaction.id,
-      amount: `KRW ${thousandSeparatorComma(transaction.amount)}`,
+      amount: `${thousandSeparatorComma(transaction.amount)}원`,
       type: transaction.type,
       dateTransaction: format(new Date(transaction.created_at), 'yyyy-MM-dd | HH:mm')
     })
 
     if (session?.user) {
       widget.call('set_customer_name', session.user.name ?? '')
-      widget.call('set_customer_email', session.user.email ?? '')
     } else {
       //console.warn('[LiveChat] Session user not found. Skipping customer info.')
     }
@@ -300,7 +299,7 @@ export default function TransactionHistoryPage({
 
                   <div className='flex justify-between items-center'>
                     <div className='w-[130px] text-xs uppercase text-app-neutral500'>
-                      KRW {thousandSeparatorComma(item?.amount)}
+                      {thousandSeparatorComma(item?.amount)}원
                     </div>
                     <div className='text-xs text-app-neutral500'>Rate: {item?.rate ?? 11}</div>
                     <div className={`w-[80px] flex text-sm font-medium justify-end `}>

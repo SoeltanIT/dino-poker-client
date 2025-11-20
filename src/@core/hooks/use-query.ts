@@ -25,7 +25,7 @@ function GetData<FetchingT>(
   otherQueryOptions?: Omit<UseQueryOptions<FetchingT, unknown, FetchingT, typeof key>, 'queryKey' | 'queryFn'>,
   method: 'GET' | 'POST' = 'GET',
   body?: Record<string, any>,
-  apiType: 'user' | 'transaction' | 'promotion' = 'user',
+  apiType: 'user' | 'transaction' | 'promotion' | 'user_proxy' = 'user',
   cache?: CacheOptions // 👈 NEW
 ) {
   // 🔍 THIS IS WHERE status COMES FROM
@@ -79,7 +79,7 @@ function useMutationQuery<BodyT, ResponseData>(
   isShowMsg = false,
   successMessage?: string,
   additionalInvalidates: Array<Array<string | number>> = [],
-  apiType: 'user' | 'transaction' = 'user',
+  apiType: 'user' | 'transaction' | 'promotion' = 'user',
   skipAuth = false // 🔥 Single parameter - if true, skip auth. If false, require auth
 ) {
   const queryClient = useQueryClient()

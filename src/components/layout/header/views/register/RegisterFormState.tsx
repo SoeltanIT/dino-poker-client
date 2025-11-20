@@ -44,7 +44,7 @@ export default function RegisterForm({ lang, locale, open, setOpen }: RegisterFo
   type FormType = RegistrationFormData
   type ResolverType = Resolver<FormType>
   type RegistrationPayload = {
-    email: string
+    nickname: string
     username: string
     password: string
     referral_code?: string
@@ -64,7 +64,7 @@ export default function RegisterForm({ lang, locale, open, setOpen }: RegisterFo
   const form = useForm<FormType>({
     resolver: zodResolver(registrationSchema(lang)) as ResolverType,
     defaultValues: {
-      email: '',
+      nickname: '',
       username: '',
       password: '',
       retypePassword: '',
@@ -76,7 +76,7 @@ export default function RegisterForm({ lang, locale, open, setOpen }: RegisterFo
 
   const onSubmit: SubmitHandler<FormType> = async data => {
     const payload: RegistrationPayload = {
-      email: data.email,
+      nickname: data.nickname,
       username: data.username,
       password: data.password,
       referral_code: data.referral_code || undefined,
@@ -132,20 +132,20 @@ export default function RegisterForm({ lang, locale, open, setOpen }: RegisterFo
         <div className='mt-6 text-xl font-bold uppercase text-app-text-color'>{lang?.common?.register}</div>
         <p className='text-app-text-color text-base mb-8'>{lang?.register?.subTitleRegister}</p>
 
-        {/* {email} */}
+        {/* {nickname} */}
         <Form {...form}>
           <form id='register-form' onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
             <FormField
               control={form.control}
-              name='email'
+              name='nickname'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className='text-app-text-color'>
-                    {lang?.register?.email}
+                    {lang?.register?.nickname}
                     <span className='text-app-danger'>*</span>
                   </FormLabel>
                   <FormControl>
-                    <Input {...field} type='text' placeholder={lang?.common?.typeEmail} />
+                    <Input {...field} type='text' placeholder={lang?.register?.placeholderNickname} />
                   </FormControl>
                   <FormMessage className='text-app-danger' />
                 </FormItem>

@@ -12,6 +12,8 @@ const isDev = process.env.NODE_ENV === 'development'
 
 const maintenancePath = '/maintenance.html'
 
+const adjustmentPath = '/adjustment'
+
 const getLocale = (request: NextRequest): string => {
   const headers: Record<string, string> = {}
   request.headers.forEach((value, key) => {
@@ -29,7 +31,8 @@ const protectedRoutes = [
   '/my-wallet',
   '/transaction-history',
   '/my-promotion',
-  '/my-referral'
+  '/my-referral',
+  adjustmentPath
 ]
 const guestOnlyRoutes = ['/forgot-password']
 
@@ -47,7 +50,7 @@ export async function middleware(req: NextRequest) {
       const response = await fetch(url)
       const html = await response.text()
       return new Response(html, {
-        status: 503,
+        status: 200,
         headers: {
           'Content-Type': 'text/html',
           'Retry-After': '3600'
@@ -69,7 +72,12 @@ export async function middleware(req: NextRequest) {
   if (!hasLocalePrefix) {
     const detectedLocale = getLocale(req)
     const newUrl = new URL(req.url)
-    newUrl.pathname = `/${detectedLocale}${pathname.startsWith('/') ? '' : '/'}${pathname}`
+    const originalPathname = newUrl.pathname
+    const pathPart =
+      originalPathname === '/'
+        ? '' // If it's the root, we don't want an extra slash after the locale.
+        : `${originalPathname.startsWith('/') ? '' : '/'}${originalPathname}`
+    newUrl.pathname = `/${detectedLocale}${pathPart}`
     newUrl.search = searchParams.toString()
     return NextResponse.redirect(newUrl)
   }
@@ -153,6 +161,14 @@ export async function middleware(req: NextRequest) {
   if (token?.accessToken && realTokenExp && realTokenExp < now) {
     console.log('[Auth Check] Real JWT token expired')
     return redirectToHome()
+  } else if (token && token.accessToken) {
+    if (token?.is_adjustment && token.adjusted_at && pathname.startsWith(`/${currentLocale}${adjustmentPath}`)) {
+      return NextResponse.redirect(new URL(`/${currentLocale}`, req.url))
+    }
+
+    if (!token.is_adjustment && !token.adjusted_at && !pathname.startsWith(`/${currentLocale}${adjustmentPath}`)) {
+      return NextResponse.redirect(new URL(`/${currentLocale}${adjustmentPath}`, req.url))
+    }
   }
 
   const role = req.cookies.get('user_roles')
@@ -186,5 +202,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/|favicon.ico|images|robots.txt|sitemap).*)']
+  matcher: ['/((?!api|_next/|favicon.ico|images|robots.txt|sitemap|proxy).*)']
 }

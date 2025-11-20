@@ -48,7 +48,7 @@ interface LC_API {
   set_visitor_name: (name: string) => void
 
   /** Sets the visitor's email address. */
-  set_visitor_email: (email: string) => void
+  // set_visitor_email: (email: string) => void
 
   /** Enables the specified event listener. */
   on: (event: string, callback: () => void) => void

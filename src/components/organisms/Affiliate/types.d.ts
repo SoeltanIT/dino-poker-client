@@ -5,7 +5,7 @@ import { AffiliateListResponse, ReferralDTO } from '@/types/referralDTO'
 export interface MyAffiliateProps {
   lang?: LangProps
   locale?: Locale
-  initialAffiliateData?: AffiliateListResponse | null
+  initialData?: AffiliateListResponse | null
   initialAffiliateUserData?: AffiliateUserListResponse | null
   myReferralData?: ReferralDTO | null
 }

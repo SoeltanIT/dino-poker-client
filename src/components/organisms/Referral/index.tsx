@@ -5,12 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { LangProps } from '@/types/langProps'
 import { copyToClipboard } from '@/utils/helper/copyToClipboard'
-import {
-  getLinkAffiliateCreate,
-  getLinkReferralDetail,
-  getLinkReferralGroupHistory,
-  getLinkReferralGroupSettings
-} from '@/utils/linkFactory/linkFactory'
+import { getLinkAffiliateCreate, getLinkReferralGroupSettings } from '@/utils/linkFactory/linkFactory'
 import { ChevronRight, Copy } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
@@ -69,7 +64,7 @@ export default function MyReferral({ lang, locale, initialData, isLoading }: MyR
   return (
     //  <div className='min-h-screen flex flex-col w-full text-app-text-color px-6 lg:px-20 my-10'>
     <div className='flex flex-col w-full text-app-text-color px-6 lg:px-20 mt-10'>
-      <div className='container flex flex-col'>
+      <div className='flex flex-col'>
         {/* Header */}
         <div className='mb-[36px]'>
           <h1 className='text-3xl font-bold text-app-text-color uppercase'>{lang?.common?.myReferral}</h1>

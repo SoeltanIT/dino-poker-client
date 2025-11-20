@@ -5,7 +5,7 @@ export interface UserMeResponse {
   data: {
     user_id: string
     username: string
-    email: string
+    nickname: string
     currency: string
     language: string
     balance: string
@@ -13,5 +13,13 @@ export interface UserMeResponse {
     bank_account_number: string
     bank_name: string
     status: UserStatus
+  }
+}
+
+export interface CheckUsernameResponse {
+  status: string
+  message: string
+  data: {
+    is_valid: boolean
   }
 }

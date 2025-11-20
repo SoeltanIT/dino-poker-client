@@ -1,6 +1,7 @@
 import { IconSize, IconWithdrawConfirm } from '@/components/atoms/Icons'
 import { DepositWithdrawSheetProps } from '../types'
 import WithdrawForm from './WithdrawForm'
+import { Locale } from '@/i18n-config'
 
 interface WithdrawTabProps {
   isSubmitted: boolean
@@ -18,6 +19,7 @@ interface WithdrawTabProps {
   cryptoData: any
   cryptoLoading: boolean
   cryptoWithdrawFee?: any
+  locale?: Locale
 }
 
 export default function WithdrawTab({
@@ -35,7 +37,8 @@ export default function WithdrawTab({
   features,
   cryptoData,
   cryptoLoading,
-  cryptoWithdrawFee
+  cryptoWithdrawFee,
+  locale
 }: WithdrawTabProps) {
   if (!isSubmitted) {
     return (
@@ -53,6 +56,7 @@ export default function WithdrawTab({
         cryptoData={cryptoData}
         cryptoLoading={cryptoLoading}
         cryptoWithdrawFeeInfo={cryptoWithdrawFee}
+        locale={locale}
       />
     )
   }

@@ -21,10 +21,10 @@ export const revalidate = 120 // Revalidate page every 2 minutes
 // ============================================================================
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'Dino Poker - Play Online Poker Games',
+    title: 'Kpoker - Play Online Poker Games',
     description: 'Play exciting poker games online. Join now and start winning!',
     openGraph: {
-      title: 'Dino Poker',
+      title: 'Kpoker',
       description: 'Play exciting poker games online',
       type: 'website'
     }

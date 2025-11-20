@@ -2,11 +2,11 @@
 
 ## Summary of Changes
 
-The home page (`src/app/[lang]/page.tsx`) has been significantly optimized following Next.js 14+ best practices. These changes result in **dramatically faster page loads** and better user experience.
+The home page (`src/app/[lang]/page.tsx`) has been significantly optimized following Next.js 14+ best practices. These chåanges result in **dramatically faster page loads** and better user experience.
 
 ---
 
-## 🚀 Key Performance Improvements
+## 🚀 Key Performance Improvement
 
 ### 1. **Parallel API Calls (Biggest Win)**
 
@@ -141,7 +141,7 @@ export const revalidate = 120 // Revalidate page every 2 minutes
 ```typescript
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'Dino Poker - Play Online Poker Games',
+    title: 'Kpoker - Play Online Poker Games',
     description: 'Play exciting poker games online...',
     openGraph: { ... }
   }
