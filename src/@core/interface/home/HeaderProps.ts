@@ -1,5 +1,5 @@
 import { Locale } from '@/i18n-config'
-import { BalanceDTO } from '@/types/balanceDTO'
+import { BalanceDTO, PokerBalanceDTO } from '@/types/balanceDTO'
 import { ReactNode } from 'react'
 import { UserMeResponse } from '../User'
 // HeaderProps
@@ -12,6 +12,7 @@ export interface HeaderProps {
   locale?: Locale
   data?: UserMeResponse
   balance?: BalanceDTO
+  pokerBalance?: PokerBalanceDTO
   theme: string
   transferBalanceFee?: TransferFeePayload // ← changed
   features?: FeatureFlags

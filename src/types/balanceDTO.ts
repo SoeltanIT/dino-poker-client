@@ -4,3 +4,7 @@ export interface BalanceDTO {
   bonus_balance: number
   provider_balance: number
 }
+
+export interface PokerBalanceDTO extends BalanceDTO {
+  chip_balance: number
+}

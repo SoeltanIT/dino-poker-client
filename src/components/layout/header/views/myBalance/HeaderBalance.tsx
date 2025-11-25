@@ -9,14 +9,14 @@ import { useIsFetching, useQueryClient } from '@tanstack/react-query'
 import { ChevronDown, ChevronUp, RefreshCcwIcon } from 'lucide-react'
 import { useCallback, useState } from 'react'
 
-const HeaderBalance = ({ lang, locale, data, onShow, dataFee }: MyBalanceSheetProps) => {
+const HeaderBalance = ({ lang, locale, data, onShow, dataFee, pokerBalance }: MyBalanceSheetProps) => {
   const queryClient = useQueryClient()
   const [open, setOpen] = useState(false)
-  let totalBalance = (data && Number(data.balance + data?.provider_balance)) || 0
-  let chipsCalculation = Number(data?.provider_balance ?? 0) * (dataFee?.rate?.rate ?? 11)
+  let totalBalance = (data && pokerBalance && Number(data.balance + pokerBalance.provider_balance)) || 0
+  let chipsCalculation = (pokerBalance && pokerBalance.chip_balance) ?? 0
 
   // count of active fetches for this query key
-  const fetchingCount = useIsFetching({ queryKey: ['getBalance'] })
+  const fetchingCount = useIsFetching({ queryKey: ['getBalancePoker'] })
   const isFetchingBalance = fetchingCount > 0
 
   const handleRefresh = useCallback(async () => {
@@ -29,7 +29,7 @@ const HeaderBalance = ({ lang, locale, data, onShow, dataFee }: MyBalanceSheetPr
 
     try {
       await queryClient.invalidateQueries({
-        queryKey: ['getBalance'],
+        queryKey: ['getBalancePoker'],
         exact: false
       })
 
@@ -44,9 +44,6 @@ const HeaderBalance = ({ lang, locale, data, onShow, dataFee }: MyBalanceSheetPr
       console.error('[HeaderBalance] ❌ Failed to refresh balance:', err)
     }
   }, [queryClient, isFetchingBalance])
-
-  // For debugging render cycles and fetch state
-  console.log('[HeaderBalance] Rendered — fetching:', isFetchingBalance, 'balance data:', data)
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -103,14 +100,18 @@ const HeaderBalance = ({ lang, locale, data, onShow, dataFee }: MyBalanceSheetPr
               <p className='text-[10px] text-app-text-chips font-semibold'>{lang?.header?.idnBalance}</p>
               <div className='flex items-center gap-2'>
                 <IconSouthKoreaFlag size={IconSize.sm} />
-                <span
-                  className={cn(
-                    'flex gap-1 font-semibold text-white',
-                    String(data).length > 6 ? 'text-base' : 'text-sm'
-                  )}
-                >
-                  {thousandSeparatorComma(Number(data?.provider_balance ?? 0))}
-                </span>
+                {isFetchingBalance ? (
+                  <div className='animate-pulse h-6 w-12 bg-app-neutral500 rounded-md' />
+                ) : (
+                  <span
+                    className={cn(
+                      'flex gap-1 font-semibold text-white',
+                      String(data).length > 6 ? 'text-base' : 'text-sm'
+                    )}
+                  >
+                    {thousandSeparatorComma(Number(data?.provider_balance ?? 0))}
+                  </span>
+                )}
               </div>
             </div>
 
@@ -134,14 +135,18 @@ const HeaderBalance = ({ lang, locale, data, onShow, dataFee }: MyBalanceSheetPr
             <p className='text-[10px] text-app-text-color font-semibold'>{lang?.common?.chips}</p>
             <div className='flex items-center gap-2'>
               <IconChips size={IconSize.sm} className='text-app-text-color' />
-              <span
-                className={cn(
-                  'flex gap-1 font-semibold text-app-text-color',
-                  String(data).length > 6 ? 'text-base' : 'text-sm'
-                )}
-              >
-                {thousandSeparatorComma(chipsCalculation)}
-              </span>
+              {isFetchingBalance ? (
+                <div className='animate-pulse h-6 w-12 bg-app-neutral500 rounded-md' />
+              ) : (
+                <span
+                  className={cn(
+                    'flex gap-1 font-semibold text-app-text-color',
+                    String(data).length > 6 ? 'text-base' : 'text-sm'
+                  )}
+                >
+                  {thousandSeparatorComma(chipsCalculation)}
+                </span>
+              )}
             </div>
           </div>
         </div>

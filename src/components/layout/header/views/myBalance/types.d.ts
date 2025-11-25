@@ -1,7 +1,6 @@
 import { Locale } from '@/i18n-config'
-import { BalanceDTO } from '@/types/balanceDTO'
+import { BalanceDTO, PokerBalanceDTO } from '@/types/balanceDTO'
 import { LangProps } from '@/types/langProps'
-import { TransferFeeMapped } from '@/utils/api/internal/transferBalanceFee'
 import { ReactNode } from 'react'
 
 export interface MyBalanceSheetProps {
@@ -9,6 +8,7 @@ export interface MyBalanceSheetProps {
   lang?: LangProps
   locale?: Locale
   data?: BalanceDTO
+  pokerBalance?: PokerBalanceDTO
   onShow?: boolean
   dataFee?: TransferFeePayload
 }
