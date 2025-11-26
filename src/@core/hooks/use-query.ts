@@ -26,12 +26,14 @@ function GetData<FetchingT>(
   method: 'GET' | 'POST' = 'GET',
   body?: Record<string, any>,
   apiType: 'user' | 'transaction' | 'promotion' | 'user_proxy' = 'user',
-  cache?: CacheOptions // 👈 NEW
+  cache?: CacheOptions, // 👈 NEW
+  disableErrorToast: boolean = false
 ) {
   // 🔍 THIS IS WHERE status COMES FROM
   const { data: session, status } = useSession()
 
   const isAuthenticated = status === 'authenticated' && !!session
+  const _disableErrorToast = disableErrorToast ?? false
 
   // If skipAuth is true, don't require authentication. If false, require it.
   const isEnabled = enabled && (skipAuth || isAuthenticated)
@@ -56,7 +58,7 @@ function GetData<FetchingT>(
       return res.data
     } catch (error: any) {
       //console.error('[GetData] ❌ Request failed:', error)
-      await handleError(error)
+      await handleError(error, _disableErrorToast)
       throw error
     }
   }

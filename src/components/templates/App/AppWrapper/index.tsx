@@ -66,12 +66,19 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config, feat
   )
 
   const { data: respPokerBalance, isLoading: pokerBalanceLoading } = GetData<PokerBalanceResponse>(
-    '/balance-poker', // hits your Next.js API route, not the real backend
-    ['getBalancePoker'], //trigger put here if need to refresh on SSE event,
+    '/balance-poker',
+    ['getBalancePoker'],
     false,
     undefined,
+    isAllowRequest,
+    false, // no success message
     undefined,
-    false
+    undefined,
+    'GET',
+    {},
+    'user',
+    undefined,
+    true // 👈 disableErrorToast
   )
 
   const { data: respTransferBalanceFee, isLoading: transferFeeLoading } = GetData<TransferBalanceFeeResponseMapped>(
