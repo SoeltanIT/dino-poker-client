@@ -36,7 +36,7 @@ export default function MyBalance({ lang, locale, onClose, data, dataFee }: MyBa
     'json',
     true,
     lang?.common?.transferSucces,
-    [['user', 'me'], ['getBalance']]
+    [['user', 'me'], ['getBalance'], ['getBalancePoker']]
   )
 
   const { mutateAsync: transferIDNBalance, isPending: isTransferLoading } = useMutationQuery<any, any>(
@@ -45,7 +45,7 @@ export default function MyBalance({ lang, locale, onClose, data, dataFee }: MyBa
     'json',
     true,
     lang?.common?.transferSucces,
-    [['user', 'me'], ['getBalance']]
+    [['user', 'me'], ['getBalance'], ['getBalancePoker']]
   )
 
   const getIconBackground = (currencyId: string) => {
