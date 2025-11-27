@@ -12,6 +12,7 @@ export const API_ENDPOINT = {
   transfer_IDN_balance: '/v1/aggregator/sync-balance',
   transfer_fee_rate: '/v1/fee-rate',
   check_username: '/v1/check-username',
+  poker_balance: '/v1/poker-balance/me',
 
   // Referral-related
   referral: '/v1/referral',

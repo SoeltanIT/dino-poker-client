@@ -4,7 +4,7 @@ import axios from 'axios'
 import { signOut } from 'next-auth/react'
 import { toast } from 'react-toastify'
 
-export const handleError = async (error: any) => {
+export const handleError = async (error: any, disableErrorToast = false) => {
   //console.error('[GetData] ❌ Error caught!!!')
 
   if (axios.isAxiosError(error)) {
@@ -31,9 +31,13 @@ export const handleError = async (error: any) => {
     }
 
     // Show error message for other errors
-    toast.error(message || `Error ${status || ''}: Something went wrong`)
+    if (!disableErrorToast) {
+      toast.error(message || `Error ${status || ''}: Something went wrong`)
+    }
   } else {
     console.error('[UnknownError]', error)
-    toast.error(error?.message || 'Unexpected error')
+    if (!disableErrorToast) {
+      toast.error(error?.message || 'Unexpected error')
+    }
   }
 }

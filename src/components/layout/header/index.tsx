@@ -20,7 +20,7 @@ import RegisterForm from './views/register/RegisterForm'
 import type { HeaderProps } from '@/@core/interface/home/HeaderProps'
 import { MainNavTabs } from '@/components/molecules/MainNavTabs'
 import { HeaderSkeleton } from '@/components/molecules/Skeleton/HeaderSkeleton'
-import { BalanceDTO } from '@/types/balanceDTO'
+import { BalanceDTO, PokerBalanceDTO } from '@/types/balanceDTO'
 import { UserFullDTO } from '@/types/userDTO'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
 import { HeaderSheet } from './views/transaction'
@@ -30,6 +30,7 @@ export const Header = ({
   locale,
   data,
   balance,
+  pokerBalance,
   theme,
   transferBalanceFee,
   features,
@@ -82,6 +83,7 @@ export const Header = ({
                 <HeaderBalance
                   dataFee={transferBalanceFee}
                   data={balance as BalanceDTO}
+                  pokerBalance={pokerBalance as PokerBalanceDTO}
                   lang={lang}
                   locale={locale}
                   onShow={showBalance}

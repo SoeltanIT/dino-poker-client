@@ -2,7 +2,7 @@
 
 import { GetData } from '@/@core/hooks/use-query'
 import { UseServerSendEvent } from '@/@core/hooks/UseServerSendEvent'
-import { BalanceResponse } from '@/@core/interface/balance/Balance'
+import { BalanceResponse, PokerBalanceResponse } from '@/@core/interface/balance/Balance'
 import { UserMeResponse } from '@/@core/interface/User'
 import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/molecules/Footer/footer'
@@ -65,6 +65,22 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config, feat
     isAllowRequest
   )
 
+  const { data: respPokerBalance, isLoading: pokerBalanceLoading } = GetData<PokerBalanceResponse>(
+    '/balance-poker',
+    ['getBalancePoker'],
+    false,
+    undefined,
+    isAllowRequest,
+    false, // no success message
+    undefined,
+    undefined,
+    'GET',
+    {},
+    'user',
+    undefined,
+    true // 👈 disableErrorToast
+  )
+
   const { data: respTransferBalanceFee, isLoading: transferFeeLoading } = GetData<TransferBalanceFeeResponseMapped>(
     '/transfer_balance_fee', // hits your Next.js API route, not the real backend
     ['getTransferBalanceFee'],
@@ -112,6 +128,7 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config, feat
             locale={locale}
             data={userData}
             balance={respBalance?.data}
+            pokerBalance={respPokerBalance?.data}
             transferBalanceFee={respTransferBalanceFee?.data}
             theme={hasMounted ? theme : 'light'}
             features={features}
