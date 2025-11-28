@@ -25,7 +25,7 @@ export default function TransactionTabs({
           <TabsTrigger
             value='CONVERT_BALANCE'
             className={`text-lg font-medium transition-colors uppercase ${
-              tabValue === 'CONVERT_BALANCE' ? 'text-app-text-color' : 'text-app-neutral500'
+              tabValue === 'CONVERT_BALANCE' ? 'text-app-text-color font-semibold' : 'text-app-neutral500'
             }`}
           >
             {lang?.header?.convert}
@@ -33,7 +33,7 @@ export default function TransactionTabs({
           <TabsTrigger
             value='DEPOSIT'
             className={`text-lg font-medium transition-colors uppercase ${
-              tabValue === 'DEPOSIT' ? 'text-app-text-color' : 'text-app-neutral500'
+              tabValue === 'DEPOSIT' ? 'text-app-text-color font-semibold' : 'text-app-neutral500'
             }`}
           >
             {lang?.common?.deposit}
@@ -41,7 +41,7 @@ export default function TransactionTabs({
           <TabsTrigger
             value='WITHDRAW'
             className={`text-lg font-medium transition-colors uppercase ${
-              tabValue === 'WITHDRAW' ? 'text-app-text-color' : 'text-app-neutral500'
+              tabValue === 'WITHDRAW' ? 'text-app-text-color font-semibold' : 'text-app-neutral500'
             }`}
           >
             {lang?.common?.withdraw}

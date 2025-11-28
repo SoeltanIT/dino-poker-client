@@ -243,9 +243,9 @@
     "appliedPromotion": "적용된 프로모션",
     "rolesMsgHomepage": "사용 가능한 게임 목록을 보려면 사용자 계정에 로그인하세요",
     "opening": "오프닝",
-    "convert": "전환",
-    "transferIn": "입금 이체",
-    "transferOut": "출금 이체",
+    "convert": "머니 전환",
+    "transferIn": "입금",
+    "transferOut": "출금",
     "transferInMsg": "보유 잔액을 KPoker에서 IDN Poker로 쉽게 이체하세요",
     "transferOutMsg": "보유 잔액을 IDN Poker에서 KPoker로 쉽게 이체하세요",
     "transferAmount": "이체 금액",
@@ -315,7 +315,7 @@
     "commissionRate": "커미션 비율"
   },
   "game": {
-    "texaspoker": "텍사스 홀덤",
+    "texaspoker": "텍사스 포커",
     "omaha": "오마하",
     "tournament": "토너먼트",
     "superten": "슈퍼 텐",
@@ -583,7 +583,7 @@
     "mainBalance": "주요 잔액",
     "mainShort": "주요..",
     "idnBalance": "IDN 포커 잔액",
-    "convert": "환전",
+    "convert": "머니 전환",
     "notif": "알림"
   },
   "detailBet": {

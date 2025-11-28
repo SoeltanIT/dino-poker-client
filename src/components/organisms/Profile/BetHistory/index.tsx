@@ -307,19 +307,19 @@ export default function BetHistoryPage({
             ) : betHistory?.length > 0 ? (
               betHistory.map((bet, index) => {
                 let betStatus = bet.status.toLowerCase()
+                let betGameName = bet.gameName.toLowerCase() === 'texas poker' ? lang?.game?.texaspoker : bet.gameName
                 return (
                   <div key={index} className='p-4 rounded-[8px] transition-colors'>
                     <div className='hidden md:grid md:grid-cols-4 gap-4 items-center'>
                       <div className='text-sm text-app-text-color'>
                         {format(new Date(bet.createdAt), 'yyyy-MM-dd | HH:mm')}
                       </div>
-                      <div className='text-sm text-app-text-color uppercase'>{bet.gameName}</div>
+                      <div className='text-sm text-app-text-color uppercase'>{betGameName}</div>
                       <div className={`text-sm font-medium text-app-neutral500`}>
                         <span className={`${getTextColor(bet.status)}`}>
                           {betStatus === 'won' ? '+' : betStatus === 'pending' ? '' : bet.amount != 0 ? '-' : ''}
-                          {thousandSeparatorComma(Math.floor(bet.amount))}
+                          {thousandSeparatorComma(Math.floor(bet.amount))}원
                         </span>
-                        원
                       </div>
                       <div className='flex justify-between items-center'>
                         <div className={`text-sm ${getTextColor(bet.status)} uppercase`}>
@@ -344,7 +344,7 @@ export default function BetHistoryPage({
                         <div className='text-xs text-app-text-color'>
                           {format(new Date(bet.createdAt), 'yyyy-MM-dd | HH:mm')}
                         </div>
-                        <span className={`text-xs`}>{bet.gameName}</span>
+                        <span className={`text-xs`}>{betGameName}</span>
                       </div>
 
                       <div className='flex justify-between items-center'>

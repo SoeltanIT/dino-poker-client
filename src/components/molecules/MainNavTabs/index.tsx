@@ -103,10 +103,10 @@ export function MainNavTabs({ locale, pathname, lang, features, className }: Mai
         )}
 
         <Link
-          href='/user-guide/poker/texas-poker'
+          href={`/${locale}/user-guide/poker/texas-poker`}
           className={cn(
             baseTab,
-            isActive('/user-guide')
+            isActive(`/${locale}/user-guide/poker/texas-poker`)
               ? 'bg-app-primary text-white border border-app-borderPrimary'
               : 'text-app-neutral500 group-hover:text-app-text-color'
           )}
@@ -114,10 +114,16 @@ export function MainNavTabs({ locale, pathname, lang, features, className }: Mai
           <BookIcon
             className={cn(
               'size-6',
-              isActive('/user-guide') ? 'text-white' : 'text-app-neutral500 group-hover:text-app-text-color'
+              isActive(`/${locale}/user-guide/poker/texas-poker`)
+                ? 'text-white'
+                : 'text-app-neutral500 group-hover:text-app-text-color'
             )}
           />
-          <span className={cn(isActive('/user-guide') ? 'text-white' : 'group-hover:text-app-text-color')}>
+          <span
+            className={cn(
+              isActive(`/${locale}/user-guide/poker/texas-poker`) ? 'text-white' : 'group-hover:text-app-text-color'
+            )}
+          >
             {lang?.common?.userGuide}
           </span>
         </Link>
