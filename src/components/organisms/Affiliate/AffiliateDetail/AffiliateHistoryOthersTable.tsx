@@ -76,10 +76,6 @@ export function AffiliateHistoryOthersTable({ lang }: AffiliateHistoryOthersTabl
                 <div>{row.username}</div>
               </div>
               <div>
-                <div className='text-xs text-gray-500'>{lang?.common?.codeName}</div>
-                <div>{row.code_name}</div>
-              </div>
-              <div>
                 <div className='text-xs text-gray-500'>{lang?.common?.period}</div>
                 <div>{row.period}</div>
               </div>
@@ -128,12 +124,6 @@ export function AffiliateHistoryOthersTable({ lang }: AffiliateHistoryOthersTabl
             key: 'username',
             header: lang?.common?.username,
             accessor: 'username',
-            render: value => value ?? '-'
-          },
-          {
-            key: 'codeName',
-            header: lang?.common?.codeName,
-            accessor: 'code_name',
             render: value => value ?? '-'
           },
           {
