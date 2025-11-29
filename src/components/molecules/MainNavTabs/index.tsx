@@ -80,9 +80,9 @@ export function MainNavTabs({ locale, pathname, lang, features, className }: Mai
         {features?.promotion && (
           <Link
             // TODO: fixme
-            // href={pathPromotion}
-            href={''}
-            onClick={() => setIsMaintenanceModalOpen(true)}
+            href={pathPromotion}
+            // href={''}
+            // onClick={() => setIsMaintenanceModalOpen(true)}
             className={cn(
               baseTab,
               isActive(pathPromotion)

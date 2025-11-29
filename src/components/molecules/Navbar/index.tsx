@@ -116,8 +116,8 @@ export const Navbar = ({ locale, lang, isLogin, data, features }: NavbarProps) =
     navItems.splice(navbarSport, 0, {
       name: lang?.common?.promotion,
       href: `/${locale}/promotion`,
-      icon: IconTicket,
-      onClick: () => setIsMaintenanceModalOpen(true)
+      icon: IconTicket
+      // onClick: () => setIsMaintenanceModalOpen(true)
     })
   }
 
