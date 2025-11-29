@@ -59,10 +59,6 @@ export function DetailAffiliateHistoryPokerByUser({ userId, lang }: DetailAffili
           {/* User Info Section */}
           <div className='grid grid-cols-2 gap-3'>
             <div>
-              <div className='text-xs text-gray-400 mb-1'>{lang?.common?.codeName}</div>
-              <div className='text-sm text-app-text-color'>{row.code_name ?? '-'}</div>
-            </div>
-            <div>
               <div className='text-xs text-gray-400 mb-1'>{lang?.common?.username}</div>
               <div className='text-sm text-app-text-color'>{row.username ?? '-'}</div>
             </div>
@@ -105,12 +101,6 @@ export function DetailAffiliateHistoryPokerByUser({ userId, lang }: DetailAffili
       data={affiliateHistoryPokerData}
       loading={isFetchingHistory}
       columns={[
-        {
-          key: 'code_name',
-          header: lang?.common?.codeName,
-          accessor: 'code_name',
-          render: value => value ?? '-'
-        },
         {
           key: 'username',
           header: lang?.common?.username,

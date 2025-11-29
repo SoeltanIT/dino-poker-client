@@ -1,6 +1,5 @@
 export interface AffiliateParentDTO {
   id: string
-  code_name: string
   username: string
 }
 
@@ -9,7 +8,6 @@ export interface AffiliateParentDTO {
 export interface AffiliateHistoryOthersDTO {
   id: string
   user_id: string
-  code_name: string
   username: string
   parent: AffiliateParentDTO
   affiliated_members: number
@@ -32,7 +30,6 @@ export interface AffiliateHistoryOthersDTO {
 export interface AffiliateHistoryDetailOthersDTO {
   id: string
   user_id: string
-  code_name: string
   username: string
   parent: AffiliateParentDTO
   affiliated_members: number
@@ -54,7 +51,6 @@ export interface AffiliateHistoryDetailOthersDTO {
 export interface AffiliateSummaryOthersDTO {
   id: string
   user_id: string
-  code_name: string
   username: string
   period: string
   previous_ngr: number
@@ -73,7 +69,6 @@ export interface AffiliateSummaryOthersDTO {
 export interface AffiliateHistoryPokerDTO {
   id: string
   user_id: string
-  code_name: string
   username: string
   parent: AffiliateParentDTO
   affiliated_members: number
@@ -89,7 +84,6 @@ export interface AffiliateHistoryPokerDTO {
 
 export interface AffiliateHistoryDetailPokerDTO {
   user_id: string
-  code_name: string
   username: string
   parent: AffiliateParentDTO
   affiliated_members: number
@@ -101,7 +95,6 @@ export interface AffiliateHistoryDetailPokerDTO {
 export interface AffiliateSummaryPokerDTO {
   id: string
   user_id: string
-  code_name: string
   username: string
   period: string
   rake_amount: number
