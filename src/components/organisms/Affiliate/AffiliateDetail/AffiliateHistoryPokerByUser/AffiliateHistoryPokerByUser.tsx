@@ -12,11 +12,12 @@ import { useState } from 'react'
 export interface AffiliateHistoryPokerByUserProps {
   userId: string
   lang?: LangProps
+  period: string
 }
 
 const pageSize = 10
 
-export function AffiliateHistoryPokerByUser({ userId, lang }: AffiliateHistoryPokerByUserProps) {
+export function AffiliateHistoryPokerByUser({ userId, lang, period }: AffiliateHistoryPokerByUserProps) {
   const router = useRouter()
   const [page, setPage] = useState(1)
 
@@ -29,7 +30,7 @@ export function AffiliateHistoryPokerByUser({ userId, lang }: AffiliateHistoryPo
     }
   }>(
     `/v1/affiliate-history/poker/${userId}`,
-    ['affiliate_history_poker_by_user', userId, page],
+    ['affiliate_history_poker_by_user', userId, period, page],
     false,
     undefined,
     true,
@@ -39,7 +40,8 @@ export function AffiliateHistoryPokerByUser({ userId, lang }: AffiliateHistoryPo
     'GET', // method
     {
       page,
-      pageSize
+      pageSize,
+      period
     },
     'user_proxy'
   )
@@ -49,7 +51,7 @@ export function AffiliateHistoryPokerByUser({ userId, lang }: AffiliateHistoryPo
   return (
     <DataTable
       onRowClick={row => {
-        router.push(`/affiliates/poker/${userId}/detail?period=${row.period}`)
+        router.push(`/affiliates/poker/${userId}/${period}/detail/${row.period}`)
       }}
       emptyState={{
         message: lang?.common?.noAffiliateHistory,
@@ -72,6 +74,10 @@ export function AffiliateHistoryPokerByUser({ userId, lang }: AffiliateHistoryPo
               <div className='text-xs text-gray-400 mb-1'>{lang?.common?.affiliateMember}</div>
               <div className='text-sm text-app-text-color'>{row.affiliated_members ?? '-'}</div>
             </div>
+            <div>
+              <div className='text-xs text-gray-400 mb-1'>{lang?.common?.totalActiveUsers}</div>
+              <div className='text-sm text-app-text-color'>{row.total_active_users ?? '-'}</div>
+            </div>
           </div>
 
           {/* Period */}
@@ -86,6 +92,12 @@ export function AffiliateHistoryPokerByUser({ userId, lang }: AffiliateHistoryPo
               <span className='text-xs text-gray-400'>{lang?.common?.rakeAmount}</span>
               <span className='text-sm font-medium text-app-text-color'>
                 {row.rake_amount != null ? thousandSeparatorComma(row.rake_amount) + '원' : '-'}
+              </span>
+            </div>
+            <div className='flex justify-between items-center'>
+              <span className='text-xs text-gray-400'>{lang?.common?.commissionEarned}</span>
+              <span className='text-sm font-medium text-app-text-color'>
+                {row.commission_earned != null ? thousandSeparatorComma(row.commission_earned) + '원' : '-'}
               </span>
             </div>
           </div>
@@ -115,6 +127,12 @@ export function AffiliateHistoryPokerByUser({ userId, lang }: AffiliateHistoryPo
           key: 'affiliated_members',
           header: lang?.common?.affiliateMember,
           accessor: 'affiliated_members',
+          render: value => value ?? '-'
+        },
+        {
+          key: 'total_active_users',
+          header: lang?.common?.totalActiveUsers,
+          accessor: 'total_active_users',
           render: value => value ?? '-'
         },
         {

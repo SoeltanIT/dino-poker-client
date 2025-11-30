@@ -312,7 +312,8 @@
     "totalPromotion": "총 프로모션",
     "totalNGR": "총 NGR",
     "reason": "사유",
-    "commissionRate": "커미션 비율"
+    "commissionRate": "커미션 비율",
+    "totalActiveUsers": "총 활성 사용자"
   },
   "game": {
     "texaspoker": "텍사스 포커",

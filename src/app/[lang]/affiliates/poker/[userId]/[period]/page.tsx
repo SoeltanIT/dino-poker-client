@@ -1,15 +1,15 @@
-import { DetailAffiliateHistoryPokerByUser } from '@/components/organisms/Affiliate/AffiliateDetail/AffiliateHistoryPokerByUser/DetailAffiliateHistoryPokerByUser'
+import { AffiliateHistoryPokerByUser } from '@/components/organisms/Affiliate/AffiliateDetail/AffiliateHistoryPokerByUser'
 import { getDictionary, getLocale } from '@/dictionaries/dictionaries'
 import { Locale } from '@/i18n-config'
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 
-export default async function DetailAffiliateHistoryPokerByUserPage({
+export default async function AffiliateHistoryPokerByUserPage({
   params
 }: {
-  params: { userId: string; lang: Locale }
+  params: { userId: string; lang: Locale; period: string }
 }) {
-  const { userId, lang } = params
+  const { userId, lang, period } = params
   const dict = await getDictionary(lang)
   const locale = await getLocale()
   return (
@@ -19,18 +19,18 @@ export default async function DetailAffiliateHistoryPokerByUserPage({
         <div className='flex lg:flex-row flex-col mb-4 lg:mb-0 items-center justify-between'>
           <div className='w-full lg:mb-8 mb-2'>
             <Link
-              href={`/${locale}/affiliates/poker/${userId}`}
+              href={`/${locale}/my-referral`}
               className='flex items-center gap-2 text-app-text-color hover:opacity-90 mb-2 p-0 h-auto hover:bg-transparent'
             >
               <ArrowLeft className='w-5 h-5' />
               <span>{dict?.common?.back}</span>
             </Link>
             <div className='flex items-center gap-2 justify-between w-full flex-wrap'>
-              <h1 className='text-2xl font-bold uppercase'>{dict?.affiliate?.detailAffiliateHistoryPokerByUser}</h1>
+              <h1 className='text-2xl font-bold uppercase'>{dict?.affiliate?.affiliateHistoryPokerByUser}</h1>
             </div>
           </div>
         </div>
-        <DetailAffiliateHistoryPokerByUser userId={userId} lang={dict} />
+        <AffiliateHistoryPokerByUser userId={userId} lang={dict} period={period} />
       </div>
     </div>
   )

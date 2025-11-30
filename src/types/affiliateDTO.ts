@@ -80,6 +80,7 @@ export interface AffiliateHistoryPokerDTO {
   last_commission_paid_at: string
   paid_date: string
   paid_status: string
+  total_active_users: number
 }
 
 export interface AffiliateHistoryDetailPokerDTO {
@@ -90,6 +91,7 @@ export interface AffiliateHistoryDetailPokerDTO {
   period: string
   rake_amount: number
   commission_earned: number
+  total_active_users: number
 }
 
 export interface AffiliateSummaryPokerDTO {

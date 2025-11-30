@@ -6,19 +6,17 @@ import { AffiliateSummaryPokerDTO } from '@/types/affiliateDTO'
 import { LangProps } from '@/types/langProps'
 import { getTotalPage } from '@/utils/get-total-page'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
-import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 
 export interface DetailAffiliateHistoryPokerByUserProps {
   userId: string
   lang?: LangProps
+  period: string
 }
 
 const pageSize = 10
-export function DetailAffiliateHistoryPokerByUser({ userId, lang }: DetailAffiliateHistoryPokerByUserProps) {
+export function DetailAffiliateHistoryPokerByUser({ userId, lang, period }: DetailAffiliateHistoryPokerByUserProps) {
   const [page, setPage] = useState(1)
-  const searchParams = useSearchParams()
-  const period = searchParams.get('period')
 
   const { data: respAffiliateHistoryPoker, isFetching: isFetchingHistory } = GetData<{
     data: AffiliateSummaryPokerDTO[]
@@ -29,7 +27,7 @@ export function DetailAffiliateHistoryPokerByUser({ userId, lang }: DetailAffili
     }
   }>(
     `/v1/affiliate-history/poker/${userId}/details`,
-    ['detail_affiliate_history_poker_by_user', userId, page, period],
+    ['detail_affiliate_history_poker_by_user', userId, period, page],
     false,
     undefined,
     true,
@@ -40,7 +38,7 @@ export function DetailAffiliateHistoryPokerByUser({ userId, lang }: DetailAffili
     {
       page,
       pageSize,
-      period
+      period: period
     },
     'user_proxy'
   )
