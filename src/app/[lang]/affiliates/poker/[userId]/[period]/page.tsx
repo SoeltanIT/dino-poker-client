@@ -5,14 +5,11 @@ import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 
 export default async function AffiliateHistoryPokerByUserPage({
-  params,
-  searchParams
+  params
 }: {
-  params: { userId: string; lang: Locale }
-  searchParams: { period: string }
+  params: { userId: string; lang: Locale; period: string }
 }) {
-  const { userId, lang } = params
-  const { period } = searchParams
+  const { userId, lang, period } = params
   const dict = await getDictionary(lang)
   const locale = await getLocale()
   return (

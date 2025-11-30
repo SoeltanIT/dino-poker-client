@@ -51,7 +51,7 @@ export function AffiliateHistoryPokerByUser({ userId, lang, period }: AffiliateH
   return (
     <DataTable
       onRowClick={row => {
-        router.push(`/affiliates/poker/${userId}/detail?period=${row.period}`)
+        router.push(`/affiliates/poker/${userId}/${period}/detail?period=${row.period}`)
       }}
       emptyState={{
         message: lang?.common?.noAffiliateHistory,
