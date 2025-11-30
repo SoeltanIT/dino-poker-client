@@ -5,16 +5,13 @@ import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 
 export default async function DetailAffiliateHistoryPokerByUserPage({
-  params,
-  searchParams
+  params
 }: {
-  params: { userId: string; lang: Locale }
-  searchParams: { period: string }
+  params: { userId: string; lang: Locale; detailPeriod: string }
 }) {
-  const { userId, lang } = params
+  const { userId, lang, detailPeriod } = params
   const dict = await getDictionary(lang)
   const locale = await getLocale()
-  const { period } = searchParams
   return (
     <div className='min-h-screen flex flex-col w-full text-app-text-color px-6 lg:px-20 my-10 mx-auto'>
       <div className='flex flex-col'>
@@ -33,7 +30,7 @@ export default async function DetailAffiliateHistoryPokerByUserPage({
             </div>
           </div>
         </div>
-        <DetailAffiliateHistoryPokerByUser userId={userId} lang={dict} period={period} />
+        <DetailAffiliateHistoryPokerByUser userId={userId} lang={dict} period={detailPeriod} />
       </div>
     </div>
   )
