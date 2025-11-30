@@ -164,6 +164,12 @@ export function AffiliateHistoryPokerTable({ lang }: AffiliateHistoryPokerTableP
           render: value => value ?? '-'
         },
         {
+          key: 'total_active_users',
+          header: lang?.common?.totalActiveUsers,
+          accessor: 'total_active_users',
+          render: value => value ?? '-'
+        },
+        {
           key: 'period',
           header: lang?.common?.period,
           accessor: 'period',
@@ -197,12 +203,6 @@ export function AffiliateHistoryPokerTable({ lang }: AffiliateHistoryPokerTableP
           key: 'paid_status',
           header: lang?.common?.paidStatus,
           accessor: 'paid_status',
-          render: value => value ?? '-'
-        },
-        {
-          key: 'total_active_users',
-          header: lang?.common?.totalActiveUsers,
-          accessor: 'total_active_users',
           render: value => value ?? '-'
         }
       ]}

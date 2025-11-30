@@ -130,6 +130,12 @@ export function AffiliateHistoryPokerByUser({ userId, lang, period }: AffiliateH
           render: value => value ?? '-'
         },
         {
+          key: 'total_active_users',
+          header: lang?.common?.totalActiveUsers,
+          accessor: 'total_active_users',
+          render: value => value ?? '-'
+        },
+        {
           key: 'period',
           header: lang?.common?.period,
           accessor: 'period',
@@ -146,12 +152,6 @@ export function AffiliateHistoryPokerByUser({ userId, lang, period }: AffiliateH
           header: lang?.common?.commissionEarned,
           accessor: 'commission_earned',
           render: value => (value != null ? thousandSeparatorComma(value) + '원' : '-')
-        },
-        {
-          key: 'total_active_users',
-          header: lang?.common?.totalActiveUsers,
-          accessor: 'total_active_users',
-          render: value => value ?? '-'
         }
       ]}
     />
