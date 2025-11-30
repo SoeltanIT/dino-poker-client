@@ -7,9 +7,9 @@ import Link from 'next/link'
 export default async function DetailAffiliateHistoryPokerByUserPage({
   params
 }: {
-  params: { userId: string; lang: Locale; detailPeriod: string }
+  params: { userId: string; lang: Locale; detailPeriod: string; period: string }
 }) {
-  const { userId, lang, detailPeriod } = params
+  const { userId, lang, detailPeriod, period } = params
   const dict = await getDictionary(lang)
   const locale = await getLocale()
   return (
@@ -19,7 +19,7 @@ export default async function DetailAffiliateHistoryPokerByUserPage({
         <div className='flex lg:flex-row flex-col mb-4 lg:mb-0 items-center justify-between'>
           <div className='w-full lg:mb-8 mb-2'>
             <Link
-              href={`/${locale}/affiliates/poker/${userId}`}
+              href={`/${locale}/affiliates/poker/${userId}/${period}`}
               className='flex items-center gap-2 text-app-text-color hover:opacity-90 mb-2 p-0 h-auto hover:bg-transparent'
             >
               <ArrowLeft className='w-5 h-5' />
