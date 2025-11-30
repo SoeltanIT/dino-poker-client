@@ -312,7 +312,8 @@
     "totalPromotion": "Total Promotion",
     "totalNGR": "Total NGR",
     "reason": "Reason",
-    "commissionRate": "Commission Rate"
+    "commissionRate": "Commission Rate",
+    "totalActiveUsers": "Total Active Users"
   },
   "game": {
     "texaspoker": "Texas Poker",
