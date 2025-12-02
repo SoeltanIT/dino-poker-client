@@ -1,6 +1,7 @@
 export interface PromotionDTO {
   id: string
   name: string
+  subtitle: string
   banner: string
   content: string
   status: string

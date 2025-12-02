@@ -6,11 +6,10 @@ import { UseServerSendEvent } from '@/@core/hooks/UseServerSendEvent'
 import { BalanceResponse } from '@/@core/interface/balance/Balance'
 import { UserMeResponse } from '@/@core/interface/User'
 import { HeaderSheet } from '@/components/layout/header/views/transaction'
-import CountdownTimerPromotion from '@/components/molecules/CountdownTimer/CountdownTimerPromotion'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card } from '@/components/ui/card'
 import { TransferBalanceFeeResponseMapped } from '@/types/transferBalanceFeeDTO'
-import { ArrowLeft, Clock, ImageIcon } from 'lucide-react'
+import { ArrowLeft, ImageIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -21,6 +20,15 @@ export default function PromotionDetail({ initialData, lang, locale, isLogin }: 
   const [isSheetOpen, setIsSheetOpen] = useState(false)
   const [selectedPromotion, setSelectedPromotion] = useState<any>(null)
   const { features } = useAppFeatures()
+
+  // Format date to YYYY.M.D (without leading zeros for month and day)
+  const formatStartDate = (dateString: string) => {
+    const date = new Date(dateString)
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1
+    const day = date.getDate()
+    return `${year}.${month}.${day}`
+  }
 
   const { data: userData, isLoading: userDataLoading } = GetData<UserMeResponse>(
     '/me', // hits your Next.js API route, not the real backend
@@ -47,26 +55,23 @@ export default function PromotionDetail({ initialData, lang, locale, isLogin }: 
   )
 
   return (
-    <div className='min-h-screen flex flex-col w-full md:w-[870px] text-app-text-color px-6 lg:px-16 my-10 mx-auto'>
-      <div className='container flex flex-col'>
-        {/* Back Button */}
+    <div className='min-h-screen relative flex flex-col w-full items-center justify-center text-app-text-color   mx-auto'>
+      <div className='px-6 lg:px-16 w-full mb-7 py-5 border-b border-app-neutral200 border-t border-app-neutral200'>
         <Link href={`/${locale}/promotion`}>
-          <button className='flex items-center gap-2 text-app-text-color hover:opacity-90 mb-6 p-0 h-auto hover:bg-transparent'>
+          <button className='flex items-center gap-2 text-app-neutral600 hover:text-app-neutral700  p-0 h-auto bg-transparent border-0 cursor-pointer transition-colors'>
             <ArrowLeft className='w-5 h-5' />
-            <span>{lang?.common?.back}</span>
+            <span className='text-base'>{lang?.common?.back}</span>
           </button>
         </Link>
+      </div>
+      <div className='container flex md:w-[870px] flex-col'>
+        {/* Back Button */}
 
         {/* Desktop Layout */}
         <div className='hidden md:block'>
           <div className='mx-auto'>
-            {/* Title */}
-            <div className='mb-8'>
-              <h1 className='text-4xl font-bold text-app-text-color mb-2'>{initialData?.name}</h1>
-            </div>
-
             {/* Main Content Card */}
-            <Card className='overflow-hidden mb-8 bg-app-white100'>
+            <Card className='overflow-hidden mb-4 bg-app-white100 rounded-2xl'>
               {/* Image */}
               <div className='aspect-[2/1] w-full'>
                 {initialData?.banner !== '' ? (
@@ -83,13 +88,30 @@ export default function PromotionDetail({ initialData, lang, locale, isLogin }: 
                   </div>
                 )}
               </div>
+            </Card>
 
-              {/* Timer and Claim Button */}
-              <CardContent className='p-6 flex items-center justify-between'>
-                <div className='flex items-center gap-2 text-app-neutral500'>
-                  <Clock className='w-5 h-5' />
-                  <CountdownTimerPromotion endDate={initialData?.end_date} lang={lang} />
+            {/* Info Card - Light blue card below banner */}
+            <Card
+              className='rounded-2xl shadow-sm border border-blue-200/30 mb-8 p-5 md:p-6'
+              style={{ backgroundColor: '#F0F8FF' }}
+            >
+              <div className='flex flex-col gap-3'>
+                {/* Line 1: Rocket icon + Title */}
+                <div className='flex items-center gap-2'>
+                  <h2 className='text-base md:text-4xl font-medium text-app-text-color leading-tight'>
+                    {initialData?.name}
+                  </h2>
                 </div>
+                {/* Subtitle */}
+                <p className='text-sm md:text-base font-bold text-app-text-color'>
+                  {initialData.subtitle || '첫 충전 시, 충전 금액의 50%를 보너스로 즉시'}
+                </p>
+                {initialData?.start_date && (
+                  <p className='text-sm md:text-sm font-thin text-app-text-color'>
+                    {locale === 'ko' ? '시작일' : 'Start date'}: {formatStartDate(initialData.start_date)}
+                  </p>
+                )}
+
                 {isLogin && (
                   <Button
                     size='lg'
@@ -106,7 +128,7 @@ export default function PromotionDetail({ initialData, lang, locale, isLogin }: 
                     {lang?.common?.claim}
                   </Button>
                 )}
-              </CardContent>
+              </div>
             </Card>
 
             {/* Description */}
@@ -119,14 +141,8 @@ export default function PromotionDetail({ initialData, lang, locale, isLogin }: 
 
         {/* Mobile Layout */}
         <div className='md:hidden'>
-          {/* Title */}
-          <div className='mb-6'>
-            <h1 className='text-2xl font-bold text-app-text-color mb-2'>{initialData?.name}</h1>
-            {/* <p className='text-app-neutral500'>{initialData.subtitle}</p> */}
-          </div>
-
           {/* Image */}
-          <div className='aspect-video w-full rounded-t-lg overflow-hidden'>
+          <div className='aspect-video w-full rounded-2xl overflow-hidden mb-3'>
             {initialData?.banner !== 'image' ? (
               <Image
                 src={initialData?.banner}
@@ -142,11 +158,30 @@ export default function PromotionDetail({ initialData, lang, locale, isLogin }: 
             )}
           </div>
 
-          {/* Timer */}
-          <div className='mb-6 bg-app-white100 flex items-center gap-2 text-app-neutral500 p-3 rounded-b-lg'>
-            <Clock className='w-4 h-4' />
-            <CountdownTimerPromotion endDate={initialData?.end_date} lang={lang} />
-          </div>
+          {/* Info Card - Light blue card below banner */}
+          <Card
+            className='rounded-2xl shadow-sm border border-blue-200/30 mb-6 p-4'
+            style={{ backgroundColor: '#F0F8FF' }}
+          >
+            <div className='flex flex-col gap-2.5'>
+              {/* Line 1: Rocket icon + Title */}
+              <div className='flex items-center gap-2'>
+                <h2 className='text-3xl font-medium text-app-text-color leading-tight'>{initialData?.name}</h2>
+              </div>
+
+              {/* Subtitle */}
+              <p className='text-xs font-semibold text-app-text-color'>
+                {initialData.subtitle || '첫 충전 시, 충전 금액의 50%를 보너스로 즉시'}
+              </p>
+
+              {/* Start Date */}
+              {initialData?.start_date && (
+                <p className='text-xs font-thin text-app-text-color'>
+                  {locale === 'ko' ? '시작일' : 'Start date'}: {formatStartDate(initialData.start_date)}
+                </p>
+              )}
+            </div>
+          </Card>
 
           {/* Description */}
           <div
