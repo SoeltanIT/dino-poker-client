@@ -26,7 +26,6 @@ export default function PromotionDetail({ initialData, lang, locale, isLogin }: 
     '/me', // hits your Next.js API route, not the real backend
     ['user', 'me']
   )
-
   const { balanceTrigger } = UseServerSendEvent()
   const { data: respBalance, isLoading: balanceLoading } = GetData<BalanceResponse>(
     '/balance', // hits your Next.js API route, not the real backend
@@ -111,7 +110,10 @@ export default function PromotionDetail({ initialData, lang, locale, isLogin }: 
             </Card>
 
             {/* Description */}
-            <div dangerouslySetInnerHTML={{ __html: initialData?.content }} className='text-app-text-color' />
+            <div
+              dangerouslySetInnerHTML={{ __html: initialData?.content }}
+              className='text-app-text-color promotion-content'
+            />
           </div>
         </div>
 
@@ -147,7 +149,10 @@ export default function PromotionDetail({ initialData, lang, locale, isLogin }: 
           </div>
 
           {/* Description */}
-          <div dangerouslySetInnerHTML={{ __html: initialData?.content }} className='text-app-text-color mb-8' />
+          <div
+            dangerouslySetInnerHTML={{ __html: initialData?.content }}
+            className='text-app-text-color mb-8 promotion-content'
+          />
 
           {/* Claim Button */}
           {isLogin && (
