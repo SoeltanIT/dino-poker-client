@@ -1,140 +1,91 @@
 'use client'
 
-import CountdownTimerPromotion from '@/components/molecules/CountdownTimer/CountdownTimerPromotion'
 import { Card, CardContent } from '@/components/ui/card'
-import { truncateHtml } from '@/utils/helper/truncateHtml'
-import { Clock, ImageIcon } from 'lucide-react'
+import { ArrowLeft, ImageIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
 import { PromotionProps } from './types'
 
 export default function PromotionListing({ lang, locale, initialData }: PromotionProps) {
-  // const [activeFilter, setActiveFilter] = useState<'all' | 'trending' | 'member'>('all')
-  const [expandedId, setExpandedId] = useState<string | null>(null)
-  const charLimit = 200
-
-  const toggleExpanded = (id: string) => {
-    setExpandedId(prev => (prev === id ? null : id))
+  // Format date to YYYY.M.D (without leading zeros for month and day)
+  const formatStartDate = (dateString?: string) => {
+    if (!dateString) return ''
+    const date = new Date(dateString)
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1
+    const day = date.getDate()
+    return `${year}.${month}.${day}`
   }
 
   return (
-    <div className='min-h-screen flex flex-col w-full text-app-text-color px-6 lg:px-16 my-10'>
-      <div className='container mx-auto flex flex-col'>
+    <div className='min-h-screen flex flex-col  items-center w-full text-app-text-color  '>
+      <div className='px-6 lg:px-16 w-full mb-7 py-5 border-b border-app-neutral200 border-t border-app-neutral200'>
+        <Link href={`/${locale}/promotion`}>
+          <button className='flex items-center gap-2 text-app-neutral600 hover:text-app-neutral700  p-0 h-auto bg-transparent border-0 cursor-pointer transition-colors'>
+            <ArrowLeft className='w-5 h-5' />
+            <span className='text-base'>{lang?.common?.back}</span>
+          </button>
+        </Link>
+      </div>
+      <div className='container md:w-[876px] w-full mx-auto flex flex-col'>
         {/* Header */}
         <div className='mb-[36px]'>
-          <h1 className='text-3xl font-bold text-app-text-color uppercase'>{lang?.common?.promotion}</h1>
+          <h1 className='text-3xl font-bold text-app-text-color mb-2'>{lang?.common?.promotion}</h1>
+          <p className='text-base text-gray-500'>{lang?.common?.promotionDescription}</p>
         </div>
 
         {/* Desktop Layout */}
         <div className='hidden md:flex gap-8'>
-          {/* Filter Sidebar */}
-          {/* <div className='w-64 flex-shrink-0'>
-            <div className='space-y-2'>
-              <Button
-                onClick={() => setActiveFilter('all')}
-                variant={activeFilter === 'all' ? 'default' : 'outline'}
-                className={`w-full justify-start gap-3 h-12 ${
-                  activeFilter === 'all'
-                    ? 'bg-[#5f32e7] hover:bg-[#5f32e7]/90 text-white border-none'
-                    : 'bg-transparent border-[#FFFFFF1A] text-app-neutral500 hover:text-white hover:bg-transparent'
-                }`}
-              >
-                <div className='w-5 h-5 rounded bg-gray-600'></div>
-                <span className='font-medium'>ALL</span>
-              </Button>
-
-              <Button
-                onClick={() => setActiveFilter('trending')}
-                variant={activeFilter === 'trending' ? 'default' : 'outline'}
-                className={`w-full justify-start gap-3 h-12 ${
-                  activeFilter === 'trending'
-                    ? 'bg-[#5f32e7] hover:bg-[#5f32e7]/90 text-white border-none'
-                    : 'bg-transparent border-[#FFFFFF1A] text-app-neutral500 hover:text-white hover:bg-transparent'
-                }`}
-              >
-                <TrendingUp className='w-5 h-5' />
-                <span className='font-medium'>TRENDING</span>
-              </Button>
-
-              <Button
-                onClick={() => setActiveFilter('member')}
-                variant={activeFilter === 'member' ? 'default' : 'outline'}
-                className={`w-full justify-start gap-3 h-12 ${
-                  activeFilter === 'member'
-                    ? 'bg-[#5f32e7] hover:bg-[#5f32e7]/90 text-white border-none'
-                    : 'bg-transparent border-[#FFFFFF1A] text-app-neutral500 hover:text-white hover:bg-transparent'
-                }`}
-              >
-                <Users className='w-5 h-5' />
-                <span className='font-medium'>MEMBER</span>
-              </Button>
-            </div>
-          </div> */}
-
           {/* Promotion Cards */}
-          <div className='flex-1 flex flex-col gap-4'>
+          <div className='flex-1 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6 gap-4'>
             {initialData && initialData?.length > 0 ? (
               initialData.map(promo => {
                 return (
-                  <Link key={promo.id} href={`/promotion/${promo.id}`}>
-                    <Card className='cursor-pointer transition-opacity bg-app-white100'>
-                      <CardContent className='flex gap-4'>
-                        <div className='w-[350px] h-[165px] flex-shrink-0 rounded-lg overflow-hidden'>
-                          {promo?.banner ? (
-                            <Image
-                              src={promo.banner}
-                              alt={`Promotion Banner-${promo.banner}-Desktop`}
-                              width={150}
-                              height={150}
-                              className='w-full h-full object-cover'
-                            />
-                          ) : (
-                            <div className='flex items-center justify-center w-full h-full'>
-                              <ImageIcon width={75} height={75} className='text-app-text-color' />
-                            </div>
+                  <Link className='col-span-2' key={promo.id} href={`/promotion/${promo.id}`}>
+                    <Card className='cursor-pointer transition-opacity bg-white overflow-hidden rounded-lg shadow-sm flex flex-col hover:shadow-md transition-shadow'>
+                      {/* Banner Section */}
+                      <div className='w-full h-[180px] relative overflow-hidden flex-shrink-0'>
+                        {promo?.banner ? (
+                          <Image
+                            src={promo.banner}
+                            alt={`Promotion Banner-${promo.banner}-Desktop`}
+                            width={200}
+                            height={180}
+                            className='w-full h-full object-cover'
+                          />
+                        ) : (
+                          <div className='flex items-center justify-center w-full h-full bg-gradient-to-br from-purple-600 via-purple-500 to-blue-400'>
+                            <ImageIcon width={40} height={40} className='text-white' />
+                          </div>
+                        )}
+                      </div>
+                      {/* White Background Section with Promotion Details */}
+                      <CardContent className='p-3 bg-white flex-1 flex flex-col justify-between'>
+                        <div className='flex flex-col gap-1.5'>
+                          {/* Rocket emoji + Title */}
+                          <div className='flex items-center gap-1'>
+                            <h3 className='text-app-text-color text-sm sm:text-base md:text-lg  font-medium line-clamp-2'>
+                              {promo.name}
+                            </h3>
+                          </div>
+                          {/* Subtitle - Bold */}
+                          {promo?.subtitle && (
+                            <p className='text-app-text-color text-sm font-bold line-clamp-2'>{promo.subtitle}</p>
                           )}
                         </div>
-                        <div className='flex-1 flex flex-col justify-between py-4 pr-4'>
-                          <div>
-                            <div className='flex items-center gap-2 text-app-neutral500 text-sm mb-2'>
-                              <Clock className='w-4 h-4' />
-                              <CountdownTimerPromotion endDate={promo?.end_date} lang={lang} />
-                            </div>
-                            <h3 className='text-app-text-color text-xl font-bold mb-1'>{promo.name}</h3>
-                            <div className='text-app-neutral500'>
-                              <div
-                                dangerouslySetInnerHTML={{
-                                  __html:
-                                    expandedId === promo.id
-                                      ? promo?.content || ''
-                                      : truncateHtml(promo?.content || '', charLimit)
-                                }}
-                              />
-
-                              {(promo?.content?.length ?? 0) > charLimit && (
-                                <button
-                                  onClick={e => {
-                                    e.preventDefault() // prevent Link click
-                                    toggleExpanded(promo.id)
-                                  }}
-                                  className='text-xs text-app-text-color mt-1 underline'
-                                >
-                                  {expandedId === promo.id
-                                    ? lang?.common?.seeLess || 'See Less'
-                                    : lang?.common?.seeMore || 'See More →'}
-                                </button>
-                              )}
-                            </div>
-                          </div>
-                        </div>
+                        {/* Start Date */}
+                        {promo?.start_date && (
+                          <p className='text-[12px] text-gray-500 mt-auto'>
+                            {locale === 'ko' ? '시작일' : 'Start date'}: {formatStartDate(promo.start_date)}
+                          </p>
+                        )}
                       </CardContent>
                     </Card>
                   </Link>
                 )
               })
             ) : (
-              <div className='flex flex-col items-center justify-center w-full h-[50vh]'>
+              <div className='flex flex-col items-center justify-center w-full h-[50vh] col-span-full'>
                 <ImageIcon width={75} height={75} className='text-app-text-color' />
                 <span className='mt-3'>{lang?.common?.noPromoFound}</span>
               </div>
@@ -190,62 +141,52 @@ export default function PromotionListing({ lang, locale, initialData }: Promotio
           </div> */}
 
           {/* Promotion Cards */}
-          <div className='gap-4 flex flex-col'>
+          <div className='grid grid-cols-2 gap-3'>
             {initialData && initialData.length > 0 ? (
               initialData.map(promo => (
                 <Link key={promo.id} href={`/promotion/${promo.id}`}>
-                  <Card className='cursor-pointer transition-opacity bg-app-white100 overflow-hidden'>
-                    <div className='aspect-video w-full'>
+                  <Card className='cursor-pointer transition-opacity bg-white overflow-hidden rounded-lg shadow-sm w-full h-[300px] flex flex-col'>
+                    {/* Banner Section */}
+                    <div className='w-full h-[150px] relative overflow-hidden flex-shrink-0'>
                       {promo?.banner ? (
                         <Image
                           src={promo.banner}
                           alt={`Promotion Banner-${promo.banner}-Mobile`}
-                          width={150}
+                          width={200}
                           height={150}
                           className='w-full h-full object-cover'
                         />
                       ) : (
-                        <div className='flex items-center justify-center w-full h-full'>
-                          <ImageIcon width={75} height={75} className='text-app-text-color' />
+                        <div className='flex items-center justify-center w-full h-full bg-gradient-to-br from-purple-600 via-purple-500 to-blue-400'>
+                          <ImageIcon width={40} height={40} className='text-white' />
                         </div>
                       )}
                     </div>
-                    <CardContent className='p-4'>
-                      <div className='flex items-center gap-2 text-app-neutral500 text-sm mb-3'>
-                        <Clock className='w-4 h-4' />
-                        <CountdownTimerPromotion endDate={promo?.end_date} lang={lang} />
-                      </div>
-                      <h3 className='text-app-text-color text-lg font-bold mb-2'>{promo.name}</h3>
-                      <div className='text-app-neutral500'>
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html:
-                              expandedId === promo.id
-                                ? promo?.content || ''
-                                : truncateHtml(promo?.content || '', charLimit)
-                          }}
-                        />
-
-                        {(promo?.content?.length ?? 0) > charLimit && (
-                          <button
-                            onClick={e => {
-                              e.preventDefault() // prevent Link click
-                              toggleExpanded(promo.id)
-                            }}
-                            className='text-xs text-app-text-color mt-1 underline'
-                          >
-                            {expandedId === promo.id
-                              ? lang?.common?.seeLess || 'See Less'
-                              : lang?.common?.seeMore || 'See More →'}
-                          </button>
+                    {/* White Background Section with Promotion Details */}
+                    <CardContent className='p-3 bg-white flex-1 flex flex-col justify-between'>
+                      <div className='flex flex-col gap-1.5'>
+                        {/* Rocket emoji + Title */}
+                        <div className='flex items-center gap-1'>
+                          <span className='text-sm'>🚀</span>
+                          <h3 className='text-app-text-color text-xs font-medium line-clamp-2'>{promo.name}</h3>
+                        </div>
+                        {/* Subtitle - Bold */}
+                        {promo?.subtitle && (
+                          <p className='text-app-text-color text-xs font-bold line-clamp-2'>{promo.subtitle}</p>
                         )}
                       </div>
+                      {/* Start Date */}
+                      {promo?.start_date && (
+                        <p className='text-[10px] text-gray-500 mt-auto'>
+                          {locale === 'ko' ? '시작일' : 'Start date'}: {formatStartDate(promo.start_date)}
+                        </p>
+                      )}
                     </CardContent>
                   </Card>
                 </Link>
               ))
             ) : (
-              <div className='flex flex-col items-center justify-center w-full h-[50vh]'>
+              <div className='flex flex-col items-center justify-center w-full h-[50vh] col-span-full'>
                 <ImageIcon width={75} height={75} className='text-app-text-color' />
                 <span className='mt-3'>{lang?.common?.noPromoFound}</span>
               </div>
