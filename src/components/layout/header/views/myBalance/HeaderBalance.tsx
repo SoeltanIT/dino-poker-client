@@ -106,10 +106,10 @@ const HeaderBalance = ({ lang, locale, data, onShow, dataFee, pokerBalance }: My
                   <span
                     className={cn(
                       'flex gap-1 font-semibold text-white',
-                      String(data).length > 6 ? 'text-base' : 'text-sm'
+                      String(pokerBalance?.provider_balance).length > 6 ? 'text-base' : 'text-sm'
                     )}
                   >
-                    {thousandSeparatorComma(Number(data?.provider_balance ?? 0))}
+                    {thousandSeparatorComma(Number(pokerBalance?.provider_balance ?? 0))}
                   </span>
                 )}
               </div>

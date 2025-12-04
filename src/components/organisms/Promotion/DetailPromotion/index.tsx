@@ -103,9 +103,7 @@ export default function PromotionDetail({ initialData, lang, locale, isLogin }: 
                   </h2>
                 </div>
                 {/* Subtitle */}
-                <p className='text-sm md:text-base font-bold text-app-text-color'>
-                  {initialData.subtitle || '첫 충전 시, 충전 금액의 50%를 보너스로 즉시'}
-                </p>
+                <p className='text-sm md:text-base font-bold text-app-text-color'>{initialData.sub_title || ''}</p>
                 {initialData?.start_date && (
                   <p className='text-sm md:text-sm font-thin text-app-text-color'>
                     {locale === 'ko' ? '시작일' : 'Start date'}: {formatStartDate(initialData.start_date)}
@@ -170,9 +168,7 @@ export default function PromotionDetail({ initialData, lang, locale, isLogin }: 
               </div>
 
               {/* Subtitle */}
-              <p className='text-xs font-semibold text-app-text-color'>
-                {initialData.subtitle || '첫 충전 시, 충전 금액의 50%를 보너스로 즉시'}
-              </p>
+              <p className='text-xs font-semibold text-app-text-color'>{initialData.sub_title || ''}</p>
 
               {/* Start Date */}
               {initialData?.start_date && (

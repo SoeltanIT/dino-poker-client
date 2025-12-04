@@ -48,6 +48,7 @@ export interface HeaderSheetProps {
   features?: FeatureFlags
   balance?: BalanceDTO
   dataFee?: TransferFeePayload
+  pokerBalance?: PokerBalanceDTO
 }
 
 export interface CryptoWithdrawFeeInfo {
@@ -112,4 +113,5 @@ export interface MyBalanceProps {
   onClose?: () => void
   data?: BalanceDTO
   dataFee?: TransferFeePayload
+  pokerBalance: PokerBalanceDTO
 }

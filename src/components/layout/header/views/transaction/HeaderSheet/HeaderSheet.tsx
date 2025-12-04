@@ -23,12 +23,12 @@ export default function HeaderSheet({
   selectedPromotion,
   features,
   balance,
-  dataFee
+  dataFee,
+  pokerBalance
 }: HeaderSheetProps & { open: boolean; onClose: () => void }) {
   const [tabValue, setTabValue] = useState(defaultValue)
   const [activeTab, setActiveTab] = useState<string>('fiat')
   const [activeTabWD, setActiveTabWD] = useState<string>('fiat')
-
   const isStatus = data?.data?.status
 
   // Custom hooks
@@ -125,7 +125,15 @@ export default function HeaderSheet({
               locale={locale}
             />
           }
-          convertBalanceTab={<ConvertBalanceTab lang={lang} locale={locale} data={balance} dataFee={dataFee} />}
+          convertBalanceTab={
+            <ConvertBalanceTab
+              pokerBalance={pokerBalance}
+              lang={lang}
+              locale={locale}
+              data={balance}
+              dataFee={dataFee}
+            />
+          }
         />
       </SheetContent>
     </Sheet>

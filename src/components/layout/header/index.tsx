@@ -221,6 +221,7 @@ export const Header = ({
       {activeTab && (
         <HeaderSheet
           open={isSheetOpen}
+          pokerBalance={pokerBalance}
           onClose={() => setIsSheetOpen(false)}
           defaultValue={activeTab}
           lang={lang}

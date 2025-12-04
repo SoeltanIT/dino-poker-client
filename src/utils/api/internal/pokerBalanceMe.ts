@@ -5,6 +5,5 @@ import { getApiEndpoint } from '@/utils/api_endpoint'
 
 export const getPokerBalanceMe = async () => {
   const res = await serverApiClient.get<PokerBalanceResponse>(getApiEndpoint('poker_balance'))
-
   return res?.data
 }

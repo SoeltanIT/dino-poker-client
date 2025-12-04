@@ -1,6 +1,6 @@
 'use client'
 
-import { GetData, useMutationQuery } from '@/@core/hooks/use-query'
+import { useMutationQuery } from '@/@core/hooks/use-query'
 import { TransferBalanceFormData, TransferBalanceSchema } from '@/@core/utils/schema/Balance/TransferBalanceSchema'
 import { IconSouthKoreaFlag } from '@/components/atoms/Icons'
 import { TabSwitcher } from '@/components/molecules/TabSwitcher'
@@ -15,9 +15,8 @@ import { Eye, EyeOff, Loader2 } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { Resolver, SubmitHandler, useForm } from 'react-hook-form'
 import { MyBalanceProps } from '../types'
-import { BalanceResponse } from '@/@core/interface/balance/Balance'
 
-export default function MyBalance({ lang, locale, onClose, data, dataFee }: MyBalanceProps) {
+export default function MyBalance({ lang, locale, onClose, data, pokerBalance, dataFee }: MyBalanceProps) {
   const [showBalance, setShowBalance] = useState(true)
   const [showBonusBalance, setShowBonusBalance] = useState(true)
   const [showIDNBalance, setShowIDNBalance] = useState(true)
@@ -310,12 +309,12 @@ export default function MyBalance({ lang, locale, onClose, data, dataFee }: MyBa
                 <span
                   className={cn(
                     `font-bold text-app-text-color flex gap-1.5`,
-                    String(data?.provider_balance)?.length > 7 ? 'text-lg' : 'text-2xl'
+                    String(pokerBalance?.provider_balance)?.length > 7 ? 'text-lg' : 'text-2xl'
                   )}
                 >
-                  {data !== undefined && data !== null ? (
+                  {pokerBalance !== undefined && pokerBalance !== null ? (
                     showIDNBalance ? (
-                      thousandSeparatorComma(Number(data?.provider_balance))
+                      thousandSeparatorComma(Number(pokerBalance?.provider_balance))
                     ) : (
                       <span className='inline-flex gap-1 items-center'>
                         {Array.from({ length: 5 }).map((_, index) => (
@@ -359,6 +358,10 @@ export default function MyBalance({ lang, locale, onClose, data, dataFee }: MyBa
                       onBlur={field.onBlur}
                       type='text'
                       inputMode='numeric'
+                      disabled={
+                        (activeTab === 'transferIn' && data?.is_promotion_used) ||
+                        (activeTab === 'transferOut' && data?.is_promotion_ongoing)
+                      }
                       placeholder={lang?.common?.typeAmount}
                       value={field.value === '' ? '' : thousandSeparatorComma(field.value)}
                       onChange={e => {
@@ -370,10 +373,12 @@ export default function MyBalance({ lang, locale, onClose, data, dataFee }: MyBa
                     <Button
                       type='button'
                       variant='outline'
+                      disabled={activeTab === 'transferOut' && data?.is_promotion_ongoing}
                       className='h-full bg-transparent border-app-neutral600 text-app-neutral500 hover:bg-gray-700 hover:text-white px-4'
                       onClick={() => {
                         // take balance from your props
-                        const allBalance = (activeTab === 'transferIn' ? data?.balance : data?.provider_balance) ?? 0
+                        const allBalance =
+                          (activeTab === 'transferIn' ? data?.balance : pokerBalance?.provider_balance) ?? 0
                         form.setValue('transfer', String(allBalance), { shouldDirty: true, shouldTouch: true })
                       }}
                     >
@@ -381,6 +386,9 @@ export default function MyBalance({ lang, locale, onClose, data, dataFee }: MyBa
                     </Button>
                   </div>
                 </FormControl>
+                {activeTab === 'transferOut' && data?.is_promotion_ongoing && (
+                  <span className='text-app-warning'>{lang?.common?.promotionOngoing}</span>
+                )}
                 <FormMessage className='text-app-danger' />
               </FormItem>
             )}
@@ -414,7 +422,7 @@ export default function MyBalance({ lang, locale, onClose, data, dataFee }: MyBa
           <div className='pt-2 pb-10'>
             <Button
               type='submit'
-              disabled={isTransferLoading}
+              disabled={(activeTab === 'transferOut' && data?.is_promotion_ongoing) || isTransferLoading}
               className='w-full bg-app-primary uppercase hover:bg-app-primary-hover text-white py-4 text-lg font-medium rounded-lg transition-colors'
             >
               {isTransferLoading ? <Loader2 className='animate-spin' /> : lang?.common?.submit}

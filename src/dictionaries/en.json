@@ -314,7 +314,8 @@
     "totalNGR": "Total NGR",
     "reason": "Reason",
     "commissionRate": "Commission Rate",
-    "totalActiveUsers": "Total Active Users"
+    "totalActiveUsers": "Total Active Users",
+    "promotionOngoing": "Transfer out disabled due promotion on Going"
   },
   "game": {
     "texaspoker": "Texas Poker",

@@ -7,6 +7,7 @@ import { UserMeResponse } from '@/@core/interface/User'
 import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/molecules/Footer/footer'
 import { Navbar } from '@/components/molecules/Navbar'
+import { WeeklyMaintenanceModal } from '@/components/organisms/WeeklyMaintenanceModal'
 import { useTelegramMiniApp } from '@/components/providers/TelegramMiniApp'
 import { Locale } from '@/i18n-config'
 import { ConfigType } from '@/types/config'
@@ -64,7 +65,6 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config, feat
     undefined,
     isAllowRequest
   )
-
   const { data: respPokerBalance, isLoading: pokerBalanceLoading } = GetData<PokerBalanceResponse>(
     '/balance-poker',
     ['getBalancePoker'],
@@ -80,7 +80,7 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config, feat
     undefined,
     true // 👈 disableErrorToast
   )
-
+  console.log(respPokerBalance?.data)
   const { data: respTransferBalanceFee, isLoading: transferFeeLoading } = GetData<TransferBalanceFeeResponseMapped>(
     '/transfer_balance_fee', // hits your Next.js API route, not the real backend
     ['getTransferBalanceFee'],
@@ -111,7 +111,7 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config, feat
 
   useEffect(() => {
     if (!isLoading) hideLoader()
-  }, [isLoading])
+  }, [isLoading, hideLoader])
 
   return (
     <div className='min-h-screen bg-app-background-secondary text-app-text-color'>
@@ -149,6 +149,9 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config, feat
         isLogin={!!userData?.data && !isSessionLoading}
         features={features}
       />
+
+      {/* Weekly Maintenance Modal */}
+      <WeeklyMaintenanceModal locale={locale} />
 
       {/* Floating Help Button */}
       {/* {parts[1] !== 'sport' && (

@@ -18,7 +18,7 @@ export default function PromotionListing({ lang, locale, initialData }: Promotio
   }
 
   return (
-    <div className='min-h-screen flex flex-col  items-center w-full text-app-text-color  '>
+    <div className='min-h-screen flex flex-col px-2 md:px-0  items-center w-full text-app-text-color  '>
       <div className='px-6 lg:px-16 w-full mb-7 py-5 border-b border-app-neutral200 border-t border-app-neutral200'>
         <Link href={`/${locale}/promotion`}>
           <button className='flex items-center gap-2 text-app-neutral600 hover:text-app-neutral700  p-0 h-auto bg-transparent border-0 cursor-pointer transition-colors'>
@@ -69,8 +69,8 @@ export default function PromotionListing({ lang, locale, initialData }: Promotio
                             </h3>
                           </div>
                           {/* Subtitle - Bold */}
-                          {promo?.subtitle && (
-                            <p className='text-app-text-color text-sm font-bold line-clamp-2'>{promo.subtitle}</p>
+                          {promo?.sub_title && (
+                            <p className='text-app-text-color text-sm font-bold line-clamp-2'>{promo.sub_title}</p>
                           )}
                         </div>
                         {/* Start Date */}
@@ -95,57 +95,12 @@ export default function PromotionListing({ lang, locale, initialData }: Promotio
 
         {/* Mobile Layout */}
         <div className='md:hidden'>
-          {/* Filter Tabs */}
-          {/* <div className='flex gap-2 mb-6 overflow-x-auto pb-2'>
-            <Button
-              onClick={() => setActiveFilter('all')}
-              variant={activeFilter === 'all' ? 'default' : 'outline'}
-              size='sm'
-              className={`flex items-center gap-2 rounded-full whitespace-nowrap ${
-                activeFilter === 'all'
-                  ? 'bg-[#5f32e7] hover:bg-[#5f32e7]/90 text-white border-none'
-                  : 'bg-transparent border-[#FFFFFF1A] text-app-neutral500 hover:text-white hover:bg-transparent'
-              }`}
-            >
-              <div className='w-4 h-4 rounded bg-gray-600'></div>
-              <span className='font-medium'>ALL</span>
-            </Button>
-
-            <Button
-              onClick={() => setActiveFilter('trending')}
-              variant={activeFilter === 'trending' ? 'default' : 'outline'}
-              size='sm'
-              className={`flex items-center gap-2 rounded-full whitespace-nowrap ${
-                activeFilter === 'trending'
-                  ? 'bg-[#5f32e7] hover:bg-[#5f32e7]/90 text-white border-none'
-                  : 'bg-transparent border-[#FFFFFF1A] text-app-neutral500 hover:text-white hover:bg-transparent'
-              }`}
-            >
-              <TrendingUp className='w-4 h-4' />
-              <span className='font-medium'>TRENDING</span>
-            </Button>
-
-            <Button
-              onClick={() => setActiveFilter('member')}
-              variant={activeFilter === 'member' ? 'default' : 'outline'}
-              size='sm'
-              className={`flex items-center gap-2 rounded-full whitespace-nowrap ${
-                activeFilter === 'member'
-                  ? 'bg-[#5f32e7] hover:bg-[#5f32e7]/90 text-white border-none'
-                  : 'bg-transparent border-[#FFFFFF1A] text-app-neutral500 hover:text-white hover:bg-transparent'
-              }`}
-            >
-              <Users className='w-4 h-4' />
-              <span className='font-medium'>MEMBER</span>
-            </Button>
-          </div> */}
-
           {/* Promotion Cards */}
-          <div className='grid grid-cols-2 gap-3'>
+          <div className='grid grid-cols-1  gap-3'>
             {initialData && initialData.length > 0 ? (
               initialData.map(promo => (
                 <Link key={promo.id} href={`/promotion/${promo.id}`}>
-                  <Card className='cursor-pointer transition-opacity bg-white overflow-hidden rounded-lg shadow-sm w-full h-[300px] flex flex-col'>
+                  <Card className='cursor-pointer transition-opacity bg-white overflow-hidden rounded-lg shadow-sm w-full flex flex-col'>
                     {/* Banner Section */}
                     <div className='w-full h-[150px] relative overflow-hidden flex-shrink-0'>
                       {promo?.banner ? (
@@ -163,21 +118,20 @@ export default function PromotionListing({ lang, locale, initialData }: Promotio
                       )}
                     </div>
                     {/* White Background Section with Promotion Details */}
-                    <CardContent className='p-3 bg-white flex-1 flex flex-col justify-between'>
+                    <CardContent className='p-3 bg-white flex flex-col'>
                       <div className='flex flex-col gap-1.5'>
                         {/* Rocket emoji + Title */}
                         <div className='flex items-center gap-1'>
-                          <span className='text-sm'>🚀</span>
-                          <h3 className='text-app-text-color text-xs font-medium line-clamp-2'>{promo.name}</h3>
+                          <h3 className='text-app-text-color text-base font-medium line-clamp-2'>{promo.name}</h3>
                         </div>
                         {/* Subtitle - Bold */}
-                        {promo?.subtitle && (
-                          <p className='text-app-text-color text-xs font-bold line-clamp-2'>{promo.subtitle}</p>
+                        {promo?.sub_title && (
+                          <p className='text-app-text-color text-sm font-medium line-clamp-2'>{promo.sub_title}</p>
                         )}
                       </div>
                       {/* Start Date */}
                       {promo?.start_date && (
-                        <p className='text-[10px] text-gray-500 mt-auto'>
+                        <p className='text-[10px] text-gray-500 '>
                           {locale === 'ko' ? '시작일' : 'Start date'}: {formatStartDate(promo.start_date)}
                         </p>
                       )}
