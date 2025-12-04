@@ -315,7 +315,8 @@
     "reason": "Reason",
     "commissionRate": "Commission Rate",
     "totalActiveUsers": "Total Active Users",
-    "promotionOngoing": "Transfer out disabled due promotion on Going"
+    "promotionOngoing": "Transfer out disabled due promotion on Going",
+    "cancel": "Cancel"
   },
   "game": {
     "texaspoker": "Texas Poker",

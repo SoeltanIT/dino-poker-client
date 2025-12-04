@@ -3,6 +3,7 @@
 import { GetData } from '@/@core/hooks/use-query'
 import CountdownTimerPromotion from '@/components/molecules/CountdownTimer/CountdownTimerPromotion'
 import { TabSwitcher } from '@/components/molecules/TabSwitcher'
+import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { MyPromotionDTO } from '@/types/promotionDTO'
 import { thousandSeparator } from '@/utils/helper/formatNumber'
@@ -157,6 +158,10 @@ export default function MyPromotion({ lang, locale }: MyPromotionProps) {
                         </div>
                       </div>
                     </div>
+
+                    <Button variant='default' className='bg-app-primary w-full text-white  text-sm font-semibold'>
+                      {lang?.common?.cancel}
+                    </Button>
                   </div>
                 </div>
               )
