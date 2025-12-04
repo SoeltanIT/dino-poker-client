@@ -9,6 +9,7 @@ import type { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel'
 import useEmblaCarousel from 'embla-carousel-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import * as React from 'react'
 
 export type Promotion = {
@@ -47,7 +48,7 @@ export default function PromoCarousel({
   const [selectedIndex, setSelectedIndex] = React.useState(0)
   const [scrollSnaps, setScrollSnaps] = React.useState<number[]>([])
   const [isPaused, setIsPaused] = React.useState(false)
-
+  const router = useRouter()
   const onSelect = React.useCallback((embla: EmblaCarouselType) => {
     setSelectedIndex(embla.selectedScrollSnap())
   }, [])
@@ -102,11 +103,14 @@ export default function PromoCarousel({
       onBlur={() => setIsPaused(false)}
       aria-roledescription='carousel'
     >
-      <Link href={`/${locale}/announcements`}>
+      <>
         {isLoading ? (
           <Skeleton className='h-[220px] w-full rounded-2xl md:h-full' />
         ) : isEmpty ? (
-          <div className='relative w-full h-full overflow-hidden rounded-2xl ring-1 ring-white/10 cursor-pointer hover:opacity-90 transition-opacity'>
+          <div
+            onClick={() => router.push(`/${locale}/announcements`)}
+            className='relative w-full h-full overflow-hidden rounded-2xl ring-1 ring-white/10 cursor-pointer hover:opacity-90 transition-opacity'
+          >
             <Image
               src={'/images/default/promo_banner.avif'}
               alt='Promotion placeholder'
@@ -133,7 +137,11 @@ export default function PromoCarousel({
             <div className='embla h-full' ref={emblaRef}>
               <div className='embla__container h-full'>
                 {items.map(p => (
-                  <div className='embla__slide h-full' key={p.id}>
+                  <div
+                    onClick={() => router.push(p.ctaHref ?? '')}
+                    className='embla__slide h-full cursor-pointer'
+                    key={p.id}
+                  >
                     <div className='relative h-full w-full overflow-hidden rounded-2xl'>
                       {p.imageUrl ? (
                         <Image
@@ -202,7 +210,7 @@ export default function PromoCarousel({
             )}
           </>
         )}
-      </Link>
+      </>
 
       <style jsx>{`
         .embla {
