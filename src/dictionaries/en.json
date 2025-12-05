@@ -319,7 +319,6 @@
     "cancel": "Cancel",
     "yes": "Yes",
     "no": "No",
-    "loading": "Loading...",
     "cancelPromotion": "Cancel Promotion",
     "cancelPromotionConfirmation": "Are you sure you want to cancel this promotion? This action cannot be undone.",
     "promotionCancelledSuccessfully": "Promotion cancelled successfully"

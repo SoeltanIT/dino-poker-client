@@ -80,6 +80,8 @@ export default function MyPromotion({ lang, locale }: MyPromotionProps) {
         return 'bg-app-danger'
       case 'pending':
         return 'bg-app-neutral600'
+      case 'cancelled':
+        return 'bg-blue-500'
       default:
         return 'bg-app-neutral600'
     }
@@ -95,6 +97,8 @@ export default function MyPromotion({ lang, locale }: MyPromotionProps) {
         return lang?.common?.failed
       case 'pending':
         return lang?.common?.pending
+      case 'cancelled':
+        return lang?.common?.cancel
       default:
         return '-'
     }
