@@ -40,7 +40,11 @@ export default function MyPromotion({ lang, locale }: MyPromotionProps) {
     'promotion'
   )
 
-  const { data: respPromoOnGoing, isLoading: onGoingLoading } = GetData<any>(
+  const {
+    data: respPromoOnGoing,
+    isLoading: onGoingLoading,
+    refetch: refetchPromoOnGoing
+  } = GetData<any>(
     '/promotion/my-promotion',
     ['getMyPromotionOngoing'],
     false,
@@ -54,7 +58,11 @@ export default function MyPromotion({ lang, locale }: MyPromotionProps) {
     'promotion'
   )
 
-  const { data: respPromoHistory, isLoading: historyLoading } = GetData<any>(
+  const {
+    data: respPromoHistory,
+    isLoading: historyLoading,
+    refetch: refetchPromoHistory
+  } = GetData<any>(
     '/promotion/my-promotion/my-promotion-history',
     ['getMyPromotionHistory'],
     false,
@@ -69,6 +77,7 @@ export default function MyPromotion({ lang, locale }: MyPromotionProps) {
   )
 
   const currentCards: MyPromotionDTO[] = activeTab === 'ongoing' ? respPromoOnGoing : respPromoHistory
+  const isLoading = activeTab === 'ongoing' ? onGoingLoading : historyLoading
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -120,6 +129,8 @@ export default function MyPromotion({ lang, locale }: MyPromotionProps) {
       })
       setIsConfirmDialogOpen(false)
       setSelectedPromotion(null)
+      refetchPromoOnGoing()
+      refetchPromoHistory()
     } catch (error) {
       console.error('Failed to cancel promotion:', error)
     }
@@ -135,8 +146,23 @@ export default function MyPromotion({ lang, locale }: MyPromotionProps) {
 
         <TabSwitcher tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
 
-        {/* Cards Grid */}
-        {currentCards && currentCards?.length > 0 ? (
+        {/* Loading State */}
+        {isLoading ? (
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+            {[1, 2, 3].map(index => (
+              <div key={index} className='bg-app-white100 rounded-xl overflow-hidden animate-pulse'>
+                {/* Image Skeleton */}
+                <div className='w-full aspect-video bg-app-neutral600' />
+                {/* Content Skeleton */}
+                <div className='p-4 space-y-3'>
+                  <div className='h-4 bg-app-neutral600 rounded w-3/4' />
+                  <div className='h-8 bg-app-neutral600 rounded' />
+                  <div className='h-10 bg-app-neutral600 rounded' />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : currentCards && currentCards?.length > 0 ? (
           <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
             {currentCards.map((card, index) => {
               const turnoverTarget = Number(card?.turnover_target ?? 0)
