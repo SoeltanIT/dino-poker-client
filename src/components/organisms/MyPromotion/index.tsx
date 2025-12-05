@@ -1,9 +1,17 @@
 'use client'
 
-import { GetData } from '@/@core/hooks/use-query'
+import { GetData, useMutationQuery } from '@/@core/hooks/use-query'
 import CountdownTimerPromotion from '@/components/molecules/CountdownTimer/CountdownTimerPromotion'
 import { TabSwitcher } from '@/components/molecules/TabSwitcher'
 import { Button } from '@/components/ui/button'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle
+} from '@/components/ui/dialog'
 import { cn } from '@/lib/utils'
 import { MyPromotionDTO } from '@/types/promotionDTO'
 import { thousandSeparator } from '@/utils/helper/formatNumber'
@@ -14,10 +22,23 @@ import { MyPromotionProps } from './types'
 
 export default function MyPromotion({ lang, locale }: MyPromotionProps) {
   const [activeTab, setActiveTab] = useState('ongoing')
+  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false)
+  const [selectedPromotion, setSelectedPromotion] = useState<MyPromotionDTO | null>(null)
+
   const tabs = [
     { name: lang?.common?.onGoing, value: 'ongoing' },
     { name: lang?.common?.history, value: 'history' }
   ]
+
+  const { mutateAsync: cancelPromotion, isPending: isCancelling } = useMutationQuery<any, any>(
+    ['getMyPromotionOngoing', 'getMyPromotionHistory'],
+    'patch',
+    'json',
+    true,
+    lang?.common?.promotionCancelledSuccessfully,
+    undefined,
+    'promotion'
+  )
 
   const { data: respPromoOnGoing, isLoading: onGoingLoading } = GetData<any>(
     '/promotion/my-promotion',
@@ -76,6 +97,27 @@ export default function MyPromotion({ lang, locale }: MyPromotionProps) {
         return lang?.common?.pending
       default:
         return '-'
+    }
+  }
+
+  const handleCancelClick = (promo: MyPromotionDTO) => {
+    setSelectedPromotion(promo)
+    setIsConfirmDialogOpen(true)
+  }
+
+  const handleConfirmCancel = async () => {
+    if (!selectedPromotion?.id) return
+    try {
+      await cancelPromotion({
+        url: `/promotion/my-promotion/my-promotion-history`,
+        body: {
+          id: selectedPromotion.id
+        }
+      })
+      setIsConfirmDialogOpen(false)
+      setSelectedPromotion(null)
+    } catch (error) {
+      console.error('Failed to cancel promotion:', error)
     }
   }
 
@@ -159,9 +201,18 @@ export default function MyPromotion({ lang, locale }: MyPromotionProps) {
                       </div>
                     </div>
 
-                    <Button variant='default' className='bg-app-primary w-full text-white  text-sm font-semibold'>
-                      {lang?.common?.cancel}
-                    </Button>
+                    {card.status === 'on_going' && (
+                      <Button
+                        onClick={() => handleCancelClick(card)}
+                        disabled={isCancelling}
+                        variant='default'
+                        className='bg-app-primary w-full text-white text-sm font-semibold hover:bg-app-primary-hover disabled:opacity-50 disabled:cursor-not-allowed'
+                      >
+                        {isCancelling && selectedPromotion?.id === card.id
+                          ? lang?.common?.loading || 'Loading...'
+                          : lang?.common?.cancel}
+                      </Button>
+                    )}
                   </div>
                 </div>
               )
@@ -180,6 +231,43 @@ export default function MyPromotion({ lang, locale }: MyPromotionProps) {
           </div>
         )}
       </div>
+
+      {/* Confirmation Dialog */}
+      <Dialog open={isConfirmDialogOpen} onOpenChange={setIsConfirmDialogOpen}>
+        <DialogContent className='bg-app-background-primary text-app-text-color border-app-neutral700 max-w-[90vw] sm:max-w-[425px]'>
+          <DialogHeader>
+            <DialogTitle className='text-lg font-semibold'>
+              {lang?.common?.cancelPromotion || 'Cancel Promotion'}
+            </DialogTitle>
+            <DialogDescription className='text-app-neutral400 text-sm'>
+              {lang?.common?.cancelPromotionConfirmation ||
+                'Are you sure you want to cancel this promotion? This action cannot be undone.'}
+            </DialogDescription>
+          </DialogHeader>
+          {selectedPromotion && (
+            <div className='py-4'>
+              <p className='text-sm font-medium text-app-text-color'>{selectedPromotion.name}</p>
+            </div>
+          )}
+          <DialogFooter className='gap-2 sm:gap-0'>
+            <Button
+              variant='outline'
+              onClick={() => setIsConfirmDialogOpen(false)}
+              className='border-app-neutral600 text-app-text-color hover:bg-app-neutral700'
+              disabled={isCancelling}
+            >
+              {lang?.common?.no || 'No'}
+            </Button>
+            <Button
+              onClick={handleConfirmCancel}
+              disabled={isCancelling}
+              className='bg-app-danger hover:bg-app-danger/90 text-white'
+            >
+              {isCancelling ? lang?.common?.loading || 'Loading...' : lang?.common?.yes || 'Yes'}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

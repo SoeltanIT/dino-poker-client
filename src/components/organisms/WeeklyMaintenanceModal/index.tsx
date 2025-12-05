@@ -22,29 +22,25 @@ export function WeeklyMaintenanceModal({ locale }: WeeklyMaintenanceModalProps) 
         }
       }
 
-      // 🧪 TESTING MODE: Always show modal today
-      // TODO: Remove this for production and uncomment the schedule logic below
-      return true
+      const now = new Date()
+      const day = now.getDay() // 0 = Sunday, 3 = Wednesday, 4 = Thursday
+      const hours = now.getHours()
+      const minutes = now.getMinutes()
+      const currentTimeInMinutes = hours * 60 + minutes
 
-      // const now = new Date()
-      // const day = now.getDay() // 0 = Sunday, 3 = Wednesday, 4 = Thursday
-      // const hours = now.getHours()
-      // const minutes = now.getMinutes()
-      // const currentTimeInMinutes = hours * 60 + minutes
+      // Show from Wednesday 00:01 (day 3) to Thursday 12:00 (day 4)
+      if (day === 3 && currentTimeInMinutes >= 1) {
+        // Wednesday from 00:01 onwards
+        return true
+      } else if (day === 4 && hours < 12) {
+        // Thursday before 12:00
+        return true
+      } else if (day === 4 && hours === 12 && minutes === 0) {
+        // Thursday exactly at 12:00
+        return true
+      }
 
-      // // Show from Wednesday 00:01 (day 3) to Thursday 12:00 (day 4)
-      // if (day === 3 && currentTimeInMinutes >= 1) {
-      //   // Wednesday from 00:01 onwards
-      //   return true
-      // } else if (day === 4 && hours < 12) {
-      //   // Thursday before 12:00
-      //   return true
-      // } else if (day === 4 && hours === 12 && minutes === 0) {
-      //   // Thursday exactly at 12:00
-      //   return true
-      // }
-
-      // return false
+      return false
     }
 
     setIsOpen(checkMaintenanceSchedule())

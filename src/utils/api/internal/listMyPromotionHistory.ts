@@ -9,3 +9,8 @@ export const getListMyPromotionHistory = async () => {
 
   return respData
 }
+
+export const cancelPromotion = async (id: string) => {
+  const res = await serverApiClient.patch(`/v1/promotion-usage/${id}/cancel`, undefined, undefined, 'promotion')
+  return res?.data?.data
+}

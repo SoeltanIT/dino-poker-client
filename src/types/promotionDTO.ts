@@ -19,6 +19,8 @@ export interface PromotionDTO {
 }
 
 export interface MyPromotionDTO {
+  id?: string
+  usage_id?: string
   name: string
   banner: string
   content: string

@@ -316,7 +316,13 @@
     "commissionRate": "커미션 비율",
     "totalActiveUsers": "총 활성 사용자",
     "promotionOngoing": "승진으로 인해 장애인으로 전환",
-    "cancel": "취소"
+    "cancel": "취소",
+    "yes": "예",
+    "no": "아니요",
+    "loading": "로딩 중...",
+    "cancelPromotion": "프로모션 취소",
+    "cancelPromotionConfirmation": "이 프로모션을 취소하시겠습니까? 이 작업은 취소할 수 없습니다.",
+    "promotionCancelledSuccessfully": "프로모션이 성공적으로 취소되었습니다"
   },
   "game": {
     "texaspoker": "텍사스 포커",
