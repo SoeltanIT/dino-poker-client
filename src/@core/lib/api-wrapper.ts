@@ -67,6 +67,7 @@ export async function withAuthErrorHandling<T>(
       30004: 'promoNotActive',
       30005: 'failedQueryPromoData',
       30006: 'failedInsertPromoUsage',
+      30007: 'promotionUsageNonCancelable',
       20000: 'invalidDepositAmount', // Only one 20000 key
       20001: 'transactionPasswordIncorrect',
       20002: 'failedUsePromo',
@@ -140,6 +141,7 @@ export async function withAuthErrorHandling<T>(
       30004: '프로모션이 현재 활성화되어 있지 않거나 이용할 수 없습니다.',
       30005: '프로모션 데이터를 조회하지 못했습니다.',
       30006: '프로모션 사용 기록을 삽입하지 못했습니다.',
+      30007: '현재 이 프로모션은 취소할 수 없습니다',
       20000: '잘못된 입금 금액입니다.',
       20001: '거래 비밀번호가 올바르지 않습니다.',
       20002: '프로모션 사용에 실패했습니다.',

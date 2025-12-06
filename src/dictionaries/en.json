@@ -520,6 +520,7 @@
     "promoNotActive": "Promotion is not currently active or available.",
     "failedQueryPromoData": "Failed to query promotion data.",
     "failedInsertPromoUsage": "Failed to insert promotion usage record.",
+    "promotionUsageNonCancelable": "This promotion cannot be canceled at the moment",
     "invalidDepositAmount": "Invalid deposit amount.",
     "transactionPasswordIncorrect": "Transaction password is incorrect.",
     "failedUsePromo": "Failed to use promotion.",
