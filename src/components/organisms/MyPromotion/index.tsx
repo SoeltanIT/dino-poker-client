@@ -283,16 +283,12 @@ export default function MyPromotion({ lang, locale }: MyPromotionProps) {
             <Button
               variant='outline'
               onClick={() => setIsConfirmDialogOpen(false)}
-              className='border-app-neutral600 text-app-text-color hover:bg-app-neutral700'
+              className='border-app-neutral600 text-app-text-color '
               disabled={isCancelling}
             >
               {lang?.common?.no || 'No'}
             </Button>
-            <Button
-              onClick={handleConfirmCancel}
-              disabled={isCancelling}
-              className='bg-app-danger hover:bg-app-danger/90 text-white'
-            >
+            <Button onClick={handleConfirmCancel} disabled={isCancelling} className='bg-app-danger  text-white'>
               {isCancelling ? lang?.common?.loading || 'Loading...' : lang?.common?.yes || 'Yes'}
             </Button>
           </DialogFooter>
