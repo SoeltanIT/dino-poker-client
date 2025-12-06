@@ -521,6 +521,7 @@
     "promoNotActive": "프로모션이 현재 활성화되어 있지 않거나 이용할 수 없습니다.",
     "failedQueryPromoData": "프로모션 데이터를 조회하지 못했습니다.",
     "failedInsertPromoUsage": "프로모션 사용 기록을 삽입하지 못했습니다.",
+    "promotionUsageNonCancelable": "현재 이 프로모션은 취소할 수 없습니다",
     "invalidDepositAmount": "잘못된 입금 금액입니다.",
     "transactionPasswordIncorrect": "거래 비밀번호가 올바르지 않습니다.",
     "failedUsePromo": "프로모션 사용에 실패했습니다.",
