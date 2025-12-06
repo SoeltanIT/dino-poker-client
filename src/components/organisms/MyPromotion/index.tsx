@@ -283,7 +283,7 @@ export default function MyPromotion({ lang, locale }: MyPromotionProps) {
             <Button
               variant='outline'
               onClick={() => setIsConfirmDialogOpen(false)}
-              className='border-app-neutral600 hover:border-app-neutral600 text-app-text-color '
+              className='border-app-neutral600 hover:bg-white text-app-text-color '
               disabled={isCancelling}
             >
               {lang?.common?.no || 'No'}
