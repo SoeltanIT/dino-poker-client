@@ -576,7 +576,7 @@
     "configNotFound": "Config not found",
     "failedToGetCurrencies": "Failed to get currencies",
     "failedToGetLanguages": "Failed to get languages",
-    "failedToUpdateReferralCommissionLimitSharedSettings": "Commission limit reached: maximum 40% already allocated",
+    "failedToUpdateReferralCommissionLimitSharedSettings": "Commission Share Limit Reached",
     "errSharedSettingsNotFound": "No Settings was found",
     "errOngoingDeposit": "Ongoing transaction blocks deposit",
     "errOngoingWithdrawal": "Ongoing transaction blocks withdrawal"

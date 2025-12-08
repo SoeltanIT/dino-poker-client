@@ -1,7 +1,7 @@
 // app/api/users/referral/shared-settings/route.ts
 import { withAuthErrorHandling } from '@/@core/lib/api-wrapper'
-import { getReferralSettings } from '@/utils/api/internal/getReferralSettings'
 import { serverApiClient } from '@/@core/lib/axios-client'
+import { getReferralSettings } from '@/utils/api/internal/getReferralSettings'
 
 // 🔥 FIX: Force dynamic rendering
 export const dynamic = 'force-dynamic'
