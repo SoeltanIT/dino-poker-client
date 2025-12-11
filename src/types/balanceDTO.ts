@@ -7,7 +7,7 @@ export interface BalanceDTO {
   is_promotion_ongoing: boolean
 }
 
-export interface PokerBalanceDTO extends BalanceDTO {
+export interface PokerBalanceDTO {
   chip_balance: number
   provider_balance: number
   user_id: string
