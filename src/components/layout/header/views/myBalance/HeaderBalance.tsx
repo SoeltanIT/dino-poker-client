@@ -12,7 +12,7 @@ import { useCallback, useState } from 'react'
 const HeaderBalance = ({ lang, locale, data, onShow, dataFee, pokerBalance }: MyBalanceSheetProps) => {
   const queryClient = useQueryClient()
   const [open, setOpen] = useState(false)
-  let totalBalance = (data && pokerBalance && Number(data.balance + pokerBalance.provider_balance)) || 0
+  const myTotalBalance = data && Number((data?.balance ?? 0) + (pokerBalance?.provider_balance ?? 0))
   let chipsCalculation = (pokerBalance && pokerBalance.chip_balance) ?? 0
 
   // count of active fetches for this query key
@@ -44,7 +44,6 @@ const HeaderBalance = ({ lang, locale, data, onShow, dataFee, pokerBalance }: My
       console.error('[HeaderBalance] ❌ Failed to refresh balance:', err)
     }
   }, [queryClient, isFetchingBalance])
-
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger className='cursor-pointer border-none' asChild>
@@ -65,10 +64,10 @@ const HeaderBalance = ({ lang, locale, data, onShow, dataFee, pokerBalance }: My
                 <span
                   className={cn(
                     'flex gap-1 -mt-1 font-semibold',
-                    String(totalBalance).length > 7 ? 'text-xs' : 'text-base'
+                    String(myTotalBalance).length > 7 ? 'text-xs' : 'text-base'
                   )}
                 >
-                  {thousandSeparatorComma(totalBalance)}
+                  {thousandSeparatorComma(myTotalBalance ?? 0)}
                 </span>
               </div>
             ) : (

@@ -42,7 +42,6 @@ export const Header = ({
 
   const isLogin = isAuthenticated
   const buttonLogoutRef = useRef<HTMLButtonElement>(null)
-
   const [activeTab, setActiveTab] = useState<'DEPOSIT' | 'WITHDRAW' | 'CONVERT_BALANCE'>('CONVERT_BALANCE')
   const [isSheetOpen, setIsSheetOpen] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)

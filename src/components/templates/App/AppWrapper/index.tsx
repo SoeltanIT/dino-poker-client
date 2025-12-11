@@ -80,7 +80,7 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config, feat
     undefined,
     true // 👈 disableErrorToast
   )
-  console.log(respPokerBalance?.data)
+
   const { data: respTransferBalanceFee, isLoading: transferFeeLoading } = GetData<TransferBalanceFeeResponseMapped>(
     '/transfer_balance_fee', // hits your Next.js API route, not the real backend
     ['getTransferBalanceFee'],
