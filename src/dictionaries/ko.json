@@ -319,10 +319,10 @@
     "cancel": "취소",
     "yes": "예",
     "no": "아니요",
-    "loading": "로딩 중...",
     "cancelPromotion": "프로모션 취소",
     "cancelPromotionConfirmation": "이 프로모션을 취소하시겠습니까? 이 작업은 취소할 수 없습니다.",
-    "promotionCancelledSuccessfully": "프로모션이 성공적으로 취소되었습니다"
+    "promotionCancelledSuccessfully": "프로모션이 성공적으로 취소되었습니다",
+    "availableWithdrawBalance": "출금 가능 잔액"
   },
   "game": {
     "texaspoker": "텍사스 포커",
@@ -445,6 +445,8 @@
     "withdraw_amount_number": "숫자만 입력할 수 있습니다.",
     "withdraw_amount_min": "최소 출금 금액은 10,000원입니다.",
     "withdraw_amount_max": "최대 출금 금액은 9,000,000원입니다.",
+    "withdraw_amount_max_2000000": "최대 출금 금액은 2,000,000원입니다.",
+    "withdraw_amount_exceeds_balance": "출금 가능 잔액을 초과했습니다. (사용 가능: {balance}원)",
     "withdraw_password_required": "출금 비밀번호를 입력해주세요.",
     "bank_account_min": "계좌번호는 최소 8자리 이상이어야 합니다.",
     "bank_account_max": "계좌번호는 최대 20자리 이하이어야 합니다.",

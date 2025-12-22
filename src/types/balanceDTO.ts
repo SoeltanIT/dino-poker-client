@@ -5,6 +5,7 @@ export interface BalanceDTO {
   provider_balance: number
   is_promotion_used: boolean
   is_promotion_ongoing: boolean
+  withdrawable_balance?: number
 }
 
 export interface PokerBalanceDTO {

@@ -9,7 +9,7 @@ const formatMaxMsg = (template: string | undefined, max: number) => {
   return template.replace(/MAX/g, display)
 }
 
-export const WithdrawCryptoSchema = (lang?: LangProps, maxValue: number = 9000000) =>
+export const WithdrawCryptoSchema = (lang?: LangProps, maxValue: number = 9000000, withdrawableBalance?: number) =>
   z.object({
     amount_crypto: z
       .string()
@@ -18,6 +18,36 @@ export const WithdrawCryptoSchema = (lang?: LangProps, maxValue: number = 900000
       .refine(val => parseInt(val, 10) >= 10000, {
         message: lang?.form?.withdraw_amount_min || 'Minimum amount is 10,000원'
       })
+      .refine(
+        val => {
+          const amount = parseInt(val, 10)
+          // Maximum 2,000,000
+          const maxAllowed = 2000000
+          return amount <= maxAllowed
+        },
+        {
+          message: lang?.form?.withdraw_amount_max_2000000 || 'Maximum withdrawal amount is 2,000,000원'
+        }
+      )
+      .refine(
+        val => {
+          const amount = parseInt(val, 10)
+          // Check against withdrawable balance if available
+          if (withdrawableBalance !== undefined && withdrawableBalance !== null) {
+            return amount <= withdrawableBalance
+          }
+          return true
+        },
+        {
+          message:
+            withdrawableBalance !== undefined && withdrawableBalance !== null
+              ? lang?.form?.withdraw_amount_exceeds_balance?.replace(
+                  '{balance}',
+                  thousandSeparatorComma(withdrawableBalance)
+                ) || `Amount exceeds available withdraw balance (${thousandSeparatorComma(withdrawableBalance)}원)`
+              : lang?.form?.withdraw_amount_exceeds_balance || 'Amount exceeds available withdraw balance'
+        }
+      )
       .refine(val => parseInt(val, 10) <= maxValue, {
         message: formatMaxMsg(lang?.form?.withdraw_amount_max, maxValue) || 'Maximum amount is 9,000,000원'
       }),
