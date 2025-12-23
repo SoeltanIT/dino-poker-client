@@ -358,10 +358,7 @@ export default function MyBalance({ lang, locale, onClose, data, pokerBalance, d
                       onBlur={field.onBlur}
                       type='text'
                       inputMode='numeric'
-                      disabled={
-                        (activeTab === 'transferIn' && data?.is_promotion_used) ||
-                        (activeTab === 'transferOut' && data?.is_promotion_ongoing)
-                      }
+                      disabled={activeTab === 'transferOut' && data?.is_promotion_ongoing}
                       placeholder={lang?.common?.typeAmount}
                       value={field.value === '' ? '' : thousandSeparatorComma(field.value)}
                       onChange={e => {
