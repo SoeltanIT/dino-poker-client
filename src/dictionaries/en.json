@@ -321,7 +321,8 @@
     "no": "No",
     "cancelPromotion": "Cancel Promotion",
     "cancelPromotionConfirmation": "Are you sure you want to cancel this promotion? This action cannot be undone.",
-    "promotionCancelledSuccessfully": "Promotion cancelled successfully"
+    "promotionCancelledSuccessfully": "Promotion cancelled successfully",
+    "availableWithdrawBalance": "Available Withdraw Balance"
   },
   "game": {
     "texaspoker": "Texas Poker",
@@ -444,6 +445,8 @@
     "withdraw_amount_number": "Only numbers are allowed",
     "withdraw_amount_min": "Minimum amount is 10,000원",
     "withdraw_amount_max": "Maximum amount is MAX 원",
+    "withdraw_amount_max_2000000": "Maximum withdrawal amount is 2,000,000원",
+    "withdraw_amount_exceeds_balance": "Amount exceeds available withdraw balance ({balance}원)",
     "withdraw_password_required": "Withdrawal password is required",
     "bank_account_min": "Bank account number must be at least 8 digits",
     "bank_account_max": "Bank account number must not exceed 20 digits",

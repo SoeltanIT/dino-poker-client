@@ -123,6 +123,7 @@ export default function HeaderSheet({
               cryptoLoading={cryptoLoading}
               cryptoWithdrawFee={cryptoWithdrawFee}
               locale={locale}
+              withdrawableBalance={balance?.withdrawable_balance}
             />
           }
           convertBalanceTab={

@@ -20,6 +20,7 @@ interface WithdrawTabProps {
   cryptoLoading: boolean
   cryptoWithdrawFee?: any
   locale?: Locale
+  withdrawableBalance?: number
 }
 
 export default function WithdrawTab({
@@ -38,7 +39,8 @@ export default function WithdrawTab({
   cryptoData,
   cryptoLoading,
   cryptoWithdrawFee,
-  locale
+  locale,
+  withdrawableBalance
 }: WithdrawTabProps) {
   if (!isSubmitted) {
     return (
@@ -57,6 +59,7 @@ export default function WithdrawTab({
         cryptoLoading={cryptoLoading}
         cryptoWithdrawFeeInfo={cryptoWithdrawFee}
         locale={locale}
+        withdrawableBalance={withdrawableBalance}
       />
     )
   }

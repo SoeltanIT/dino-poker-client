@@ -73,6 +73,7 @@ export interface WithdrawFormProps {
   cryptoData: any
   cryptoLoading: boolean
   cryptoWithdrawFeeInfo?: any
+  withdrawableBalance?: number
 }
 
 export interface DepositDataProps {

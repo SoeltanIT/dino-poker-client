@@ -36,7 +36,8 @@ export default function WithdrawForm({
   cryptoData,
   cryptoLoading,
   cryptoWithdrawFeeInfo,
-  locale
+  locale,
+  withdrawableBalance
 }: WithdrawFormProps) {
   const [showAccountNumber, setShowAccountNumber] = useState(false)
   const [showWithdrawalPassword, setShowWithdrawalPassword] = useState(false)
@@ -51,8 +52,14 @@ export default function WithdrawForm({
   let valueMax = thousandSeparatorComma(configData ?? 9000000)
   let descWithdraw = lang?.common?.minMaxAmount?.replace('MAX', valueMax)
 
+  // Create resolver with latest withdrawableBalance
+  const withdrawResolver = useMemo(
+    () => zodResolver(WithdrawSchema(lang, Number(configData), withdrawableBalance)),
+    [lang, configData, withdrawableBalance]
+  )
+
   const form = useForm<WithdrawFormData>({
-    resolver: zodResolver(WithdrawSchema(lang, Number(configData))),
+    resolver: withdrawResolver,
     defaultValues: {
       amount: '',
       // bankName: '',
@@ -93,8 +100,14 @@ export default function WithdrawForm({
     setActiveTab(val)
   }
 
+  // Create crypto resolver with latest withdrawableBalance
+  const cryptoWithdrawResolver = useMemo(
+    () => zodResolver(WithdrawCryptoSchema(lang, Number(configData), withdrawableBalance)),
+    [lang, configData, withdrawableBalance]
+  )
+
   const formCrypto = useForm<WithdrawCryptoFormData>({
-    resolver: zodResolver(WithdrawCryptoSchema(lang, Number(configData))),
+    resolver: cryptoWithdrawResolver,
     shouldUnregister: true,
     mode: 'onSubmit', // 👈 add this
     reValidateMode: 'onChange', // optional but nice: live update after first submit
@@ -139,9 +152,21 @@ export default function WithdrawForm({
     formCrypto.setValue('coin_network', '', { shouldDirty: true })
   }, [usdt, formCrypto])
 
+  // Re-validate when withdrawableBalance changes (resolver is already updated via useMemo)
+  useEffect(() => {
+    if (withdrawableBalance !== undefined && withdrawableBalance !== null) {
+      // Trigger validation for amount fields when balance changes
+      const currentAmount = form.getValues('amount')
+      const currentCryptoAmount = formCrypto.getValues('amount_crypto')
+      if (currentAmount) form.trigger('amount')
+      if (currentCryptoAmount) formCrypto.trigger('amount_crypto')
+    }
+  }, [withdrawableBalance, form, formCrypto])
+
   return (
     <>
       {features?.crypto && <TabSwitcher tabs={tabs} activeTab={activeTab} onTabChange={handleTabChange} />}
+
       {activeTab === 'fiat' &&
         (isStatus && isStatus !== 'APPROVED' ? (
           <div className='h-[70vh] flex flex-col justify-center items-center mt-10'>
@@ -274,6 +299,19 @@ export default function WithdrawForm({
               </FormItem>
             )}
           /> */}
+              {/* Alert for Available Withdraw Balance */}
+              {withdrawableBalance !== undefined && withdrawableBalance !== null && (
+                <div className=' p-3 rounded-lg bg-app-primary/10 border border-app-primary/20 flex items-start gap-3'>
+                  <div className='flex-1'>
+                    <p className='text-sm font-medium text-app-text-color mb-1'>
+                      {lang?.common?.availableWithdrawBalance ?? 'Available Withdraw Balance'}
+                    </p>
+                    <p className='text-base font-semibold text-app-primary'>
+                      {thousandSeparatorComma(withdrawableBalance)}원
+                    </p>
+                  </div>
+                </div>
+              )}
 
               <FormField
                 control={form.control}
