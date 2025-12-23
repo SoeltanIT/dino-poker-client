@@ -57,8 +57,8 @@ export function MainNavTabs({ locale, pathname, lang, features, className }: Mai
           <Link
             // TODO: fixme
             // href={pathSport}
-            href={''}
-            onClick={() => setIsMaintenanceModalOpen(true)}
+            href={pathSport}
+            // onClick={() => setIsMaintenanceModalOpen(true)}
             className={cn(
               baseTab,
               isActive(pathSport) ? 'bg-app-primary text-white border border-app-borderPrimary' : 'text-app-neutral500'
