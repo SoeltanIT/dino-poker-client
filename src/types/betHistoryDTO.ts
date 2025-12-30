@@ -149,9 +149,9 @@ export interface DetailBetDTO extends DetailBaseDTO {
     tournament_id: string
     tournament_name: string
     updated_odds: number
-    Competitor_name: string
-    Odds: number // kalau ada update odds ambil updated odds
-    Status: string
+    competitor_name: string
+    odds: number // kalau ada update odds ambil updated odds
+    status: string
     sport_name: string
   }>
 }

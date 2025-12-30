@@ -68,14 +68,8 @@ function BetSection({ detail, lang }: { detail: DetailBetDTO; lang?: LangProps }
       <Row label={lang?.detailBet?.winAmount} value={thousandSeparatorComma(detail.win_amount)} />
       <Row
         label={lang?.detailBet?.potentialWin}
-        value={thousandSeparatorComma(detail.potential_win / 100 + detail.potential_comboboost_win)}
+        value={thousandSeparatorComma((detail.potential_win + detail.potential_comboboost_win) / 100)}
       />
-      {detail.potential_comboboost_win > 0 && (
-        <Row
-          label={lang?.detailBet?.potentialComboBoostWin}
-          value={thousandSeparatorComma(detail.potential_comboboost_win)}
-        />
-      )}
 
       {/* Bets Slip */}
       {detail.bets_slip && detail.bets_slip.length > 0 && (
@@ -86,14 +80,12 @@ function BetSection({ detail, lang }: { detail: DetailBetDTO; lang?: LangProps }
               <Row label={lang?.detailBet?.sportName} value={bet.sport_name} />
               <Row label={lang?.detailBet?.tournamentName} value={bet.tournament_name} />
               <Row label={lang?.detailBet?.tournamentId} value={bet.tournament_id} />
-              <Row label={lang?.detailBet?.teamMatch} value={bet.Competitor_name} />
-              <Row label={lang?.detailBet?.odds} value={bet.Odds} />
+              <Row label={lang?.detailBet?.teamMatch} value={bet.competitor_name} />
+              <Row label={lang?.detailBet?.odds} value={bet.odds} />
 
               <Row
                 label={lang?.common?.status}
-                value={
-                  <span className={cn('uppercase', getTextColor(bet.Status?.toLowerCase()))}>{detail.status}</span>
-                }
+                value={<span className={cn('uppercase', getTextColor(bet.status?.toLowerCase()))}>{bet.status}</span>}
               />
             </div>
           ))}

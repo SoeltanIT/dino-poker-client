@@ -21,11 +21,11 @@ const mapDetailBetHistory = (item: DetailBetHistoryRawResponseDTO): DetailBetDTO
       tournament_id: bet?.tournament_id ?? '-',
       tournament_name: bet?.tournament_name ?? '-',
       updated_odds: Number(bet?.updated_odds ?? 0),
-      Competitor_name: Array.isArray(bet?.competitor_name)
+      competitor_name: Array.isArray(bet?.competitor_name)
         ? bet.competitor_name.join(' vs ')
         : bet?.competitor_name ?? '-',
-      Odds: Number(bet?.updated_odds ? bet?.updated_odds : bet?.odds ?? 0),
-      Status: bet?.status ?? '-',
+      odds: Number(bet?.updated_odds ? bet?.updated_odds : bet?.odds ?? 0),
+      status: bet?.status ?? '-',
       sport_name: bet?.sport_name ?? '-'
     }))
   }
