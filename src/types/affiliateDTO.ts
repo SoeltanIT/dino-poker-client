@@ -46,6 +46,7 @@ export interface AffiliateHistoryDetailOthersDTO {
   last_commission_paid_at: string
   paid_date: string
   paid_status: string
+  active_users: number
 }
 
 export interface AffiliateSummaryOthersDTO {
@@ -63,6 +64,7 @@ export interface AffiliateSummaryOthersDTO {
   promotion_amount: number
   rake_amount: number
   user_id: string
+  active_users: number
   username: string
   win_amount: number
 }
