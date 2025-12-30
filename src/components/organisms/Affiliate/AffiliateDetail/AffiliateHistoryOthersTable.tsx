@@ -23,12 +23,12 @@ export function AffiliateHistoryOthersTable({ lang }: AffiliateHistoryOthersTabl
   const { data: respAffiliateHistoryOthers, isFetching: isFetchingHistory } = GetData<{
     data: AffiliateHistoryOthersDTO[]
     pagination: {
+      prev: string
+      next: string
       total: number
-      page: number
-      pageSize: number
     }
   }>(
-    `/v1/affiliate-history/others`,
+    `/v1/affiliate-history/betby`,
     ['affiliate_history_others', page], // You can still use this as queryKey cache
     false,
     undefined,
@@ -62,8 +62,8 @@ export function AffiliateHistoryOthersTable({ lang }: AffiliateHistoryOthersTabl
           <div className='bg-app-table-bg-body rounded-lg p-4 border border-app-table-border-body space-y-2'>
             <div className='flex justify-between items-start'>
               <div>
-                <div className='text-xs text-gray-500'>{lang?.common?.paidDate}</div>
-                <div className='text-sm font-semibold'>{format(new Date(row?.paid_date), 'yyyy-MM-dd | HH:mm')}</div>
+                <div className='text-xs text-gray-500'>{lang?.common?.username}</div>
+                <div className='text-sm font-semibold'>{row.username}</div>
               </div>
               <div className='text-right'>
                 <div className='text-xs text-gray-500'>{lang?.common?.paidStatus}</div>
@@ -72,16 +72,16 @@ export function AffiliateHistoryOthersTable({ lang }: AffiliateHistoryOthersTabl
             </div>
             <div className='grid grid-cols-2 gap-2 text-sm'>
               <div>
-                <div className='text-xs text-gray-500'>{lang?.common?.username}</div>
-                <div>{row.username}</div>
+                <div className='text-xs text-gray-500'>{lang?.common?.parent}</div>
+                <div>{row.parent?.username ?? '-'}</div>
               </div>
               <div>
                 <div className='text-xs text-gray-500'>{lang?.common?.period}</div>
                 <div>{row.period}</div>
               </div>
               <div>
-                <div className='text-xs text-gray-500'>{lang?.common?.parent}</div>
-                <div>{row.parent?.username ?? '-'}</div>
+                <div className='text-xs text-gray-500'>{lang?.common?.affiliateMember}</div>
+                <div>{row.affiliated_members ?? 0}</div>
               </div>
             </div>
             <div className='border-t border-app-table-border-body pt-2'>
@@ -93,6 +93,17 @@ export function AffiliateHistoryOthersTable({ lang }: AffiliateHistoryOthersTabl
                 <div>
                   <div className='text-xs text-gray-500'>{lang?.common?.totalWin}</div>
                   <div>{thousandSeparatorComma(row.total_win)}원</div>
+                </div>
+
+                <div>
+                  <div className='text-xs text-gray-500'>{lang?.common?.totalPromotion}</div>
+                  <div>{thousandSeparatorComma(row.total_promotion)}원</div>
+                </div>
+                <div>
+                  <div className='text-xs text-gray-500'>{lang?.common?.totalNGR}</div>
+                  <div className={row.total_ngr < 0 ? 'text-app-danger' : ''}>
+                    {thousandSeparatorComma(row.total_ngr)}원
+                  </div>
                 </div>
                 <div>
                   <div className='text-xs text-gray-500'>{lang?.common?.commissionEarned}</div>
@@ -118,7 +129,7 @@ export function AffiliateHistoryOthersTable({ lang }: AffiliateHistoryOthersTabl
             key: 'paidDate',
             header: lang?.common?.paidDate,
             accessor: 'paid_date',
-            render: value => format(new Date(value), 'yyyy-MM-dd | HH:mm')
+            render: value => (value ? format(new Date(value), 'yyyy-MM-dd | HH:mm') : '-')
           },
           {
             key: 'username',
@@ -145,12 +156,6 @@ export function AffiliateHistoryOthersTable({ lang }: AffiliateHistoryOthersTabl
             render: value => value ?? '-'
           },
           {
-            key: 'previousNGR',
-            header: lang?.common?.previousNGR,
-            accessor: 'previous_ngr',
-            render: value => <div className='text-app-text-color'>{thousandSeparatorComma(value)}원</div>
-          },
-          {
             key: 'totalBet',
             header: lang?.common?.totalBet,
             accessor: 'total_bet',
@@ -163,28 +168,21 @@ export function AffiliateHistoryOthersTable({ lang }: AffiliateHistoryOthersTabl
             render: value => <div className='text-app-text-color'>{thousandSeparatorComma(value)}원</div>
           },
           {
-            key: 'totalGGR',
-            header: lang?.common?.totalGGR,
-            accessor: 'total_ggr',
-            render: value => <div className='text-app-text-color'>{thousandSeparatorComma(value)}원</div>
-          },
-          {
-            key: 'totalBonus',
-            header: lang?.common?.totalBonus,
-            accessor: 'total_bonus',
-            render: value => <div className='text-app-text-color'>{thousandSeparatorComma(value)}원</div>
-          },
-          {
             key: 'totalPromotion',
             header: lang?.common?.totalPromotion,
             accessor: 'total_promotion',
             render: value => <div className='text-app-text-color'>{thousandSeparatorComma(value)}원</div>
           },
+
           {
             key: 'totalNGR',
             header: lang?.common?.totalNGR,
             accessor: 'total_ngr',
-            render: value => <div className='text-app-text-color'>{thousandSeparatorComma(value)}원</div>
+            render: value => (
+              <div className={value < 0 ? 'text-app-danger' : 'text-app-text-color'}>
+                {thousandSeparatorComma(value)}원
+              </div>
+            )
           },
           {
             key: 'reason',

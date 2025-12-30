@@ -42,7 +42,6 @@ export function AffiliateHistoryPokerTable({ lang }: AffiliateHistoryPokerTableP
     },
     'user_proxy'
   )
-
   const affiliateHistoryPokerData = respAffiliateHistoryPoker?.data || []
   const totalPage = getTotalPage(respAffiliateHistoryPoker?.pagination?.total || 0, pageSize)
   return (

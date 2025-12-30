@@ -22,7 +22,7 @@ export const API_ENDPOINT = {
   referral_history: '/v1/referral-history',
   referral_group_history: '/v1/group-referral-history',
   affiliate_history_poker: '/v1/affiliate-history/poker ',
-  affiliate_history_others: '/v1/affiliate-history/others ',
+  affiliate_history_others: '/v1/affiliate-history/betby ',
   referral_summary: '/v1/referral-summary',
   referral_settings: '/v1/referral/shared-settings',
   affiliates: '/v1/affiliates',

@@ -3,10 +3,11 @@
 import { GetData } from '@/@core/hooks/use-query'
 import DetailBetHistory from '@/components/organisms/Profile/BetHistory/DetailBetHistory'
 import { Button } from '@/components/ui/button'
-import { BetPokerHistoryDTO } from '@/types/betHistoryDTO'
+import { BetPokerHistoryDTO, DetailUnionDTO } from '@/types/betHistoryDTO'
 import { useClaimRakeBack } from '@/utils/api/internal/claimRakeBack'
 import { useRakeBackSummary } from '@/utils/api/internal/getRakeBackSummary'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
+import { useQueryClient } from '@tanstack/react-query'
 import { format } from 'date-fns'
 import { Gift, Loader2 } from 'lucide-react'
 import Image from 'next/image'
@@ -63,10 +64,11 @@ export default function BetHistoryPage({
   const [isLoading, setIsLoading] = useState(isInitialLoading || false)
 
   const [selectedBet, setSelectedBet] = useState<string | null>(null)
-  const [detailBetData, setDetailBetData] = useState<BetPokerHistoryDTO | null>(null)
+  const [detailBetData, setDetailBetData] = useState<DetailUnionDTO | null>(null)
   const [openDetail, setOpenDetail] = useState(false)
 
   const [loadingId, setLoadingId] = useState<string | null>(null)
+  const queryClient = useQueryClient()
 
   const shouldFetch = page !== initialPage
 
@@ -91,7 +93,11 @@ export default function BetHistoryPage({
     'transaction'
   )
 
-  const { data: dataDetail, isFetching: fetchDataDetail } = GetData<BetPokerHistoryDTO>(
+  const {
+    data: dataDetail,
+    isFetching: fetchDataDetail,
+    refetch: refetchDetail
+  } = GetData<DetailUnionDTO>(
     '/bet_history_detail',
     ['getDetailBetHistory', selectedBet], // include id in key
     false, // skipAuth (require auth) — or true if you really want to skip
@@ -99,7 +105,13 @@ export default function BetHistoryPage({
     !!selectedBet, // <-- ENABLED lives here (5th arg)
     false, // isShowMsg (optional)
     undefined, // successMessage
-    undefined, // otherQueryOptions
+    {
+      // Force refetch and don't use stale data
+      staleTime: 0,
+      gcTime: 0, // Previously cacheTime
+      refetchOnMount: true,
+      refetchOnWindowFocus: false
+    },
     'POST', // method (matches your Next route)
     { id: selectedBet }, // body
     'transaction' // apiType
@@ -107,7 +119,9 @@ export default function BetHistoryPage({
 
   // when detail arrives / fetch finishes -> clear loadingId and set detail data
   useEffect(() => {
-    if (dataDetail) setDetailBetData(dataDetail)
+    if (dataDetail) {
+      setDetailBetData(dataDetail)
+    }
     if (!fetchDataDetail) setLoadingId(null)
   }, [dataDetail, fetchDataDetail])
 
@@ -115,11 +129,17 @@ export default function BetHistoryPage({
     // 1. reset previous detail so UI goes skeleton immediately
     setDetailBetData(null)
 
-    // 2. mark which id is being loaded (for row spinner)
+    // 2. Clear previous query cache to ensure fresh data
+    if (selectedBet) {
+      queryClient.removeQueries({ queryKey: ['getDetailBetHistory', selectedBet] })
+    }
+    queryClient.removeQueries({ queryKey: ['getDetailBetHistory', betId] })
+
+    // 3. mark which id is being loaded (for row spinner)
     setSelectedBet(betId)
     setLoadingId(betId)
 
-    // 3. open the sheet
+    // 4. open the sheet
     setOpenDetail(true)
   }
 
@@ -407,17 +427,21 @@ export default function BetHistoryPage({
       <DetailBetHistory
         lang={lang}
         detail={detailBetData}
-        loading={fetchDataDetail} // <--- NEW
+        loading={fetchDataDetail}
         open={openDetail}
         setOpen={(v: boolean) => {
           setOpenDetail(v)
           if (!v) {
-            // we’re closing:
-            // we DO want to stop row spinners, yes
+            // we're closing:
+            // Clear all state and invalidate query cache
             setSelectedBet(null)
             setLoadingId(null)
-            // BUT DO NOT clear detailBetData here
-            // setDetailBetData(null)  <-- remove this
+            setDetailBetData(null)
+
+            // Invalidate query cache to prevent stale data
+            if (selectedBet) {
+              queryClient.removeQueries({ queryKey: ['getDetailBetHistory', selectedBet] })
+            }
           }
         }}
       />

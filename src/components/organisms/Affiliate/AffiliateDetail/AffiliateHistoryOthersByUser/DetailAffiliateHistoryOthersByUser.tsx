@@ -29,7 +29,7 @@ export function DetailAffiliateHistoryOthersByUser({ userId, lang }: DetailAffil
       pageSize: number
     }
   }>(
-    `/v1/affiliate-history/others/${userId}/details`,
+    `/v1/affiliate-history/betby/${userId}/details`,
     ['detail_affiliate_history_others_by_user', userId, page, period],
     false,
     undefined,
@@ -74,57 +74,21 @@ export function DetailAffiliateHistoryOthersByUser({ userId, lang }: DetailAffil
           {/* Financial Info Section */}
           <div className='bg-app-table-bg-header rounded-lg p-3 space-y-2'>
             <div className='flex justify-between items-center'>
-              <span className='text-xs text-gray-400'>{lang?.common?.previousNGR}</span>
-              <span className='text-sm font-medium text-app-text-color'>
-                {row.previous_ngr != null ? thousandSeparatorComma(row.previous_ngr) + '원' : '-'}
-              </span>
-            </div>
-            <div className='flex justify-between items-center'>
-              <span className='text-xs text-gray-400'>{lang?.common?.totalBet}</span>
-              <span className='text-sm font-medium text-app-text-color'>
-                {row.total_bet != null ? thousandSeparatorComma(row.total_bet) + '원' : '-'}
-              </span>
-            </div>
-            <div className='flex justify-between items-center'>
-              <span className='text-xs text-gray-400'>{lang?.common?.totalWin}</span>
-              <span className='text-sm font-medium text-app-text-color'>
-                {row.total_win != null ? thousandSeparatorComma(row.total_win) + '원' : '-'}
-              </span>
-            </div>
-            <div className='flex justify-between items-center'>
-              <span className='text-xs text-gray-400'>{lang?.common?.totalGGR}</span>
-              <span className='text-sm font-medium text-app-text-color'>
-                {row.total_ggr != null ? thousandSeparatorComma(row.total_ggr) + '원' : '-'}
-              </span>
-            </div>
-            <div className='flex justify-between items-center'>
-              <span className='text-xs text-gray-400'>{lang?.common?.totalBonus}</span>
-              <span className='text-sm font-medium text-app-text-color'>
-                {row.total_bonus != null ? thousandSeparatorComma(row.total_bonus) + '원' : '-'}
-              </span>
-            </div>
-            <div className='flex justify-between items-center'>
-              <span className='text-xs text-gray-400'>{lang?.common?.totalPromotion}</span>
-              <span className='text-sm font-medium text-app-text-color'>
-                {row.total_promotion != null ? thousandSeparatorComma(row.total_promotion) + '원' : '-'}
-              </span>
-            </div>
-            <div className='flex justify-between items-center'>
               <span className='text-xs text-gray-400'>{lang?.common?.totalNGR}</span>
               <span className='text-sm font-medium text-app-text-color'>
-                {row.total_ngr != null ? thousandSeparatorComma(row.total_ngr) + '원' : '-'}
+                {row.ngr != null ? thousandSeparatorComma(row.ngr) + '원' : '-'}
               </span>
             </div>
             <div className='flex justify-between items-center'>
               <span className='text-xs text-gray-400'>{lang?.common?.commissionEarned}</span>
               <span className='text-sm font-semibold text-green-500'>
-                {row.commission_earned != null ? thousandSeparatorComma(row.commission_earned) + '원' : '-'}
+                {row.commission_earned != null ? thousandSeparatorComma(row.parent_commission) + '원' : '-'}
               </span>
             </div>
             <div className='flex justify-between items-center'>
-              <span className='text-xs text-gray-400'>{lang?.common?.adjustedCommission}</span>
+              <span className='text-xs text-gray-400'>{lang?.common?.commissionRate}</span>
               <span className='text-sm font-semibold text-blue-500'>
-                {row.adjusted_commission != null ? thousandSeparatorComma(row.adjusted_commission) + '원' : '-'}
+                {row.commission_rate != null ? `${row.parent_commission_rate}%` : '-'}
               </span>
             </div>
           </div>
@@ -150,59 +114,24 @@ export function DetailAffiliateHistoryOthersByUser({ userId, lang }: DetailAffil
           accessor: 'period',
           render: value => value ?? '-'
         },
+
         {
-          key: 'previous_ngr',
-          header: lang?.common?.previousNGR,
-          accessor: 'previous_ngr',
-          render: value => (value != null ? thousandSeparatorComma(value) + '원' : '-')
-        },
-        {
-          key: 'total_bet',
-          header: lang?.common?.totalBet,
-          accessor: 'total_bet',
-          render: value => (value != null ? thousandSeparatorComma(value) + '원' : '-')
-        },
-        {
-          key: 'total_win',
-          header: lang?.common?.totalWin,
-          accessor: 'total_win',
-          render: value => (value != null ? thousandSeparatorComma(value) + '원' : '-')
-        },
-        {
-          key: 'total_ggr',
-          header: lang?.common?.totalGGR,
-          accessor: 'total_ggr',
-          render: value => (value != null ? thousandSeparatorComma(value) + '원' : '-')
-        },
-        {
-          key: 'total_bonus',
-          header: lang?.common?.totalBonus,
-          accessor: 'total_bonus',
-          render: value => (value != null ? thousandSeparatorComma(value) + '원' : '-')
-        },
-        {
-          key: 'total_promotion',
-          header: lang?.common?.totalPromotion,
-          accessor: 'total_promotion',
-          render: value => (value != null ? thousandSeparatorComma(value) + '원' : '-')
-        },
-        {
-          key: 'total_ngr',
+          key: 'ngr',
           header: lang?.common?.totalNGR,
-          accessor: 'total_ngr',
+          accessor: 'ngr',
           render: value => (value != null ? thousandSeparatorComma(value) + '원' : '-')
         },
         {
           key: 'commission_earned',
           header: lang?.common?.commissionEarned,
-          accessor: 'commission_earned',
+          accessor: 'parent_commission',
           render: value => (value != null ? thousandSeparatorComma(value) + '원' : '-')
         },
         {
-          key: 'adjusted_commission',
-          header: lang?.common?.adjustedCommission,
-          accessor: 'adjusted_commission',
-          render: value => (value != null ? thousandSeparatorComma(value) + '원' : '-')
+          key: 'commission_rate',
+          header: lang?.common?.commissionRate,
+          accessor: 'parent_commission_rate',
+          render: value => (value != null ? `${value}%` : '-')
         }
       ]}
     />

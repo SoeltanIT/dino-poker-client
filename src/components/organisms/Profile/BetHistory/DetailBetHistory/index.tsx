@@ -30,11 +30,11 @@ function PokerSection({ detail, lang }: { detail: DetailPokerDTO; lang?: LangPro
   return (
     <div className='space-y-4'>
       <Row label={lang?.detailBet?.transactionNo} value={detail.transactionNo} />
-      <Row label={lang?.detailBet?.gameName || 'Game'} value={detail.gameName || '-'} />
+      <Row label={lang?.detailBet?.gameName} value={detail.gameName || '-'} />
       <Row label={lang?.detailBet?.table} value={detail.table} />
       <Row label={lang?.detailBet?.period} value={detail.periode} />
       <Row
-        label={lang?.detailBet?.betAmount || 'Bet Amount'}
+        label={lang?.detailBet?.betAmount}
         value={
           detail.currency
             ? `${thousandSeparatorComma(detail.betAmount)} ${detail.currency}`
@@ -42,25 +42,21 @@ function PokerSection({ detail, lang }: { detail: DetailPokerDTO; lang?: LangPro
         }
       />
       <Row
-        label={lang?.detailBet?.resultAmount || 'Result Amount'}
+        label={lang?.detailBet?.resultAmount}
         value={
           detail.currency
             ? `${thousandSeparatorComma(detail.resultAmount)} ${detail.currency}`
             : thousandSeparatorComma(detail.resultAmount)
         }
       />
-      {/* {detail.hand ? <Row label='Hand' value={detail.hand} /> : null}
-      {detail.card ? (
-        <div>
-          <p className='text-sm text-app-neutral500 mb-1'>Cards</p>
-          <code className='text-app-text-color font-medium rounded bg-app-neutral600  px-2 py-1'>
-            {detail.card.trim()}
-          </code>
-        </div>
-      ) : null}
-      {detail.room ? <Row label='Room' value={detail.room} /> : null}
-      {detail.tableNo ? <Row label='Table No' value={detail.tableNo} /> : null}
-      {detail.matchName ? <Row label={lang?.common?.match || 'Match'} value={detail.matchName} /> : null} */}
+      <Row
+        label={lang?.detailBet?.profit}
+        value={
+          detail.currency
+            ? `${thousandSeparatorComma(detail.profit)} ${detail.currency}`
+            : thousandSeparatorComma(detail.profit)
+        }
+      />
     </div>
   )
 }
@@ -68,13 +64,41 @@ function PokerSection({ detail, lang }: { detail: DetailPokerDTO; lang?: LangPro
 function BetSection({ detail, lang }: { detail: DetailBetDTO; lang?: LangProps }) {
   return (
     <div className='space-y-4'>
-      <Row label={lang?.detailBet?.gameName || 'Game'} value={detail.gameName || '-'} />
-      <Row label={lang?.detailBet?.tournamentId || 'Tournament'} value={detail.tournamentId} />
-      <Row label={lang?.detailBet?.tournamentName || 'Tournament'} value={detail.tournamentName} />
-      {/* {detail.matchName ? <Row label={lang?.common?.match || 'Match'} value={detail.matchName} /> : null} */}
-      <Row label={lang?.detailBet?.betType || 'Bet Type'} value={detail.betType} />
-      <Row label={lang?.detailBet?.betName || 'Bet Name'} value={detail.betName} />
-      {/* <Row label={lang?.common?.selection || 'Selection'} value={detail.betTeam} /> */}
+      <Row label={lang?.detailBet?.ticketId} value={detail.ticket_id} />
+      <Row label={lang?.detailBet?.winAmount} value={thousandSeparatorComma(detail.win_amount)} />
+      <Row
+        label={lang?.detailBet?.potentialWin}
+        value={thousandSeparatorComma(detail.potential_win / 100 + detail.potential_comboboost_win)}
+      />
+      {detail.potential_comboboost_win > 0 && (
+        <Row
+          label={lang?.detailBet?.potentialComboBoostWin}
+          value={thousandSeparatorComma(detail.potential_comboboost_win)}
+        />
+      )}
+
+      {/* Bets Slip */}
+      {detail.bets_slip && detail.bets_slip.length > 0 && (
+        <div className='space-y-4 mt-6'>
+          <p className='text-sm font-semibold text-app-text-color mb-2'>{lang?.detailBet?.betsSlip}</p>
+          {detail.bets_slip.map((bet: any, index) => (
+            <div key={index} className='p-4 rounded-lg border border-app-neutral600 bg-app-neutral700/50 space-y-2'>
+              <Row label={lang?.detailBet?.sportName} value={bet.sport_name} />
+              <Row label={lang?.detailBet?.tournamentName} value={bet.tournament_name} />
+              <Row label={lang?.detailBet?.tournamentId} value={bet.tournament_id} />
+              <Row label={lang?.detailBet?.teamMatch} value={bet.Competitor_name} />
+              <Row label={lang?.detailBet?.odds} value={bet.Odds} />
+
+              <Row
+                label={lang?.common?.status}
+                value={
+                  <span className={cn('uppercase', getTextColor(bet.Status?.toLowerCase()))}>{detail.status}</span>
+                }
+              />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
@@ -91,7 +115,7 @@ export default function DetailBetHistory({ lang, detail, open, setOpen, loading 
       case 'pending':
         return lang?.common?.pending || 'Pending'
       default:
-        return '-'
+        return lang?.common?.pending || 'Pending'
     }
   }
 

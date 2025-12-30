@@ -1,6 +1,9 @@
 'use client'
 
+import { TabSwitcher } from '@/components/molecules/TabSwitcher'
+import { AffiliateHistoryOthersTable } from '@/components/organisms/Affiliate/AffiliateDetail/AffiliateHistoryOthersTable'
 import { LangProps } from '@/types/langProps'
+import { useState } from 'react'
 import { AffiliateHistoryPokerTable } from './AffiliateHistoryPokerTable'
 
 export interface AffiliateHistoryGroupProps {
@@ -8,20 +11,20 @@ export interface AffiliateHistoryGroupProps {
 }
 
 export function AffiliateHistoryGroup({ lang }: AffiliateHistoryGroupProps) {
-  // const [activeTab, setActiveTab] = useState('poker')
-  // const tabs = [
-  //   { name: lang?.header?.poker, value: 'poker' },
-  //   { name: lang?.header?.casino, value: 'casino' }
-  // ]
+  const [activeTab, setActiveTab] = useState('poker')
+  const tabs = [
+    { name: lang?.header?.poker, value: 'poker' },
+    { name: lang?.header?.casino, value: 'casino' }
+  ]
 
   return (
     <>
-      {/* <TabSwitcher tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} /> */}
-      {/* {activeTab === 'casino' ? (
+      <TabSwitcher tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
+      {activeTab === 'casino' ? (
         <AffiliateHistoryOthersTable lang={lang} />
-      ) : ( */}
-      <AffiliateHistoryPokerTable lang={lang} />
-      {/* )} */}
+      ) : (
+        <AffiliateHistoryPokerTable lang={lang} />
+      )}
     </>
   )
 }

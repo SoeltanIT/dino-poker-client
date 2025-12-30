@@ -6,7 +6,6 @@ import { AffiliateHistoryDetailOthersDTO } from '@/types/affiliateDTO'
 import { LangProps } from '@/types/langProps'
 import { getTotalPage } from '@/utils/get-total-page'
 import { thousandSeparatorComma } from '@/utils/helper/formatNumber'
-import { format } from 'date-fns'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
@@ -28,7 +27,7 @@ export function AffiliateHistoryOthersByUser({ userId, lang }: AffiliateHistoryO
       pageSize: number
     }
   }>(
-    `/v1/affiliate-history/others/${userId}`,
+    `/v1/affiliate-history/betby/${userId}`,
     ['affiliate_history_others_by_user', userId, page],
     false,
     undefined,
@@ -60,12 +59,6 @@ export function AffiliateHistoryOthersByUser({ userId, lang }: AffiliateHistoryO
         <div className='bg-app-table-bg-body rounded-lg p-4 border border-app-table-border-body space-y-3'>
           {/* Header Section */}
           <div className='flex justify-between items-start pb-3 border-b border-app-table-border-body'>
-            <div>
-              <div className='text-xs text-gray-400 mb-1'>{lang?.common?.paidDate}</div>
-              <div className='text-sm font-semibold text-app-text-color'>
-                {row.paid_date ? format(new Date(row.paid_date), 'yyyy-MM-dd | HH:mm') : '-'}
-              </div>
-            </div>
             <div className='text-right'>
               <div className='text-xs text-gray-400 mb-1'>{lang?.common?.paidStatus}</div>
               <div className='text-sm font-semibold text-app-text-color'>{row.paid_status ?? '-'}</div>
@@ -108,20 +101,6 @@ export function AffiliateHistoryOthersByUser({ userId, lang }: AffiliateHistoryO
                 {row.commission_earned != null ? thousandSeparatorComma(row.commission_earned) + '원' : '-'}
               </span>
             </div>
-            <div className='flex justify-between items-center'>
-              <span className='text-xs text-gray-400'>{lang?.common?.adjustedCommission}</span>
-              <span className='text-sm font-semibold text-blue-500'>
-                {row.adjusted_commission != null ? thousandSeparatorComma(row.adjusted_commission) + '원' : '-'}
-              </span>
-            </div>
-          </div>
-
-          {/* Last Commission Paid */}
-          <div className='text-center pt-2 border-t border-app-table-border-body'>
-            <div className='text-xs text-gray-400 mb-1'>{lang?.common?.lastCommissionPaid}</div>
-            <div className='text-sm text-app-text-color'>
-              {row.last_commission_paid_at ? format(new Date(row.last_commission_paid_at), 'yyyy-MM-dd | HH:mm') : '-'}
-            </div>
           </div>
         </div>
       )}
@@ -133,12 +112,6 @@ export function AffiliateHistoryOthersByUser({ userId, lang }: AffiliateHistoryO
       data={affiliateHistoryOthersData}
       loading={isFetchingHistory}
       columns={[
-        {
-          key: 'paid_date',
-          header: lang?.common?.paidDate,
-          accessor: 'paid_date',
-          render: value => (value ? format(new Date(value), 'yyyy-MM-dd | HH:mm') : '-')
-        },
         {
           key: 'username',
           header: lang?.common?.username,
@@ -174,24 +147,6 @@ export function AffiliateHistoryOthersByUser({ userId, lang }: AffiliateHistoryO
           header: lang?.common?.commissionEarned,
           accessor: 'commission_earned',
           render: value => (value != null ? thousandSeparatorComma(value) + '원' : '-')
-        },
-        {
-          key: 'adjusted_commission',
-          header: lang?.common?.adjustedCommission,
-          accessor: 'adjusted_commission',
-          render: value => (value != null ? thousandSeparatorComma(value) + '원' : '-')
-        },
-        {
-          key: 'last_commission_paid_at',
-          header: lang?.common?.lastCommissionPaid,
-          accessor: 'last_commission_paid_at',
-          render: value => (value ? format(new Date(value), 'yyyy-MM-dd | HH:mm') : '-')
-        },
-        {
-          key: 'paid_status',
-          header: lang?.common?.paidStatus,
-          accessor: 'paid_status',
-          render: value => value ?? '-'
         }
       ]}
     />

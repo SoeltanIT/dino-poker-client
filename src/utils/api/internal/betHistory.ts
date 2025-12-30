@@ -1,5 +1,5 @@
 import { serverApiClient } from '@/@core/lib/axios-client'
-import { BetHistoryDTO, BetPokerHistoryDTO } from '@/types/betHistoryDTO'
+import { BetPokerHistoryDTO } from '@/types/betHistoryDTO'
 import { getApiEndpoint } from '@/utils/api_endpoint'
 
 export interface GetListTransactionParams {
@@ -42,7 +42,8 @@ export const mapBetHistory = (item: any): BetPokerHistoryDTO => ({
   winAmount: Number(item?.win_amount ?? 0),
   profit: Number(item?.profit ?? 0),
   status: item?.status || '-',
-  createdAt: item?.created_at
+  createdAt: item?.created_at,
+  resultAmount: Number(item?.result_amount ?? 0)
 })
 
 export const getListBetTransaction = async ({

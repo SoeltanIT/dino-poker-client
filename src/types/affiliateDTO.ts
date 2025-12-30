@@ -49,19 +49,22 @@ export interface AffiliateHistoryDetailOthersDTO {
 }
 
 export interface AffiliateSummaryOthersDTO {
-  id: string
+  accumulative_ngr: number
+  adjusted_commission: number
+  bet_amount: number
+  code_name: string
+  commission_earned: number
+  commission_rate: number
+  ggr: number
+  ngr: number
+  parent_commission: number
+  parent_commission_rate: number
+  period: string
+  promotion_amount: number
+  rake_amount: number
   user_id: string
   username: string
-  period: string
-  previous_ngr: number
-  total_bet: number
-  total_win: number
-  total_ggr: number
-  total_bonus: number
-  total_promotion: number
-  total_ngr: number
-  commission_earned: number
-  adjusted_commission: number
+  win_amount: number
 }
 
 // Poker History
