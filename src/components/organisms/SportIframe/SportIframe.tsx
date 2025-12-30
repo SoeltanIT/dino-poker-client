@@ -2,7 +2,6 @@
 
 import { useAppFeatures } from '@/@core/context/AppFeaturesContext'
 import { GetData, useMutationQuery } from '@/@core/hooks/use-query'
-import { UseServerSendEvent } from '@/@core/hooks/UseServerSendEvent'
 import { BalanceResponse } from '@/@core/interface/balance/Balance'
 import { UserMeResponse } from '@/@core/interface/User'
 import RegisterFormState from '@/components/layout/header/views/register/RegisterFormState'
@@ -283,10 +282,10 @@ export const BetByIframe = ({
     prevBtPathRef.current = now
   }, [theme, iframeHeight, btPath])
 
-  const { balanceTrigger } = UseServerSendEvent()
+  // const { balanceTrigger } = UseServerSendEvent()
   const { data: respBalance } = GetData<BalanceResponse>(
     '/balance', // hits your Next.js API route, not the real backend
-    ['getBalance', balanceTrigger] //trigger put here if need to refresh on SSE event
+    ['getBalance'] //trigger put here if need to refresh on SSE event
   )
 
   const { data: respTransferBalanceFee } = GetData<TransferBalanceFeeResponseMapped>(

@@ -1,7 +1,6 @@
 'use client'
 
 import { GetData } from '@/@core/hooks/use-query'
-import { UseServerSendEvent } from '@/@core/hooks/UseServerSendEvent'
 import { BalanceResponse, PokerBalanceResponse } from '@/@core/interface/balance/Balance'
 import { UserMeResponse } from '@/@core/interface/User'
 import { Header } from '@/components/layout/header'
@@ -57,10 +56,10 @@ const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config, feat
     undefined,
     isAllowRequest
   )
-  const { balanceTrigger, balanceMessages } = UseServerSendEvent()
+  // const { balanceTrigger, balanceMessages } = UseServerSendEvent()
   const { data: respBalance, isLoading: balanceLoading } = GetData<BalanceResponse>(
     '/balance', // hits your Next.js API route, not the real backend
-    ['getBalance', balanceTrigger], //trigger put here if need to refresh on SSE event,
+    ['getBalance'], //trigger put here if need to refresh on SSE event,
     false,
     undefined,
     isAllowRequest

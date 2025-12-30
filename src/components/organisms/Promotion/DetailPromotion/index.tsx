@@ -2,7 +2,6 @@
 
 import { useAppFeatures } from '@/@core/context/AppFeaturesContext'
 import { GetData } from '@/@core/hooks/use-query'
-import { UseServerSendEvent } from '@/@core/hooks/UseServerSendEvent'
 import { BalanceResponse } from '@/@core/interface/balance/Balance'
 import { UserMeResponse } from '@/@core/interface/User'
 import { HeaderSheet } from '@/components/layout/header/views/transaction'
@@ -34,10 +33,10 @@ export default function PromotionDetail({ initialData, lang, locale, isLogin }: 
     '/me', // hits your Next.js API route, not the real backend
     ['user', 'me']
   )
-  const { balanceTrigger } = UseServerSendEvent()
+  // const { balanceTrigger } = UseServerSendEvent()
   const { data: respBalance, isLoading: balanceLoading } = GetData<BalanceResponse>(
     '/balance', // hits your Next.js API route, not the real backend
-    ['getBalance', balanceTrigger] //trigger put here if need to refresh on SSE event
+    ['getBalance'] //trigger put here if need to refresh on SSE event
   )
 
   const { data: respTransferBalanceFee } = GetData<TransferBalanceFeeResponseMapped>(
