@@ -231,7 +231,7 @@ export default function MyPromotion({ lang, locale }: MyPromotionProps) {
                       </div>
                     </div>
 
-                    {card.status === 'on_going' && (
+                    {card.status === 'on_going' && card.game_type !== 'sport' && card.game_type !== 'sport_manual' && (
                       <Button
                         onClick={() => handleCancelClick(card)}
                         disabled={isCancelling}

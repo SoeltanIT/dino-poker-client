@@ -29,4 +29,5 @@ export interface MyPromotionDTO {
   status: string
   turnover_target: number
   turnover_achieved: number
+  game_type: string
 }
