@@ -49,14 +49,6 @@ function PokerSection({ detail, lang }: { detail: DetailPokerDTO; lang?: LangPro
             : thousandSeparatorComma(detail.resultAmount)
         }
       />
-      <Row
-        label={lang?.detailBet?.profit}
-        value={
-          detail.currency
-            ? `${thousandSeparatorComma(detail.profit)} ${detail.currency}`
-            : thousandSeparatorComma(detail.profit)
-        }
-      />
     </div>
   )
 }
