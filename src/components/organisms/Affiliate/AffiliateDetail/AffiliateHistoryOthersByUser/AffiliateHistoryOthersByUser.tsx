@@ -80,8 +80,8 @@ export function AffiliateHistoryOthersByUser({ userId, lang }: AffiliateHistoryO
               <div className='text-sm text-app-text-color'>{row.affiliated_members ?? '-'}</div>
             </div>
             <div>
-              <div className='text-xs text-gray-400 mb-1'>{lang?.common?.activeUsers}</div>
-              <div className='text-sm text-app-text-color'>{row.active_users?.toString() ?? '0'}</div>
+              <div className='text-xs text-gray-400 mb-1'>{lang?.common?.totalActiveUsers}</div>
+              <div className='text-sm text-app-text-color'>{row.total_active_users?.toString() ?? '0'}</div>
             </div>
           </div>
 
@@ -135,9 +135,9 @@ export function AffiliateHistoryOthersByUser({ userId, lang }: AffiliateHistoryO
           render: value => value ?? '-'
         },
         {
-          key: 'active_users',
-          header: lang?.common?.activeUsers,
-          accessor: 'active_users',
+          key: 'total_active_users',
+          header: lang?.common?.totalActiveUsers,
+          accessor: 'total_active_users',
           render: value => value?.toString() ?? '0'
         },
         {

@@ -150,6 +150,12 @@ export function AffiliateHistoryOthersTable({ lang }: AffiliateHistoryOthersTabl
             render: value => value?.toString() ?? '0'
           },
           {
+            key: 'activeUsers',
+            header: lang?.common?.totalActiveUsers,
+            accessor: 'total_active_users',
+            render: value => value?.toString() ?? '0'
+          },
+          {
             key: 'period',
             header: lang?.common?.period,
             accessor: 'period',

@@ -70,10 +70,7 @@ export function DetailAffiliateHistoryOthersByUser({ userId, lang }: DetailAffil
             <div className='text-xs text-gray-400 mb-1'>{lang?.common?.period}</div>
             <div className='text-sm text-app-text-color'>{row.period ?? '-'}</div>
           </div>
-          <div>
-            <div className='text-xs text-gray-400 mb-1'>{lang?.common?.activeUsers}</div>
-            <div className='text-sm text-app-text-color'>{row.active_users?.toString() ?? '0'}</div>
-          </div>
+
           {/* Financial Info Section */}
           <div className='bg-app-table-bg-header rounded-lg p-3 space-y-2'>
             <div className='flex justify-between items-center'>
@@ -116,12 +113,6 @@ export function DetailAffiliateHistoryOthersByUser({ userId, lang }: DetailAffil
           header: lang?.common?.period,
           accessor: 'period',
           render: value => value ?? '-'
-        },
-        {
-          key: 'active_users',
-          header: lang?.common?.activeUsers,
-          accessor: 'active_users',
-          render: value => value?.toString() ?? '0'
         },
         {
           key: 'ngr',

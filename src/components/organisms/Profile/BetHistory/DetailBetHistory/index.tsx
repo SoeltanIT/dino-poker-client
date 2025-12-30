@@ -77,7 +77,11 @@ function BetSection({ detail, lang }: { detail: DetailBetDTO; lang?: LangProps }
 
               <Row
                 label={lang?.common?.status}
-                value={<span className={cn('uppercase', getTextColor(bet.status?.toLowerCase()))}>{bet.status}</span>}
+                value={
+                  <span className={cn('uppercase', getTextColor(bet.status?.toLowerCase()))}>
+                    {bet.status == '-' ? lang?.common?.pending : bet.status}
+                  </span>
+                }
               />
             </div>
           ))}
