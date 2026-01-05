@@ -1,7 +1,6 @@
 'use client'
 
 import { IconPoker, IconSport, IconTicket } from '@/components/atoms/Icons' // make sure IconCasino exists
-import { MaintenanceModal } from '@/components/organisms/MaintenanceModal'
 import { Locale } from '@/i18n-config'
 import { cn } from '@/lib/utils'
 import { LangProps } from '@/types/langProps'
@@ -129,11 +128,11 @@ export function MainNavTabs({ locale, pathname, lang, features, className }: Mai
         </Link>
       </div>
 
-      <MaintenanceModal
+      {/* <MaintenanceModal
         label={lang.common.preparingToOpen}
         open={isMaintenanceModalOpen}
         onOpenChange={setIsMaintenanceModalOpen}
-      />
+      /> */}
     </>
   )
 }
