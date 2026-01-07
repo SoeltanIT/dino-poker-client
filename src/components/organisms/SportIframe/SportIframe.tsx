@@ -39,6 +39,7 @@ export const BetByIframe = ({
   locale = 'ko'
 }: BetbyIframeProps) => {
   const { ready } = useLiveChatContext()
+  const { data: sessionData } = useSession()
   const { data: userData, isLoading: userDataLoading } = GetData<UserMeResponse>(
     '/me', // hits your Next.js API route, not the real backend
     ['user', 'me']
@@ -186,8 +187,8 @@ export const BetByIframe = ({
         themeName: 'gowin-light-tile',
         currency: 'KRW',
         betSlipOffsetBottom: window.innerWidth >= 768 ? 0 : 70,
-        betSlipOffsetTop: window.innerWidth >= 768 ? 81 : 72,
-        stickyTop: window.innerWidth >= 768 ? 81 : 72,
+        betSlipOffsetTop: window.innerWidth >= 768 ? 78 : 72,
+        stickyTop: sessionData !== null ? (window.innerWidth >= 768 ? 100 : 75) : 72,
         onLogin: () => {
           setIsModalOpen(true)
         },
