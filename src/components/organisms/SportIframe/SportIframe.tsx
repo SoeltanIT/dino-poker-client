@@ -52,7 +52,8 @@ export const BetByIframe = ({
   )
 
   const { features } = useAppFeatures()
-  const showLiveChat = ready && !!features?.livechat
+  // Live chat is disabled on sport page
+  const showLiveChat = false
 
   // Keep the most recent token and prevent duplicate requests
   const tokenRef = useRef<string | null>(null)
@@ -187,7 +188,7 @@ export const BetByIframe = ({
         themeName: 'gowin-light-tile',
         currency: 'KRW',
         betSlipOffsetBottom: window.innerWidth >= 768 ? 0 : 70,
-        betSlipOffsetTop: window.innerWidth >= 768 ? 78 : 72,
+        betSlipOffsetTop: window.innerWidth >= 768 ? 105 : 72,
         stickyTop: sessionData !== null ? (window.innerWidth >= 768 ? 100 : 75) : 72,
         onLogin: () => {
           setIsModalOpen(true)

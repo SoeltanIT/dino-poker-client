@@ -18,6 +18,30 @@ export const LiveChatProvider = ({ children, licenseId }: { children: React.Reac
 
   useEffect(() => {
     if (typeof window === 'undefined') return
+
+    // Check if current path is /sport page
+    const isSportPage = pathname?.includes('/sport')
+
+    // If on sport page, remove any existing live chat script and hide widget
+    if (isSportPage) {
+      setReady(false)
+
+      // Remove old script if exists
+      const existingScript = document.querySelector('script[src*="livechatinc"]')
+      if (existingScript) existingScript.remove()
+
+      // Hide live chat widget if already loaded
+      if (window.LiveChatWidget && typeof window.LiveChatWidget.call === 'function') {
+        try {
+          window.LiveChatWidget.call('hide')
+        } catch (e) {
+          console.log('[LiveChatContext] Widget not ready to hide')
+        }
+      }
+
+      return // Don't load live chat on sport page
+    }
+
     setReady(false)
 
     // Remove old script if exists
@@ -86,7 +110,7 @@ export const LiveChatProvider = ({ children, licenseId }: { children: React.Reac
       })
     }
     document.head.appendChild(script)
-  }, [licenseId])
+  }, [licenseId, pathname])
 
   return <LiveChatContext.Provider value={{ ready }}>{children}</LiveChatContext.Provider>
 }

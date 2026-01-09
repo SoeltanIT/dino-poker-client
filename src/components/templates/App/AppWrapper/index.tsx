@@ -38,8 +38,11 @@ interface AppTemplateProps {
 
 const AppWrapper: FC<AppTemplateProps> = ({ children, lang, locale, config, features }) => {
   const { ready } = useLiveChatContext()
-  const showLiveChat = ready && !!features?.livechat
   const pathname = usePathname()
+
+  // Hide live chat on sport page
+  const isSportPage = pathname?.includes('/sport')
+  const showLiveChat = !isSportPage && ready && !!features?.livechat
 
   const parts = pathname.split('/').filter(Boolean) // ["en", "sport"]
   const session = useSession()
